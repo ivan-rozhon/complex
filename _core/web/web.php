@@ -22,11 +22,9 @@ class Web {
     }
 }
 
+$web = new Web($system);
+
 require './_core/web/web-head.php';
 require './_core/web/web-body.php';
-
-$web = new Web($system);
-$webHead = new webHead($web);
-$webBody = new webBody($web);
 
 $web->webTemplate($webHead->webHeadTemplate($web->system->title),$webBody->webBodyTemplate());

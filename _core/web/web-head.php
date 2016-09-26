@@ -15,3 +15,5 @@ class WebHead {
         ';
     }
 }
+
+$webHead = new webHead($web);

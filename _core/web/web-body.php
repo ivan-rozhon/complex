@@ -7,8 +7,9 @@ class WebBody {
        $this->web = $web;
     }
 
-    public function webBodyTemplate() {
+    public function webBodyTemplate($webBodyNav) {
         echo '
+            '.$webBodyNav.'
             TODO:<br>
             - dynamic template<br>
             - header<br>
@@ -18,3 +19,9 @@ class WebBody {
         ';
     }
 }
+
+$webBody = new webBody($web);
+
+require './_core/web/web-body-nav.php';
+
+$webBody->webBodyTemplate($webBodyNav->webBodyNavTemplate());
