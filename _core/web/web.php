@@ -1,13 +1,13 @@
 <?php
 
 class Web {
-    public $system, $title;
+    public $system;
 
     public function __construct(System $system) {
        $this->system = $system;
     }
 
-    public function webTemplate($webHead, $webBody) {
+    public function web($webHead, $webBody) {
         echo '
             <!DOCTYPE html>
             <html>
@@ -27,4 +27,9 @@ $web = new Web($system);
 require './_core/web/web-head.php';
 require './_core/web/web-body.php';
 
-$web->webTemplate($webHead->webHeadTemplate($web->system->title),$webBody->webBodyTemplate());
+$web->web(
+    $webHead->webHead(),
+    $webBody->webBody(
+        $webBodyNav->webBodyNav()
+        )
+);

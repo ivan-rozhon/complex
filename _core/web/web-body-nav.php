@@ -7,7 +7,7 @@ class WebBodyNav {
        $this->webBody = $webBody;
     }
 
-    public function webBodyNavTemplate() {
+    public function webBodyNav() {
         echo '
             navigation
         ';

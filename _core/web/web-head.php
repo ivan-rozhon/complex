@@ -7,10 +7,10 @@ class WebHead {
        $this->web = $web;
     }
 
-    public function webHeadTemplate($webHeadTitle) {
+    public function webHead() {
         echo '
             <title>
-            '.$webHeadTitle.'
+            '.$this->web->system->title.'
             </title>
         ';
     }
