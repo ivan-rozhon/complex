@@ -9,7 +9,9 @@ class WebBodyNav {
 
     public function webBodyNav() {
         echo '
-            navigation
+            <nav>
+                
+            </nav>
         ';
     }
 }
