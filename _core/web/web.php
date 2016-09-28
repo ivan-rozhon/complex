@@ -10,13 +10,9 @@ class Web {
     public function web($webHead, $webBody) {
         echo '
             <!DOCTYPE html>
-            <html>
-            <head>
+            <html lang="en">
                 '.$webHead.'
-            </head>
-            <body>
                 '.$webBody.'
-            </body>
             </html>
         ';
     }
@@ -30,6 +26,9 @@ require './_core/web/web-body.php';
 $web->web(
     $webHead->webHead(),
     $webBody->webBody(
-        $webBodyNav->webBodyNav()
+        $webBodyHeader->webBodyHeader(),
+        $webBodyNav->webBodyNav(),
+        $webBodyMain->webBodyMain(),
+        $webBodyFooter->webBodyFooter()
         )
 );

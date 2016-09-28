@@ -1,0 +1,53 @@
+{
+    "webSchema": {
+        "webSchemaMain": [
+            {
+                "id": "home",
+                "name": "Home",
+                "template": "temp-home",
+                "sub": []
+            },
+            {
+                "id": "about",
+                "name": "About",
+                "template": "temp-main#01",
+                "sub": [
+                    {
+                        "id": "cms",
+                        "name": "CMS",
+                        "template": "temp-main#01",
+                        "sub": []
+                    },
+                    {
+                        "id": "nosql",
+                        "name": "NoSQL",
+                        "template": "temp-main#01",
+                        "sub": []
+                    }
+                ]
+            },
+            {
+                "id": "contact",
+                "name": "Contact",
+                "template": "temp-main#01",
+                "sub": []
+            }
+        ],
+        "webSchemaOther": [
+            {
+                "id": "webmap",
+                "name": "Webmap",
+                "template": "temp-webmap",
+                "sub": []
+            }
+        ],
+        "webSchemaError": [
+            {
+                "id": "error404",
+                "name": "Error 404",
+                "template": "temp-error-404",
+                "sub": []
+            }
+        ]
+    }
+}

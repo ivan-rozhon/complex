@@ -1,0 +1,8 @@
+{
+    "webConfig" : {
+        "description": "Experimental NoSQL PHP CMS",
+        "keywords": "NoSQL, PHP, CMS",
+        "author" : "Ivan",
+        "title" : "NoSQL PHP CMS"
+    }
+}
