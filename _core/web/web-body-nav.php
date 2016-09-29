@@ -3,16 +3,15 @@
 class WebBodyNav {
     public $webBody;
 
-    public function __construct(WebBody $webBody, SharedRouter $sharedRouter) {
+    public function __construct(WebBody $webBody) {
        $this->webBody = $webBody;
-       $this->sharedRouter = $sharedRouter;
     }
 
     public function webBodyNav() {
         return '
             <nav>
                 Nav
-                '.$this->sharedRouter->sharedRouter().'
+                '.$this->webBody->web->sharedRouter->sharedRouter().'
             </nav>
         ';
     }

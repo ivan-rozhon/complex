@@ -8,8 +8,10 @@ class SharedRouter {
        $this->sharedRouterConfig = json_decode(file_get_contents('./_source/shared-router-config.json'), TRUE);
     }
 
-    public function sharedRouter() {        
+    public function sharedRouter() {
+        // return array of queries
         $url_query = explode("/",parse_url($this->system->url, PHP_URL_QUERY));
+        
         // return count($url_query);
         return implode(" ",$url_query);
         // return parse_url($this->system->url, PHP_URL_HOST).parse_url($this->system->url, PHP_URL_PATH);

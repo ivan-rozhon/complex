@@ -8,6 +8,11 @@ class WebHead {
     }
 
     public function webHead() {
+        // TO DO
+        // - favicon.ico
+        // - .css
+        // - .js
+        // - all with auto-update
         return '
             <head>
                 <meta charset="utf-8">
