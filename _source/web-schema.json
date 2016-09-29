@@ -5,24 +5,36 @@
                 "id": "home",
                 "name": "Home",
                 "template": "temp-home",
+                "options": {},
                 "sub": []
             },
             {
                 "id": "about",
                 "name": "About",
                 "template": "temp-main#01",
+                "options": {},
                 "sub": [
                     {
                         "id": "cms",
                         "name": "CMS",
-                        "template": "temp-main#01",
+                        "template": "temp-main#02",
+                        "options": {},
                         "sub": []
                     },
                     {
                         "id": "nosql",
                         "name": "NoSQL",
                         "template": "temp-main#01",
-                        "sub": []
+                        "options": {},
+                        "sub": [
+                            {
+                                "id": "why-nosql",
+                                "name": "Why NoSQL",
+                                "template": "temp-main#01",
+                                "options": {},
+                                "sub": []
+                            }
+                        ]
                     }
                 ]
             },
@@ -30,6 +42,7 @@
                 "id": "contact",
                 "name": "Contact",
                 "template": "temp-main#01",
+                "options": {},
                 "sub": []
             }
         ],
@@ -38,6 +51,7 @@
                 "id": "webmap",
                 "name": "Webmap",
                 "template": "temp-webmap",
+                "options": {},
                 "sub": []
             }
         ],
@@ -46,6 +60,7 @@
                 "id": "error404",
                 "name": "Error 404",
                 "template": "temp-error-404",
+                "options": {},
                 "sub": []
             }
         ]

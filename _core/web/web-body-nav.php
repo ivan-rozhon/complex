@@ -9,9 +9,10 @@ class WebBodyNav {
 
     public function webBodyNav() {
         return '
-            <nav>
+            <nav class="navbar navbar-default">
                 Nav
-                '.$this->webBody->web->sharedRouter->sharedRouter().'
+                '.$this->webBody->web->sharedRouter->sharedRouter().'<br>
+                '.$this->webBody->web->sharedRouter->sharedRouterBaseUrl().'
             </nav>
         ';
     }
