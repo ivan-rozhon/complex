@@ -11,7 +11,7 @@ class WebBodyNav {
         return '
             <nav class="navbar navbar-default">
                 Nav
-                '.$this->webBody->web->sharedRouter->sharedRouter().'<br>
+                '.var_dump($this->webBody->web->sharedRouter->sharedRouter()).'<br>
                 '.$this->webBody->web->sharedRouter->sharedRouterBaseUrl().'
             </nav>
         ';

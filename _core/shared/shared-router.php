@@ -1,34 +1,46 @@
 <?php
 
 class SharedRouter {
-    public $sharedRouterConfig, $url_query_arr;
+    public $sharedRouterConfig, $urlQueryArrr, $currentQueryArr = [];
 
     public function __construct(System $system) {
        $this->system = $system;
        $this->sharedRouterConfig = json_decode(file_get_contents('./_source/shared-router-config.json'), TRUE);
-       $this->url_query_arr = explode("/", parse_url($this->system->url, PHP_URL_QUERY)); // array of queries
+       $this->urlQueryArrr = explode("/", parse_url($this->system->url, PHP_URL_QUERY)); // array of queries
     }
 
     public function sharedRouter() {
-        // return count($this->url_query_arr);
-        // return $this->url_query_arr[0];
-        // return implode(" ", $this->url_query_arr);
-        // return $this->sharedRouterConfig['sharedRouterConfig']['mainSchema'];
-        // return $this->sharedRouterConfig['sharedRouterConfig']['mainSchema']['home']['template'];
-        // return $this->system->webSchema['webSchema']['webSchemaMain']['home']['template'];
-        // TO DO: querySchema, depth, queryObject
-
         foreach($this->system->webSchema['webSchema'] as $schema) {
-            return $this->sharedRouterSearchQuery($schema);
-
-            // if (array_key_exists($this->url_query_arr[0], $schema)) {
-            //     return $this->url_query_arr[0];
-            // }
+            $this->sharedRouterSearchQuery($schema);
+            if (count($this->currentQueryArr) > 0) {
+                return $this->currentQueryArr;
+            }
         }
+
+        // return 'home'/'not_found'
     }
 
     public function sharedRouterSearchQuery($schema) {
-        // vrátit array queryies (za sebou jdoucích parent-> child), nebo vrátit 'home'/'nenalezeno'
+        for ($i = 0; $i <= min(count($this->currentQueryArr), count($this->urlQueryArrr) - 1); $i++) {
+            switch($i) {
+                case 0:
+                    $this->sharedRouterSearchQueryKeyExists($i, $schema);
+                    break;
+                case 1:
+                    $this->sharedRouterSearchQueryKeyExists($i, $schema[$this->currentQueryArr[0]['id']]['sub']);
+                    break;
+                case 2:
+                    $this->sharedRouterSearchQueryKeyExists($i, $schema[$this->currentQueryArr[0]['id']]['sub'][$this->currentQueryArr[1]['id']]['sub']);
+                    break;
+            }
+        }
+    }
+
+    public function sharedRouterSearchQueryKeyExists($i, $schema) {
+        $search_query = $this->urlQueryArrr[$i];
+        if (array_key_exists($search_query, $schema)) {
+            array_push($this->currentQueryArr, $schema[$search_query]);
+        }
     }
 
     public function sharedRouterBaseUrl() {

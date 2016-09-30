@@ -2,28 +2,33 @@
     "webSchema": {
         "webSchemaMain": {
             "home": {
+                "id": "home",
                 "name": "Home",
                 "template": "temp-home",
                 "options": {},
                 "sub": {}
             },
             "about": {
+                "id": "about",
                 "name": "About",
                 "template": "temp-main#01",
                 "options": {},
                 "sub": {
                     "cms": {
+                        "id": "cms",
                         "name": "CMS",
                         "template": "temp-main#02",
                         "options": {},
                         "sub": {}
                     },
                     "nosql": {
+                        "id": "nosql",
                         "name": "NoSQL",
                         "template": "temp-main#01",
                         "options": {},
                         "sub": {
                             "why-nosql": {
+                                "id": "why-nosql",
                                 "name": "Why NoSQL",
                                 "template": "temp-main#01",
                                 "options": {},
@@ -34,6 +39,7 @@
                 }
             },
             "contact": {
+                "id": "contact",
                 "name": "Contact",
                 "template": "temp-main#01",
                 "options": {},
@@ -42,6 +48,7 @@
         },
         "webSchemaOther": {
             "webmap": {
+                "id": "webmap",
                 "name": "Webmap",
                 "template": "temp-webmap",
                 "options": {},
@@ -50,6 +57,7 @@
         },
         "webSchemaError": {
             "error404": {
+                "id": "error404",
                 "name": "Error 404",
                 "template": "temp-error-404",
                 "options": {},

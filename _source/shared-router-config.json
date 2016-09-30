@@ -1,6 +1,6 @@
 {
     "sharedRouterConfig": {
-        "mainSchema": "webSchema",
+        "mainSchema": "webSchemaMain",
         "mainQuery": "home"
     }
 }
