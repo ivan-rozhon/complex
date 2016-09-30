@@ -1,68 +1,60 @@
 {
     "webSchema": {
-        "webSchemaMain": [
-            {
-                "id": "home",
+        "webSchemaMain": {
+            "home": {
                 "name": "Home",
                 "template": "temp-home",
                 "options": {},
-                "sub": []
+                "sub": {}
             },
-            {
-                "id": "about",
+            "about": {
                 "name": "About",
                 "template": "temp-main#01",
                 "options": {},
-                "sub": [
-                    {
-                        "id": "cms",
+                "sub": {
+                    "cms": {
                         "name": "CMS",
                         "template": "temp-main#02",
                         "options": {},
-                        "sub": []
+                        "sub": {}
                     },
-                    {
-                        "id": "nosql",
+                    "nosql": {
                         "name": "NoSQL",
                         "template": "temp-main#01",
                         "options": {},
-                        "sub": [
-                            {
-                                "id": "why-nosql",
+                        "sub": {
+                            "why-nosql": {
                                 "name": "Why NoSQL",
                                 "template": "temp-main#01",
                                 "options": {},
-                                "sub": []
+                                "sub": {}
                             }
-                        ]
+                        }
                     }
-                ]
+                }
             },
-            {
-                "id": "contact",
+            "contact": {
                 "name": "Contact",
                 "template": "temp-main#01",
                 "options": {},
-                "sub": []
+                "sub": {}
             }
-        ],
-        "webSchemaOther": [
-            {
-                "id": "webmap",
+        },
+        "webSchemaOther": {
+            "webmap": {
                 "name": "Webmap",
                 "template": "temp-webmap",
                 "options": {},
-                "sub": []
+                "sub": {}
             }
-        ],
-        "webSchemaError": [
-            {
-                "id": "error404",
+        },
+        "webSchemaError": {
+            "error404": {
                 "name": "Error 404",
                 "template": "temp-error-404",
                 "options": {},
-                "sub": []
+                "sub": {}
             }
-        ]
+        }
     }
 }
