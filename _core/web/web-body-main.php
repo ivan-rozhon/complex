@@ -12,10 +12,8 @@ class WebBodyMain {
             <main>
                 Main<br>
                 TO DO:<br>
-                - router (search query, get schema of query, depth, parent/child?, mainUrl)<br>
                 - dynamic:<br>
                 -- template(content)<br>
-                -- title<br>
                 -- nav<br>
                 <a href="http://127.0.0.1/edsa-php_cms_nosql/?home">Home</a><br>
                 <a href="http://127.0.0.1/edsa-php_cms_nosql/?about">About</a><br>

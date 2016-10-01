@@ -1,7 +1,7 @@
 <?php
 
 class WebHead {
-    public $web;
+    public $web, $postTitle;
 
     public function __construct(Web $web) {
        $this->web = $web;
@@ -9,7 +9,6 @@ class WebHead {
 
     public function webHead() {
         // TO DO
-        // - favicon.ico
         // - .css
         // - .js
         // - all with auto-update
@@ -27,6 +26,9 @@ class WebHead {
                     '.$this->webHeadTitle().'
                 </title>
 
+                <!-- Favicon -->
+                <link rel="shortcut icon" href="favicon.ico?v='.filemtime("favicon.ico").'">
+
                 <!-- Bootstrap core CSS -->
                 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -40,7 +42,34 @@ class WebHead {
     }
 
     public function webHeadTitle() {
-        return $this->web->system->webConfig['webConfig']['title'];
+        $currentQueryArr = $this->web->sharedRouter->sharedRouter();
+        switch(count($currentQueryArr)) {
+            case 1:
+                if ($this->webHeadEmptyPostTitle($currentQueryArr[0]) == TRUE) {
+                    $this->postTitle = ' '.$this->web->system->webConfig['webConfig']['titleSeparator'][0].' '.$currentQueryArr[0]['name'];
+                }
+                break;
+            case 2:
+                if ($this->webHeadEmptyPostTitle($currentQueryArr[1]) == TRUE) {
+                    $this->postTitle = ' '.$this->web->system->webConfig['webConfig']['titleSeparator'][0].' '.$currentQueryArr[0]['name'].' '.$this->web->system->webConfig['webConfig']['titleSeparator'][1].' '.$currentQueryArr[1]['name'];
+                }
+                break;
+            case 3:
+                if ($this->webHeadEmptyPostTitle($currentQueryArr[2]) == TRUE) {
+                    $this->postTitle = ' '.$this->web->system->webConfig['webConfig']['titleSeparator'][0].' '.$currentQueryArr[1]['name'].' '.$this->web->system->webConfig['webConfig']['titleSeparator'][1].' '.$currentQueryArr[2]['name'];
+                }
+                break;
+        }
+
+        return $this->web->system->webConfig['webConfig']['title'].$this->postTitle;
+    }
+
+    public function webHeadEmptyPostTitle($currentQuery) {
+        if (in_array($currentQuery['id'], $this->web->system->webConfig['webConfig']['emptyTitleException'])) {
+            $this->postTitle = ' '.$this->web->system->webConfig['webConfig']['postTitleSeparator'].' '.$this->web->system->webConfig['webConfig']['postTitle'];
+            return FALSE;
+        }
+        return TRUE;
     }
 }
 

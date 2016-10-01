@@ -11,7 +11,7 @@ class Web {
     public function web($webHead, $webBody) {
         echo '
             <!DOCTYPE html>
-            <html lang="en">
+            <html lang="'.$this->system->webConfig['webConfig']['lang'].'">
                 '.$webHead.'
                 '.$webBody.'
             </html>

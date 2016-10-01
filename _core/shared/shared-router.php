@@ -17,7 +17,13 @@ class SharedRouter {
             }
         }
 
-        // return 'home'/'not_found'
+        array_push($this->currentQueryArr, $this->system->webSchema['webSchema']
+            [
+                $this->sharedRouterConfig['sharedRouterConfig']['mainSchema']
+            ][
+                $this->sharedRouterConfig['sharedRouterConfig']['mainQuery']
+            ]);
+        return $this->currentQueryArr;
     }
 
     public function sharedRouterSearchQuery($schema) {
