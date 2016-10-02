@@ -1,5 +1,6 @@
 {
     "sharedRouterConfig": {
+        "defaultRoute": "web",
         "queryExceptions": [
             "admin"
         ]

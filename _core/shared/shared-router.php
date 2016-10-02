@@ -5,15 +5,15 @@ class SharedRouter {
 
     public function __construct(System $system) {
         $this->system = $system;
-        $this->sharedRouterConfig = json_decode(file_get_contents('./_source/shared-router-config.json'), TRUE);
+        $this->sharedRouterConfig = json_decode(file_get_contents('./_source/shared-router-config.json'), TRUE)['sharedRouterConfig'];
         $this->urlQueryArr = explode("/", parse_url($this->system->url, PHP_URL_QUERY)); // array of queries
     }
 
     public function sharedRouter() {
-        if (in_array($this->urlQueryArr[0], $this->sharedRouterConfig['sharedRouterConfig']['queryExceptions'])) {
+        if (in_array($this->urlQueryArr[0], $this->sharedRouterConfig['queryExceptions'])) {
             return '_core/'.$this->urlQueryArr[0].'/'.$this->urlQueryArr[0].'.php';
         }
-        return '_core/web/web.php';
+        return '_core/'.$this->sharedRouterConfig['defaultRoute'].'/'.$this->sharedRouterConfig['defaultRoute'].'.php';
     }
 
     public function sharedRouterCurrentQuery($schema, $schemaConfig) {
@@ -58,7 +58,8 @@ class SharedRouter {
                 $schemaConfig['mainSchema']
             ][
                 $schemaConfig['mainQuery']
-            ]);
+            ]
+        );
     }
 
     public function sharedRouterBaseUrl() {
