@@ -1,6 +1,7 @@
 {
     "sharedRouterConfig": {
-        "mainSchema": "webSchemaMain",
-        "mainQuery": "home"
+        "queryExceptions": [
+            "admin"
+        ]
     }
 }

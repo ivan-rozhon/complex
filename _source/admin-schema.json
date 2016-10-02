@@ -1,0 +1,13 @@
+{
+    "adminSchema": {
+        "adminSchemaMain": {
+            "admin": {
+                "id": "admin",
+                "name": "Admin",
+                "template": "temp-admin",
+                "options": {},
+                "sub": {}
+            }
+        }
+    }
+}

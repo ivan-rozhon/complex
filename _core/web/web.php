@@ -1,17 +1,19 @@
 <?php
 
 class Web {
-    public $system;
+    public $system, $sharedRouter, $webSchema, $webConfig;
 
     public function __construct(System $system, SharedRouter $sharedRouter) {
-       $this->system = $system;
-       $this->sharedRouter = $sharedRouter;
+        $this->system = $system;
+        $this->sharedRouter = $sharedRouter;
+        $this->webSchema = json_decode(file_get_contents('./_source/web-schema.json'), TRUE)['webSchema'];
+        $this->webConfig = json_decode(file_get_contents('./_source/web-config.json'), TRUE)['webConfig'];
     }
 
     public function web($webHead, $webBody) {
         echo '
             <!DOCTYPE html>
-            <html lang="'.$this->system->webConfig['webConfig']['lang'].'">
+            <html lang="'.$this->webConfig['lang'].'">
                 '.$webHead.'
                 '.$webBody.'
             </html>

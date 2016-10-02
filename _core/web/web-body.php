@@ -4,7 +4,7 @@ class WebBody {
     public $web;
 
     public function __construct(Web $web) {
-       $this->web = $web;
+        $this->web = $web;
     }
 
     public function webBody($webBodyNav, $webBodyMain, $webBodyFooter) {

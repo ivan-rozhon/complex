@@ -1,5 +1,7 @@
 {
     "webConfig": {
+        "mainSchema": "webSchemaMain",
+        "mainQuery": "home",
         "lang": "en",
         "description": "Experimental NoSQL PHP CMS",
         "keywords": "NoSQL, PHP, CMS",

@@ -4,7 +4,7 @@ class WebBodyMain {
     public $webBody;
 
     public function __construct(WebBody $webBody) {
-       $this->webBody = $webBody;
+        $this->webBody = $webBody;
     }
 
     public function webBodyMain() {
