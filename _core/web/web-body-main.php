@@ -15,9 +15,6 @@ class WebBodyMain {
                 - dynamic:<br>
                 -- template(content)<br>
                 -- nav<br>
-                <a href="http://127.0.0.1/edsa-php_cms_nosql/?home">Home</a><br>
-                <a href="http://127.0.0.1/edsa-php_cms_nosql/?about">About</a><br>
-                <a href="http://127.0.0.1/edsa-php_cms_nosql/?contact">Contact</a><br>
             </main>
         ';
     }

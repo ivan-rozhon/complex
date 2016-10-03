@@ -9,7 +9,6 @@ class WebHead {
 
     public function webHead() {
         // TO DO
-        // - .css
         // - .js
         // - all with auto-update
         return '
