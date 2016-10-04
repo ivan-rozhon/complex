@@ -8,13 +8,11 @@ class WebBodyMain {
     }
 
     public function webBodyMain() {
+        // TO DO
+        // dynamic template(content)
         return '
             <main>
-                Main<br>
-                TO DO:<br>
-                - dynamic:<br>
-                -- template(content)<br>
-                -- nav<br>
+                Main
             </main>
         ';
     }

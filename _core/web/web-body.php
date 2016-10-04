@@ -7,9 +7,10 @@ class WebBody {
         $this->web = $web;
     }
 
-    public function webBody($webBodyNav, $webBodyMain, $webBodyFooter) {
+    public function webBody($webBodyHeader, $webBodyNav, $webBodyMain, $webBodyFooter) {
         return '
             <body>
+                '.$webBodyHeader.'
                 '.$webBodyNav.'
                 '.$webBodyMain.'
                 '.$webBodyFooter.'
