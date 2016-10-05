@@ -1,10 +1,11 @@
 <?php
 
 class WebBodyMain {
-    public $webBody;
+    public $webBody, $currentQueryArr;
 
     public function __construct(WebBody $webBody) {
         $this->webBody = $webBody;
+        $this->currentQueryArr = $this->webBody->web->currentQueryArr;
     }
 
     public function webBodyMain() {
@@ -12,7 +13,8 @@ class WebBodyMain {
         // dynamic template(content)
         return '
             <main>
-                Main
+                Main<br>
+                '.$this->currentQueryArr[count($this->currentQueryArr) - 1]['template'].'
             </main>
         ';
     }

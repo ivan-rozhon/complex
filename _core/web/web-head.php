@@ -1,10 +1,13 @@
 <?php
 
 class WebHead {
-    public $web, $postTitle;
+    public $web, $currentQueryArr;
+
+    private $postTitle;
 
     public function __construct(Web $web) {
         $this->web = $web;
+        $this->currentQueryArr = $this->web->currentQueryArr;
     }
 
     public function webHead() {
@@ -44,21 +47,20 @@ class WebHead {
     }
 
     public function webHeadTitle() {
-        $currentQueryArr = $this->web->sharedRouter->sharedRouterCurrentQuery($this->web->webSchema, $this->web->webConfig);
-        switch(count($currentQueryArr)) {
+        switch(count($this->currentQueryArr)) {
             case 1:
-                if ($this->webHeadEmptyPostTitle($currentQueryArr[0]) == TRUE) {
-                    $this->postTitle = ' '.$this->web->webConfig['titleSeparator'][0].' '.$currentQueryArr[0]['name'];
+                if ($this->webHeadEmptyPostTitle($this->currentQueryArr[0]) == TRUE) {
+                    $this->postTitle = ' '.$this->web->webConfig['titleSeparator'][0].' '.$this->currentQueryArr[0]['name'];
                 }
                 break;
             case 2:
-                if ($this->webHeadEmptyPostTitle($currentQueryArr[1]) == TRUE) {
-                    $this->postTitle = ' '.$this->web->webConfig['titleSeparator'][0].' '.$currentQueryArr[0]['name'].' '.$this->web->webConfig['titleSeparator'][1].' '.$currentQueryArr[1]['name'];
+                if ($this->webHeadEmptyPostTitle($this->currentQueryArr[1]) == TRUE) {
+                    $this->postTitle = ' '.$this->web->webConfig['titleSeparator'][0].' '.$this->currentQueryArr[0]['name'].' '.$this->web->webConfig['titleSeparator'][1].' '.$this->currentQueryArr[1]['name'];
                 }
                 break;
             case 3:
-                if ($this->webHeadEmptyPostTitle($currentQueryArr[2]) == TRUE) {
-                    $this->postTitle = ' '.$this->web->webConfig['titleSeparator'][0].' '.$currentQueryArr[1]['name'].' '.$this->web->webConfig['titleSeparator'][1].' '.$currentQueryArr[2]['name'];
+                if ($this->webHeadEmptyPostTitle($this->currentQueryArr[2]) == TRUE) {
+                    $this->postTitle = ' '.$this->web->webConfig['titleSeparator'][0].' '.$this->currentQueryArr[1]['name'].' '.$this->web->webConfig['titleSeparator'][1].' '.$this->currentQueryArr[2]['name'];
                 }
                 break;
         }

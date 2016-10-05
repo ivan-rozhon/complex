@@ -1,13 +1,14 @@
 <?php
 
 class Web {
-    public $system, $sharedRouter, $webSchema, $webConfig;
+    public $system, $sharedRouter, $webSchema, $webConfig, $currentQueryArr;
 
     public function __construct(System $system, SharedRouter $sharedRouter) {
         $this->system = $system;
         $this->sharedRouter = $sharedRouter;
         $this->webSchema = json_decode(file_get_contents('./_source/web-schema.json'), TRUE)['webSchema'];
         $this->webConfig = json_decode(file_get_contents('./_source/web-config.json'), TRUE)['webConfig'];
+        $this->currentQueryArr = $this->sharedRouter->sharedRouterCurrentQuery($this->webSchema, $this->webConfig);
     }
 
     public function web($webHead, $webBody) {

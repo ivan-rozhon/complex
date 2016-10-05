@@ -1,12 +1,14 @@
 <?php
 
 class WebBodyNav {
-    public $webBody, $baseUrl, $currentQuery, $currentMainQuery, $currentSubQuery;
+    public $webBody, $baseUrl, $currentQueryArr;
+
+    private $currentMainQuery, $currentSubQuery;
 
     public function __construct(WebBody $webBody) {
         $this->webBody = $webBody;
         $this->baseUrl = $this->webBody->web->sharedRouter->sharedRouterBaseUrl();
-        $this->currentQuery = $this->webBody->web->sharedRouter->sharedRouterCurrentQuery($this->webBody->web->webSchema, $this->webBody->web->webConfig);
+        $this->currentQueryArr = $this->webBody->web->currentQueryArr;
     }
 
     public function webBodyNav() {
@@ -88,7 +90,7 @@ class WebBodyNav {
     }
 
     public function webBodyNavbarActive($query, $index) {
-        if (isset($this->currentQuery[$index]['id']) && $this->currentQuery[$index]['id'] == $query) {
+        if (isset($this->currentQueryArr[$index]['id']) && $this->currentQueryArr[$index]['id'] == $query) {
             return 'active';
         }
     }
