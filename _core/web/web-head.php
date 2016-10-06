@@ -46,7 +46,7 @@ class WebHead {
         ';
     }
 
-    public function webHeadTitle() {
+    private function webHeadTitle() {
         switch(count($this->currentQueryArr)) {
             case 1:
                 if ($this->webHeadEmptyPostTitle($this->currentQueryArr[0]) == TRUE) {
@@ -68,7 +68,7 @@ class WebHead {
         return $this->web->webConfig['title'].$this->postTitle;
     }
 
-    public function webHeadEmptyPostTitle($currentQuery) {
+    private function webHeadEmptyPostTitle($currentQuery) {
         if (in_array($currentQuery['id'], $this->web->webConfig['emptyTitleException'])) {
             $this->postTitle = ' '.$this->web->webConfig['postTitleSeparator'].' '.$this->web->webConfig['postTitle'];
             return FALSE;

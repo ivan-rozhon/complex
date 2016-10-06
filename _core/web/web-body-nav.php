@@ -28,7 +28,7 @@ class WebBodyNav {
         ';
     }
 
-    public function webBodyNavbar($schema, $switch) {
+    private function webBodyNavbar($schema, $switch) {
         $navbar = '';
         foreach($schema as $key => $value) {
             switch($switch) {
@@ -89,7 +89,7 @@ class WebBodyNav {
         return $navbar;
     }
 
-    public function webBodyNavbarActive($query, $index) {
+    private function webBodyNavbarActive($query, $index) {
         if (isset($this->currentQueryArr[$index]['id']) && $this->currentQueryArr[$index]['id'] == $query) {
             return 'active';
         }
