@@ -4,33 +4,33 @@
             "home": {
                 "id": "home",
                 "name": "Home",
-                "template": "temp-home",
+                "template": "template-home",
                 "options": {},
                 "sub": {}
             },
             "about": {
                 "id": "about",
                 "name": "About",
-                "template": "temp-main#01",
+                "template": "template-main-01",
                 "options": {},
                 "sub": {
                     "cms": {
                         "id": "cms",
                         "name": "CMS",
-                        "template": "temp-main#02",
+                        "template": "template-main-02",
                         "options": {},
                         "sub": {}
                     },
                     "nosql": {
                         "id": "nosql",
                         "name": "NoSQL",
-                        "template": "temp-main#01",
+                        "template": "template-main-01",
                         "options": {},
                         "sub": {
                             "why-nosql": {
                                 "id": "why-nosql",
                                 "name": "Why NoSQL",
-                                "template": "temp-main#01",
+                                "template": "template-main-01",
                                 "options": {},
                                 "sub": {}
                             }
@@ -41,7 +41,7 @@
             "contact": {
                 "id": "contact",
                 "name": "Contact",
-                "template": "temp-main#01",
+                "template": "template-main-01",
                 "options": {},
                 "sub": {}
             }
@@ -50,7 +50,7 @@
             "webmap": {
                 "id": "webmap",
                 "name": "Webmap",
-                "template": "temp-webmap",
+                "template": "template-webmap",
                 "options": {},
                 "sub": {}
             }
@@ -59,7 +59,7 @@
             "error404": {
                 "id": "error404",
                 "name": "Error 404",
-                "template": "temp-error-404",
+                "template": "template-error-404",
                 "options": {},
                 "sub": {}
             }

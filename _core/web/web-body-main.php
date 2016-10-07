@@ -18,6 +18,12 @@ class WebBodyMain {
             </main>
         ';
     }
+
+    public function webBodyMainTemplate() {
+        
+    }
 }
 
 $webBodyMain = new webBodyMain($webBody);
+
+// require './_core/web/_templates/template-home.php';

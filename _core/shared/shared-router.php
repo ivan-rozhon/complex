@@ -45,14 +45,14 @@ class SharedRouter {
         }
     }
 
-    public function sharedRouterQueryKeyExists($i, $subSchema) {
+    private function sharedRouterQueryKeyExists($i, $subSchema) {
         $search_query = $this->urlQueryArr[$i];
         if (array_key_exists($search_query, $subSchema)) {
             array_push($this->currentQueryArr, $subSchema[$search_query]);
         }
     }
 
-    public function sharedRouterMainQuery($schema, $schemaConfig) {
+    private function sharedRouterMainQuery($schema, $schemaConfig) {
         array_push($this->currentQueryArr, $schema
             [
                 $schemaConfig['mainSchema']
