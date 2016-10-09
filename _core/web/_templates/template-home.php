@@ -1,17 +1,17 @@
 <?php 
 
 class TemplateHome {
-    public $webBodyMain;
+    public $web;
 
-    public function __construct(WebBody $webBodyMain) {
-        $this->webBodyMain = $webBodyMain;
+    public function __construct(Web $web) {
+        $this->web = $web;
     }
 
     public function templateHome() {
         return '
-            templateHome
+            '.$this->web->templateData['text'].'
         ';
     }
 }
 
-$templateHome = new templateHome($webBodyMain);
+$templateHome = new TemplateHome($web);

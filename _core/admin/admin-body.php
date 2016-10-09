@@ -16,4 +16,4 @@ class AdminBody {
     }
 }
 
-$adminBody = new adminBody($admin);
+$adminBody = new AdminBody($admin);

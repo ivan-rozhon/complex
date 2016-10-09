@@ -8,22 +8,13 @@ class WebBodyMain {
         $this->currentQueryArr = $this->webBody->web->currentQueryArr;
     }
 
-    public function webBodyMain() {
-        // TO DO
-        // dynamic template(content)
+    public function webBodyMain($template) {
         return '
             <main>
-                Main<br>
-                '.$this->currentQueryArr[count($this->currentQueryArr) - 1]['template'].'
+                '.$template.'
             </main>
         ';
     }
-
-    public function webBodyMainTemplate() {
-        
-    }
 }
 
-$webBodyMain = new webBodyMain($webBody);
-
-// require './_core/web/_templates/template-home.php';
+$webBodyMain = new WebBodyMain($webBody);

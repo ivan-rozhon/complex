@@ -10,10 +10,10 @@ class WebBodyFooter {
     public function webBodyFooter() {
         return '
             <footer>
-                Footer
+                Footer              
             </footer>
         ';
     }
 }
 
-$webBodyFooter = new webBodyFooter($webBody);
+$webBodyFooter = new WebBodyFooter($webBody);

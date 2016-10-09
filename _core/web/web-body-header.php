@@ -16,4 +16,4 @@ class WebBodyHeader {
     }
 }
 
-$webBodyHeader = new webBodyHeader($webBody);
+$webBodyHeader = new WebBodyHeader($webBody);

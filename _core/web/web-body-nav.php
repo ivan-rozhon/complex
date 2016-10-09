@@ -15,11 +15,11 @@ class WebBodyNav {
         return '
             <nav class="navbar navbar-default">
                 <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="'.$this->baseUrl.'">
-                        <img alt="Brand" height="20" src="_source/_images/shared/favicon-32x32.png">
-                    </a>
-                </div>
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="'.$this->baseUrl.'">
+                            <img alt="Brand" height="20" src="_source/_images/shared/favicon-32x32.png">
+                        </a>
+                    </div>
                     <ul class="nav navbar-nav">                        
                         '.$this->webBodyNavbar($this->webBody->web->webSchema['webSchemaMain'], 0).'
                     </ul>
@@ -96,4 +96,4 @@ class WebBodyNav {
     }
 }
 
-$webBodyNav = new webBodyNav($webBody, $sharedRouter);
+$webBodyNav = new WebBodyNav($webBody, $sharedRouter);

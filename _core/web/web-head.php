@@ -77,4 +77,4 @@ class WebHead {
     }
 }
 
-$webHead = new webHead($web);
+$webHead = new WebHead($web);

@@ -23,9 +23,9 @@ class WebBody {
     }
 }
 
-$webBody = new webBody($web);
+$webBody = new WebBody($web);
 
-require './_core/web/web-body-header.php';
-require './_core/web/web-body-nav.php';
-require './_core/web/web-body-main.php';
-require './_core/web/web-body-footer.php';
+require '_core/web/web-body-header.php';
+require '_core/web/web-body-nav.php';
+require '_core/web/web-body-main.php';
+require '_core/web/web-body-footer.php';

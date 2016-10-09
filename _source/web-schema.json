@@ -56,10 +56,10 @@
             }
         },
         "webSchemaError": {
-            "error404": {
-                "id": "error404",
+            "error-404": {
+                "id": "error-404",
                 "name": "Error 404",
-                "template": "template-error-404",
+                "template": "template-error",
                 "options": {},
                 "sub": {}
             }

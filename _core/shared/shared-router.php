@@ -5,7 +5,7 @@ class SharedRouter {
 
     public function __construct(System $system) {
         $this->system = $system;
-        $this->sharedRouterConfig = json_decode(file_get_contents('./_source/shared-router-config.json'), TRUE)['sharedRouterConfig'];
+        $this->sharedRouterConfig = json_decode(file_get_contents('_source/shared-router-config.json'), TRUE)['sharedRouterConfig'];
         $this->urlQueryArr = explode("/", parse_url($this->system->url, PHP_URL_QUERY)); // array of queries
     }
 

@@ -1,14 +1,16 @@
 <?php
 
 class Web {
-    public $system, $sharedRouter, $webSchema, $webConfig, $currentQueryArr;
+    public $system, $sharedRouter, $webSchema, $webConfig, $currentQueryArr, $currentQuery;
 
     public function __construct(System $system, SharedRouter $sharedRouter) {
         $this->system = $system;
         $this->sharedRouter = $sharedRouter;
-        $this->webSchema = json_decode(file_get_contents('./_source/web-schema.json'), TRUE)['webSchema'];
-        $this->webConfig = json_decode(file_get_contents('./_source/web-config.json'), TRUE)['webConfig'];
+        $this->webSchema = json_decode(file_get_contents('_source/web-schema.json'), TRUE)['webSchema'];
+        $this->webConfig = json_decode(file_get_contents('_source/web-config.json'), TRUE)['webConfig'];
         $this->currentQueryArr = $this->sharedRouter->sharedRouterCurrentQuery($this->webSchema, $this->webConfig);
+        $this->currentQuery = $this->currentQueryArr[count($this->currentQueryArr) - 1];
+        $this->templateData = json_decode(file_get_contents('_source/_data/data-'.$this->currentQuery['id'].'.json'), TRUE)[$this->camelCase('data-'.$this->currentQuery['id'])];
     }
 
     public function web($webHead, $webBody) {
@@ -20,19 +22,31 @@ class Web {
             </html>
         ';
     }
+
+    public function webTemplateImport() {
+        return '_core/web/_templates/'.$this->currentQuery['template'].'.php';
+    }
+
+    public function camelCase($kebabCase) {
+        return lcfirst(str_replace(' ', '', ucwords(str_replace('-', ' ', $kebabCase))));
+    }
 }
 
 $web = new Web($system, $sharedRouter);
+$template = $web->camelCase($web->currentQuery['template']);
 
-require './_core/web/web-head.php';
-require './_core/web/web-body.php';
+require $web->webTemplateImport();
+require '_core/web/web-head.php';
+require '_core/web/web-body.php';
 
 $web->web(
     $webHead->webHead(),
     $webBody->webBody(
         $webBodyHeader->webBodyHeader(),
         $webBodyNav->webBodyNav(),
-        $webBodyMain->webBodyMain(),
+        $webBodyMain->webBodyMain(
+            $$template->$template()
+        ),
         $webBodyFooter->webBodyFooter()
-        )
+    )
 );

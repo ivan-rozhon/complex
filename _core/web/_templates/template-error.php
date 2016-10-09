@@ -1,17 +1,17 @@
 <?php 
 
-class TemplateMain01 {
+class TemplateError {
     public $web;
 
     public function __construct(Web $web) {
         $this->web = $web;
     }
 
-    public function templateMain01() {
+    public function templateError() {
         return '
             '.$this->web->templateData['text'].'
         ';
     }
 }
 
-$templateMain01 = new TemplateMain01($web);
+$templateError = new TemplateError($web);

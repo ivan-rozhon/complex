@@ -26,4 +26,4 @@ class AdminHead {
     }
 }
 
-$adminHead = new adminHead($admin);
+$adminHead = new AdminHead($admin);

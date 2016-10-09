@@ -6,8 +6,8 @@ class Admin {
     public function __construct(System $system, SharedRouter $sharedRouter) {
         $this->system = $system;
         $this->sharedRouter = $sharedRouter;
-        $this->adminSchema = json_decode(file_get_contents('./_source/admin-schema.json'), TRUE)['adminSchema'];
-        $this->adminConfig = json_decode(file_get_contents('./_source/admin-config.json'), TRUE)['adminConfig'];
+        $this->adminSchema = json_decode(file_get_contents('_source/admin-schema.json'), TRUE)['adminSchema'];
+        $this->adminConfig = json_decode(file_get_contents('_source/admin-config.json'), TRUE)['adminConfig'];
     }
 
     public function admin($adminHead, $adminBody) {
@@ -23,8 +23,8 @@ class Admin {
 
 $admin = new Admin($system, $sharedRouter);
 
-require './_core/admin/admin-head.php';
-require './_core/admin/admin-body.php';
+require '_core/admin/admin-head.php';
+require '_core/admin/admin-body.php';
 
 $admin->admin(
     $adminHead->adminHead(),
