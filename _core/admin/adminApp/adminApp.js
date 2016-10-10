@@ -3,16 +3,14 @@
     function AdminAppController($http) {
         var ctrl = this;
 
-        ctrl.title = 'Admin App';
+        ctrl.data = {};
 
-        ctrl.getWebSchema = function () {
+        ctrl.getJson = function () {
             $http({
                 method: "GET",
-                url: "http://127.0.0.1/edsa-php_cms_nosql/_source/web-schema.json"
-            }).then(function mySucces(response) {
-                ctrl.title = response.data;
-            }, function myError(response) {
-                ctrl.title = response.statusText;
+                url: "http://127.0.0.1/edsa-php_cms_nosql/?api"
+            }).then(function (response) {
+                ctrl.data = response.data;
             });
         };
     }
