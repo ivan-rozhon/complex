@@ -21,6 +21,10 @@ class AdminHead {
 
                 <!-- Favicon -->
                 <link rel="shortcut icon" href="favicon.ico?v='.filemtime("favicon.ico").'">
+
+                <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+                <script src="_core/admin/adminApp/index.js"></script>
+                <script src="_core/admin/adminApp/adminApp.js"></script>
             </head>
         ';
     }

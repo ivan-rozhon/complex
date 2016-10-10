@@ -9,8 +9,8 @@ class AdminBody {
 
     public function adminBody() {
         return '
-            <body>
-                <p>Administration</p>
+            <body ng-app="adminApp">
+                <admin-app></admin-app>
             </body>
         ';
     }
