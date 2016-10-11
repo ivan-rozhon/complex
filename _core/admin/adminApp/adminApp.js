@@ -8,7 +8,7 @@
         ctrl.getJson = function () {
             $http({
                 method: "GET",
-                url: "http://127.0.0.1/edsa-php_cms_nosql/?api"
+                url: "?api"
             }).then(function (response) {
                 ctrl.data = response.data;
             });

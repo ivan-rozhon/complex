@@ -11,6 +11,7 @@ class AdminHead {
         return '
             <head>
                 <meta charset="utf-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1">
                 <meta name="description" content="'.$this->admin->adminConfig['description'].'">
                 <meta name="keywords" content="'.$this->admin->adminConfig['keywords'].'">
                 <meta name="author" content="'.$this->admin->adminConfig['author'].'">
@@ -22,9 +23,8 @@ class AdminHead {
                 <!-- Favicon -->
                 <link rel="shortcut icon" href="favicon.ico?v='.filemtime("favicon.ico").'">
 
-                <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
-                <script src="_core/admin/adminApp/index.js"></script>
-                <script src="_core/admin/adminApp/adminApp.js"></script>
+                <!-- Angular Material style sheet -->
+                <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
             </head>
         ';
     }

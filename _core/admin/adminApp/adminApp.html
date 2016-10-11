@@ -1,5 +1,11 @@
-{{$ctrl.data}}
+{{$ctrl.data.webSchema.webSchemaMain}}
 <button ng-click="$ctrl.getJson()">get JSON</button>
 <!--<ul>
     <li ng-repeat="x in $ctrl.data"><input value="{{x}}">{{x}}</li>
 </ul>-->
+<div ng-model="$ctrl.data">
+    <div ng-repeat="item in $ctrl.data.webSchema.webSchemaMain">
+        <input ng-model="item.id">
+    </div>
+<!--<input ng-model="$ctrl.data.webSchema.webSchemaMain.home.id">-->
+</div>

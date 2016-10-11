@@ -1,4 +1,4 @@
 (function (angular) {
     'use strict';
-    angular.module('adminApp', []);
+    angular.module('adminApp', ['ngMaterial']);
 })(window.angular);
