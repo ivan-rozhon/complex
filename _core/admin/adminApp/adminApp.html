@@ -1,11 +1,14 @@
-{{$ctrl.data.webSchema.webSchemaMain}}
+status:<br>
+{{$ctrl.status}}<br>
+data:<br>
+{{$ctrl.data}}<br>
 <button ng-click="$ctrl.getJson()">get JSON</button>
-<!--<ul>
-    <li ng-repeat="x in $ctrl.data"><input value="{{x}}">{{x}}</li>
-</ul>-->
-<div ng-model="$ctrl.data">
+<button ng-click="$ctrl.postJson()">post JSON</button>
+
+<input ng-model="$ctrl.data.dataContact.text">
+
+<!--<div ng-model="$ctrl.data">
     <div ng-repeat="item in $ctrl.data.webSchema.webSchemaMain">
-        <input ng-model="item.id">
+        <input ng-model="item.name">
     </div>
-<!--<input ng-model="$ctrl.data.webSchema.webSchemaMain.home.id">-->
-</div>
+</div>-->
