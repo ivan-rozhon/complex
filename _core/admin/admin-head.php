@@ -12,6 +12,7 @@ class AdminHead {
             <head>
                 <meta charset="utf-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1">
+                
                 <meta name="description" content="'.$this->admin->adminConfig['description'].'">
                 <meta name="keywords" content="'.$this->admin->adminConfig['keywords'].'">
                 <meta name="author" content="'.$this->admin->adminConfig['author'].'">

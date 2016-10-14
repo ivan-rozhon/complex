@@ -4,12 +4,15 @@
         var ctrl = this;
 
         ctrl.status = null;
-        ctrl.data = {};    
+        ctrl.data = {};
+
+        var param = 'lol'; 
 
         ctrl.getJson = function () {
             $http({
                 method: "GET",
-                url: "?api"
+                url: "?api/",
+                params: { param: param }
             }).then(function (response) {
                 ctrl.status = response.status;
                 ctrl.data = response.data;
@@ -21,7 +24,7 @@
             // console.log(json);
             $http({
                 method: "POST",
-                url: "?api",
+                url: "?api/",
                 data: { 'json' : json }
             }).then(function (response) {
                 console.log(response.status);
