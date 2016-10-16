@@ -10,7 +10,7 @@ class Web {
         $this->webConfig = json_decode(file_get_contents('_source/web-config.json'), TRUE)['webConfig'];
         $this->currentQueryArr = $this->sharedRouter->sharedRouterCurrentQuery($this->webSchema, $this->webConfig);
         $this->currentQuery = $this->currentQueryArr[count($this->currentQueryArr) - 1];
-        $this->templateData = json_decode(file_get_contents('_source/_data/data-'.$this->currentQuery['id'].'.json'), TRUE)[$this->camelCase('data-'.$this->currentQuery['id'])];
+        $this->templateData = $this->webTemplateData('data-'.$this->currentQuery['id']);
     }
 
     public function web($webHead, $webBody) {
@@ -25,6 +25,12 @@ class Web {
 
     public function webTemplateImport() {
         return '_core/web/_templates/'.$this->currentQuery['template'].'.php';
+    }
+
+    public function webTemplateData($file) {
+        if (file_exists('_source/_data/'.$file.'.json')) {
+            return json_decode(file_get_contents('_source/_data/'.$file.'.json'), TRUE)[$this->camelCase($file)];
+        }
     }
 
     public function camelCase($kebabCase) {

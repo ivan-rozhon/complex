@@ -6,7 +6,7 @@
         ctrl.status = null;
         ctrl.data = {};
 
-        var param = 'lol'; 
+        var param = 'lol';
 
         ctrl.getJson = function () {
             $http({

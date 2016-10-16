@@ -9,7 +9,7 @@ class TemplateWebmap {
 
     public function templateWebmap() {
         return '
-            '.$this->web->templateData['text'].'
+            Webmap
         ';
     }
 }
