@@ -2,17 +2,21 @@
     "webSchema": {
         "webSchemaMain": {
             "home": {
-                "id": "home",
-                "name": "Home",
+                "id": "",
+                "name": "",
                 "template": "template-home",
-                "options": {},
+                "options": {
+                    "glyphicon": "glyphicon glyphicon glyphicon-home"
+                },
                 "sub": {}
             },
             "about": {
                 "id": "about",
                 "name": "About",
                 "template": "template-main-01",
-                "options": {},
+                "options": {
+                    "glyphicon": "glyphicon glyphicon-eye-open"
+                },
                 "sub": {
                     "cms": {
                         "id": "cms",
@@ -42,7 +46,9 @@
                 "id": "contact",
                 "name": "Contact",
                 "template": "template-main-01",
-                "options": {},
+                "options": {
+                    "glyphicon": "glyphicon glyphicon-earphone"
+                },
                 "sub": {}
             }
         },

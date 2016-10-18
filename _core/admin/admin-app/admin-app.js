@@ -6,13 +6,22 @@
         ctrl.status = null;
         ctrl.data = {};
 
-        var param = 'lol';
+        ctrl.file = 'data-cms';
+
+        ctrl.camelCase = function (kebabCase) {
+            // http://stackoverflow.com/questions/6660977/convert-hyphens-to-camel-case-camelcase
+            return kebabCase.replace(
+                /-([a-z])/g, 
+                function (g) { 
+                    return g[1].toUpperCase(); 
+                }).replace('-', '');
+        };
 
         ctrl.getJson = function () {
             $http({
                 method: "GET",
                 url: "?api/",
-                params: { param: param }
+                params: { file: ctrl.file }
             }).then(function (response) {
                 ctrl.status = response.status;
                 ctrl.data = response.data;
@@ -25,7 +34,7 @@
             $http({
                 method: "POST",
                 url: "?api/",
-                data: { 'json' : json }
+                data: { 'json': json }
             }).then(function (response) {
                 console.log(response.status);
                 console.log(response.data);
@@ -34,7 +43,7 @@
     }
 
     angular.module('adminApp').component('adminApp', {
-        templateUrl: '_core/admin/adminApp/adminApp.html',
+        templateUrl: '_core/admin/admin-app/admin-app.html',
         controller: AdminAppController
     });
 })(window.angular);

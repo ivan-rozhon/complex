@@ -35,13 +35,19 @@ class WebBodyNav {
                 case 0:
                     if (count($value['sub']) == 0) {
                         $navbar .= '
-                            <li class="'.$this->webBodyNavbarActive($value['id'], $switch).'"><a href="'.$this->baseUrl.'?'.$value['id'].'">'.$value['name'].'</a></li>
+                            <li class="'.$this->webBodyNavbarActive($value['id'], $switch).'">
+                                <a href="'.$this->baseUrl.'?'.$value['id'].'">
+                                    '.$this->webBodyNavbarGlyphicon($value).'
+                                    '.$value['name'].'
+                                </a>
+                            </li>
                         ';
                     } else {
                         $this->currentMainQuery = $value['id'];
                         $navbar .= '
                             <li class="dropdown '.$this->webBodyNavbarActive($value['id'], $switch).'">
                                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    '.$this->webBodyNavbarGlyphicon($value).'
                                     '.$value['name'].'<span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu">
@@ -92,6 +98,14 @@ class WebBodyNav {
     private function webBodyNavbarActive($query, $index) {
         if (isset($this->currentQueryArr[$index]['id']) && $this->currentQueryArr[$index]['id'] == $query) {
             return 'active';
+        }
+    }
+
+    private function webBodyNavbarGlyphicon($query) {
+        if (isset($query['options']['glyphicon'])) {
+            return '
+                <span class="'.$query['options']['glyphicon'].'"></span>
+            ';
         }
     }
 }

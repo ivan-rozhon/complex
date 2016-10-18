@@ -16,8 +16,11 @@ class Api {
         switch($this->requestMethod) {
             case 'GET':
                 // echo file_get_contents('_source/_data/data-about.json');
-                // echo file_get_contents('_source/_data/data-contact.json');
-                echo $_GET['param'];
+                $file = $_GET['file'];
+                if (file_exists('_source/_data/'.$file.'.json')) {
+                    echo file_get_contents('_source/_data/'.$file.'.json');
+                }                
+                // echo $_GET['file'];
                 break;
             case 'POST':
                 var_dump($_POST);
