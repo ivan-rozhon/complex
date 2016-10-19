@@ -36,7 +36,7 @@ class WebBodyNav {
                     if (count($value['sub']) == 0) {
                         $navbar .= '
                             <li class="'.$this->webBodyNavbarActive($value['id'], $switch).'">
-                                <a href="'.$this->baseUrl.'?'.$value['id'].'">
+                                <a href="'.$this->webBody->web->lastCharacter($this->baseUrl.'?'.$value['id'], '?').'">
                                     '.$this->webBodyNavbarGlyphicon($value).'
                                     '.$value['name'].'
                                 </a>
