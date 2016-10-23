@@ -9,27 +9,28 @@ class Api {
     }
 
     public function api() {
-        // echo filter_input(INPUT_GET, 'action');
-        // echo $this->requestMethod;
         // TO DO
         // - metadata (depth, path, variables, etc.) - to identify json
         switch($this->requestMethod) {
             case 'GET':
-                // echo file_get_contents('_source/_data/data-about.json');
-                $file = $_GET['file'];
-                if (file_exists('_source/_data/'.$file.'.json')) {
-                    echo file_get_contents('_source/_data/'.$file.'.json');
-                }                
+                // echo file_get_contents('_source/data/data-about.json');
+                $file = filter_input(INPUT_GET, 'file');
+                $folder = filter_input(INPUT_GET, 'folder');
+                if (file_exists('_source/'.$file.'.json')) {
+                    echo file_get_contents('_source/'.$file.'.json');
+                }
                 // echo $_GET['file'];
+                // echo file_get_contents('_source/web-schema.json');
                 break;
             case 'POST':
-                var_dump($_POST);
+                // var_dump($_POST);
                 $post = json_decode(file_get_contents('php://input'),true);
-                var_dump($post);
+                // var_dump($post);
                 $json_string = $post['json'];
+                echo $json_string;
                 // echo $input['json'];
                 // echo $input['action'];
-                file_put_contents('_source/_data/data-contact.json', $json_string);
+                // file_put_contents('_source/data/data-contact.json', $json_string);
                 break;
         }
     }

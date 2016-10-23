@@ -1,15 +1,14 @@
 status:<br>
 {{ $ctrl.status }}<br>
+metadata:<br>
+<!--{{ $ctrl.data }}<br>-->
+{{ $ctrl.data['_metadata']['structure'] }}<br>
 data:<br>
-{{ $ctrl.data }}<br>
+{{ $ctrl.data[$ctrl.camelCase($ctrl.file)] }}<br>
 <button ng-click="$ctrl.getJson()">get JSON</button>
 <button ng-click="$ctrl.postJson()">post JSON</button>
 
-<input ng-model="$ctrl.data[$ctrl.camelCase($ctrl.file)]['text']">
-<br>
+<!--<input ng-model="$ctrl.data[$ctrl.camelCase($ctrl.file)]['text']">-->
+<br><br><br>
 
-<!--<div ng-model="$ctrl.data">
-    <div ng-repeat="item in $ctrl.data.webSchema.webSchemaMain">
-        <input ng-model="item.name">
-    </div>
-</div>-->
+Schema:

@@ -11,9 +11,6 @@ class WebHead {
     }
 
     public function webHead() {
-        // TO DO
-        // - .js
-        // - all with auto-update
         return '
             <head>
                 <meta charset="utf-8">

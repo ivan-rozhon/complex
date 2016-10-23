@@ -1,9 +1,43 @@
 {
     "_metadata": {
+        "schemes": [
+            "webSchemaMain",
+            "webSchemaOther",
+            "webSchemaError"
+        ],
         "structure": {
-            "container": {
-                "container": {
-                    "_editable": true,
+            "values": [
+                {
+                    "key": "id",
+                    "type": "string",
+                    "null": true
+                },
+                {
+                    "key": "name",
+                    "type": "string",
+                    "null": true
+                },
+                {
+                    "key": "template",
+                    "type": "list",
+                    "null": false
+                },
+                {
+                    "key": "options",
+                    "type": "object",
+                    "null": true,
+                    "values": [
+                        {
+                            "key": "glyphicon",
+                            "type": "list",
+                            "null": true
+                        }
+                    ]
+                },
+                {
+                    "key": "sub",
+                    "type": "object",
+                    "null": true,
                     "values": [
                         {
                             "key": "id",
@@ -25,12 +59,56 @@
                             "type": "object",
                             "null": true,
                             "values": [
-                                
+                                {
+                                    "key": "glyphicon",
+                                    "type": "list",
+                                    "null": true
+                                }
+                            ]
+                        },
+                        {
+                            "key": "sub",
+                            "type": "object",
+                            "null": true,
+                            "values": [
+                                {
+                                    "key": "id",
+                                    "type": "string",
+                                    "null": true
+                                },
+                                {
+                                    "key": "name",
+                                    "type": "string",
+                                    "null": true
+                                },
+                                {
+                                    "key": "template",
+                                    "type": "list",
+                                    "null": false
+                                },
+                                {
+                                    "key": "options",
+                                    "type": "object",
+                                    "null": true,
+                                    "values": [
+                                        {
+                                            "key": "glyphicon",
+                                            "type": "list",
+                                            "null": true
+                                        }
+                                    ]
+                                },
+                                {
+                                    "key": "sub",
+                                    "type": "object",
+                                    "null": true,
+                                    "values": []
+                                }
                             ]
                         }
                     ]
                 }
-            }
+            ]
         }
     },
     "webSchema": {

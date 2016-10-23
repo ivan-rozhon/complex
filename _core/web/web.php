@@ -28,8 +28,8 @@ class Web {
     }
 
     public function webTemplateData($file) {
-        if (file_exists('_source/_data/'.$file.'.json')) {
-            return json_decode(file_get_contents('_source/_data/'.$file.'.json'), TRUE)[$this->camelCase($file)];
+        if (file_exists('_source/data/'.$file.'.json')) {
+            return json_decode(file_get_contents('_source/data/'.$file.'.json'), TRUE)[$this->camelCase($file)];
         }
     }
 

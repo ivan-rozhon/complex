@@ -17,7 +17,7 @@ class WebBodyNav {
                 <div class="container-fluid">
                     <div class="navbar-header">
                         <a class="navbar-brand" href="'.$this->baseUrl.'">
-                            <img alt="Brand" height="20" src="_source/_images/shared/favicon-32x32.png">
+                            <img alt="Brand" height="20" src="_source/images/shared/favicon-32x32.png?v='.filemtime("_source/images/shared/favicon-32x32.png").'">
                         </a>
                     </div>
                     <ul class="nav navbar-nav">                        

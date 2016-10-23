@@ -6,7 +6,12 @@
         ctrl.status = null;
         ctrl.data = {};
 
-        ctrl.file = 'data-cms';
+        ctrl.file = 'web-schema';
+        ctrl.folder = 'data';
+
+        ctrl.getSchema = function () {
+
+        };
 
         ctrl.camelCase = function (kebabCase) {
             // http://stackoverflow.com/questions/6660977/convert-hyphens-to-camel-case-camelcase
@@ -21,7 +26,7 @@
             $http({
                 method: "GET",
                 url: "?api/",
-                params: { file: ctrl.file }
+                params: { file: ctrl.file, folder: ctrl.folder }
             }).then(function (response) {
                 ctrl.status = response.status;
                 ctrl.data = response.data;
