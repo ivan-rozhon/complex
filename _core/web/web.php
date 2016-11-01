@@ -46,8 +46,8 @@ $web = new Web($system, $sharedRouter);
 $template = $web->camelCase($web->currentQuery['template']);
 
 require $web->webTemplateImport();
-require '_core/web/web-head.php';
-require '_core/web/web-body.php';
+require $system->pathPrefix.'_core/web/web-head.php';
+require $system->pathPrefix.'_core/web/web-body.php';
 
 $web->web(
     $webHead->webHead(),

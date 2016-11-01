@@ -23,8 +23,8 @@ class Admin {
 
 $admin = new Admin($system, $sharedRouter);
 
-require '_core/admin/admin-head.php';
-require '_core/admin/admin-body.php';
+require $system->pathPrefix.'_core/admin/admin-head.php';
+require $system->pathPrefix.'_core/admin/admin-body.php';
 
 $admin->admin(
     $adminHead->adminHead(),
