@@ -1,5 +1,12 @@
-(function (angular) {
+(function () {
     'use strict';
+
+    angular.module('adminApp.adminAppComponent', [])
+        .component('adminApp', {
+            templateUrl: '_core/admin/admin-app/src/admin-app.component.html',
+            controller: AdminAppController
+        });
+
     function AdminAppController($http) {
         var ctrl = this;
 
@@ -16,9 +23,9 @@
         ctrl.camelCase = function (kebabCase) {
             // http://stackoverflow.com/questions/6660977/convert-hyphens-to-camel-case-camelcase
             return kebabCase.replace(
-                /-([a-z])/g, 
-                function (g) { 
-                    return g[1].toUpperCase(); 
+                /-([a-z])/g,
+                function (g) {
+                    return g[1].toUpperCase();
                 }).replace('-', '');
         };
 
@@ -46,9 +53,4 @@
             });
         };
     }
-
-    angular.module('adminApp').component('adminApp', {
-        templateUrl: '_core/admin/admin-app/admin-app.html',
-        controller: AdminAppController
-    });
-})(window.angular);
+})();

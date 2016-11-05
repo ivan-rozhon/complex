@@ -1,0 +1,29 @@
+{
+  "name": "php_cms_nosql",
+  "version": "1.0.0",
+  "description": "Experimental NoSQL PHP CMS",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ivan-rozhon/php_cms_nosql.git"
+  },
+  "author": "Ivan Rozhoň",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ivan-rozhon/php_cms_nosql/issues"
+  },
+  "homepage": "https://github.com/ivan-rozhon/php_cms_nosql#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-htmlmin": "^3.0.0",
+    "gulp-load-plugins": "^1.4.0",
+    "gulp-main-bower-files": "^1.5.3",
+    "gulp-ng-templates": "0.0.10",
+    "gulp-ngmin": "^0.3.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^2.0.0"
+  }
+}

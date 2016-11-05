@@ -22,8 +22,7 @@ class AdminBody {
                 <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
                 
                 <!-- adminApp -->
-                <script src="_core/admin/admin-app/index.js?v='.filemtime("_core/admin/admin-app/index.js").'"></script>
-                <script src="_core/admin/admin-app/admin-app.js?v='.filemtime("_core/admin/admin-app/admin-app.js").'"></script>
+                <script src="_core/admin/admin-app/dist/js/app.min.js?v='.filemtime("_core/admin/admin-app/dist/js/app.min.js").'"></script>
             </body>
         ';
     }
