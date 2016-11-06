@@ -24,11 +24,14 @@ class AdminHead {
                 <!-- Favicon -->
                 <link rel="shortcut icon" href="favicon.ico?v='.filemtime("favicon.ico").'">
 
-                <!-- Angular Material style sheet -->
-                <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
-                
                 <!-- Google Fonts -->
                 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese" rel="stylesheet">
+
+                <!-- Lib CSS -->
+                <link rel="stylesheet" type="text/css" href="_core/admin/admin-app/dist/css/lib.min.css?v='.filemtime("_core/admin/admin-app/dist/css/lib.min.css").'">                
+
+                <!-- adminApp CSS -->
+                <link rel="stylesheet" type="text/css" href="_core/admin/admin-app/dist/css/app.min.css?v='.filemtime("_core/admin/admin-app/dist/css/app.min.css").'">
             </head>
         ';
     }
