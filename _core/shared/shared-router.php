@@ -21,6 +21,10 @@ class SharedRouter {
         foreach($schema as $subSchema) {
             $this->sharedRouterSearchQuery($subSchema);
             if (count($this->currentQueryArr) > 0) {
+
+                // abstract state
+                $this->sharedRouterAbstractState($schema, $schemaConfig, $this->currentQueryArr);
+
                 return $this->currentQueryArr;
             }
         }
@@ -62,9 +66,21 @@ class SharedRouter {
         );
     }
 
+    public function sharedRouterAbstractState($schema, $schemaConfig, $currentQueryArr) {
+        if (count($currentQueryArr) == 1 && array_key_exists('abstract', $currentQueryArr[0])) {
+            switch($currentQueryArr[0]['abstract']) {
+                case 'parent':
+                    $this->currentQueryArr = [];
+                    $this->sharedRouterMainQuery($schema, $schemaConfig);
+                    break;
+                case 'child':
+                    $this->currentQueryArr = [$this->currentQueryArr[0], $this->currentQueryArr[0]['sub'][reset($this->currentQueryArr[0]['sub'])['id']]];
+                    break;
+            }
+        }
+    }
+
     public function sharedRouterBaseUrl() {
         return 'http://'.parse_url($this->system->url, PHP_URL_HOST).parse_url($this->system->url, PHP_URL_PATH);
     }
 }
-
-$sharedRouter = new SharedRouter($system);

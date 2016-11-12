@@ -15,5 +15,3 @@ class WebBodyHeader {
         ';
     }
 }
-
-$webBodyHeader = new WebBodyHeader($webBody);

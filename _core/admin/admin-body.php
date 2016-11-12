@@ -21,5 +21,3 @@ class AdminBody {
         ';
     }
 }
-
-$adminBody = new AdminBody($admin);

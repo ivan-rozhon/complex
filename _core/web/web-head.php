@@ -73,5 +73,3 @@ class WebHead {
         return TRUE;
     }
 }
-
-$webHead = new WebHead($web);

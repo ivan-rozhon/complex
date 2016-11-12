@@ -16,5 +16,3 @@ class WebBodyMain {
         ';
     }
 }
-
-$webBodyMain = new WebBodyMain($webBody);

@@ -129,6 +129,7 @@
                 "options": {
                     "glyphicon": "glyphicon glyphicon-eye-open"
                 },
+                "abstract": "child",
                 "sub": {
                     "cms": {
                         "id": "cms",

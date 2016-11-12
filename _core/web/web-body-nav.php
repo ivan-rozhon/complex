@@ -109,5 +109,3 @@ class WebBodyNav {
         }
     }
 }
-
-$webBodyNav = new WebBodyNav($webBody, $sharedRouter);

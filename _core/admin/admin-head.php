@@ -36,5 +36,3 @@ class AdminHead {
         ';
     }
 }
-
-$adminHead = new AdminHead($admin);

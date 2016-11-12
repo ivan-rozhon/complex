@@ -15,5 +15,3 @@ class WebBodyFooter {
         ';
     }
 }
-
-$webBodyFooter = new WebBodyFooter($webBody);

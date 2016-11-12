@@ -27,10 +27,3 @@ class WebBody {
         ';
     }
 }
-
-$webBody = new WebBody($web);
-
-require $system->pathPrefix.'_core/web/web-body-header.php';
-require $system->pathPrefix.'_core/web/web-body-nav.php';
-require $system->pathPrefix.'_core/web/web-body-main.php';
-require $system->pathPrefix.'_core/web/web-body-footer.php';

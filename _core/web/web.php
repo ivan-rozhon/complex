@@ -45,9 +45,15 @@ class Web {
 $web = new Web($system, $sharedRouter);
 $template = $web->camelCase($web->currentQuery['template']);
 
+// template import
 require $web->webTemplateImport();
-require $system->pathPrefix.'_core/web/web-head.php';
-require $system->pathPrefix.'_core/web/web-body.php';
+
+$webHead = new WebHead($web);
+$webBody = new WebBody($web);
+$webBodyHeader = new WebBodyHeader($webBody);
+$webBodyNav = new WebBodyNav($webBody, $sharedRouter);
+$webBodyMain = new WebBodyMain($webBody);
+$webBodyFooter = new WebBodyFooter($webBody);
 
 $web->web(
     $webHead->webHead(),
