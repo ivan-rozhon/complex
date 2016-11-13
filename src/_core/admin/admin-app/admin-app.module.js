@@ -1,8 +1,8 @@
 (function (angular) {
     'use strict';
-    angular.module('adminApp', [
+    angular.module('adminApp', [        
         'ngMaterial',
+        'adminApp.templates',
         'adminApp.adminAppComponent',
-        'adminApp.templates'        
         ]);
 })(window.angular);

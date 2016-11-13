@@ -1,8 +1,9 @@
 # compiled output
 /dist
 
-#temporary
-/tmp
+# temporary
+**/tmp
+**/tmp/**
 
 # dependencies
 /node_modules

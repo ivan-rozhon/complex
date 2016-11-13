@@ -3,24 +3,24 @@
 
     angular.module('adminApp.adminAppComponent', [])
         .component('adminApp', {
-            templateUrl: '_core/admin/admin-app/src/admin-app.component.html',
+            templateUrl: 'admin-app.component.html',
             controller: AdminAppController
         });
 
     function AdminAppController($http) {
-        var ctrl = this;
+        var $ctrl = this;
 
-        ctrl.status = null;
-        ctrl.data = {};
+        $ctrl.status = null;
+        $ctrl.data = {};
 
-        ctrl.file = 'web-schema';
-        ctrl.folder = 'data';
+        $ctrl.file = 'web-schema';
+        $ctrl.folder = 'data';
 
-        ctrl.getSchema = function () {
+        $ctrl.getSchema = function () {
 
         };
 
-        ctrl.camelCase = function (kebabCase) {
+        $ctrl.camelCase = function (kebabCase) {
             // http://stackoverflow.com/questions/6660977/convert-hyphens-to-camel-case-camelcase
             return kebabCase.replace(
                 /-([a-z])/g,
@@ -29,19 +29,19 @@
                 }).replace('-', '');
         };
 
-        ctrl.getJson = function () {
+        $ctrl.getJson = function () {
             $http({
                 method: "GET",
                 url: "?api/",
-                params: { file: ctrl.file, folder: ctrl.folder }
+                params: { file: $ctrl.file, folder: $ctrl.folder }
             }).then(function (response) {
-                ctrl.status = response.status;
-                ctrl.data = response.data;
+                $ctrl.status = response.status;
+                $ctrl.data = response.data;
             });
         };
 
-        ctrl.postJson = function () {
-            var json = JSON.stringify(ctrl.data);
+        $ctrl.postJson = function () {
+            var json = JSON.stringify($ctrl.data);
             // console.log(json);
             $http({
                 method: "POST",
