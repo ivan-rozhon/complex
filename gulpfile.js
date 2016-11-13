@@ -2,16 +2,32 @@
 var gulp = require('gulp');
 
 // Define base folders
+var npcApp = {
+    src: 'src/',
+    dest: 'dist/'
+}
 var adminApp = {
-    src: '_core/admin/admin-app/src/',
-    dest: '_core/admin/admin-app/dist/',
-    tmp: '_core/admin/admin-app/tmp/'
+    src: 'src/_core/admin/admin-app/',
+    tmp: 'src/_core/admin/admin-app/tmp/',
+    dest: 'dist/_core/admin/admin-app/'
 }
 
 // Include plugins
 var plugins = require("gulp-load-plugins")({
     pattern: ['gulp-*', 'gulp.*', 'less-plugin-autoprefix'],
     replaceString: /\bgulp[\-.]/
+});
+
+// npcApp PHP
+gulp.task('php', function () {
+    return gulp.src(npcApp.src + '**/*.php')
+        .pipe(gulp.dest(npcApp.dest));
+});
+
+// npcApp Files
+gulp.task('files', function () {
+    return gulp.src(npcApp.src + '**/*.{ico,txt,json,png}')
+        .pipe(gulp.dest(npcApp.dest));
 });
 
 // adminApp Templates
@@ -28,8 +44,19 @@ gulp.task('templates', function () {
         .pipe(gulp.dest(adminApp.tmp + 'js'));
 });
 
+gulp.task('scripts', ['npc-app-js', 'admin-app-js']);
+
+// npcApp JS
+gulp.task('npc-app-js', function () {
+    return gulp.src(npcApp.src + '_scripts/*.js')
+        .pipe(plugins.concat('web.js'))
+        .pipe(plugins.rename({ suffix: '.min' }))
+        .pipe(plugins.uglify())
+        .pipe(gulp.dest(npcApp.dest + '_scripts'));
+});
+
 // adminApp JS
-gulp.task('scripts', ['templates'], function () {
+gulp.task('admin-app-js', ['templates'], function () {
     return gulp.src([adminApp.src + '**/*.js', adminApp.tmp + 'js/templates.js'])
         .pipe(plugins.concat('app.js'))
         .pipe(plugins.ngmin())
@@ -38,8 +65,24 @@ gulp.task('scripts', ['templates'], function () {
         .pipe(gulp.dest(adminApp.dest + 'js'));
 });
 
+// CSS
+gulp.task('styles', ['npc-app-styles', 'admin-app-styles']);
+
+// npcApp CSS
+gulp.task('npc-app-styles', function () {
+    var autoprefix = new plugins.lessPluginAutoprefix();
+    return gulp.src(npcApp.src + '_styles/*.less')
+        .pipe(plugins.less({
+            plugins: [autoprefix]
+        }))
+        .pipe(plugins.cssmin())
+        .pipe(plugins.concat('web.css'))
+        .pipe(plugins.rename({ suffix: '.min' }))
+        .pipe(gulp.dest(npcApp.dest + '_styles'));
+});
+
 // adminApp CSS
-gulp.task('styles', function () {
+gulp.task('admin-app-styles', function () {
     var autoprefix = new plugins.lessPluginAutoprefix();
     return gulp.src(adminApp.src + '**/*.less')
         .pipe(plugins.less({
@@ -78,9 +121,16 @@ gulp.task('bower', ['bower-js', 'bower-css']);
 
 // Watch for changes in files
 gulp.task('watch', function () {
-    gulp.watch([adminApp.src + '**/*.html', adminApp.src + '**/*.js'], ['scripts']);
-    gulp.watch(adminApp.src + '**/*.less', ['styles']);
+    // npcApp
+    gulp.watch(npcApp.src + '**/*.php', ['php']);
+    gulp.watch(npcApp.src + '**/*.{ico,txt,json,png}', ['files']);
+    gulp.watch(npcApp.src + '_scripts/*.js', ['npc-app-js']);
+    gulp.watch(npcApp.src + '_styles/*.less', ['npc-app-styles']);
+
+    // adminApp
+    gulp.watch([adminApp.src + '**/*.html', adminApp.src + '**/*.js'], ['admin-app-js']);
+    gulp.watch(adminApp.src + '**/*.less', ['admin-app-styles']);
 });
 
 // Default Task
-gulp.task('default', ['bower', 'scripts', 'styles', 'watch']);
+gulp.task('default', ['php', 'files', 'bower', 'scripts', 'styles', 'watch']);

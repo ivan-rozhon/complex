@@ -38,7 +38,7 @@ class WebHead {
                 <![endif]-->
 
                 <!-- CSS -->
-                <link rel="stylesheet" type="text/css" href="_styles/web.css?v='.filemtime("_styles/web.css").'">
+                <link rel="stylesheet" type="text/css" href="_styles/web.min.css?v='.filemtime("_styles/web.min.css").'">
             </head>
         ';
     }

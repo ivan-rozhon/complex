@@ -13,10 +13,10 @@ class AdminBody {
                 <admin-app></admin-app>
                 
                 <!-- Bower Components Lib -->
-                <script src="_core/admin/admin-app/dist/js/lib.min.js?v='.filemtime("_core/admin/admin-app/dist/js/lib.min.js").'"></script>
+                <script src="_core/admin/admin-app/js/lib.min.js?v='.filemtime("_core/admin/admin-app/js/lib.min.js").'"></script>
 
                 <!-- adminApp -->
-                <script src="_core/admin/admin-app/dist/js/app.min.js?v='.filemtime("_core/admin/admin-app/dist/js/app.min.js").'"></script>
+                <script src="_core/admin/admin-app/js/app.min.js?v='.filemtime("_core/admin/admin-app/js/app.min.js").'"></script>
             </body>
         ';
     }

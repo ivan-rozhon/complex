@@ -1,6 +1,8 @@
 # compiled output
-/_core/admin/admin-app/dist
-/_core/admin/admin-app/tmp
+/dist
+
+#temporary
+/tmp
 
 # dependencies
 /node_modules
