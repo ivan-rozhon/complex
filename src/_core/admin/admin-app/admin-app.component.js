@@ -1,7 +1,9 @@
 (function () {
     'use strict';
 
-    angular.module('adminApp.adminAppComponent', [])
+    angular.module('adminApp.adminAppComponent',[
+            'adminApp.adminAppSchemaComponent'
+        ])
         .component('adminApp', {
             templateUrl: 'admin-app.component.html',
             controller: AdminAppController

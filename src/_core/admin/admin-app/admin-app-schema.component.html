@@ -1,0 +1,6 @@
+<div ng-repeat="schema in $ctrl.schema">
+    <!--{{schema}}
+    <input ng-model="schema.template">-->
+    <!--<schema-item schema="schema"></schema-item>-->
+    <admin-app-schema-item schema="schema" schema-type="$ctrl.schemaType(schema)"></admin-app-schema-item>
+</div>

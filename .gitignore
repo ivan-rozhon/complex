@@ -2,8 +2,7 @@
 /dist
 
 # temporary
-**/tmp
-**/tmp/**
+src/**/tmp
 
 # dependencies
 /node_modules

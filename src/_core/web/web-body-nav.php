@@ -33,7 +33,7 @@ class WebBodyNav {
         foreach($schema as $key => $value) {
             switch($switch) {
                 case 0:
-                    if (count($value['sub']) == 0) {
+                    if (count($value['sub']) == 0 || $value['options']['only'] == true) {
                         $navbar .= '
                             <li class="'.$this->webBodyNavbarActive($value['id'], $switch).'">
                                 <a href="'.$this->webBody->web->lastCharacter($this->baseUrl.'?'.$value['id'], '?').'">

@@ -13,7 +13,8 @@
                 "name": "",
                 "template": "template-home",
                 "options": {
-                    "glyphicon": "glyphicon glyphicon glyphicon-home"
+                    "glyphicon": "glyphicon glyphicon glyphicon-home",
+                    "only": false
                 },
                 "sub": {}
             },
@@ -22,7 +23,8 @@
                 "name": "About",
                 "template": "template-main-01",
                 "options": {
-                    "glyphicon": "glyphicon glyphicon-eye-open"
+                    "glyphicon": "glyphicon glyphicon-eye-open",
+                    "only": false
                 },
                 "abstract": "child",
                 "sub": {
@@ -50,12 +52,31 @@
                     }
                 }
             },
+            "gallery": {
+                "id": "gallery",
+                "name": "Gallery",
+                "template": "template-main-01",
+                "options": {
+                    "glyphicon": "glyphicon glyphicon-picture",
+                    "only": true
+                },
+                "sub": {
+                    "examples": {
+                        "id": "examples",
+                        "name": "Examples",
+                        "template": "template-main-01",
+                        "options": {},
+                        "sub": {}
+                    }
+                }
+            },
             "contact": {
                 "id": "contact",
                 "name": "Contact",
                 "template": "template-main-01",
                 "options": {
-                    "glyphicon": "glyphicon glyphicon-earphone"
+                    "glyphicon": "glyphicon glyphicon-earphone",
+                    "only": false
                 },
                 "sub": {}
             }
