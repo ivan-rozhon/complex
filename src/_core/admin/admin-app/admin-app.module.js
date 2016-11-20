@@ -2,8 +2,10 @@
     'use strict';
     angular.module('adminApp', [        
         'ngMaterial',
+        'ngSanitize',
         'adminApp.templates',
         'adminApp.shared',
         'adminApp.adminAppComponent',
+        'adminApp.schema'
         ]);
 })(window.angular);

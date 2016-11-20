@@ -1,10 +1,18 @@
 {
     "_metadata": {
-        "schemes": [
-            "webSchemaMain",
-            "webSchemaOther",
-            "webSchemaError"
-        ]
+        "schemes": {
+            "webSchemaMain": {
+                "name": "Main Schema"
+            },
+            "webSchemaOther": {
+                "name": "Other Schema"
+            }
+        },
+        "data": {
+            "id": {
+                "type": "string"
+            }
+        }
     },
     "webSchema": {
         "webSchemaMain": {
@@ -88,9 +96,7 @@
                 "template": "template-webmap",
                 "options": {},
                 "sub": {}
-            }
-        },
-        "webSchemaError": {
+            },
             "error-404": {
                 "id": "error-404",
                 "name": "Error 404",
