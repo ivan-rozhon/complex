@@ -11,6 +11,27 @@
         "data": {
             "id": {
                 "type": "string"
+            },
+            "name": {
+                "type": "string"
+            },
+            "template": {
+                "type": "list"
+            },
+            "options": {
+                "type": "object"
+            },
+            "glyphicon": {
+                "type": "list"
+            },
+            "only": {
+                "type": "boolean"
+            },
+            "abstract": {
+                "type": "list"
+            },
+            "sub": {
+                "type": "object"
             }
         }
     },
@@ -24,6 +45,7 @@
                     "glyphicon": "glyphicon glyphicon glyphicon-home",
                     "only": false
                 },
+                "abstract": "none",
                 "sub": {}
             },
             "about": {
@@ -68,6 +90,7 @@
                     "glyphicon": "glyphicon glyphicon-picture",
                     "only": true
                 },
+                "abstract": "none",
                 "sub": {
                     "examples": {
                         "id": "examples",
@@ -86,6 +109,7 @@
                     "glyphicon": "glyphicon glyphicon-earphone",
                     "only": false
                 },
+                "abstract": "none",
                 "sub": {}
             }
         },
@@ -95,6 +119,7 @@
                 "name": "Webmap",
                 "template": "template-webmap",
                 "options": {},
+                "abstract": "none",
                 "sub": {}
             },
             "error-404": {
@@ -102,6 +127,7 @@
                 "name": "Error 404",
                 "template": "template-error",
                 "options": {},
+                "abstract": "none",
                 "sub": {}
             }
         }

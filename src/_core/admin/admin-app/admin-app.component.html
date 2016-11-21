@@ -1,7 +1,7 @@
 status:<br> {{ $ctrl.status }}<br> metadata:
 <br>
 <!--{{ $ctrl.data }}<br>-->
-{{ $ctrl.data['_metadata']['structure'] }}<br> data:
+<!--{{ $ctrl.data['_metadata']['structure'] }}<br> data:-->
 <br> {{ $ctrl.data[$ctrl.camelCase($ctrl.file)] }}<br>
 <button ng-click="$ctrl.getJson()">get JSON</button>
 <button ng-click="$ctrl.postJson()">post JSON</button>
@@ -11,19 +11,6 @@ status:<br> {{ $ctrl.status }}<br> metadata:
 <div ng-model="$ctrl.data">
   <div ng-repeat="(key, value) in $ctrl.data[$ctrl.camelCase($ctrl.file)]">
     <h4>{{ $ctrl.data['_metadata']['schemes'][key]['name'] }}</h4>    
-    <npc-schema npc-schema="value"></npc-schema>
+    <npc-schema web-schema="value" schema-config="$ctrl.data['_metadata']"></npc-schema>
   </div>
 </div>
-
-
-
-<!--<md-content class="md-padding">
-  <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
-    <md-nav-item md-nav-click="goto('page1')" name="page1">Page One</md-nav-item>
-    <md-nav-item md-nav-click="goto('page2')" name="page2">Page Two</md-nav-item>
-    <md-nav-item md-nav-click="goto('page3')" name="page3">Page Three</md-nav-item>
-  </md-nav-bar>
-  <div class="ext-content">
-    External content for `<span>{{currentNavItem}}</span>`
-  </div>
-</md-content>-->

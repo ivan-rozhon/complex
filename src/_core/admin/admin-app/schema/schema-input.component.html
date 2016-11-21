@@ -1,1 +1,3 @@
-<div>{{$ctrl.schema}}</div>
+<div ng-repeat="(key, value) in $ctrl.schema">
+    <npc-schema-input-model input-type="$ctrl.inputType(key)" input-model="$ctrl.schema[key]"></npc-schema-input-model>
+</div>
