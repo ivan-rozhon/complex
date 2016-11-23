@@ -1,14 +1,21 @@
 (function () {
     'use strict';
 
-    angular.module('adminApp.adminAppComponent', [])
+    angular.module('adminApp.adminAppComponent', [
+        'adminApp.adminAppService'
+    ])
         .component('adminApp', {
             templateUrl: 'admin-app.component.html',
             controller: AdminAppController
         });
 
-    function AdminAppController($http) {
+    function AdminAppController($http, adminAppService) {
         var $ctrl = this;
+
+        $ctrl.$onInit = function () {
+            $ctrl.data = adminAppService.getDataFromService();
+            // console.log($ctrl.data); 
+        };
 
         $ctrl.status = null;
         $ctrl.data = {};

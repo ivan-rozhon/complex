@@ -15,9 +15,12 @@
                     var getTemplate = function (inputType, inputModel) {
                         var template;
                         // console.log(inputModel);
-                        switch(inputType) {
+                        switch (inputType) {
                             case 'string':
-                                template = '<input ng-model="inputModel">';
+                                template = '<md-input-container>'
+                                    + '<label>Label</label>'
+                                    + '<input type="text" ng-model="inputModel">'
+                                    + '</md-input-container>';
                                 break;
                         }
                         return template;

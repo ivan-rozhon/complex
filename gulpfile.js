@@ -132,5 +132,8 @@ gulp.task('watch', function () {
     gulp.watch(adminApp.src + '**/*.less', ['admin-app-styles']);
 });
 
+// Build Task
+gulp.task('build', ['php', 'files', 'bower', 'scripts', 'styles']);
+
 // Default Task
-gulp.task('default', ['php', 'files', 'bower', 'scripts', 'styles', 'watch']);
+gulp.task('default', ['build', 'watch']);
