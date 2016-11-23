@@ -1,3 +1,12 @@
 <div ng-repeat="(key, value) in $ctrl.schema">
-    <npc-schema-input-model input-type="$ctrl.inputType(key)" input-model="$ctrl.schema[key]"></npc-schema-input-model>
+    <npc-schema-input-model input-data="$ctrl.inputData(key)" input-model="$ctrl.schema[key]"></npc-schema-input-model>
+    <div ng-if="$ctrl.inputData(key)['type'] == 'container'">
+        <npc-schema-input section-schema="value" schema-config="$ctrl.schemaConfig"></npc-schema-input>
+    </div>
+    <div ng-if="$ctrl.inputData(key)['type'] == 'sub'">
+        <div ng-repeat="schema in value">
+            <h4>{{schema.name}}</h4>
+            <npc-schema-input section-schema="schema" schema-config="$ctrl.schemaConfig"></npc-schema-input>
+        </div>
+    </div>
 </div>

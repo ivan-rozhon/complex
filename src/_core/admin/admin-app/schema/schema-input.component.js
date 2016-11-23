@@ -17,8 +17,11 @@
         var $ctrl = this;
 
         $ctrl.inputType = function (key) {
-            // console.log(key);
             return $ctrl.schemaConfig['data'][key]['type'];
+        };
+
+        $ctrl.inputData = function (key) {
+            return $ctrl.schemaConfig['data'][key];
         };
     }
 })();

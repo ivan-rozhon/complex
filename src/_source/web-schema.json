@@ -10,28 +10,53 @@
         },
         "data": {
             "id": {
-                "type": "string"
+                "type": "string",
+                "label": "Id"
             },
             "name": {
-                "type": "string"
+                "type": "string",
+                "label": "Name"
             },
             "template": {
-                "type": "list"
+                "type": "list",
+                "label": "Template",
+                "select": [
+                    {"key": "template-home", "value": "Template Home"},
+                    {"key": "template-main-01", "value": "Template Main 01"},
+                    {"key": "template-main-02", "value": "Template Main 02"},
+                    {"key": "template-webmap", "value": "Template Webmap"},
+                    {"key": "template-error", "value": "Template Error"}
+                ]
             },
             "options": {
-                "type": "object"
+                "type": "container"
             },
             "glyphicon": {
-                "type": "list"
+                "type": "list",
+                "label": "Glyphicon",
+                "select": [
+                    {"key": "glyphicon glyphicon glyphicon-home", "value": "Glyphicon Home"},
+                    {"key": "glyphicon glyphicon-eye-open", "value": "Glyphicon Eye Open"},
+                    {"key": "glyphicon glyphicon-picture", "value": "Glyphicon Picture"},
+                    {"key": "glyphicon glyphicon-earphone", "value": "Glyphicon Earphone"}
+                ]
             },
             "only": {
-                "type": "boolean"
+                "type": "boolean",
+                "label": "Only"
             },
             "abstract": {
-                "type": "list"
+                "type": "list",
+                "label": "Abstract",
+                "select": [
+                    {"key": "none", "value": "None"},
+                    {"key": "child", "value": "Child"},
+                    {"key": "parent", "value": "Parent"}
+                ]
             },
             "sub": {
-                "type": "object"
+                "type": "sub",
+                "label": "Sub"
             }
         }
     },

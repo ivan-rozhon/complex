@@ -1,9 +1,4 @@
-<div ng-repeat="(key, value) in $ctrl.schema">
-    <!--<md-input-container>
-        <label>Name</label>
-        <input ng-model="value.name">
-    </md-input-container>-->
-    <!--{{ value }}-->
-    <h5>{{value.name}}</h5>
-    <npc-schema-input section-schema="value" schema-config="$ctrl.schemaConfig"></npc-schema-input>
+<div ng-repeat="schema in $ctrl.schema">
+    <h3>{{schema.name}}</h3>
+    <npc-schema-input section-schema="schema" schema-config="$ctrl.schemaConfig"></npc-schema-input>
 </div>
