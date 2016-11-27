@@ -58,7 +58,7 @@ class WebBodyNav {
                     }
                     break;
                 case 1:
-                    if (count($value['sub']) == 0) {
+                    if (count($value['sub']) == 0 || $value['options']['only'] == true) {
                         $navbar .= '
                             <li class="'.$this->webBodyNavbarActive($value['id'], $switch).'">
                                 <a href="'.$this->baseUrl.'?'.$this->currentMainQuery.'/'.$value['id'].'">

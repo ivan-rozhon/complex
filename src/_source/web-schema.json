@@ -66,35 +66,39 @@
                 "id": "",
                 "name": "",
                 "template": "template-home",
+                "abstract": "none",
                 "options": {
                     "glyphicon": "glyphicon glyphicon glyphicon-home",
                     "only": false
-                },
-                "abstract": "none",
+                },                
                 "sub": {}
             },
             "about": {
                 "id": "about",
                 "name": "About",
                 "template": "template-main-01",
+                "abstract": "child",
                 "options": {
                     "glyphicon": "glyphicon glyphicon-eye-open",
                     "only": false
-                },
-                "abstract": "child",
+                },                
                 "sub": {
                     "cms": {
                         "id": "cms",
                         "name": "CMS",
                         "template": "template-main-02",
-                        "options": {},
+                        "options": {
+                            "only": false
+                        },
                         "sub": {}
                     },
                     "nosql": {
                         "id": "nosql",
                         "name": "NoSQL",
                         "template": "template-main-01",
-                        "options": {},
+                        "options": {
+                            "only": false
+                        },
                         "sub": {
                             "why-nosql": {
                                 "id": "why-nosql",
@@ -111,17 +115,19 @@
                 "id": "gallery",
                 "name": "Gallery",
                 "template": "template-main-01",
+                "abstract": "none",
                 "options": {
                     "glyphicon": "glyphicon glyphicon-picture",
                     "only": true
-                },
-                "abstract": "none",
+                },                
                 "sub": {
                     "examples": {
                         "id": "examples",
                         "name": "Examples",
                         "template": "template-main-01",
-                        "options": {},
+                        "options": {
+                            "only": false
+                        },
                         "sub": {}
                     }
                 }
@@ -130,11 +136,11 @@
                 "id": "contact",
                 "name": "Contact",
                 "template": "template-main-01",
+                "abstract": "none",
                 "options": {
                     "glyphicon": "glyphicon glyphicon-earphone",
                     "only": false
-                },
-                "abstract": "none",
+                },                
                 "sub": {}
             }
         },
@@ -143,16 +149,16 @@
                 "id": "webmap",
                 "name": "Webmap",
                 "template": "template-webmap",
-                "options": {},
                 "abstract": "none",
+                "options": {},                
                 "sub": {}
             },
             "error-404": {
                 "id": "error-404",
                 "name": "Error 404",
                 "template": "template-error",
-                "options": {},
                 "abstract": "none",
+                "options": {},                
                 "sub": {}
             }
         }

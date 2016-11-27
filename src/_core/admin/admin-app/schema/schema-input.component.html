@@ -1,12 +1,8 @@
-<div ng-repeat="(key, value) in $ctrl.schema">
-    <npc-schema-input-model input-data="$ctrl.inputData(key)" input-model="$ctrl.schema[key]"></npc-schema-input-model>
-    <div ng-if="$ctrl.inputData(key)['type'] == 'container'">
-        <npc-schema-input section-schema="value" schema-config="$ctrl.schemaConfig"></npc-schema-input>
-    </div>
-    <div ng-if="$ctrl.inputData(key)['type'] == 'sub'">
-        <div ng-repeat="schema in value">
-            <h4>{{schema.name}}</h4>
-            <npc-schema-input section-schema="schema" schema-config="$ctrl.schemaConfig"></npc-schema-input>
-        </div>
-    </div>
+<div flex="100">
+    <span>{{ $ctrl.schemaName }}</span>
+</div>
+<div ng-repeat="(key, value) in $ctrl.schema" ng-switch="$ctrl.inputData(key)['type']" ng-class="$ctrl.inputData(key)['type']">
+    <npc-schema-input layout="row" layout-wrap ng-switch-when="container" schema-value="value" schema-name="''" schema-config="$ctrl.schemaConfig"></npc-schema-input>
+    <npc-schema-input layout="row" layout-wrap ng-switch-when="sub" ng-repeat="schema in value" schema-value="schema" schema-name="schema.name" schema-config="$ctrl.schemaConfig"></npc-schema-input>
+    <npc-schema-input-model ng-switch-default input-data="$ctrl.inputData(key)" input-model="$ctrl.schema[key]"></npc-schema-input-model>
 </div>

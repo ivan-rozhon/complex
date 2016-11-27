@@ -15,9 +15,11 @@
                         // console.log(inputData.type);
                         switch (inputData.type) {
                             case 'boolean':
-                                template = '<md-checkbox ng-model="inputModel" aria-label="inputData.label">'
+                                template = '<md-input-container>'
+                                + '<md-checkbox class="md-primary" ng-model="inputModel" aria-label="inputData.label">'
                                 + '{{inputData.label}}'
                                 + '</md-checkbox>';
+                                + '</md-input-container>';
                                 break;
                             case 'string':
                                 template = '<md-input-container>'

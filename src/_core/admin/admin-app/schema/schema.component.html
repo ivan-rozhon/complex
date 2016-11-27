@@ -1,4 +1,5 @@
-<div ng-repeat="schema in $ctrl.schema">
-    <h3>{{schema.name}}</h3>
-    <npc-schema-input section-schema="schema" schema-config="$ctrl.schemaConfig"></npc-schema-input>
+<div>
+    <span>{{ $ctrl.schemaConfig['schemes'][$ctrl.key]['name'] }}</span>
 </div>
+<npc-schema-input layout="row" layout-wrap ng-repeat="schema in $ctrl.schema" schema-value="schema" schema-name="schema.name"
+    schema-config="$ctrl.schemaConfig"></npc-schema-input>

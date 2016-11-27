@@ -8,7 +8,8 @@
             templateUrl: 'schema/schema.component.html',
             controller: SchemaController,
             bindings: {
-                schema: '=webSchema',
+                key: '=schemaKey',
+                schema: '=schemaValue',
                 schemaConfig: '<'
             }
         });

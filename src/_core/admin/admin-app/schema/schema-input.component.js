@@ -8,7 +8,8 @@
             templateUrl: 'schema/schema-input.component.html',
             controller: SchemaInputController,
             bindings: {
-                schema: '=sectionSchema',
+                schema: '=schemaValue',
+                schemaName: '<',
                 schemaConfig: '<'
             }
         });

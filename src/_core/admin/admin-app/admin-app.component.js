@@ -37,6 +37,7 @@
         };
 
         $ctrl.getJson = function () {
+            $ctrl.data = {};
             $http({
                 method: "GET",
                 url: "?api/",
