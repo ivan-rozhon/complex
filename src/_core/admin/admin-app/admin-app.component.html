@@ -2,9 +2,13 @@
 <br>-->
 
 <md-content class="md-padding">
-    <md-button class="md-raised" ng-click="$ctrl.getJson()">get JSON</md-button>
-    <md-button class="md-raised" ng-click="$ctrl.postJson()">post JSON</md-button>
+    <npc-authorization></npc-authorization>
+    
+    <div>
+        <md-button class="md-raised" ng-click="$ctrl.getJson()">get JSON</md-button>
+        <md-button class="md-raised" ng-click="$ctrl.postJson()">post JSON</md-button>
 
-    <npc-schema layout="column" ng-repeat="(key, value) in $ctrl.data[$ctrl.camelCase($ctrl.file)]" schema-key="key" schema-value="value"
-        schema-config="$ctrl.data['_metadata']"></npc-schema>
+        <npc-schema layout="column" ng-repeat="(key, value) in $ctrl.data[$ctrl.camelCase($ctrl.file)]" schema-key="key" schema-value="value"
+            schema-config="$ctrl.data['_metadata']"></npc-schema>
+    </div>
 </md-content>

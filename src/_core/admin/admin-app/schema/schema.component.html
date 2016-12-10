@@ -1,5 +1,5 @@
 <div>
-    <span>{{ $ctrl.schemaConfig['schemes'][$ctrl.key]['name'] }}</span>
+    <h3 class="md-title">{{ $ctrl.schemaConfig['schemes'][$ctrl.key]['name'] }}</h3>
 </div>
 <npc-schema-input layout="row" layout-wrap ng-repeat="schema in $ctrl.schema" schema-value="schema" schema-name="schema.name"
     schema-config="$ctrl.schemaConfig"></npc-schema-input>

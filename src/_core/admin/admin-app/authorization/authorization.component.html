@@ -1,0 +1,14 @@
+<div>
+    <md-input-container>
+        <label>username (e-mail)</label>
+        <input required type="text" ng-model="$ctrl.username">
+    </md-input-container>
+
+    <md-input-container>
+        <label>password</label>
+        <input required type="password" ng-model="$ctrl.password">
+    </md-input-container>
+
+    <md-button class="md-raised" ng-click="$ctrl.login()">Login</md-button>
+    <md-button class="md-raised" ng-click="$ctrl.logout()" ng-show="$ctrl.isAuthed()">Logout</md-button>
+</div>

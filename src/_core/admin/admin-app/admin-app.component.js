@@ -13,8 +13,11 @@
         var $ctrl = this;
 
         $ctrl.$onInit = function () {
-            $ctrl.data = adminAppService.getDataFromService();
-            // console.log($ctrl.data); 
+            // $ctrl.data = adminAppService.getDataFromService().then(function (data) {
+            //     console.log(data);
+            // }, function (reason) {
+            //     console.log('Failed: ' + reason);
+            // });;
         };
 
         $ctrl.status = null;

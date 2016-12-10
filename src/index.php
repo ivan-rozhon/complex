@@ -1,5 +1,6 @@
 <?php
 
+// system
 class System {
     public $url, $pathPrefix;
 
@@ -10,13 +11,14 @@ class System {
 
     public static function autoload($class) {
         // camelCase -> kebab-case
-        $class = strtolower(ucfirst(preg_replace('/((?<=[^$])[A-Z0-9])/', '-$1', $class)));
+        $class = strtolower(ucfirst(preg_replace('/((?<=[^$])[A-Z0-9]+)/', '-$1', $class)));
         require $class.'.php';
     }
 }
 
 $system = new System;
 
+// autoloading classes
 set_include_path(
     implode(
         PATH_SEPARATOR, 
@@ -31,6 +33,7 @@ set_include_path(
 );
 spl_autoload_register(array('System', 'autoload'));
 
-// router
+// shared
+$sharedJWT = new SharedJWT();
 $sharedRouter = new SharedRouter($system);
 require $system->pathPrefix.$sharedRouter->sharedRouter();
