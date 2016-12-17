@@ -9,8 +9,11 @@
             controller: AdminAppController
         });
 
-    function AdminAppController($http, adminAppService) {
+    AdminAppController.$inject = ['$http', 'adminAppService', 'authService'];
+    function AdminAppController($http, adminAppService, authService) {
         var $ctrl = this;
+
+        $ctrl.authService = authService;
 
         $ctrl.$onInit = function () {
             // $ctrl.data = adminAppService.getDataFromService().then(function (data) {

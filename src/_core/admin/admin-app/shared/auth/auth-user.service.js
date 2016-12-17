@@ -2,11 +2,11 @@
     "use strict";
 
     angular
-        .module('authorization.authorizationUserService', [])
-        .service('authorizationUserService', AuthorizationUserService);
+        .module('auth.authUserService', [])
+        .service('authUserService', AuthUserService);
 
-    AuthorizationUserService.$inject = ['$http', 'API'];
-    function AuthorizationUserService($http, API) {
+    AuthUserService.$inject = ['$http', 'API'];
+    function AuthUserService($http, API) {
         var $ctrl = this;
         
         $ctrl.login = function (username, password) {

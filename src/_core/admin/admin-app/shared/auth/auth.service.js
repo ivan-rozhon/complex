@@ -2,11 +2,11 @@
     "use strict";
 
     angular
-        .module('authorization.authorizationService', [])
-        .service('authorizationService', AuthorizationService);
+        .module('auth.authService', [])
+        .service('authService', AuthService);
 
-    AuthorizationService.$inject = ['$window'];
-    function AuthorizationService($window) {
+    AuthService.$inject = ['$window'];
+    function AuthService($window) {
         var $ctrl = this;
 
         // Add JWT methods here

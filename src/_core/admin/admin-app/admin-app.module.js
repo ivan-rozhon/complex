@@ -5,7 +5,6 @@
         'ngSanitize',
         'adminApp.templates',
         'adminApp.shared',
-        'adminApp.authorization',
         'adminApp.adminAppComponent',
         'adminApp.schema'
     ]);

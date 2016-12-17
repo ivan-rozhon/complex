@@ -1,0 +1,25 @@
+<div layout="row" layout-align="center center" layout-fill ng-if="!$ctrl.isAuthed()">
+    <md-whiteframe class="md-whiteframe-1dp" flex-gt-md="30" layout-lg="20" layout layout-align="center center" layout-padding>
+
+        <div layout="row" layout-wrap>
+            <md-input-container flex="100">
+                <label>username (e-mail)</label>
+                <input required type="text" ng-model="$ctrl.username">
+            </md-input-container>
+
+            <md-input-container flex="100">
+                <label>password</label>
+                <input required type="password" ng-model="$ctrl.password">
+            </md-input-container>
+
+            <p class="auth-message" md-colors="{color: 'red'}" flex="100">{{ $ctrl.message }}</p>
+
+            <md-button md-colors="{background: 'indigo'}" class="md-raised auth-login-btn" ng-click="$ctrl.login()">Login</md-button>
+        </div>
+
+    </md-whiteframe>
+</div>
+
+<div ng-if="$ctrl.isAuthed()" class="auth-logout-btn">
+    <md-button md-colors="{background: 'red'}" class="md-raised" ng-click="$ctrl.logout()">Logout</md-button>
+</div>

@@ -2,6 +2,6 @@
     "use strict";
 
     angular
-        .module('authorization.authorizationConstants', [])
+        .module('auth.authConstants', [])
         .constant('API', '?api/');
 })();

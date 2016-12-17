@@ -2,9 +2,9 @@
 <br>-->
 
 <md-content class="md-padding">
-    <npc-authorization></npc-authorization>
+    <npc-auth></npc-auth>
     
-    <div>
+    <div ng-if="$ctrl.authService.isAuthed()">
         <md-button class="md-raised" ng-click="$ctrl.getJson()">get JSON</md-button>
         <md-button class="md-raised" ng-click="$ctrl.postJson()">post JSON</md-button>
 

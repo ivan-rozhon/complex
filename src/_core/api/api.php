@@ -9,8 +9,17 @@ class Api {
         $this->system = $system;
         $this->sharedJWT = $sharedJWT;
         $this->requestMethod = $_SERVER['REQUEST_METHOD'];
-        $this->username = 'ivan';
-        $this->password = 'merlin';
+        $this->queryString = $_SERVER['QUERY_STRING'];
+        $this->apiUsers = json_decode(file_get_contents('_source/api-users.json'), TRUE);
+        assert_options(ASSERT_ACTIVE, 1);
+        assert_options(ASSERT_WARNING, 0);
+        assert_options(ASSERT_BAIL, 1);
+        assert_options(ASSERT_QUIET_EVAL, 1);
+        assert_options(ASSERT_CALLBACK, function($file, $line, $code, $status) {
+            http_response_code($this->$status[0]);
+            $data = array('message' => $this->$status[1]);
+            echo json_encode($data);
+        });
     }
 
     public function api() {
@@ -47,27 +56,64 @@ class Api {
         //         break;
         // }
     }
-
+    
     public function apiPOST() {
         $post = json_decode(file_get_contents('php://input'),true);
 
-        switch($_SERVER['QUERY_STRING']) {
+        switch($this->queryString) {
             case 'api/login':
-                    // var_dump($post);
-                    // if (array_key_exists('username', $post) && $post['username'] == $this->username) {
-                    //     echo $post['username'];
-                    // }
-                    // var_dump(array_key_exists('username', $post) && $post['username'] == $this->username);
-                    // if ($post['username'] && $post['username'] == $this->user) {
-                    //     echo 'success';
-                    // } else {
-                    //     echo 'fail';
-                    // }
-                    // echo $post['username'];
-                    // http_response_code(422);
-                    // echo self::SECRET;
+                $this->assertStatus = [400, 'Please include a username'];
+                assert(array_key_exists('username', $post), 'assertStatus');
+                $this->assertStatus = [400, 'Please include a password'];
+                assert(array_key_exists('password', $post), 'assertStatus');
+
+                $this->username = $post['username'];
+                $this->password = $post['password'];
+                $userIndex = $this->findHashIndex($this->apiUsers['apiUsers'], 'u', $this->username);
+
+                $this->assertStatus = [422, 'No user found'];
+                assert($userIndex !== -1, 'assertStatus');
+                $this->assertStatus = [401, 'Invalid password'];
+                assert(password_verify($this->password, $this->apiUsers['apiUsers'][$userIndex]['p']), 'assertStatus');
+
+                $this->apiUsers['apiUsers'][$userIndex]['u'] = password_hash($this->username, PASSWORD_BCRYPT);
+                $this->apiUsers['apiUsers'][$userIndex]['p'] = password_hash($this->password, PASSWORD_BCRYPT);
+                file_put_contents('_source/api-users.json', json_encode($this->apiUsers));
+                
+                $token_payload = [
+                    'id' => $this->apiUsers['apiUsers'][$userIndex]['i'],
+                    'user' => $this->username,
+                    'admin' => true,
+                    'exp' => time() + 3600
+                ];
+                $token =  SharedJWT::encode($token_payload, self::SECRET);
+                $data = array('message' => '', 'token' => $token);
+
+                echo json_encode($data);
+                
                 break;
         }
+
+    }
+
+    public function findIndex($array, $innerKey, $innerValue) {
+        $index = -1;
+        foreach($array as $key => $value) {
+            if ($value[$innerKey] === $innerValue) {
+                $index = $key;
+            }
+        }
+        return $index;
+    }
+
+    public function findHashIndex($array, $innerKey, $innerValue) {
+        $index = -1;
+        foreach($array as $key => $value) {
+            if (password_verify($innerValue, $value[$innerKey])) {
+                $index = $key;
+            }
+        }
+        return $index;
     }
 }
 
