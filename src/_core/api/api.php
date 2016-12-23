@@ -28,6 +28,7 @@ class Api {
                 $this->apiPOST();
                 break;
             case 'GET':
+                $this->apiGET();
                 break;
         }
 
@@ -93,7 +94,10 @@ class Api {
                 
                 break;
         }
+    }
 
+    public function apiGET() {
+        
     }
 
     public function findIndex($array, $innerKey, $innerValue) {

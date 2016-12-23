@@ -16,6 +16,10 @@
   "dependencies": {
     "angular": "^1.5.8",
     "angular-material": "^1.1.1",
-    "angular-sanitize": "^1.5.8"
+    "angular-sanitize": "^1.5.8",
+    "angular-route": "^1.6.1"
+  },
+  "resolutions": {
+    "angular": "^1.5.8"
   }
 }

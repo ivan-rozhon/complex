@@ -27,6 +27,9 @@ class AdminHead {
                 <!-- Google Fonts -->
                 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese" rel="stylesheet">
 
+                <!-- Google Icons -->
+                <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
                 <!-- Lib CSS -->
                 <link rel="stylesheet" type="text/css" href="_core/admin/admin-app/css/lib.min.css?v='.filemtime("_core/admin/admin-app/css/lib.min.css").'">                
 

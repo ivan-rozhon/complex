@@ -9,11 +9,19 @@
             controller: AdminAppController
         });
 
-    AdminAppController.$inject = ['$http', 'adminAppService', 'authService'];
-    function AdminAppController($http, adminAppService, authService) {
+    AdminAppController.$inject = ['$http', 'adminAppService', 'authService', '$mdSidenav'];
+    function AdminAppController($http, adminAppService, authService, $mdSidenav) {
         var $ctrl = this;
 
+        $ctrl.openLeftMenu = function () {
+            $mdSidenav('left').toggle();
+        };
+
         $ctrl.authService = authService;
+
+        $ctrl.logout = function () {
+            authService.logout && authService.logout()
+        }
 
         $ctrl.$onInit = function () {
             // $ctrl.data = adminAppService.getDataFromService().then(function (data) {
