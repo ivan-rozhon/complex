@@ -3,11 +3,11 @@
 
 <npc-auth></npc-auth>
 
-<section class="content-container" layout="column" flex>
+<section class="content-container" layout="column" flex ng-if="$ctrl.authService.isAuthed()">
 
-    <md-toolbar ng-if="$ctrl.authService.isAuthed()" flex="nogrow">
+    <md-toolbar flex="nogrow">
         <div class="md-toolbar-tools">
-            <md-button class="md-icon-button" aria-label="Settings" ng-click="$ctrl.openLeftMenu()">
+            <md-button class="md-icon-button" aria-label="Settings" ng-click="$ctrl.toogleLeftMenu()">
                 <md-icon md-font-icon="material-icons">menu</md-icon>
             </md-button>
             <span flex></span>
@@ -18,35 +18,27 @@
         </div>
     </md-toolbar>
 
-    <md-content class="md-padding" ng-if="$ctrl.authService.isAuthed()" flex>
+    <md-content class="md-padding" flex>
 
         <md-sidenav md-component-id="left" class="md-sidenav-left" md-whiteframe="4">
-
             <md-toolbar class="md-theme-indigo">
                 <div class="md-toolbar-tools">
                     <h1>Menu</h1>
                     <span flex></span>
-                    <md-button class="md-icon-button" aria-label="Settings" ng-click="$ctrl.openLeftMenu()">
+                    <md-button class="md-icon-button" aria-label="Settings" ng-click="$ctrl.toogleLeftMenu()">
                         <md-icon md-font-icon="material-icons">close</md-icon>
                     </md-button>
                 </div>
             </md-toolbar>
 
             <md-list flex>
-                <md-list-item class="md-1-line" ng-click="null">Web config</md-list-item>
-                <md-list-item class="md-1-line" ng-click="null">Web schema</md-list-item>
-                <md-list-item class="md-1-line" ng-click="null">Web content</md-list-item>
+                <md-list-item class="md-1-line" ng-click="$ctrl.goTo('/config')">Web config</md-list-item>
+                <md-list-item class="md-1-line" ng-click="$ctrl.goTo('/schema')">Web schema</md-list-item>
+                <md-list-item class="md-1-line" ng-click="$ctrl.goTo('/content')">Web content</md-list-item>
             </md-list>
-            <!--Left Nav!-->
         </md-sidenav>
 
-        <div ng-if="$ctrl.authService.isAuthed()">
-            <md-button class="md-raised" ng-click="$ctrl.getJson()">get JSON</md-button>
-            <md-button class="md-raised" ng-click="$ctrl.postJson()">post JSON</md-button>
-
-            <npc-schema layout="column" ng-repeat="(key, value) in $ctrl.data[$ctrl.camelCase($ctrl.file)]" schema-key="key" schema-value="value"
-                schema-config="$ctrl.data['_metadata']"></npc-schema>
-        </div>
+        <div ng-view></div>
 
     </md-content>
 

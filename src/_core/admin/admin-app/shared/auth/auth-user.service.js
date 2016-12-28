@@ -13,7 +13,11 @@
             return $http.post(API + 'login', {
                 username: username,
                 password: password
-            })
+            });
+        };
+
+        $ctrl.loadSchema = function () {
+            return $http.get(API + 'schema');
         };
     }
 })();

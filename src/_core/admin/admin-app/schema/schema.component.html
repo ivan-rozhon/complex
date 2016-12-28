@@ -1,5 +1,13 @@
-<div>
-    <h3 class="md-title">{{ $ctrl.schemaConfig['schemes'][$ctrl.key]['name'] }}</h3>
+<h1>Schema</h1>
+<md-button class="md-raised" ng-click="$ctrl.loadSchema()">Load schema</md-button>
+
+<!--{{ $ctrl.data | json }}-->
+
+<div layout="column" ng-repeat="(key, value) in $ctrl.data['webSchema']">
+
+    <div>
+        <h3 class="md-title">{{ $ctrl.data['_metadata']['schemes'][key]['name'] }}</h3>
+    </div>
+    <npc-schema-input layout="row" layout-wrap ng-repeat="schema in value" schema-value="schema" schema-name="schema.name" schema-config="$ctrl.data['_metadata']"></npc-schema-input>
+
 </div>
-<npc-schema-input layout="row" layout-wrap ng-repeat="schema in $ctrl.schema" schema-value="schema" schema-name="schema.name"
-    schema-config="$ctrl.schemaConfig"></npc-schema-input>

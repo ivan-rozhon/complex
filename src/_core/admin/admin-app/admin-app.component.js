@@ -2,6 +2,7 @@
     'use strict';
 
     angular.module('adminApp.adminAppComponent', [
+        'adminApp.adminAppConfig',
         'adminApp.adminAppService'
     ])
         .component('adminApp', {
@@ -9,26 +10,31 @@
             controller: AdminAppController
         });
 
-    AdminAppController.$inject = ['$http', 'adminAppService', 'authService', '$mdSidenav'];
-    function AdminAppController($http, adminAppService, authService, $mdSidenav) {
+    AdminAppController.$inject = ['$http', 'adminAppService', 'authService', '$mdSidenav', '$route', '$routeParams', '$location'];
+    function AdminAppController($http, adminAppService, authService, $mdSidenav, $route, $routeParams, $location) {
         var $ctrl = this;
-
-        $ctrl.openLeftMenu = function () {
-            $mdSidenav('left').toggle();
-        };
 
         $ctrl.authService = authService;
 
+        $ctrl.toogleLeftMenu = function () {
+            $mdSidenav('left').toggle();
+        };       
+
         $ctrl.logout = function () {
             authService.logout && authService.logout()
-        }
+        };
+
+        $ctrl.goTo = function (value) {
+            $location.path(value);
+            $ctrl.toogleLeftMenu();
+        };
 
         $ctrl.$onInit = function () {
             // $ctrl.data = adminAppService.getDataFromService().then(function (data) {
             //     console.log(data);
             // }, function (reason) {
             //     console.log('Failed: ' + reason);
-            // });;
+            // });
         };
 
         $ctrl.status = null;
@@ -36,10 +42,6 @@
 
         $ctrl.file = 'web-schema';
         $ctrl.folder = 'data';
-
-        $ctrl.getSchema = function () {
-
-        };
 
         $ctrl.camelCase = function (kebabCase) {
             // http://stackoverflow.com/questions/6660977/convert-hyphens-to-camel-case-camelcase

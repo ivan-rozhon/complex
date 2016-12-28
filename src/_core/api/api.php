@@ -63,33 +63,44 @@ class Api {
 
         switch($this->queryString) {
             case 'api/login':
+                // check if username exists
                 $this->assertStatus = [400, 'Please include a username'];
                 assert(array_key_exists('username', $post), 'assertStatus');
+                // check if password exists
                 $this->assertStatus = [400, 'Please include a password'];
                 assert(array_key_exists('password', $post), 'assertStatus');
 
+                // get username & password from http POST request
                 $this->username = $post['username'];
                 $this->password = $post['password'];
+                // find user index in api-users.json
                 $userIndex = $this->findHashIndex($this->apiUsers['apiUsers'], 'u', $this->username);
 
+                // check if user exists
                 $this->assertStatus = [422, 'No user found'];
                 assert($userIndex !== -1, 'assertStatus');
+
+                // 10 seconds after each try to login
+                $this->assertStatus = [400, 'Please wait 10 seconds'];
+                assert(($this->apiUsers['apiUsers'][$userIndex]['t'] + 10) < time(), 'assertStatus');
+                // set actual time()
+                $this->apiUsers['apiUsers'][$userIndex]['t'] = time();
+                file_put_contents('_source/api-users.json', json_encode($this->apiUsers));
+
+                // verify password
                 $this->assertStatus = [401, 'Invalid password'];
                 assert(password_verify($this->password, $this->apiUsers['apiUsers'][$userIndex]['p']), 'assertStatus');
 
+                // rehash & set password
                 $this->apiUsers['apiUsers'][$userIndex]['u'] = password_hash($this->username, PASSWORD_BCRYPT);
                 $this->apiUsers['apiUsers'][$userIndex]['p'] = password_hash($this->password, PASSWORD_BCRYPT);
                 file_put_contents('_source/api-users.json', json_encode($this->apiUsers));
                 
-                $token_payload = [
-                    'id' => $this->apiUsers['apiUsers'][$userIndex]['i'],
-                    'user' => $this->username,
-                    'admin' => true,
-                    'exp' => time() + 3600
-                ];
-                $token =  SharedJWT::encode($token_payload, self::SECRET);
-                $data = array('message' => '', 'token' => $token);
+                // create JWT
+                $token = $this->createToken($this->apiUsers['apiUsers'][$userIndex]['i'], $this->username);
 
+                // successful response
+                $data = array('message' => '', 'token' => $token);
                 echo json_encode($data);
                 
                 break;
@@ -97,7 +108,62 @@ class Api {
     }
 
     public function apiGET() {
+        switch($this->queryString) {
+            case 'api/schema':
+                // decode incoming token
+                $decodedJWT = $this->decodeToken(getallheaders());
+                
+                // verify token
+                $this->verifyToken($decodedJWT);
+                
+                if (file_exists('_source/web-schema.json')) {
+                    $schema = file_get_contents('_source/web-schema.json');
+
+                    // create JWT
+                    $token = $this->createToken($decodedJWT->{'id'}, $decodedJWT->{'user'});
+
+                    $data = array('token' => $token, 'schema' => $schema);
+
+                    // successful response
+                    echo json_encode($data);
+                }
+                break;
+        }
+    }
+
+    public function createToken($id, $user) {
+        $token_payload = [
+            'id' => $id,
+            'user' => $user,
+            'exp' => time() + 3600
+        ];
+        return SharedJWT::encode($token_payload, self::SECRET);
+    }
+
+    public function verifyToken($decodedJWT) {        
+        // Error status
+        $this->assertStatus = [401, 'Invalid token'];
+
+        // find user index in api-users.json
+        $userIndex = $this->findIndex($this->apiUsers['apiUsers'], 'i', $decodedJWT->{'id'});
+        assert($userIndex !== -1, 'assertStatus');
+
+        // verify username
+        assert(password_verify($decodedJWT->{'user'}, $this->apiUsers['apiUsers'][$userIndex]['u']), 'assertStatus');
+        // check expiration time
+        assert($decodedJWT->{'exp'} > time(), 'assertStatus');
+    }
+
+    public function decodeToken($headers) {
+        // explode authorization header
+        $authorization = explode(' ', $headers['Authorization']);
         
+        // check Bearer header
+        $this->assertStatus = [401, 'Invalid header'];
+        assert($authorization[0] === 'Bearer', 'assertStatus');        
+
+        // decode incoming token
+        return SharedJWT::decode($authorization[1], self::SECRET);
     }
 
     public function findIndex($array, $innerKey, $innerValue) {
