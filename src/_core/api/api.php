@@ -57,7 +57,7 @@ class Api {
         //         break;
         // }
     }
-    
+
     public function apiPOST() {
         $post = json_decode(file_get_contents('php://input'),true);
 
@@ -95,14 +95,14 @@ class Api {
                 $this->apiUsers['apiUsers'][$userIndex]['u'] = password_hash($this->username, PASSWORD_BCRYPT);
                 $this->apiUsers['apiUsers'][$userIndex]['p'] = password_hash($this->password, PASSWORD_BCRYPT);
                 file_put_contents('_source/api-users.json', json_encode($this->apiUsers));
-                
+
                 // create JWT
                 $token = $this->createToken($this->apiUsers['apiUsers'][$userIndex]['i'], $this->username);
 
                 // successful response
                 $data = array('message' => '', 'token' => $token);
                 echo json_encode($data);
-                
+
                 break;
         }
     }
@@ -112,10 +112,10 @@ class Api {
             case 'api/schema':
                 // decode incoming token
                 $decodedJWT = $this->decodeToken(getallheaders());
-                
+
                 // verify token
                 $this->verifyToken($decodedJWT);
-                
+
                 if (file_exists('_source/web-schema.json')) {
                     $schema = file_get_contents('_source/web-schema.json');
 
@@ -140,7 +140,7 @@ class Api {
         return SharedJWT::encode($token_payload, self::SECRET);
     }
 
-    public function verifyToken($decodedJWT) {        
+    public function verifyToken($decodedJWT) {
         // Error status
         $this->assertStatus = [401, 'Invalid token'];
 
@@ -157,10 +157,10 @@ class Api {
     public function decodeToken($headers) {
         // explode authorization header
         $authorization = explode(' ', $headers['Authorization']);
-        
+
         // check Bearer header
         $this->assertStatus = [401, 'Invalid header'];
-        assert($authorization[0] === 'Bearer', 'assertStatus');        
+        assert($authorization[0] === 'Bearer', 'assertStatus');
 
         // decode incoming token
         return SharedJWT::decode($authorization[1], self::SECRET);

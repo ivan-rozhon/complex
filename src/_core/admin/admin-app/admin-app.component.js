@@ -18,10 +18,10 @@
 
         $ctrl.toogleLeftMenu = function () {
             $mdSidenav('left').toggle();
-        };       
+        };
 
         $ctrl.logout = function () {
-            authService.logout && authService.logout()
+            authService.logout && authService.logout();
         };
 
         $ctrl.goTo = function (value) {

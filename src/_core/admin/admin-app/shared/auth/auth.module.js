@@ -1,6 +1,9 @@
 (function (angular) {
     'use strict';
     angular.module('shared.auth', [
-            'auth.authComponent'
-        ]);
+        'auth.authFactory',
+        'auth.authConstants',
+        'auth.authConfig',
+        'auth.authComponent'
+    ]);
 })(window.angular);

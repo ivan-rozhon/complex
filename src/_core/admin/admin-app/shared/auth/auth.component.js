@@ -3,10 +3,7 @@
 
     angular.module('auth.authComponent', [
         'auth.authService',
-        'auth.authUserService',
-        'auth.authConstants',
-        'auth.authConfig',
-        'auth.authFactory'
+        'auth.authUserService'
     ])
         .component('npcAuth', {
             templateUrl: 'shared/auth/auth.component.html',
@@ -33,7 +30,7 @@
         $ctrl.logout = function () {
             authService.logout && authService.logout()
         }
-        
+
         $ctrl.isAuthed = function () {
             return authService.isAuthed ? authService.isAuthed() : false
         }

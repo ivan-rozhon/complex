@@ -5,19 +5,31 @@
         .module('auth.authFactory', [])
         .factory('authFactory', AuthFactory);
 
-    AuthFactory.$inject = ['API', 'authService'];
-    function AuthFactory(API, authService) {
+    AuthFactory.$inject = ['API', 'authService', '$q', '$timeout'];
+    function AuthFactory(API, authService, $q, $timeout) {
         var $ctrl = this;
 
-        return {
-            // automatically attach Authorization header
-            request: function (config) {
+        // load Authorization token if aviable
+        $ctrl.loadToken = function (config) {
+            return $q(function (resolve, reject) {
                 var token = authService.getToken();
                 if (config.url.indexOf(API) === 0 && token) {
                     config.headers.Authorization = 'Bearer ' + token;
                 }
+                resolve(config);
+            });
+        };
 
-                return config;
+        return {
+            // automatically attach Authorization header
+            request: function (config) {
+                // load Authorization token if aviable (asynchronous - not necessary)
+                var updatedConfig = $ctrl.loadToken(config);
+
+                // wait for token and return config (with or without token)
+                return $q.when(updatedConfig).then(function (result) {
+                    return result;
+                });
             },
 
             // If a token was sent back, save it
@@ -28,6 +40,7 @@
 
                 return res;
             }
-        }
+        };
+
     }
 })();

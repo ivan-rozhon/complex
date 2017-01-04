@@ -8,7 +8,7 @@
     AuthUserService.$inject = ['$http', 'API'];
     function AuthUserService($http, API) {
         var $ctrl = this;
-        
+
         $ctrl.login = function (username, password) {
             return $http.post(API + 'login', {
                 username: username,
