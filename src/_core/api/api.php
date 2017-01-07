@@ -155,8 +155,11 @@ class Api {
     }
 
     public function decodeToken($headers) {
+        // first uppercase letter fix
+        $key = $headers['authorization'] ? 'authorization' : 'Authorization';
+
         // explode authorization header
-        $authorization = explode(' ', $headers['Authorization']);
+        $authorization = explode(' ', $headers[$key]);
 
         // check Bearer header
         $this->assertStatus = [401, 'Invalid header'];

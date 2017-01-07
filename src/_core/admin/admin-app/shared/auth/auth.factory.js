@@ -14,7 +14,7 @@
             return $q(function (resolve, reject) {
                 var token = authService.getToken();
                 if (config.url.indexOf(API) === 0 && token) {
-                    config.headers.Authorization = 'Bearer ' + token;
+                    config.headers.authorization = 'Bearer ' + token;
                 }
                 resolve(config);
             });

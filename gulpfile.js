@@ -5,16 +5,16 @@ var gulp = require('gulp');
 var npcApp = {
     src: 'src/',
     dest: 'dist/'
-}
+};
 var adminApp = {
     src: 'src/_core/admin/admin-app/',
     tmp: 'src/_core/admin/admin-app/tmp/',
     dest: 'dist/_core/admin/admin-app/'
-}
+};
 
 // Include plugins
 var plugins = require("gulp-load-plugins")({
-    pattern: ['gulp-*', 'gulp.*', 'less-plugin-autoprefix'],
+    pattern: ['gulp-*', 'gulp.*', 'less-plugin-autoprefix', 'browser-sync'],
     replaceString: /\bgulp[\-.]/
 });
 
@@ -134,6 +134,20 @@ gulp.task('watch', function () {
 
 // Build Task
 gulp.task('build', ['php', 'files', 'bower', 'scripts', 'styles']);
+
+// Server Task
+gulp.task('connect', function () {
+    plugins.connectPhp.server(
+        { base: 'dist', port: 8010, keepalive: true }, function () {
+            plugins.browserSync({
+                proxy: '127.0.0.1:8010',
+                port: 8080,
+                cors: true,
+                files: ['dist/**/*']
+            });
+        }
+    );
+});
 
 // Default Task
 gulp.task('default', ['build', 'watch']);

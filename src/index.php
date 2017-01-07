@@ -21,7 +21,7 @@ $system = new System;
 // autoloading classes
 set_include_path(
     implode(
-        PATH_SEPARATOR, 
+        PATH_SEPARATOR,
         array(
             get_include_path(),
             $system->pathPrefix.'_core/admin/',

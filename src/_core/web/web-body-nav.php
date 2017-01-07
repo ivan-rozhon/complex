@@ -8,6 +8,7 @@ class WebBodyNav {
     public function __construct(WebBody $webBody) {
         $this->webBody = $webBody;
         $this->baseUrl = $this->webBody->web->sharedRouter->sharedRouterBaseUrl();
+        $this->basePath = $this->webBody->web->sharedRouter->sharedRouterBasePath();
         $this->currentQueryArr = $this->webBody->web->currentQueryArr;
     }
 
@@ -16,11 +17,11 @@ class WebBodyNav {
             <nav class="navbar navbar-default">
                 <div class="container-fluid">
                     <div class="navbar-header">
-                        <a class="navbar-brand" href="'.$this->baseUrl.'">
+                        <a class="navbar-brand" href="'.$this->basePath.'">
                             <img alt="Brand" height="20" src="_source/images/shared/favicon-32x32.png?v='.filemtime("_source/images/shared/favicon-32x32.png").'">
                         </a>
                     </div>
-                    <ul class="nav navbar-nav">                        
+                    <ul class="nav navbar-nav">
                         '.$this->webBodyNavbar($this->webBody->web->webSchema['webSchemaMain'], 0).'
                     </ul>
                 </div>
@@ -36,7 +37,7 @@ class WebBodyNav {
                     if (count($value['sub']) == 0 || $value['options']['only'] == true) {
                         $navbar .= '
                             <li class="'.$this->webBodyNavbarActive($value['id'], $switch).'">
-                                <a href="'.$this->webBody->web->lastCharacter($this->baseUrl.'?'.$value['id'], '?').'">
+                                <a href="'.$this->webBody->web->lastCharacter($this->basePath.'?'.$value['id'], '?').'">
                                     '.$this->webBodyNavbarGlyphicon($value).'
                                     '.$value['name'].'
                                 </a>
@@ -61,7 +62,7 @@ class WebBodyNav {
                     if (count($value['sub']) == 0 || $value['options']['only'] == true) {
                         $navbar .= '
                             <li class="'.$this->webBodyNavbarActive($value['id'], $switch).'">
-                                <a href="'.$this->baseUrl.'?'.$this->currentMainQuery.'/'.$value['id'].'">
+                                <a href="'.$this->basePath.'?'.$this->currentMainQuery.'/'.$value['id'].'">
                                     '.$value['name'].'
                                 </a>
                             </li>
@@ -70,7 +71,7 @@ class WebBodyNav {
                         $this->currentSubQuery = $value['id'];
                         $navbar .= '
                             <li class="dropdown-submenu '.$this->webBodyNavbarActive($value['id'], $switch).'">
-                                <a class="test" href="'.$this->baseUrl.'?'.$this->currentMainQuery.'/'.$value['id'].'">
+                                <a class="test" href="'.$this->basePath.'?'.$this->currentMainQuery.'/'.$value['id'].'">
                                     '.$value['name'].'<span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu">
@@ -83,14 +84,14 @@ class WebBodyNav {
                 case 2:
                     $navbar .= '
                         <li class="'.$this->webBodyNavbarActive($value['id'], $switch).'">
-                            <a href="'.$this->baseUrl.'?'.$this->currentMainQuery.'/'.$this->currentSubQuery.'/'.$value['id'].'">
+                            <a href="'.$this->basePath.'?'.$this->currentMainQuery.'/'.$this->currentSubQuery.'/'.$value['id'].'">
                                 '.$value['name'].'
                             </a>
                         </li>
                     ';
                     break;
             }
-            
+
         }
         return $navbar;
     }

@@ -28,7 +28,7 @@ class SharedRouter {
                 return $this->currentQueryArr;
             }
         }
-        
+
         $this->sharedRouterMainQuery($schema, $schemaConfig);
         return $this->currentQueryArr;
     }
@@ -80,7 +80,11 @@ class SharedRouter {
         }
     }
 
+    public function sharedRouterBasePath() {
+        return parse_url($this->system->url, PHP_URL_PATH);
+    }
+
     public function sharedRouterBaseUrl() {
-        return 'http://'.parse_url($this->system->url, PHP_URL_HOST).parse_url($this->system->url, PHP_URL_PATH);
+        return 'http://'.parse_url($this->system->url, PHP_URL_HOST).$this->sharedRouterBasePath();
     }
 }

@@ -10,7 +10,9 @@ class WebBodyFooter {
     public function webBodyFooter() {
         return '
             <footer>
-                Footer              
+                Footer
+                <hr>
+                <a href="?admin">Admin</a>
             </footer>
         ';
     }
