@@ -70,7 +70,7 @@
                 "options": {
                     "glyphicon": "glyphicon glyphicon glyphicon-home",
                     "only": false
-                },                
+                },
                 "sub": {}
             },
             "about": {
@@ -81,7 +81,7 @@
                 "options": {
                     "glyphicon": "glyphicon glyphicon-eye-open",
                     "only": false
-                },                
+                },
                 "sub": {
                     "cms": {
                         "id": "cms",
@@ -119,7 +119,7 @@
                 "options": {
                     "glyphicon": "glyphicon glyphicon-picture",
                     "only": true
-                },                
+                },
                 "sub": {
                     "examples": {
                         "id": "examples",
@@ -140,7 +140,7 @@
                 "options": {
                     "glyphicon": "glyphicon glyphicon-earphone",
                     "only": false
-                },                
+                },
                 "sub": {}
             }
         },
@@ -150,7 +150,7 @@
                 "name": "Webmap",
                 "template": "template-webmap",
                 "abstract": "none",
-                "options": {},                
+                "options": {},
                 "sub": {}
             },
             "error-404": {
@@ -158,7 +158,7 @@
                 "name": "Error 404",
                 "template": "template-error",
                 "abstract": "none",
-                "options": {},                
+                "options": {},
                 "sub": {}
             }
         }

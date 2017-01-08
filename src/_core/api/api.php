@@ -31,37 +31,13 @@ class Api {
                 $this->apiGET();
                 break;
         }
-
-        // TO DO
-        // - metadata (depth, path, variables, etc.) - to identify json
-        // switch($this->requestMethod) {
-        //     case 'GET':
-        //         // echo file_get_contents('_source/data/data-about.json');
-        //         $file = filter_input(INPUT_GET, 'file');
-        //         $folder = filter_input(INPUT_GET, 'folder');
-        //         if (file_exists('_source/'.$file.'.json')) {
-        //             echo file_get_contents('_source/'.$file.'.json');
-        //         }
-        //         // echo $_GET['file'];
-        //         // echo file_get_contents('_source/web-schema.json');
-        //         break;
-        //     case 'POST':
-        //         // var_dump($_POST);
-        //         $post = json_decode(file_get_contents('php://input'),true);
-        //         // var_dump($post);
-        //         $json_string = $post['json'];
-        //         echo $json_string;
-        //         // echo $input['json'];
-        //         // echo $input['action'];
-        //         // file_put_contents('_source/data/data-contact.json', $json_string);
-        //         break;
-        // }
     }
 
     public function apiPOST() {
         $post = json_decode(file_get_contents('php://input'),true);
 
         switch($this->queryString) {
+            // Login authentication
             case 'api/login':
                 // check if username exists
                 $this->assertStatus = [400, 'Please include a username'];
@@ -104,6 +80,41 @@ class Api {
                 echo json_encode($data);
 
                 break;
+
+            // Save schema
+            case 'api/schema':
+                // decode incoming token
+                $decodedJWT = $this->decodeToken(getallheaders());
+
+                // verify token
+                $this->verifyToken($decodedJWT);
+
+                // schema (json string)
+                $schema = json_encode($post['schema']);
+
+                // check if schema exists
+                $this->assertStatus = [400, 'No data'];
+                assert($schema !== 'null', 'assertStatus');
+
+                // backup if put fail
+                $schemaBackup = file_get_contents('_source/web-schema.json');
+
+                // get result of update/put old version
+                $success = file_put_contents('_source/web-schema.json', $schema) > 10 ? true : false;
+
+                // apply backup
+                if (!$success) { file_put_contents('_source/web-schema.json', $schemaBackup); }
+
+                // create JWT
+                $token = $this->createToken($decodedJWT->{'id'}, $decodedJWT->{'user'});
+
+                // response data object
+                $data = array('token' => $token, 'success' => $success);
+
+                // successful response
+                echo json_encode($data);
+
+                break;
         }
     }
 
@@ -122,11 +133,13 @@ class Api {
                     // create JWT
                     $token = $this->createToken($decodedJWT->{'id'}, $decodedJWT->{'user'});
 
+                    // response data object
                     $data = array('token' => $token, 'schema' => $schema);
 
                     // successful response
                     echo json_encode($data);
                 }
+
                 break;
         }
     }

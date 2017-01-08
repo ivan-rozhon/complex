@@ -18,11 +18,11 @@
         var $ctrl = this;
 
         $ctrl.inputType = function (key) {
-            return $ctrl.schemaConfig['data'][key]['type'];
+            return $ctrl.schemaConfig.data[key].type;
         };
 
         $ctrl.inputData = function (key) {
-            return $ctrl.schemaConfig['data'][key];
+            return $ctrl.schemaConfig.data[key];
         };
     }
 })();

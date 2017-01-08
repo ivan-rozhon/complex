@@ -14,35 +14,31 @@
     function AdminAppController($http, adminAppService, authService, $mdSidenav, $route, $routeParams, $location) {
         var $ctrl = this;
 
-        $ctrl.authService = authService;
+        // component initialization
+        $ctrl.$onInit = function () {
+            // services
+            $ctrl.authService = authService;
+            $ctrl.adminAppService = adminAppService;
 
+        };
+
+        // switch of the left navigation menu
         $ctrl.toogleLeftMenu = function () {
             $mdSidenav('left').toggle();
         };
 
-        $ctrl.logout = function () {
-            authService.logout && authService.logout();
-        };
-
+        // navigation "on-click" action
         $ctrl.goTo = function (value) {
             $location.path(value);
             $ctrl.toogleLeftMenu();
         };
 
-        $ctrl.$onInit = function () {
-            // $ctrl.data = adminAppService.getDataFromService().then(function (data) {
-            //     console.log(data);
-            // }, function (reason) {
-            //     console.log('Failed: ' + reason);
-            // });
+        // logout action
+        $ctrl.logout = function () {
+            $ctrl.authService.logout();
         };
 
-        $ctrl.status = null;
-        $ctrl.data = {};
-
-        $ctrl.file = 'web-schema';
-        $ctrl.folder = 'data';
-
+        // kebab-case -> camelCase transformation
         $ctrl.camelCase = function (kebabCase) {
             // http://stackoverflow.com/questions/6660977/convert-hyphens-to-camel-case-camelcase
             return kebabCase.replace(
@@ -50,31 +46,6 @@
                 function (g) {
                     return g[1].toUpperCase();
                 }).replace('-', '');
-        };
-
-        $ctrl.getJson = function () {
-            $ctrl.data = {};
-            $http({
-                method: "GET",
-                url: "?api/",
-                params: { file: $ctrl.file, folder: $ctrl.folder }
-            }).then(function (response) {
-                $ctrl.status = response.status;
-                $ctrl.data = response.data;
-            });
-        };
-
-        $ctrl.postJson = function () {
-            var json = JSON.stringify($ctrl.data);
-            // console.log(json);
-            $http({
-                method: "POST",
-                url: "?api/",
-                data: { 'json': json }
-            }).then(function (response) {
-                console.log(response.status);
-                console.log(response.data);
-            });
         };
     }
 })();

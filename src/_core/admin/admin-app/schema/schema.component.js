@@ -10,23 +10,37 @@
             controller: SchemaController
         });
 
-    SchemaController.$inject = ['$http', 'API', 'authUserService', '$q'];
-    function SchemaController($http, API, authUserService, $q) {
+    SchemaController.$inject = ['schemaService'];
+    function SchemaController(schemaService) {
         var $ctrl = this;
 
-        function handleRequest(res) {
-            console.log(res);
-            $ctrl.data = res.data.schema ? JSON.parse(res.data.schema) : null;
-
-            var token = res.data.token ? res.data.token : null;
-            if (token) { console.log('JWT:', token);}
-        }
-
-        $ctrl.loadSchema = function () {
-            delete $ctrl.data;
-            $q.when(authUserService.loadSchema())
-                .then(handleRequest, handleRequest);
+        // component initialization
+        $ctrl.$onInit = function () {
+            // services
+            $ctrl.schemaService = schemaService;
         };
 
+        // Load web schema
+        $ctrl.loadSchema = function () {
+            // delete previous schema
+            delete $ctrl.schema;
+
+            // Call for schema
+            $ctrl.schema = $ctrl.schemaService.getSchema().then(function (result) {
+                $ctrl.schema = result;
+            });
+        };
+
+        // Submin web schema
+        $ctrl.submitSchema = function () {
+            $ctrl.schemaService.postSchema($ctrl.schema).then(function (result) {
+                // check result of submitting schema
+                if (result) {
+                    console.log('saved!');
+                } else {
+                    console.log('save failed!');
+                }
+            });
+        };
     }
 })();

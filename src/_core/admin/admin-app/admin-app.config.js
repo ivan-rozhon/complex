@@ -4,8 +4,7 @@
     angular.module('adminApp.adminAppConfig', [])
         .config(function ($routeProvider, $locationProvider) {
 
-            // $locationProvider.hashPrefix('');
-
+            // routing config
             $routeProvider
                 .when('/schema', {
                     template: '<npc-schema></npc-schema>'

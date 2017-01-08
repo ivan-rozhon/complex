@@ -143,7 +143,7 @@ gulp.task('connect', function () {
                 proxy: '127.0.0.1:8010',
                 port: 8080,
                 cors: true,
-                files: ['dist/**/*']
+                files: ['dist/**/*', '!dist/**/*.json']
             });
         }
     );
