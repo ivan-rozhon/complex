@@ -10,10 +10,7 @@ class Web {
         $this->webConfig = json_decode(file_get_contents('_source/web-config.json'), TRUE)['webConfig'];
         $this->currentQueryArr = $this->sharedRouter->sharedRouterCurrentQuery($this->webSchema, $this->webConfig);
         $this->currentQuery = $this->currentQueryArr[count($this->currentQueryArr) - 1];
-        $this->templateData = $this->webTemplateData(
-            $this->lastCharacter('/'.$this->currentQueryArr[0]['id'], '/'),
-            $this->lastCharacter('data-'.$this->currentQuery['id'], '-')
-        );
+        $this->templateData = $this->webTemplateData($this->currentQuery['data']);
     }
 
     public function web($webHead, $webBody) {
@@ -22,7 +19,7 @@ class Web {
             <html lang="'.$this->webConfig['lang'].'">
                 '.$webHead.'
                 '.$webBody.'
-            </html>            
+            </html>
         ';
     }
 
@@ -30,9 +27,9 @@ class Web {
         return '_core/web/_templates/'.$this->currentQuery['template'].'.php';
     }
 
-    public function webTemplateData($folder, $file) {
-        if (file_exists('_source/data'.$folder.'/'.$file.'.json')) {
-            return json_decode(file_get_contents('_source/data'.$folder.'/'.$file.'.json'), TRUE)[$this->camelCase($file)];
+    public function webTemplateData($file) {
+        if (file_exists('_source/data/'.$file.'.json')) {
+            return json_decode(file_get_contents('_source/data/'.$file.'.json'), TRUE);
         }
     }
 
