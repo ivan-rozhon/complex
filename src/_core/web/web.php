@@ -8,7 +8,7 @@ class Web {
         $this->sharedRouter = $sharedRouter;
         $this->webSchema = json_decode(file_get_contents('_source/web-schema.json'), TRUE)['webSchema'];
         $this->webConfig = json_decode(file_get_contents('_source/web-config.json'), TRUE)['webConfig'];
-        $this->currentQueryArr = $this->sharedRouter->sharedRouterCurrentQuery($this->webSchema, $this->webConfig);
+        $this->currentQueryArr = $this->sharedRouter->currentQuery($this->webSchema, $this->webConfig);
         $this->currentQuery = $this->currentQueryArr[count($this->currentQueryArr) - 1];
         $this->templateData = $this->webTemplateData($this->currentQuery['data']);
     }

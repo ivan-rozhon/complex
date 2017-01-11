@@ -6,6 +6,7 @@ class System {
 
     public function __construct(){
         $this->url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        // set path prefix
         $this->pathPrefix = __DIR__.'/';
     }
 

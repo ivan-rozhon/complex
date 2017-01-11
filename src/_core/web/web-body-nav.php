@@ -7,8 +7,8 @@ class WebBodyNav {
 
     public function __construct(WebBody $webBody) {
         $this->webBody = $webBody;
-        $this->baseUrl = $this->webBody->web->sharedRouter->sharedRouterBaseUrl();
-        $this->basePath = $this->webBody->web->sharedRouter->sharedRouterBasePath();
+        $this->baseUrl = $this->webBody->web->sharedRouter->baseUrl();
+        $this->basePath = $this->webBody->web->sharedRouter->basePath();
         $this->currentQueryArr = $this->webBody->web->currentQueryArr;
     }
 

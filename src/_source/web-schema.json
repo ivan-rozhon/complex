@@ -21,11 +21,26 @@
                 "type": "list",
                 "label": "Template",
                 "select": [
-                    {"key": "template-home", "value": "Template Home"},
-                    {"key": "template-main-01", "value": "Template Main 01"},
-                    {"key": "template-main-02", "value": "Template Main 02"},
-                    {"key": "template-webmap", "value": "Template Webmap"},
-                    {"key": "template-error", "value": "Template Error"}
+                    {
+                        "key": "template-home",
+                        "value": "Template Home"
+                    },
+                    {
+                        "key": "template-main-01",
+                        "value": "Template Main 01"
+                    },
+                    {
+                        "key": "template-main-02",
+                        "value": "Template Main 02"
+                    },
+                    {
+                        "key": "template-webmap",
+                        "value": "Template Webmap"
+                    },
+                    {
+                        "key": "template-error",
+                        "value": "Template Error"
+                    }
                 ]
             },
             "data": {
@@ -38,10 +53,22 @@
                 "type": "list",
                 "label": "Glyphicon",
                 "select": [
-                    {"key": "glyphicon glyphicon glyphicon-home", "value": "Glyphicon Home"},
-                    {"key": "glyphicon glyphicon-eye-open", "value": "Glyphicon Eye Open"},
-                    {"key": "glyphicon glyphicon-picture", "value": "Glyphicon Picture"},
-                    {"key": "glyphicon glyphicon-earphone", "value": "Glyphicon Earphone"}
+                    {
+                        "key": "glyphicon glyphicon glyphicon-home",
+                        "value": "Glyphicon Home"
+                    },
+                    {
+                        "key": "glyphicon glyphicon-eye-open",
+                        "value": "Glyphicon Eye Open"
+                    },
+                    {
+                        "key": "glyphicon glyphicon-picture",
+                        "value": "Glyphicon Picture"
+                    },
+                    {
+                        "key": "glyphicon glyphicon-earphone",
+                        "value": "Glyphicon Earphone"
+                    }
                 ]
             },
             "only": {
@@ -52,9 +79,18 @@
                 "type": "list",
                 "label": "Abstract",
                 "select": [
-                    {"key": "none", "value": "None"},
-                    {"key": "child", "value": "Child"},
-                    {"key": "parent", "value": "Parent"}
+                    {
+                        "key": "none",
+                        "value": "None"
+                    },
+                    {
+                        "key": "child",
+                        "value": "Child"
+                    },
+                    {
+                        "key": "parent",
+                        "value": "Parent"
+                    }
                 ]
             },
             "sub": {
@@ -64,8 +100,8 @@
         }
     },
     "webSchema": {
-        "webSchemaMain": {
-            "home": {
+        "webSchemaMain": [
+            {
                 "id": "",
                 "name": "",
                 "template": "template-home",
@@ -75,9 +111,9 @@
                     "glyphicon": "glyphicon glyphicon glyphicon-home",
                     "only": false
                 },
-                "sub": {}
+                "sub": []
             },
-            "about": {
+            {
                 "id": "about",
                 "name": "About",
                 "template": "template-main-01",
@@ -87,8 +123,8 @@
                     "glyphicon": "glyphicon glyphicon-eye-open",
                     "only": false
                 },
-                "sub": {
-                    "cms": {
+                "sub": [
+                    {
                         "id": "cms",
                         "name": "CMS",
                         "template": "template-main-02",
@@ -96,9 +132,9 @@
                         "options": {
                             "only": false
                         },
-                        "sub": {}
+                        "sub": []
                     },
-                    "nosql": {
+                    {
                         "id": "nosql",
                         "name": "NoSQL",
                         "template": "template-main-01",
@@ -106,20 +142,20 @@
                         "options": {
                             "only": false
                         },
-                        "sub": {
-                            "why-nosql": {
+                        "sub": [
+                            {
                                 "id": "why-nosql",
                                 "name": "Why NoSQL",
                                 "template": "template-main-01",
                                 "data": "Z0G76Cd0JG-1483995330",
                                 "options": {},
-                                "sub": {}
+                                "sub": []
                             }
-                        }
+                        ]
                     }
-                }
+                ]
             },
-            "gallery": {
+            {
                 "id": "gallery",
                 "name": "Gallery",
                 "template": "template-main-01",
@@ -129,8 +165,8 @@
                     "glyphicon": "glyphicon glyphicon-picture",
                     "only": true
                 },
-                "sub": {
-                    "examples": {
+                "sub": [
+                    {
                         "id": "examples",
                         "name": "Examples",
                         "template": "template-main-01",
@@ -138,11 +174,11 @@
                         "options": {
                             "only": false
                         },
-                        "sub": {}
+                        "sub": []
                     }
-                }
+                ]
             },
-            "contact": {
+            {
                 "id": "contact",
                 "name": "Contact",
                 "template": "template-main-01",
@@ -152,28 +188,28 @@
                     "glyphicon": "glyphicon glyphicon-earphone",
                     "only": false
                 },
-                "sub": {}
+                "sub": []
             }
-        },
-        "webSchemaOther": {
-            "webmap": {
+        ],
+        "webSchemaOther": [
+            {
                 "id": "webmap",
                 "name": "Webmap",
                 "template": "template-webmap",
                 "data": "E7kFySgjuB-1483995373",
                 "abstract": "none",
                 "options": {},
-                "sub": {}
+                "sub": []
             },
-            "error-404": {
+            {
                 "id": "error-404",
                 "name": "Error 404",
                 "template": "template-error",
                 "data": "KYCQmatyw4-1483995380",
                 "abstract": "none",
                 "options": {},
-                "sub": {}
+                "sub": []
             }
-        }
+        ]
     }
 }
