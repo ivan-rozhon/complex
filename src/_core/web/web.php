@@ -3,9 +3,10 @@
 class Web {
     public $system, $sharedRouter, $webSchema, $webConfig, $currentQueryArr, $currentQuery;
 
-    public function __construct(System $system, SharedRouter $sharedRouter) {
+    public function __construct(System $system, SharedRouter $sharedRouter, SharedTemplateProvider $sharedTemplateProvider) {
         $this->system = $system;
         $this->sharedRouter = $sharedRouter;
+        $this->templateProvider = $sharedTemplateProvider;
         $this->webSchema = json_decode(file_get_contents('_source/web-schema.json'), TRUE)['webSchema'];
         $this->webConfig = json_decode(file_get_contents('_source/web-config.json'), TRUE)['webConfig'];
         $this->currentQueryArr = $this->sharedRouter->currentQuery($this->webSchema, $this->webConfig);
@@ -14,13 +15,15 @@ class Web {
     }
 
     public function web($webHead, $webBody) {
-        echo '
-            <!DOCTYPE html>
-            <html lang="'.$this->webConfig['lang'].'">
-                '.$webHead.'
-                '.$webBody.'
-            </html>
-        ';
+        $lang = $this->webConfig['lang'];
+        echo $this->templateProvider->sharedTemplateProvider(
+                [
+                    'lang' => $lang,
+                    'webHead' => $webHead,
+                    'webBody' => $webBody
+                ],
+                '_core/web/web.html'
+            );
     }
 
     public function webTemplateImport() {
@@ -42,7 +45,7 @@ class Web {
     }
 }
 
-$web = new Web($system, $sharedRouter);
+$web = new Web($system, $sharedRouter, $sharedTemplateProvider);
 $template = $web->camelCase($web->currentQuery['template']);
 
 // template import

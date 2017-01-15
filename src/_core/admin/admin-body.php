@@ -5,19 +5,18 @@ class AdminBody {
 
     public function __construct(Admin $admin) {
         $this->admin = $admin;
+        $this->templateProvider = $this->admin->templateProvider;
     }
 
     public function adminBody() {
-        return '
-            <body ng-app="adminApp">
-                <admin-app></admin-app>
-                
-                <!-- Bower Components Lib -->
-                <script src="_core/admin/admin-app/js/lib.min.js?v='.filemtime("_core/admin/admin-app/js/lib.min.js").'"></script>
-
-                <!-- adminApp -->
-                <script src="_core/admin/admin-app/js/app.min.js?v='.filemtime("_core/admin/admin-app/js/app.min.js").'"></script>
-            </body>
-        ';
+        $jsLibVersion = filemtime("_core/admin/admin-app/js/lib.min.js");
+        $jsAppVersion = filemtime("_core/admin/admin-app/js/app.min.js");
+        return $this->templateProvider->sharedTemplateProvider(
+                [
+                    'jsLibVersion' => $jsLibVersion,
+                    'jsAppVersion' => $jsAppVersion
+                ],
+                '_core/admin/admin-body.html'
+            );
     }
 }

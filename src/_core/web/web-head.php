@@ -8,39 +8,27 @@ class WebHead {
     public function __construct(Web $web) {
         $this->web = $web;
         $this->currentQueryArr = $this->web->currentQueryArr;
+        $this->templateProvider = $this->web->templateProvider;
     }
 
     public function webHead() {
-        return '
-            <head>
-                <meta charset="utf-8">
-                <meta http-equiv="X-UA-Compatible" content="IE=edge">
-                <meta name="viewport" content="width=device-width, initial-scale=1">
-
-                <meta name="description" content="'.$this->web->webConfig['description'].'">
-                <meta name="keywords" content="'.$this->web->webConfig['keywords'].'">
-                <meta name="author" content="'.$this->web->webConfig['author'].'">
-
-                <title>
-                    '.$this->webHeadTitle().'
-                </title>
-
-                <!-- Favicon -->
-                <link rel="shortcut icon" href="favicon.ico?v='.filemtime("favicon.ico").'">
-
-                <!-- Bootstrap core CSS -->
-                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-                <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->   
-                <!--[if lt IE 9]>
-                <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-                <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-                <![endif]-->
-
-                <!-- CSS -->
-                <link rel="stylesheet" type="text/css" href="_styles/web.min.css?v='.filemtime("_styles/web.min.css").'">
-            </head>
-        ';
+        $description = $this->web->webConfig['description'];
+        $keywords = $this->web->webConfig['keywords'];
+        $author = $this->web->webConfig['author'];
+        $title = $this->webHeadTitle();
+        $faviconVersion = filemtime("favicon.ico");
+        $cssVersion = filemtime("_core/web/_styles/web.min.css");
+        return $this->templateProvider->sharedTemplateProvider(
+                [
+                    'description' => $description,
+                    'keywords' => $keywords,
+                    'author' => $author,
+                    'title' => $title,
+                    'faviconVersion' => $faviconVersion,
+                    'cssVersion' => $cssVersion
+                ],
+                '_core/web/web-head.html'
+            );
     }
 
     private function webHeadTitle() {

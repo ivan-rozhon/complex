@@ -5,13 +5,10 @@ class WebBodyHeader {
 
     public function __construct(WebBody $webBody) {
         $this->webBody = $webBody;
+        $this->templateProvider = $this->webBody->web->templateProvider;
     }
 
     public function webBodyHeader() {
-        return '
-            <header>
-                Header
-            </header>
-        ';
+        return $this->templateProvider->sharedTemplateProvider([], '_core/web/web-body-header.html');
     }
 }

@@ -26,12 +26,8 @@
                         "value": "Template Home"
                     },
                     {
-                        "key": "template-main-01",
-                        "value": "Template Main 01"
-                    },
-                    {
-                        "key": "template-main-02",
-                        "value": "Template Main 02"
+                        "key": "template-main",
+                        "value": "Template Main"
                     },
                     {
                         "key": "template-webmap",
@@ -116,7 +112,7 @@
             {
                 "id": "about",
                 "name": "About",
-                "template": "template-main-01",
+                "template": "template-main",
                 "data": "nk0c0ZD8PT-1483995124",
                 "abstract": "child",
                 "options": {
@@ -127,7 +123,7 @@
                     {
                         "id": "cms",
                         "name": "CMS",
-                        "template": "template-main-02",
+                        "template": "template-main",
                         "data": "JAS4eNVQpQ-1483995296",
                         "options": {
                             "only": false
@@ -137,7 +133,7 @@
                     {
                         "id": "nosql",
                         "name": "NoSQL",
-                        "template": "template-main-01",
+                        "template": "template-main",
                         "data": "rbRmxXoR5l-1483995321",
                         "options": {
                             "only": false
@@ -146,7 +142,7 @@
                             {
                                 "id": "why-nosql",
                                 "name": "Why NoSQL",
-                                "template": "template-main-01",
+                                "template": "template-main",
                                 "data": "Z0G76Cd0JG-1483995330",
                                 "options": {},
                                 "sub": []
@@ -158,7 +154,7 @@
             {
                 "id": "gallery",
                 "name": "Gallery",
-                "template": "template-main-01",
+                "template": "template-main",
                 "data": "XE6OpO7DdA-1483995341",
                 "abstract": "none",
                 "options": {
@@ -169,7 +165,7 @@
                     {
                         "id": "examples",
                         "name": "Examples",
-                        "template": "template-main-01",
+                        "template": "template-main",
                         "data": "tf6b9S7ceE-1483995349",
                         "options": {
                             "only": false
@@ -181,7 +177,7 @@
             {
                 "id": "contact",
                 "name": "Contact",
-                "template": "template-main-01",
+                "template": "template-main",
                 "data": "zTQH7KsAUo-1483995362",
                 "abstract": "none",
                 "options": {
@@ -202,8 +198,8 @@
                 "sub": []
             },
             {
-                "id": "error-404",
-                "name": "Error 404",
+                "id": "error",
+                "name": "Error",
                 "template": "template-error",
                 "data": "KYCQmatyw4-1483995380",
                 "abstract": "none",

@@ -1,17 +1,17 @@
-<?php 
+<?php
 
 class TemplateHome {
     public $web;
 
-    public function __construct(Web $web) {
+    public function __construct(Web $web, SharedTemplateProvider $sharedTemplateProvider) {
         $this->web = $web;
+        $this->templateProvider = $sharedTemplateProvider;
     }
 
     public function templateHome() {
-        return '
-            '.$this->web->templateData['text'].'
-        ';
+        $text = $this->web->templateData['text'];
+        return $this->templateProvider->sharedTemplateProvider(['text' => $text], '_core/web/_templates/template-home.html');
     }
 }
 
-$templateHome = new TemplateHome($web);
+$templateHome = new TemplateHome($web, $sharedTemplateProvider);

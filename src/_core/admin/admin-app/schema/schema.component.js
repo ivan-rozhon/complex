@@ -42,5 +42,10 @@
                 }
             });
         };
+
+        // Delete (discard) current loaded schema
+        $ctrl.clearSchema = function () {
+            delete $ctrl.schema;
+        };
     }
 })();

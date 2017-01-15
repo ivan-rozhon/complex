@@ -5,15 +5,10 @@ class WebBodyFooter {
 
     public function __construct(WebBody $webBody) {
         $this->webBody = $webBody;
+        $this->templateProvider = $this->webBody->web->templateProvider;
     }
 
     public function webBodyFooter() {
-        return '
-            <footer>
-                Footer
-                <hr>
-                <a href="?admin">Admin</a>
-            </footer>
-        ';
+        return $this->templateProvider->sharedTemplateProvider([], '_core/web/web-body-footer.html');
     }
 }

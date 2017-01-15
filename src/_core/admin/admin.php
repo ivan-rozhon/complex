@@ -3,25 +3,28 @@
 class Admin {
     public $system, $sharedRouter, $adminSchema, $adminConfig;
 
-    public function __construct(System $system, SharedRouter $sharedRouter) {
+    public function __construct(System $system, SharedRouter $sharedRouter, SharedTemplateProvider $sharedTemplateProvider) {
         $this->system = $system;
         $this->sharedRouter = $sharedRouter;
+        $this->templateProvider = $sharedTemplateProvider;
         $this->adminSchema = json_decode(file_get_contents('_source/admin-schema.json'), TRUE)['adminSchema'];
         $this->adminConfig = json_decode(file_get_contents('_source/admin-config.json'), TRUE)['adminConfig'];
     }
 
     public function admin($adminHead, $adminBody) {
-        echo '
-            <!DOCTYPE html>
-            <html lang="'.$this->adminConfig['lang'].'">
-                '.$adminHead.'
-                '.$adminBody.'
-            </html>
-        ';
+        $lang = $this->adminConfig['lang'];
+        echo $this->templateProvider->sharedTemplateProvider(
+                [
+                    'lang' => $lang,
+                    'adminHead' => $adminHead,
+                    'adminBody' => $adminBody
+                ],
+                '_core/admin/admin.html'
+            );
     }
 }
 
-$admin = new Admin($system, $sharedRouter);
+$admin = new Admin($system, $sharedRouter, $sharedTemplateProvider);
 
 $adminHead = new AdminHead($admin);
 $adminBody = new AdminBody($admin);

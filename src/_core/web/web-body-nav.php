@@ -10,23 +10,17 @@ class WebBodyNav {
         $this->baseUrl = $this->webBody->web->sharedRouter->baseUrl();
         $this->basePath = $this->webBody->web->sharedRouter->basePath();
         $this->currentQueryArr = $this->webBody->web->currentQueryArr;
+        $this->templateProvider = $this->webBody->web->templateProvider;
     }
 
     public function webBodyNav() {
-        return '
-            <nav class="navbar navbar-default">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        <a class="navbar-brand" href="'.$this->basePath.'">
-                            <img alt="Brand" height="20" src="_source/images/shared/favicon-32x32.png?v='.filemtime("_source/images/shared/favicon-32x32.png").'">
-                        </a>
-                    </div>
-                    <ul class="nav navbar-nav">
-                        '.$this->webBodyNavbar($this->webBody->web->webSchema['webSchemaMain'], 0).'
-                    </ul>
-                </div>
-            </nav>
-        ';
+        $basePath = $this->basePath;
+        $navbar = $this->webBodyNavbar($this->webBody->web->webSchema['webSchemaMain'], 0);
+        $iconVersion = filemtime("_source/images/shared/favicon-32x32.png");
+        return $this->templateProvider->sharedTemplateProvider(
+                ['basePath' => $basePath, 'navbar' => $navbar, 'iconVersion' => $iconVersion],
+                '_core/web/web-body-nav.html'
+            );
     }
 
     private function webBodyNavbar($schema, $switch) {

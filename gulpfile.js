@@ -24,6 +24,12 @@ gulp.task('php', function () {
         .pipe(gulp.dest(npcApp.dest));
 });
 
+// npcApp HTML
+gulp.task('html', function () {
+    return gulp.src([npcApp.src + '**/*.html', '!' + adminApp.src + '**/*.html'])
+        .pipe(gulp.dest(npcApp.dest));
+});
+
 // npcApp Files
 gulp.task('files', function () {
     return gulp.src(npcApp.src + '**/*.{ico,txt,json,png}')
@@ -48,11 +54,11 @@ gulp.task('scripts', ['npc-app-js', 'admin-app-js']);
 
 // npcApp JS
 gulp.task('npc-app-js', function () {
-    return gulp.src(npcApp.src + '_scripts/*.js')
+    return gulp.src(npcApp.src + '_core/web/_scripts/*.js')
         .pipe(plugins.concat('web.js'))
         .pipe(plugins.rename({ suffix: '.min' }))
         .pipe(plugins.uglify())
-        .pipe(gulp.dest(npcApp.dest + '_scripts'));
+        .pipe(gulp.dest(npcApp.dest + '_core/web/_scripts'));
 });
 
 // adminApp JS
@@ -71,14 +77,14 @@ gulp.task('styles', ['npc-app-styles', 'admin-app-styles']);
 // npcApp CSS
 gulp.task('npc-app-styles', function () {
     var autoprefix = new plugins.lessPluginAutoprefix();
-    return gulp.src(npcApp.src + '_styles/*.less')
+    return gulp.src(npcApp.src + '_core/web/_styles/*.less')
         .pipe(plugins.less({
             plugins: [autoprefix]
         }))
         .pipe(plugins.cssmin())
         .pipe(plugins.concat('web.css'))
         .pipe(plugins.rename({ suffix: '.min' }))
-        .pipe(gulp.dest(npcApp.dest + '_styles'));
+        .pipe(gulp.dest(npcApp.dest + '_core/web/_styles'));
 });
 
 // adminApp CSS
@@ -123,9 +129,10 @@ gulp.task('bower', ['bower-js', 'bower-css']);
 gulp.task('watch', function () {
     // npcApp
     gulp.watch(npcApp.src + '**/*.php', ['php']);
+    gulp.watch([npcApp.src + '**/*.html', '!' + adminApp.src + '**/*.html'], ['html']);
     gulp.watch(npcApp.src + '**/*.{ico,txt,json,png}', ['files']);
-    gulp.watch(npcApp.src + '_scripts/*.js', ['npc-app-js']);
-    gulp.watch(npcApp.src + '_styles/*.less', ['npc-app-styles']);
+    gulp.watch(npcApp.src + '_core/web/_scripts/*.js', ['npc-app-js']);
+    gulp.watch(npcApp.src + '_core/web/_styles/*.less', ['npc-app-styles']);
 
     // adminApp
     gulp.watch([adminApp.src + '**/*.html', adminApp.src + '**/*.js'], ['admin-app-js']);
@@ -133,7 +140,7 @@ gulp.task('watch', function () {
 });
 
 // Build Task
-gulp.task('build', ['php', 'files', 'bower', 'scripts', 'styles']);
+gulp.task('build', ['php', 'html', 'files', 'bower', 'scripts', 'styles']);
 
 // Server Task
 gulp.task('connect', function () {

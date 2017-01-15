@@ -1,6 +1,6 @@
 <?php
 
-class TemplateWebmap {
+class TemplateMain {
     public $web;
 
     public function __construct(Web $web, SharedTemplateProvider $sharedTemplateProvider) {
@@ -8,10 +8,10 @@ class TemplateWebmap {
         $this->templateProvider = $sharedTemplateProvider;
     }
 
-    public function templateWebmap() {
+    public function templateMain() {
         $text = $this->web->templateData['text'];
-        return $this->templateProvider->sharedTemplateProvider(['text' => $text], '_core/web/_templates/template-webmap.html');
+        return $this->templateProvider->sharedTemplateProvider(['text' => $text], '_core/web/_templates/template-main.html');
     }
 }
 
-$templateWebmap = new TemplateWebmap($web, $sharedTemplateProvider);
+$templateMain = new TemplateMain($web, $sharedTemplateProvider);

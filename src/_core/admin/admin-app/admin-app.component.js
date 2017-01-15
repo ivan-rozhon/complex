@@ -17,9 +17,9 @@
         // component initialization
         $ctrl.$onInit = function () {
             // services
+            $ctrl.$route = $route;
             $ctrl.authService = authService;
             $ctrl.adminAppService = adminAppService;
-
         };
 
         // switch of the left navigation menu

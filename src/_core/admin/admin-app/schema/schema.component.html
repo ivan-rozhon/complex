@@ -1,6 +1,15 @@
-<h1>Schema</h1>
-<md-button class="md-raised" ng-click="$ctrl.loadSchema()">Load schema</md-button>
-<md-button class="md-raised" ng-click="$ctrl.submitSchema()">Save schema</md-button>
+<md-menu-bar>
+    <md-button aria-label="Save" ng-if="$ctrl.schema" ng-click="$ctrl.submitSchema()">
+        <md-icon md-font-icon="material-icons">save</md-icon>
+    </md-button>
+    <md-button aria-label="Load" ng-click="$ctrl.loadSchema()">
+        <md-icon ng-if="!$ctrl.schema" md-font-icon="material-icons">file_download</md-icon>
+        <md-icon ng-if="$ctrl.schema" md-font-icon="material-icons">refresh</md-icon>
+    </md-button>
+    <md-button aria-label="Clear" ng-if="$ctrl.schema" ng-click="$ctrl.clearSchema()">
+        <md-icon md-font-icon="material-icons">clear</md-icon>
+    </md-button>
+</md-menu-bar>
 
 <!--{{ $ctrl.schema | json }}-->
 

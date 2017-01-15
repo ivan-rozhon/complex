@@ -37,4 +37,5 @@ spl_autoload_register(array('System', 'autoload'));
 // shared
 $sharedJWT = new SharedJWT();
 $sharedRouter = new SharedRouter($system);
+$sharedTemplateProvider = new SharedTemplateProvider($system);
 require $system->pathPrefix.$sharedRouter->sharedRouter();

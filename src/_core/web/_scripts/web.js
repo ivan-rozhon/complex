@@ -1,3 +1,3 @@
 $(document).ready(function () {
-    console.log("web.js")
+    console.log("web.js");
 });
