@@ -1,12 +1,12 @@
 <md-menu-bar>
-    <md-button aria-label="Save" ng-if="$ctrl.schema" ng-click="$ctrl.submitSchema()">
+    <md-button class="md-icon-button" aria-label="Save" ng-if="$ctrl.schema" ng-click="$ctrl.submitSchema()">
         <md-icon md-font-icon="material-icons">save</md-icon>
     </md-button>
-    <md-button aria-label="Load" ng-click="$ctrl.loadSchema()">
+    <md-button class="md-icon-button" aria-label="Load" ng-click="$ctrl.loadSchema()">
         <md-icon ng-if="!$ctrl.schema" md-font-icon="material-icons">file_download</md-icon>
         <md-icon ng-if="$ctrl.schema" md-font-icon="material-icons">refresh</md-icon>
     </md-button>
-    <md-button aria-label="Clear" ng-if="$ctrl.schema" ng-click="$ctrl.clearSchema()">
+    <md-button class="md-icon-button" aria-label="Clear" ng-if="$ctrl.schema" ng-click="$ctrl.clearSchema()">
         <md-icon md-font-icon="material-icons">clear</md-icon>
     </md-button>
 </md-menu-bar>
@@ -15,9 +15,10 @@
 
 <div layout="column" ng-repeat="(key, value) in $ctrl.schema['webSchema']">
 
-    <div>
-        <h3 class="md-title">{{ $ctrl.schema['_metadata']['schemes'][key]['name'] }}</h3>
-    </div>
-    <npc-schema-input layout="row" layout-wrap ng-repeat="schema in value" schema-value="schema" schema-name="schema.name" schema-config="$ctrl.schema['_metadata']"></npc-schema-input>
+    <fieldset class="standard">
+        <legend><h3>{{ $ctrl.schema['_metadata']['schemes'][key]['name'] }}</h3></legend>
 
+        <npc-schema-input layout="row" layout-wrap ng-repeat="schema in value" schema-key="key" schema-value="schema" schema-name="schema.name" schema-config="$ctrl.schema['_metadata']"></npc-schema-input>
+
+    </fieldset>
 </div>

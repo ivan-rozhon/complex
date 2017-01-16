@@ -1,8 +1,21 @@
 <div flex="100">
-    <span>{{ $ctrl.schemaName }}</span>
+    <h4 class="input-header" ng-if="$ctrl.schemaName">{{ $ctrl.schemaName }}</h4>
 </div>
+
+<div flex="100" ng-if="$ctrl.schemaKey !== 'options'">
+    <md-button class="md-icon-button" aria-label="Delete">
+        <md-icon md-font-icon="material-icons">delete</md-icon>
+    </md-button>
+</div>
+
 <div ng-repeat="(key, value) in $ctrl.schema" ng-switch="$ctrl.inputData(key)['type']" ng-class="$ctrl.inputData(key)['type']">
-    <npc-schema-input layout="row" layout-wrap ng-switch-when="container" schema-value="value" schema-name="''" schema-config="$ctrl.schemaConfig"></npc-schema-input>
+    <npc-schema-input class="container" layout="row" layout-wrap ng-switch-when="container" schema-key="key" schema-value="value" schema-name="''" schema-config="$ctrl.schemaConfig"></npc-schema-input>
     <npc-schema-input layout="row" layout-wrap ng-switch-when="sub" ng-repeat="schema in value" schema-value="schema" schema-name="schema.name" schema-config="$ctrl.schemaConfig"></npc-schema-input>
     <npc-schema-input-model ng-switch-default input-data="$ctrl.inputData(key)" input-model="$ctrl.schema[key]"></npc-schema-input-model>
+</div>
+
+<div flex="100" ng-if="$ctrl.schemaKey !== 'options'">
+    <md-button class="md-icon-button" aria-label="Add">
+        <md-icon md-font-icon="material-icons">add_box</md-icon>
+    </md-button>
 </div>

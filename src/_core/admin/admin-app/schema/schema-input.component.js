@@ -9,6 +9,7 @@
             controller: SchemaInputController,
             bindings: {
                 schema: '=schemaValue',
+                schemaKey: '<?',
                 schemaName: '<',
                 schemaConfig: '<'
             }
