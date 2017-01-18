@@ -10,8 +10,11 @@
             bindings: {
                 schema: '=schemaValue',
                 schemaKey: '<?',
+                schemaMainKey: '<?',
                 schemaName: '<',
-                schemaConfig: '<'
+                schemaConfig: '<',
+                deepLevel: '<',
+                addItem: '&addItem'
             }
         });
 
@@ -24,6 +27,18 @@
 
         $ctrl.inputData = function (key) {
             return $ctrl.schemaConfig.data[key];
+        };
+
+        // Do add schema item action
+        $ctrl.doAddItem = function () {
+            $ctrl.addItem({ deepLevel: $ctrl.deepLevel, id: $ctrl.schema.id, key: $ctrl.schemaMainKey });
+        };
+
+        // Add new schema item
+        $ctrl.addSchemaItem = function (deepLevel, id, key) {
+            console.log(deepLevel);
+            console.log(id);
+            console.log(key);
         };
     }
 })();

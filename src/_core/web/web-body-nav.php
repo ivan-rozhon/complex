@@ -28,7 +28,7 @@ class WebBodyNav {
         foreach($schema as $key => $value) {
             switch($switch) {
                 case 0:
-                    if (count($value['sub']) == 0 || $value['options']['only'] == true) {
+                    if (count($value['sub']) == 0 || $value['options']['end'] == true) {
                         $navbar .= '
                             <li class="'.$this->webBodyNavbarActive($value['id'], $switch).'">
                                 <a href="'.$this->webBody->web->lastCharacter($this->basePath.'?'.$value['id'], '?').'">
@@ -53,7 +53,7 @@ class WebBodyNav {
                     }
                     break;
                 case 1:
-                    if (count($value['sub']) == 0 || $value['options']['only'] == true) {
+                    if (count($value['sub']) == 0 || $value['options']['end'] == true) {
                         $navbar .= '
                             <li class="'.$this->webBodyNavbarActive($value['id'], $switch).'">
                                 <a href="'.$this->basePath.'?'.$this->currentMainQuery.'/'.$value['id'].'">

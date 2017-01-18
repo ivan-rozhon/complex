@@ -2,10 +2,64 @@
     "_metadata": {
         "schemes": {
             "webSchemaMain": {
-                "name": "Main Schema"
+                "name": "Main Schema",
+                "add": [
+                    {
+                        "id": "",
+                        "name": "",
+                        "template": "template-main",
+                        "data": "",
+                        "abstract": "none",
+                        "options": {
+                            "glyphicon": "glyphicon glyphicon-star",
+                            "end": false
+                        },
+                        "sub": []
+                    },
+                    {
+                        "id": "",
+                        "name": "",
+                        "template": "template-main",
+                        "data": "",
+                        "options": {
+                            "end": false
+                        },
+                        "sub": []
+                    },
+                    {
+                        "id": "",
+                        "name": "",
+                        "template": "template-main",
+                        "data": ""
+                    }
+                ]
             },
             "webSchemaOther": {
-                "name": "Other Schema"
+                "name": "Other Schema",
+                "add": [
+                    {
+                        "id": "",
+                        "name": "",
+                        "template": "template-main",
+                        "data": "",
+                        "abstract": "none",
+                        "sub": []
+                    },
+                    {
+                        "id": "",
+                        "name": "",
+                        "template": "template-main",
+                        "data": "",
+                        "abstract": "none",
+                        "sub": []
+                    },
+                    {
+                        "id": "",
+                        "name": "",
+                        "template": "template-main",
+                        "data": ""
+                    }
+                ]
             }
         },
         "data": {
@@ -64,12 +118,16 @@
                     {
                         "key": "glyphicon glyphicon-earphone",
                         "value": "Glyphicon Earphone"
+                    },
+                    {
+                        "key": "glyphicon glyphicon-star",
+                        "value": "Glyphicon Star"
                     }
                 ]
             },
-            "only": {
+            "end": {
                 "type": "boolean",
-                "label": "Only"
+                "label": "End"
             },
             "abstract": {
                 "type": "list",
@@ -105,7 +163,7 @@
                 "abstract": "none",
                 "options": {
                     "glyphicon": "glyphicon glyphicon glyphicon-home",
-                    "only": false
+                    "end": false
                 },
                 "sub": []
             },
@@ -117,7 +175,7 @@
                 "abstract": "child",
                 "options": {
                     "glyphicon": "glyphicon glyphicon-eye-open",
-                    "only": false
+                    "end": false
                 },
                 "sub": [
                     {
@@ -126,7 +184,7 @@
                         "template": "template-main",
                         "data": "JAS4eNVQpQ-1483995296",
                         "options": {
-                            "only": false
+                            "end": false
                         },
                         "sub": []
                     },
@@ -136,16 +194,14 @@
                         "template": "template-main",
                         "data": "rbRmxXoR5l-1483995321",
                         "options": {
-                            "only": false
+                            "end": false
                         },
                         "sub": [
                             {
                                 "id": "why-nosql",
                                 "name": "Why NoSQL",
                                 "template": "template-main",
-                                "data": "Z0G76Cd0JG-1483995330",
-                                "options": {},
-                                "sub": []
+                                "data": "Z0G76Cd0JG-1483995330"
                             }
                         ]
                     }
@@ -159,7 +215,7 @@
                 "abstract": "none",
                 "options": {
                     "glyphicon": "glyphicon glyphicon-picture",
-                    "only": true
+                    "end": true
                 },
                 "sub": [
                     {
@@ -168,7 +224,7 @@
                         "template": "template-main",
                         "data": "tf6b9S7ceE-1483995349",
                         "options": {
-                            "only": false
+                            "end": false
                         },
                         "sub": []
                     }
@@ -182,7 +238,7 @@
                 "abstract": "none",
                 "options": {
                     "glyphicon": "glyphicon glyphicon-earphone",
-                    "only": false
+                    "end": false
                 },
                 "sub": []
             }
@@ -194,7 +250,6 @@
                 "template": "template-webmap",
                 "data": "E7kFySgjuB-1483995373",
                 "abstract": "none",
-                "options": {},
                 "sub": []
             },
             {
@@ -203,7 +258,6 @@
                 "template": "template-error",
                 "data": "KYCQmatyw4-1483995380",
                 "abstract": "none",
-                "options": {},
                 "sub": []
             }
         ]

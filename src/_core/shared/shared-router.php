@@ -101,8 +101,10 @@ class SharedRouter {
                     $this->mainQuery($schema, $schemaConfig);
                     break;
                 case 'child':
-                    $queryIndex = $this->findIndex($this->currentQueryArr[0]['sub'], 'id', reset($this->currentQueryArr[0]['sub'])['id']);
-                    $this->currentQueryArr = [$this->currentQueryArr[0], $this->currentQueryArr[0]['sub'][$queryIndex]];
+                    if (count($this->currentQueryArr[0]['sub']) > 0) {
+                        $queryIndex = $this->findIndex($this->currentQueryArr[0]['sub'], 'id', reset($this->currentQueryArr[0]['sub'])['id']);
+                        $this->currentQueryArr = [$this->currentQueryArr[0], $this->currentQueryArr[0]['sub'][$queryIndex]];
+                    }
                     break;
             }
         }

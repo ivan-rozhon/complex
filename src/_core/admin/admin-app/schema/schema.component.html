@@ -11,14 +11,18 @@
     </md-button>
 </md-menu-bar>
 
-<!--{{ $ctrl.schema | json }}-->
-
 <div layout="column" ng-repeat="(key, value) in $ctrl.schema['webSchema']">
 
     <fieldset class="standard">
         <legend><h3>{{ $ctrl.schema['_metadata']['schemes'][key]['name'] }}</h3></legend>
 
-        <npc-schema-input layout="row" layout-wrap ng-repeat="schema in value" schema-key="key" schema-value="schema" schema-name="schema.name" schema-config="$ctrl.schema['_metadata']"></npc-schema-input>
-
+        <npc-schema-input layout="row" layout-wrap ng-repeat="schema in value"
+            schema-key="key"
+            schema-main-key="key"
+            schema-value="schema"
+            schema-name="schema.name"
+            schema-config="$ctrl.schema['_metadata']"
+            deep-level="$ctrl.deepLevel"
+            add-item="$ctrl.addSchemaItem(deepLevel, id, key)"></npc-schema-input>
     </fieldset>
 </div>
