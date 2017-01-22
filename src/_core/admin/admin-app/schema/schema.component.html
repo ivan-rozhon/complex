@@ -1,13 +1,19 @@
 <md-menu-bar>
     <md-button class="md-icon-button" aria-label="Save" ng-if="$ctrl.schema" ng-click="$ctrl.submitSchema()">
         <md-icon md-font-icon="material-icons">save</md-icon>
+        <md-tooltip>Save</md-tooltip>
     </md-button>
-    <md-button class="md-icon-button" aria-label="Load" ng-click="$ctrl.loadSchema()">
-        <md-icon ng-if="!$ctrl.schema" md-font-icon="material-icons">file_download</md-icon>
-        <md-icon ng-if="$ctrl.schema" md-font-icon="material-icons">refresh</md-icon>
+    <md-button ng-if="!$ctrl.schema"class="md-icon-button" aria-label="Load" ng-click="$ctrl.loadSchema()">
+        <md-icon md-font-icon="material-icons">file_download</md-icon>
+        <md-tooltip>Load</md-tooltip>
+    </md-button>
+    <md-button ng-if="$ctrl.schema" class="md-icon-button" aria-label="Load" ng-click="$ctrl.loadSchema()">
+        <md-icon  md-font-icon="material-icons">refresh</md-icon>
+        <md-tooltip>Reload</md-tooltip>
     </md-button>
     <md-button class="md-icon-button" aria-label="Clear" ng-if="$ctrl.schema" ng-click="$ctrl.clearSchema()">
         <md-icon md-font-icon="material-icons">clear</md-icon>
+        <md-tooltip>Discard</md-tooltip>
     </md-button>
 </md-menu-bar>
 
@@ -17,12 +23,17 @@
         <legend><h3>{{ $ctrl.schema['_metadata']['schemes'][key]['name'] }}</h3></legend>
 
         <npc-schema-input layout="row" layout-wrap ng-repeat="schema in value"
+            schema-index="$index"
+            schema-last-index="$last"
             schema-key="key"
             schema-main-key="key"
             schema-value="schema"
             schema-name="schema.name"
             schema-config="$ctrl.schema['_metadata']"
             deep-level="$ctrl.deepLevel"
-            add-item="$ctrl.addSchemaItem(deepLevel, id, key)"></npc-schema-input>
+            add-item="$ctrl.addSchemaItem(deepLevel, key, index)"
+            add-sub-item="$ctrl.addSchemaSubItem(deepLevel, key, index)"
+            delete-item="$ctrl.deleteSchemaItem(key, index)"
+            move-item="$ctrl.moveSchemaItem(direction, key, index)"></npc-schema-input>
     </fieldset>
 </div>

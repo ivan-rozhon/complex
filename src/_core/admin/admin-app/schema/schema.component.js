@@ -34,7 +34,7 @@
             });
         };
 
-        // Submin web schema
+        // Submit web schema
         $ctrl.submitSchema = function () {
             $ctrl.schemaService.postSchema($ctrl.schema).then(function (result) {
                 // check result of submitting schema
@@ -52,20 +52,38 @@
         };
 
         // Add new schema item
-        $ctrl.addSchemaItem = function (deepLevel, id, key) {
-            // console.log(deepLevel);
-            // console.log(schema);
-            // console.log(key);
+        $ctrl.addSchemaItem = function (deepLevel, key, index) {
+            // make copy of new item schema prototype
+            $ctrl.newSchemaItem = angular.copy($ctrl.schema._metadata.schemes[key].add[deepLevel]);
 
-            console.log("add object:");
-            console.log($ctrl.schema._metadata.schemes[key].add[deepLevel]);
+            // add new schema item
+            $ctrl.schema.webSchema[key].splice(index + 1, 0, $ctrl.newSchemaItem);
+        };
 
-            console.log("to schema:");
-            console.log($ctrl.schema.webSchema[key]);
+        // Delete schema item
+        $ctrl.deleteSchemaItem = function (key, index) {
+            // delete schema item if schema has least at one item
+            if ($ctrl.schema.webSchema[key].length > 1) {
+                $ctrl.schema.webSchema[key].splice(index, 1);
+            }
+        };
 
-            console.log("to position:");
-            var index = _.findIndex($ctrl.schema.webSchema[key], function(o) { return o.id == id; });
-            console.log(index + 1);
+        // Add new schema sub item
+        $ctrl.addSchemaSubItem = function (deepLevel, key, index) {
+            // make copy of new sub item schema prototype
+            $ctrl.newSchemaSubItem = angular.copy($ctrl.schema._metadata.schemes[key].add[deepLevel + 1]);
+
+            // add new schema sub item
+            $ctrl.schema.webSchema[key][index].sub.push($ctrl.newSchemaSubItem);
+        };
+
+        // Move item
+        $ctrl.moveSchemaItem = function (direction, key, index) {
+            // set new index of item
+            var newIndex = direction ? index - 1 : index + 1;
+
+            // move item to new positon (newIndex)
+            $ctrl.schema.webSchema[key].move(index, newIndex);
         };
     }
 })();

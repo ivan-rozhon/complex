@@ -7,10 +7,11 @@
                 restrict: 'E',
                 scope: {
                     inputData: '<',
-                    inputModel: '='
+                    inputModel: '=',
+                    outputModel: '&'
                 },
                 link: function (scope, elem, attr) {
-                    var getTemplate = function (inputData, inputModel) {
+                    var getTemplate = function (inputData, inputModel, outputModel) {
                         var template;
 
                         switch (inputData.type) {
@@ -33,7 +34,7 @@
                                 template =
                                     '<md-input-container>' +
                                     '<label>{{inputData.label}}</label>' +
-                                    '<md-select ng-model="inputModel">' +
+                                    '<md-select ng-model="inputModel" ng-change="outputModel({ inputModel: inputModel})">' +
                                     '<md-option ng-repeat="option in inputData.select" value="{{option.key}}">' +
                                     '{{option.value}}' +
                                     '</md-select>' +
