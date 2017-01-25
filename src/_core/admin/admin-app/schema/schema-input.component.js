@@ -23,8 +23,8 @@
             }
         });
 
-    SchemaInputController.$inject = ['$mdDialog'];
-    function SchemaInputController($mdDialog) {
+    SchemaInputController.$inject = ['$mdDialog', '$mdToast', 'schemaService'];
+    function SchemaInputController($mdDialog, $mdToast, schemaService) {
         var $ctrl = this;
 
         // save old template value
@@ -81,18 +81,21 @@
 
         // md-select changed
         $ctrl.onSelectChange = function (inputModel) {
-            if (inputModel.includes("template-")) {
+            if (inputModel.includes("template-") && $ctrl.schema.data) {
                 // confirm template change
-                $ctrl.showConfirm();
+                $ctrl.showTemplateConfirm();
             }
         };
 
-        // show config dialog
-        $ctrl.showConfirm = function (ev) {
+        // show template change confirm dialog
+        $ctrl.showTemplateConfirm = function (ev) {
             // dialog configuration
             var confirm = $mdDialog.confirm()
                 .title('Would you like to change template?')
-                .textContent('Changing the template will delete associated data (content).')
+                .htmlContent(
+                    'Changing the template will delete associated data (content).<br><br>' +
+                    '<i>(Web schema will be saved!)</i>'
+                )
                 .ariaLabel('Delete data')
                 .targetEvent(ev)
                 .ok('Yes')
@@ -100,8 +103,25 @@
 
             // invoke configured confirm dialog
             $mdDialog.show(confirm).then(function () {
-                // ok
-                // TODO: change data (call BE)
+                // ok -> update data model & save schema
+                schemaService.updateData($ctrl.schema.data, $ctrl.schema.template).then(function (result) {
+                    if (result) {
+                        // success
+                        // ...and save schema (via delegate or with updateData request?)
+                        console.log('success');
+                    } else {
+                        // failure (do undo change)
+                        $ctrl.schema.template = $ctrl.oldTemplate;
+
+                        // show info toast
+                        $mdToast.show(
+                            $mdToast.simple()
+                                .textContent('Change failed!')
+                                .position('bottom right')
+                                .hideDelay(3000)
+                        );
+                    }
+                });
             }, function () {
                 // cancel (undo change)
                 $ctrl.schema.template = $ctrl.oldTemplate;
@@ -120,6 +140,37 @@
 
             // move item to new positon (newIndex)
             $ctrl.schema.sub.move(index, newIndex);
+        };
+
+        // Open data dialog
+        $ctrl.doLoadData = function () {
+            if ($ctrl.schema.data) {
+                // edit data
+
+            } else {
+                // create data
+                $ctrl.showDataConfirm();
+            }
+        };
+
+        // show data creation confirm dialog
+        $ctrl.showDataConfirm = function (ev) {
+            // dialog configuration
+            var confirm = $mdDialog.confirm()
+                .title('Would you like to create a data model?')
+                .textContent('The data model is necessary to modify the content associated with template.')
+                .ariaLabel('Create data')
+                .targetEvent(ev)
+                .ok('Yes')
+                .cancel('No');
+
+            // invoke configured confirm dialog
+            $mdDialog.show(confirm).then(function () {
+                // ok
+                // TODO: create data (call BE)
+            }, function () {
+                // cancel - nothing will happen
+            });
         };
     }
 })();

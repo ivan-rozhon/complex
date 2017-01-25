@@ -1,0 +1,13 @@
+{
+    "_metadata": {
+        "prototype": {
+            "title": ""
+        },
+        "data": {
+            "title": {
+                "type": "string",
+                "label": "Title"
+            }
+        }
+    }
+}

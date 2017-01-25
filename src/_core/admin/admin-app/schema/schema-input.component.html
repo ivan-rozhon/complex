@@ -3,7 +3,7 @@
 </div>
 
 <div flex="100" ng-if="$ctrl.schemaKey !== 'options'">
-    <md-button class="md-icon-button" aria-label="Data">
+    <md-button class="md-icon-button" aria-label="Data" ng-click="$ctrl.doLoadData()">
         <md-icon md-colors="$ctrl.schema.data ? {} : {color: 'red'}" md-font-icon="material-icons">storage</md-icon>
         <md-tooltip>Data</md-tooltip>
     </md-button>

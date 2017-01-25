@@ -11,8 +11,8 @@
             bindings: {}
         });
 
-    AuthController.$inject = ['authService', 'authUserService'];
-    function AuthController(authService, authUserService) {
+    AuthController.$inject = ['authService', 'authUserService', '$window'];
+    function AuthController(authService, authUserService, $window) {
         var $ctrl = this;
 
         function handleRequest(res) {
@@ -23,7 +23,7 @@
         }
 
         $ctrl.login = function () {
-            authUserService.login($ctrl.username, $ctrl.password)
+            authUserService.login($window.btoa($ctrl.username), $window.btoa($ctrl.password))
                 .then(handleRequest, handleRequest)
         }
 

@@ -19,9 +19,16 @@
                 .then($ctrl.handleRequest, $ctrl.handleRequest);
         };
 
+        // Save web schema
         $ctrl.postSchema = function (schema) {
             // submit schema -> send to BE
             return $q.when($ctrl.authUserService.submitSchema(schema))
+                .then($ctrl.handleRequest, $ctrl.handleRequest);
+        };
+
+        // Update data model
+        $ctrl.updateData = function (data, template) {
+            return $q.when($ctrl.authUserService.updateDataModel(data, template))
                 .then($ctrl.handleRequest, $ctrl.handleRequest);
         };
 
@@ -35,7 +42,7 @@
             if (token) { console.log('JWT:', token);}
 
             // check if schema/message exists
-            return res.data.schema ? JSON.parse(res.data.schema) : res.data.success ? res.data.success : null;
+            return res.data.success ? res.data : res.data.schema ? JSON.parse(res.data.schema) : null;
         };
     }
 })();

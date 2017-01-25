@@ -28,5 +28,13 @@
                 schema: schema
             });
         };
+
+        // Update data model (according to template change)
+        $ctrl.updateDataModel = function (data, template) {
+            return $http.post(API + 'data', {
+                data: data,
+                template: template
+            });
+        };
     }
 })();

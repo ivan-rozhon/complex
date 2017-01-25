@@ -9,8 +9,8 @@ class TemplateMain {
     }
 
     public function templateMain() {
-        $text = $this->web->templateData['text'];
-        return $this->templateProvider->sharedTemplateProvider(['text' => $text], '_core/web/_templates/template-main.html');
+        $title = $this->web->templateData['title'];
+        return $this->templateProvider->sharedTemplateProvider(['title' => $title], '_core/web/_templates/template-main.html');
     }
 }
 

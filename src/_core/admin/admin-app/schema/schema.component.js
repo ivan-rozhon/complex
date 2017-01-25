@@ -10,8 +10,8 @@
             controller: SchemaController
         });
 
-    SchemaController.$inject = ['schemaService'];
-    function SchemaController(schemaService) {
+    SchemaController.$inject = ['schemaService', '$mdToast'];
+    function SchemaController(schemaService, $mdToast) {
         var $ctrl = this;
 
         // initial deep level
@@ -39,9 +39,21 @@
             $ctrl.schemaService.postSchema($ctrl.schema).then(function (result) {
                 // check result of submitting schema
                 if (result) {
-                    console.log('saved!');
+                    // success
+                    $mdToast.show(
+                        $mdToast.simple()
+                            .textContent('Schema saved!')
+                            .position('bottom right')
+                            .hideDelay(3000)
+                    );
                 } else {
-                    console.log('save failed!');
+                    // failure
+                    $mdToast.show(
+                        $mdToast.simple()
+                            .textContent('Save failed!')
+                            .position('bottom right')
+                            .hideDelay(3000)
+                    );
                 }
             });
         };

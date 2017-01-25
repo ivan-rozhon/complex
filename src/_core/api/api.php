@@ -47,8 +47,8 @@ class Api {
                 assert(array_key_exists('password', $post), 'assertStatus');
 
                 // get username & password from http POST request
-                $this->username = $post['username'];
-                $this->password = $post['password'];
+                $this->username = base64_decode($post['username']);
+                $this->password = base64_decode($post['password']);
                 // find user index in api-users.json
                 $userIndex = $this->findHashIndex($this->apiUsers['apiUsers'], 'u', $this->username);
 
@@ -102,7 +102,7 @@ class Api {
                 // get result of update/put old version
                 $success = file_put_contents('_source/web-schema.json', $schema) > 10 ? true : false;
 
-                // apply backup
+                // apply backup if file_put_contents() failed
                 if (!$success) { file_put_contents('_source/web-schema.json', $schemaBackup); }
 
                 // create JWT
@@ -113,6 +113,24 @@ class Api {
 
                 // successful response
                 echo json_encode($data);
+
+                break;
+
+            // Update data model
+            case 'api/data':
+                // decode incoming token
+                $decodedJWT = $this->decodeToken(getallheaders());
+
+                // verify token
+                $this->verifyToken($decodedJWT);
+
+                // data (json string)
+                $data = json_encode($post['data']);
+                $template = json_encode($post['template']);
+
+                // check if data exists
+
+                // check if template exists
 
                 break;
         }
