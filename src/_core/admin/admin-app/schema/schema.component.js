@@ -10,8 +10,8 @@
             controller: SchemaController
         });
 
-    SchemaController.$inject = ['schemaService', '$mdToast'];
-    function SchemaController(schemaService, $mdToast) {
+    SchemaController.$inject = ['schemaService', '$mdToast', '$mdDialog'];
+    function SchemaController(schemaService, $mdToast, $mdDialog) {
         var $ctrl = this;
 
         // initial deep level
@@ -35,27 +35,45 @@
         };
 
         // Submit web schema
-        $ctrl.submitSchema = function () {
+        $ctrl.submitSchema = function (external) {
             $ctrl.schemaService.postSchema($ctrl.schema).then(function (result) {
                 // check result of submitting schema
                 if (result) {
                     // success
                     $mdToast.show(
                         $mdToast.simple()
+                            .toastClass('toast-success')
                             .textContent('Schema saved!')
                             .position('bottom right')
                             .hideDelay(3000)
                     );
+
                 } else {
                     // failure
                     $mdToast.show(
                         $mdToast.simple()
+                            .toastClass('toast-error')
                             .textContent('Save failed!')
                             .position('bottom right')
                             .hideDelay(3000)
                     );
+
+                    // Alert dialog if scheme was not saved (during data creation)
+                    if (external) { $ctrl.schemaAlertDialog(); }
                 }
             });
+        };
+
+        // Show schema was not saved alert dialog
+        $ctrl.schemaAlertDialog = function (ev) {
+            $mdDialog.show(
+                $mdDialog.alert()
+                    .title('Error - The schema was not automatically saved!')
+                    .htmlContent('Please save it manually by clicking the <span class="md-font material-icons dialog-icon">save</span> icon.')
+                    .ariaLabel('Schema alert dialog')
+                    .ok('Ok')
+                    .targetEvent(ev)
+            );
         };
 
         // Delete (discard) current loaded schema
@@ -96,6 +114,11 @@
 
             // move item to new positon (newIndex)
             $ctrl.schema.webSchema[key].move(index, newIndex);
+        };
+
+        // save schema callback (npc-schema-input)
+        $ctrl.saveSchema = function () {
+            $ctrl.submitSchema(true);
         };
     }
 })();

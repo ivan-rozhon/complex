@@ -19,21 +19,39 @@
 
         // Load web schema GET request
         $ctrl.loadSchema = function () {
-            return $http.get(API + 'schema');
+            return $http.get(API + 'schemaLoad');
         };
 
         // Submit web schema POST request
         $ctrl.submitSchema = function (schema) {
-            return $http.post(API + 'schema', {
+            return $http.post(API + 'schemaSave', {
                 schema: schema
             });
         };
 
         // Update data model (according to template change)
-        $ctrl.updateDataModel = function (data, template) {
-            return $http.post(API + 'data', {
+        $ctrl.updateDataModel = function (data, template, key) {
+            return $http.post(API + 'dataUpdate', {
                 data: data,
+                template: template,
+                key: key
+            });
+        };
+
+        // Create new data model & return dataKey
+        $ctrl.createDataModel = function (template) {
+            return $http.post(API + 'dataNew', {
                 template: template
+            });
+        };
+
+        // Return data by dataKey
+        $ctrl.loadDataModel = function (dataKey, template) {
+            return $http.get(API + 'dataLoad', {
+                headers: {
+                    data: dataKey,
+                    template: template
+                }
             });
         };
     }

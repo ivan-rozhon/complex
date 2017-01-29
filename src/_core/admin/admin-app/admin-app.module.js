@@ -7,6 +7,7 @@
         'adminApp.templates',
         'adminApp.shared',
         'adminApp.adminAppComponent',
-        'adminApp.schema'
+        'adminApp.schema',
+        'adminApp.data'
     ]);
 })(window.angular);

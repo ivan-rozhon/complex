@@ -27,8 +27,20 @@
         };
 
         // Update data model
-        $ctrl.updateData = function (data, template) {
-            return $q.when($ctrl.authUserService.updateDataModel(data, template))
+        $ctrl.updateData = function (data, template, mainKey) {
+            return $q.when($ctrl.authUserService.updateDataModel(data, template, mainKey))
+                .then($ctrl.handleRequest, $ctrl.handleRequest);
+        };
+
+        // Create new data model
+        $ctrl.createData = function (template) {
+            return $q.when($ctrl.authUserService.createDataModel(template))
+                .then($ctrl.handleRequest, $ctrl.handleRequest);
+        };
+
+        // Load data model
+        $ctrl.loadData = function (dataKey, template) {
+            return $q.when($ctrl.authUserService.loadDataModel(dataKey, template))
                 .then($ctrl.handleRequest, $ctrl.handleRequest);
         };
 
@@ -39,10 +51,16 @@
 
             // log token
             var token = res.data ? res.data.token : null;
-            if (token) { console.log('JWT:', token);}
+            if (token) { console.log('JWT:', token); }
 
-            // check if schema/message exists
-            return res.data.success ? res.data : res.data.schema ? JSON.parse(res.data.schema) : null;
+            // check if schema/data/success-message exists
+            return res.data.success ?
+                // return whole data object if true
+                res.data : res.data.schema ?
+                    // return schema if exists
+                    JSON.parse(res.data.schema) : res.data.data && res.data.config ?
+                        // return data & config if exists
+                        { data: JSON.parse(res.data.data), config: JSON.parse(res.data.config) } : null;
         };
     }
 })();

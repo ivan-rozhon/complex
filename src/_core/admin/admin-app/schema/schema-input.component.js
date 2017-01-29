@@ -19,12 +19,13 @@
                 addItem: '&addItem',
                 addSubItem: '&addSubItem',
                 deleteItem: '&deleteItem',
-                moveItem: '&moveItem'
+                moveItem: '&moveItem',
+                saveSchema: '&saveSchema'
             }
         });
 
-    SchemaInputController.$inject = ['$mdDialog', '$mdToast', 'schemaService'];
-    function SchemaInputController($mdDialog, $mdToast, schemaService) {
+    SchemaInputController.$inject = ['$mdDialog', '$mdToast', 'schemaService', '$rootElement', '$scope'];
+    function SchemaInputController($mdDialog, $mdToast, schemaService, $rootElement, $scope) {
         var $ctrl = this;
 
         // save old template value
@@ -92,10 +93,7 @@
             // dialog configuration
             var confirm = $mdDialog.confirm()
                 .title('Would you like to change template?')
-                .htmlContent(
-                    'Changing the template will delete associated data (content).<br><br>' +
-                    '<i>(Web schema will be saved!)</i>'
-                )
+                .htmlContent('Changing the template will delete associated data.')
                 .ariaLabel('Delete data')
                 .targetEvent(ev)
                 .ok('Yes')
@@ -104,24 +102,33 @@
             // invoke configured confirm dialog
             $mdDialog.show(confirm).then(function () {
                 // ok -> update data model & save schema
-                schemaService.updateData($ctrl.schema.data, $ctrl.schema.template).then(function (result) {
-                    if (result) {
-                        // success
-                        // ...and save schema (via delegate or with updateData request?)
-                        console.log('success');
-                    } else {
-                        // failure (do undo change)
-                        $ctrl.schema.template = $ctrl.oldTemplate;
+                schemaService
+                    .updateData($ctrl.schema.data, $ctrl.schema.template, $ctrl.schemaMainKey)
+                    .then(function (result) {
+                        if (result) {
+                            // success - show info toast
+                            $mdToast.show(
+                                $mdToast.simple()
+                                    .toastClass('toast-success')
+                                    .textContent('Template changed!')
+                                    .position('bottom right')
+                                    .hideDelay(3000)
+                            );
 
-                        // show info toast
-                        $mdToast.show(
-                            $mdToast.simple()
-                                .textContent('Change failed!')
-                                .position('bottom right')
-                                .hideDelay(3000)
-                        );
-                    }
-                });
+                        } else {
+                            // failure (do undo change)
+                            $ctrl.schema.template = $ctrl.oldTemplate;
+
+                            // show info toast
+                            $mdToast.show(
+                                $mdToast.simple()
+                                    .toastClass('toast-error')
+                                    .textContent('Change failed!')
+                                    .position('bottom right')
+                                    .hideDelay(3000)
+                            );
+                        }
+                    });
             }, function () {
                 // cancel (undo change)
                 $ctrl.schema.template = $ctrl.oldTemplate;
@@ -144,13 +151,47 @@
 
         // Open data dialog
         $ctrl.doLoadData = function () {
+            // check if data key exists
             if ($ctrl.schema.data) {
                 // edit data
+                schemaService
+                    .loadData($ctrl.schema.data, $ctrl.schema.template)
+                    .then(function (result) {
+                        if (result) {
+                            // success
+                            // TODO: open data-edit dialog
+                            $ctrl.showDataEdit(result.data, result.config);
+                            // console.log(result);
+                        } else {
+                            // error - show info toast
+                            $mdToast.show(
+                                $mdToast.simple()
+                                    .toastClass('toast-error')
+                                    .textContent('Load data failed!')
+                                    .position('bottom right')
+                                    .hideDelay(3000)
+                            );
+                        }
+                    });
 
             } else {
                 // create data
                 $ctrl.showDataConfirm();
             }
+        };
+
+        // show data edit dialog
+        $ctrl.showDataEdit = function (data, config) {
+            $scope.data = data;
+            $scope.config = config;
+
+            $mdDialog.show({
+                template: '<npc-data data="data" config="config"></npc-data>',
+                parent: $rootElement,
+                scope: $scope,
+                preserveScope: true,
+                fullscreen: true
+            });
         };
 
         // show data creation confirm dialog
@@ -167,7 +208,25 @@
             // invoke configured confirm dialog
             $mdDialog.show(confirm).then(function () {
                 // ok
-                // TODO: create data (call BE)
+                schemaService
+                    .createData($ctrl.schema.template)
+                    .then(function (result) {
+                        if (result) {
+                            // set new data key
+                            $ctrl.schema.data = result.data;
+                            // save schema
+                            $ctrl.saveSchema();
+                        } else {
+                            // show info toast
+                            $mdToast.show(
+                                $mdToast.simple()
+                                    .toastClass('toast-error')
+                                    .textContent('Creation failed!')
+                                    .position('bottom right')
+                                    .hideDelay(3000)
+                            );
+                        }
+                    });
             }, function () {
                 // cancel - nothing will happen
             });

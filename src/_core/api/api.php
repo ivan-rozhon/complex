@@ -22,146 +22,74 @@ class Api {
         });
     }
 
-    public function api() {
+    public function api($apiLogin, $apiSchemaSave, $apiDataUpdate, $apiDataNew, $apiSchemaLoad, $apiDataLoad) {
         switch($this->requestMethod) {
             case 'POST':
-                $this->apiPOST();
+                $this->apiPOST($apiLogin, $apiSchemaSave, $apiDataUpdate, $apiDataNew);
                 break;
             case 'GET':
-                $this->apiGET();
+                $this->apiGET($apiSchemaLoad, $apiDataLoad);
                 break;
         }
     }
 
-    public function apiPOST() {
+    // POST requests
+    public function apiPOST($apiLogin, $apiSchemaSave, $apiDataUpdate, $apiDataNew) {
+        // incoming post arguments
         $post = json_decode(file_get_contents('php://input'),true);
 
         switch($this->queryString) {
             // Login authentication
             case 'api/login':
-                // check if username exists
-                $this->assertStatus = [400, 'Please include a username'];
-                assert(array_key_exists('username', $post), 'assertStatus');
-                // check if password exists
-                $this->assertStatus = [400, 'Please include a password'];
-                assert(array_key_exists('password', $post), 'assertStatus');
-
-                // get username & password from http POST request
-                $this->username = base64_decode($post['username']);
-                $this->password = base64_decode($post['password']);
-                // find user index in api-users.json
-                $userIndex = $this->findHashIndex($this->apiUsers['apiUsers'], 'u', $this->username);
-
-                // check if user exists
-                $this->assertStatus = [422, 'No user found'];
-                assert($userIndex !== -1, 'assertStatus');
-
-                // 10 seconds after each try to login
-                $this->assertStatus = [400, 'Please wait 10 seconds'];
-                assert(($this->apiUsers['apiUsers'][$userIndex]['t'] + 10) < time(), 'assertStatus');
-                // set actual time()
-                $this->apiUsers['apiUsers'][$userIndex]['t'] = time();
-                file_put_contents('_source/api-users.json', json_encode($this->apiUsers));
-
-                // verify password
-                $this->assertStatus = [401, 'Invalid password'];
-                assert(password_verify($this->password, $this->apiUsers['apiUsers'][$userIndex]['p']), 'assertStatus');
-
-                // rehash & set password
-                $this->apiUsers['apiUsers'][$userIndex]['u'] = password_hash($this->username, PASSWORD_BCRYPT);
-                $this->apiUsers['apiUsers'][$userIndex]['p'] = password_hash($this->password, PASSWORD_BCRYPT);
-                file_put_contents('_source/api-users.json', json_encode($this->apiUsers));
-
-                // create JWT
-                $token = $this->createToken($this->apiUsers['apiUsers'][$userIndex]['i'], $this->username);
-
-                // successful response
-                $data = array('message' => '', 'token' => $token);
-                echo json_encode($data);
-
+                $apiLogin->apiLogin($post);
                 break;
 
             // Save schema
-            case 'api/schema':
-                // decode incoming token
-                $decodedJWT = $this->decodeToken(getallheaders());
-
-                // verify token
-                $this->verifyToken($decodedJWT);
-
-                // schema (json string)
-                $schema = json_encode($post['schema']);
-
-                // check if schema exists
-                $this->assertStatus = [400, 'No data'];
-                assert($schema !== 'null', 'assertStatus');
-
-                // backup if put fail
-                $schemaBackup = file_get_contents('_source/web-schema.json');
-
-                // get result of update/put old version
-                $success = file_put_contents('_source/web-schema.json', $schema) > 10 ? true : false;
-
-                // apply backup if file_put_contents() failed
-                if (!$success) { file_put_contents('_source/web-schema.json', $schemaBackup); }
-
-                // create JWT
-                $token = $this->createToken($decodedJWT->{'id'}, $decodedJWT->{'user'});
-
-                // response data object
-                $data = array('token' => $token, 'success' => $success);
-
-                // successful response
-                echo json_encode($data);
-
+            case 'api/schemaSave':
+                $apiSchemaSave->apiSchemaSave($post);
                 break;
 
             // Update data model
-            case 'api/data':
-                // decode incoming token
-                $decodedJWT = $this->decodeToken(getallheaders());
+            case 'api/dataUpdate':
+                $apiDataUpdate->apiDataUpdate($post);
+                break;
 
-                // verify token
-                $this->verifyToken($decodedJWT);
-
-                // data (json string)
-                $data = json_encode($post['data']);
-                $template = json_encode($post['template']);
-
-                // check if data exists
-
-                // check if template exists
-
+            // create new data model
+            case 'api/dataNew':
+                $apiDataNew->apiDataNew($post);
                 break;
         }
     }
 
-    public function apiGET() {
+    // GET requests
+    public function apiGET($apiSchemaLoad, $apiDataLoad) {
         switch($this->queryString) {
-            case 'api/schema':
-                // decode incoming token
-                $decodedJWT = $this->decodeToken(getallheaders());
+            // load web schema
+            case 'api/schemaLoad':
+                $apiSchemaLoad->apiSchemaLoad();
+                break;
 
-                // verify token
-                $this->verifyToken($decodedJWT);
-
-                if (file_exists('_source/web-schema.json')) {
-                    $schema = file_get_contents('_source/web-schema.json');
-
-                    // create JWT
-                    $token = $this->createToken($decodedJWT->{'id'}, $decodedJWT->{'user'});
-
-                    // response data object
-                    $data = array('token' => $token, 'schema' => $schema);
-
-                    // successful response
-                    echo json_encode($data);
-                }
-
+            // load data model
+            case 'api/dataLoad':
+                $apiDataLoad->apiDataLoad();
                 break;
         }
     }
 
+    // find exact item in schema (by data) and change template
+    public function findAndChangeItem($schema, $dataKey, $template) {
+        foreach($schema as $key => $value) {
+            if ($schema[$key]['data'] === $dataKey) {
+                $schema[$key]['template'] = $template;
+            }
+            if (array_key_exists('sub', $schema[$key]) && count($schema[$key]['sub']) > 0) {
+                $schema[$key]['sub'] = $this->findAndChangeItem($schema[$key]['sub'], $dataKey, $template);
+            }
+        }
+        return $schema;
+    }
+
+    // create authorization token
     public function createToken($id, $user) {
         $token_payload = [
             'id' => $id,
@@ -171,6 +99,7 @@ class Api {
         return SharedJWT::encode($token_payload, self::SECRET);
     }
 
+    // verify incoming authorization token
     public function verifyToken($decodedJWT) {
         // Error status
         $this->assertStatus = [401, 'Invalid token'];
@@ -185,6 +114,7 @@ class Api {
         assert($decodedJWT->{'exp'} > time(), 'assertStatus');
     }
 
+    // decode incoming token
     public function decodeToken($headers) {
         // first uppercase letter fix
         $key = $headers['authorization'] ? 'authorization' : 'Authorization';
@@ -200,6 +130,7 @@ class Api {
         return SharedJWT::decode($authorization[1], self::SECRET);
     }
 
+    // find specific index in array
     public function findIndex($array, $innerKey, $innerValue) {
         $index = -1;
         foreach($array as $key => $value) {
@@ -210,6 +141,7 @@ class Api {
         return $index;
     }
 
+    // find specific hashed index in array
     public function findHashIndex($array, $innerKey, $innerValue) {
         $index = -1;
         foreach($array as $key => $value) {
@@ -219,8 +151,50 @@ class Api {
         }
         return $index;
     }
+
+    // generate new (unique) data key
+    public function newDataKey() {
+        $alpha = "abcdefghijklmnopqrstuvwxyz";
+        $alphaUpper = strtoupper($alpha);
+        $numeric = "0123456789";
+        $chars = "";
+
+        $chars = $alpha.$alphaUpper.$numeric;
+        $length = 10;
+
+        $len = strlen($chars);
+        $pw = '';
+        $randomString = '';
+
+        while (ctype_alpha($randomString) || !preg_match('/[A-Z]/', $randomString) || !preg_match('/[a-z]/', $randomString)) {
+            $pw = '';
+            for ($i=0; $i<$length; $i++) {
+                $pw .= substr($chars, rand(0, $len-1), 1);
+            }
+            $randomString = str_shuffle($pw);
+        }
+
+        return $randomString.'-'.time();
+    }
 }
 
 $api = new Api($system, $sharedJWT);
 
-$api->api();
+// POST
+$apiLogin = new ApiLogin($api);
+$apiSchemaSave = new ApiSchemaSave($api);
+$apiDataUpdate = new ApiDataUpdate($api);
+$apiDataNew = new ApiDataNew($api);
+
+// GET
+$apiSchemaLoad = new ApiSchemaLoad($api);
+$apiDataLoad = new ApiDataLoad($api);
+
+$api->api(
+    $apiLogin,
+    $apiSchemaSave,
+    $apiDataUpdate,
+    $apiDataNew,
+    $apiSchemaLoad,
+    $apiDataLoad
+);

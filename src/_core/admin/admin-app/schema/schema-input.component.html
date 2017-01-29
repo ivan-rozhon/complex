@@ -35,7 +35,8 @@
         add-item="$ctrl.addSchemaItem(deepLevel, key, index)"
         add-sub-item="$ctrl.addSchemaSubItem(deepLevel, key, index)"
         delete-item="$ctrl.deleteSchemaItem(key, index)"
-        move-item="$ctrl.moveSchemaItem(direction, key, index)"></npc-schema-input>
+        move-item="$ctrl.moveSchemaItem(direction, key, index)"
+        save-schema="$ctrl.saveSchema()"></npc-schema-input>
 
     <npc-schema-input layout="row" layout-wrap ng-switch-when="sub" ng-repeat="schema in value"
         schema-index="$index"
@@ -48,7 +49,8 @@
         add-item="$ctrl.addSchemaItem(deepLevel, key, index)"
         add-sub-item="$ctrl.addSchemaSubItem(deepLevel, key, index)"
         delete-item="$ctrl.deleteSchemaItem(key, index)"
-        move-item="$ctrl.moveSchemaItem(direction, key, index)"></npc-schema-input>
+        move-item="$ctrl.moveSchemaItem(direction, key, index)"
+        save-schema="$ctrl.saveSchema()"></npc-schema-input>
 
     <npc-schema-input-model ng-switch-default
         input-data="$ctrl.inputData(key)"
