@@ -24,15 +24,15 @@
 
         $ctrl.login = function () {
             authUserService.login($window.btoa($ctrl.username), $window.btoa($ctrl.password))
-                .then(handleRequest, handleRequest)
-        }
+                .then(handleRequest, handleRequest);
+        };
 
         $ctrl.logout = function () {
-            authService.logout && authService.logout()
-        }
+            authService.logout();
+        };
 
         $ctrl.isAuthed = function () {
-            return authService.isAuthed ? authService.isAuthed() : false
-        }
+            return authService.isAuthed ? authService.isAuthed() : false;
+        };
     }
 })();

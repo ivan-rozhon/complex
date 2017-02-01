@@ -4,11 +4,6 @@ class ApiDataLoad {
 
     public function __construct(Api $api) {
         $this->api = $api;
-        assert_options(ASSERT_CALLBACK, function($file, $line, $code, $status) {
-            http_response_code($this->$status[0]);
-            $data = array('message' => $this->$status[1]);
-            echo json_encode($data);
-        });
     }
 
     public function apiDataLoad() {

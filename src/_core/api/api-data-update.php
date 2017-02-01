@@ -4,11 +4,6 @@ class ApiDataUpdate {
 
     public function __construct(Api $api) {
         $this->api = $api;
-        assert_options(ASSERT_CALLBACK, function($file, $line, $code, $status) {
-            http_response_code($this->$status[0]);
-            $data = array('message' => $this->$status[1]);
-            echo json_encode($data);
-        });
     }
 
     public function apiDataUpdate($post) {
@@ -24,7 +19,7 @@ class ApiDataUpdate {
         $schemaKey = $post['key'];
 
         // check if data/template/key exists
-        $this->assertStatus = [400, 'No data'];
+        $this->api->assertStatus = [400, 'No data'];
         assert($data !== 'null', 'assertStatus');
         assert($template !== 'null', 'assertStatus');
         assert($key !== 'null', 'assertStatus');

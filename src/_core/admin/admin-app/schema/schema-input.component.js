@@ -159,9 +159,7 @@
                     .then(function (result) {
                         if (result) {
                             // success
-                            // TODO: open data-edit dialog
                             $ctrl.showDataEdit(result.data, result.config);
-                            // console.log(result);
                         } else {
                             // error - show info toast
                             $mdToast.show(
@@ -182,11 +180,14 @@
 
         // show data edit dialog
         $ctrl.showDataEdit = function (data, config) {
+            // input data
             $scope.data = data;
+            $scope.key = angular.copy($ctrl.schema.data);
             $scope.config = config;
 
+            // show dialog
             $mdDialog.show({
-                template: '<npc-data data="data" config="config"></npc-data>',
+                template: '<npc-data key="key" data="data" config="config"></npc-data>',
                 parent: $rootElement,
                 scope: $scope,
                 preserveScope: true,

@@ -1,40 +1,37 @@
-<md-menu-bar>
-    <md-button class="md-icon-button" aria-label="Save" ng-if="$ctrl.schema" ng-click="$ctrl.submitSchema()">
-        <md-icon md-font-icon="material-icons">save</md-icon>
-        <md-tooltip>Save</md-tooltip>
-    </md-button>
-    <md-button ng-if="!$ctrl.schema" class="md-icon-button" aria-label="Load" ng-click="$ctrl.loadSchema()">
-        <md-icon md-font-icon="material-icons">file_download</md-icon>
-        <md-tooltip>Load</md-tooltip>
-    </md-button>
-    <md-button ng-if="$ctrl.schema" class="md-icon-button" aria-label="Reload" ng-click="$ctrl.loadSchema()">
-        <md-icon  md-font-icon="material-icons">refresh</md-icon>
-        <md-tooltip>Reload</md-tooltip>
-    </md-button>
-    <md-button class="md-icon-button" aria-label="Clear" ng-if="$ctrl.schema" ng-click="$ctrl.clearSchema()">
-        <md-icon md-font-icon="material-icons">clear</md-icon>
-        <md-tooltip>Discard</md-tooltip>
-    </md-button>
-</md-menu-bar>
+<md-card class="float-menu">
+    <md-card-actions layout="row" layout-align="center center">
+        <md-button ng-if="!$ctrl.schema['webSchema']" class="md-icon-button" aria-label="Load" ng-click="$ctrl.loadSchema()">
+            <md-icon md-font-icon="material-icons">file_download</md-icon>
+            <md-tooltip>Load</md-tooltip>
+        </md-button>
+        <md-button ng-if="$ctrl.schema['webSchema']" class="md-icon-button" aria-label="Save" ng-click="$ctrl.submitSchema()">
+            <md-icon md-font-icon="material-icons">save</md-icon>
+            <md-tooltip>Save</md-tooltip>
+        </md-button>
+        <md-button ng-if="$ctrl.schema['webSchema']" class="md-icon-button" aria-label="Reload" ng-click="$ctrl.loadSchema()">
+            <md-icon md-font-icon="material-icons">refresh</md-icon>
+            <md-tooltip>Reload</md-tooltip>
+        </md-button>
+        <md-button ng-if="$ctrl.schema['webSchema']" class="md-icon-button" aria-label="Clear" ng-click="$ctrl.clearSchema()">
+            <md-icon md-font-icon="material-icons">clear</md-icon>
+            <md-tooltip>Discard</md-tooltip>
+        </md-button>
+    </md-card-actions>
+</md-card>
+
+<div ng-show="$ctrl.schema && !$ctrl.schema['webSchema']" layout="row" layout-sm="column" layout-align="space-around">
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+</div>
 
 <div layout="column" ng-repeat="(key, value) in $ctrl.schema['webSchema']">
-
     <fieldset class="standard">
-        <legend><h3>{{ $ctrl.schema['_metadata']['schemes'][key]['name'] }}</h3></legend>
+        <legend>
+            <h3>{{ $ctrl.schema['_metadata']['schemes'][key]['name'] }}</h3>
+        </legend>
 
-        <npc-schema-input layout="row" layout-wrap ng-repeat="schema in value"
-            schema-index="$index"
-            schema-last-index="$last"
-            schema-key="key"
-            schema-main-key="key"
-            schema-value="schema"
-            schema-name="schema.name"
-            schema-config="$ctrl.schema['_metadata']"
-            deep-level="$ctrl.deepLevel"
-            add-item="$ctrl.addSchemaItem(deepLevel, key, index)"
-            add-sub-item="$ctrl.addSchemaSubItem(deepLevel, key, index)"
-            delete-item="$ctrl.deleteSchemaItem(key, index)"
-            move-item="$ctrl.moveSchemaItem(direction, key, index)"
-            save-schema="$ctrl.saveSchema()"></npc-schema-input>
+        <npc-schema-input layout="row" layout-wrap ng-repeat="schema in value" schema-index="$index" schema-last-index="$last" schema-key="key"
+            schema-main-key="key" schema-value="schema" schema-name="schema.name" schema-config="$ctrl.schema['_metadata']" deep-level="$ctrl.deepLevel"
+            add-item="$ctrl.addSchemaItem(deepLevel, key, index)" add-sub-item="$ctrl.addSchemaSubItem(deepLevel, key, index)"
+            delete-item="$ctrl.deleteSchemaItem(key, index)" move-item="$ctrl.moveSchemaItem(direction, key, index)" save-schema="$ctrl.saveSchema()"></npc-schema-input>
     </fieldset>
 </div>

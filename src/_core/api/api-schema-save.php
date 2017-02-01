@@ -4,11 +4,6 @@ class ApiSchemaSave {
 
     public function __construct(Api $api) {
         $this->api = $api;
-        assert_options(ASSERT_CALLBACK, function($file, $line, $code, $status) {
-            http_response_code($this->$status[0]);
-            $data = array('message' => $this->$status[1]);
-            echo json_encode($data);
-        });
     }
 
     public function apiSchemaSave($post) {
@@ -22,7 +17,7 @@ class ApiSchemaSave {
         $schema = json_encode($post['schema']);
 
         // check if schema exists
-        $this->assertStatus = [400, 'No data'];
+        $this->api->assertStatus = [400, 'No data'];
         assert($schema !== 'null', 'assertStatus');
 
         // backup if put fail
