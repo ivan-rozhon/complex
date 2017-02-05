@@ -1,3 +1,19 @@
 {
-    "title": "Home"
+    "title": "",
+    "info": "",
+    "news": [
+        {
+            "title": "",
+            "info": "",
+            "tags": [],
+            "links": [
+                {
+                    "title": "",
+                    "url": ""
+                }
+            ]
+        }
+    ],
+    "showInfo": true,
+    "theme": "indigo"
 }

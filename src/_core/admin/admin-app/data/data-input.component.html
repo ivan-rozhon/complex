@@ -1,0 +1,17 @@
+<div ng-repeat="(key, value) in $ctrl.data" ng-switch="$ctrl.config[key].type" ng-class="$ctrl.config[key].type"
+    flex="{{
+        $ctrl.config[key].type === 'textarea' ||
+        $ctrl.config[key].type === 'chips' ||
+        $ctrl.config[key].type === 'array' ||
+        $ctrl.config[key].long ? 100 : 'none' }}">
+
+    <h4 ng-if="$ctrl.config[key].type === 'array'">{{ $ctrl.config[key].label }}</h4>
+    <npc-data-input layout="row" layout-wrap ng-switch-when="array" ng-repeat="(subKey, subValue) in value"
+            key="subKey"
+            data="subValue"
+            config="$ctrl.config"></npc-data-input>
+
+    <npc-data-input-model ng-switch-default class="md-block"
+            input-data="$ctrl.config[key]"
+            input-model="value"></npc-data-input-model>
+</div>

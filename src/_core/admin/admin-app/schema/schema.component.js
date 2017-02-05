@@ -10,8 +10,8 @@
             controller: SchemaController
         });
 
-    SchemaController.$inject = ['schemaService', '$mdToast', '$mdDialog'];
-    function SchemaController(schemaService, $mdToast, $mdDialog) {
+    SchemaController.$inject = ['schemaService', 'toastService', '$mdDialog'];
+    function SchemaController(schemaService, toastService, $mdDialog) {
         var $ctrl = this;
 
         // initial deep level
@@ -39,24 +39,11 @@
             $ctrl.schemaService.postSchema($ctrl.schema).then(function (result) {
                 // check result of submitting schema
                 if (result) {
-                    // success
-                    $mdToast.show(
-                        $mdToast.simple()
-                            .toastClass('toast-success')
-                            .textContent('Schema saved!')
-                            .position('bottom right')
-                            .hideDelay(3000)
-                    );
-
+                    // success - show info toast
+                    toastService.simpleToast(true);
                 } else {
-                    // failure
-                    $mdToast.show(
-                        $mdToast.simple()
-                            .toastClass('toast-error')
-                            .textContent('Save failed!')
-                            .position('bottom right')
-                            .hideDelay(3000)
-                    );
+                    // error - show info toast
+                    toastService.simpleToast(false);
 
                     // Alert dialog if scheme was not saved (during data creation)
                     if (external) { $ctrl.schemaAlertDialog(); }

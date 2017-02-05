@@ -1,12 +1,76 @@
 {
     "_metadata": {
         "prototype": {
-            "title": ""
+            "title": "",
+            "info": "",
+            "news": [
+                {
+                    "title": "",
+                    "info": "",
+                    "tags": [],
+                    "links": [
+                        {
+                            "title": "",
+                            "url": ""
+                        }
+                    ]
+                }
+            ],
+            "showInfo": true,
+            "theme": "indigo"
         },
         "data": {
             "title": {
                 "type": "string",
                 "label": "Title"
+            },
+            "info": {
+                "type": "textarea",
+                "label": "Info"
+            },
+            "news": {
+                "type": "array",
+                "label": "News",
+                "add": {
+                    "title": "",
+                    "info": "",
+                    "tags": []
+                }
+            },
+            "tags": {
+                "type": "chips",
+                "label": "Tags"
+            },
+            "showInfo": {
+                "type": "boolean",
+                "label": "Show info"
+            },
+            "theme": {
+                "type": "list",
+                "label": "Theme",
+                "select": [
+                    {
+                        "key": "indigo",
+                        "value": "Indigo"
+                    },
+                    {
+                        "key": "red",
+                        "value": "Red"
+                    }
+                ]
+            },
+            "links": {
+                "type": "array",
+                "label": "Links",
+                "add": {
+                    "title": "",
+                    "url": ""
+                }
+            },
+            "url": {
+                "type": "string",
+                "label": "URL",
+                "long": true
             }
         }
     }

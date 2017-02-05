@@ -2,29 +2,56 @@
     'use strict';
 
     angular.module('data.dataComponent', [
-        'data.dataService'
+        'data.dataService',
+        'data.dataInputComponent'
     ])
         .component('npcData', {
             templateUrl: 'data/data.component.html',
             controller: DataController,
             bindings: {
-                key: '<',
-                data: '<',
-                config: '<'
+                key: '<?',
+                data: '<?',
+                config: '<?',
+                template: '<?',
+                name: '<?'
             }
         });
 
-    DataController.$inject = ['$mdDialog'];
-    function DataController($mdDialog) {
+    DataController.$inject = ['$mdDialog', 'dataService', 'toastService'];
+    function DataController($mdDialog, dataService, toastService) {
         var $ctrl = this;
-
-        console.log($ctrl.key);
-        console.log($ctrl.data);
-        console.log($ctrl.config);
 
         // Close dialog action
         $ctrl.closeDialog = function () {
+            // clear data before close
+            delete $ctrl.data;
+            delete $ctrl.config;
+
             $mdDialog.hide();
+        };
+
+        // (re)load data & config
+        $ctrl.doLoadData = function () {
+            // clear old data
+            delete $ctrl.data;
+            delete $ctrl.config;
+
+            // load new
+            dataService
+                .loadData($ctrl.key, $ctrl.template)
+                .then(function (result) {
+                    if (result) {
+                        // set new data & config
+                        $ctrl.data = result.data;
+                        $ctrl.config = result.config;
+
+                        // success - show info toast
+                        toastService.simpleToast(true);
+                    } else {
+                        // error - show info toast
+                        toastService.simpleToast(false);
+                    }
+                });
         };
     }
 })();

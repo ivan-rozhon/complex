@@ -24,8 +24,8 @@
             }
         });
 
-    SchemaInputController.$inject = ['$mdDialog', '$mdToast', 'schemaService', '$rootElement', '$scope'];
-    function SchemaInputController($mdDialog, $mdToast, schemaService, $rootElement, $scope) {
+    SchemaInputController.$inject = ['$mdDialog', 'toastService', 'schemaService', '$rootElement', '$scope'];
+    function SchemaInputController($mdDialog, toastService, schemaService, $rootElement, $scope) {
         var $ctrl = this;
 
         // save old template value
@@ -107,26 +107,13 @@
                     .then(function (result) {
                         if (result) {
                             // success - show info toast
-                            $mdToast.show(
-                                $mdToast.simple()
-                                    .toastClass('toast-success')
-                                    .textContent('Template changed!')
-                                    .position('bottom right')
-                                    .hideDelay(3000)
-                            );
-
+                            toastService.simpleToast(true);
                         } else {
                             // failure (do undo change)
                             $ctrl.schema.template = $ctrl.oldTemplate;
 
                             // show info toast
-                            $mdToast.show(
-                                $mdToast.simple()
-                                    .toastClass('toast-error')
-                                    .textContent('Change failed!')
-                                    .position('bottom right')
-                                    .hideDelay(3000)
-                            );
+                            toastService.simpleToast(false);
                         }
                     });
             }, function () {
@@ -149,7 +136,7 @@
             $ctrl.schema.sub.move(index, newIndex);
         };
 
-        // Open data dialog
+        // Open data edit dialog
         $ctrl.doLoadData = function () {
             // check if data key exists
             if ($ctrl.schema.data) {
@@ -162,18 +149,12 @@
                             $ctrl.showDataEdit(result.data, result.config);
                         } else {
                             // error - show info toast
-                            $mdToast.show(
-                                $mdToast.simple()
-                                    .toastClass('toast-error')
-                                    .textContent('Load data failed!')
-                                    .position('bottom right')
-                                    .hideDelay(3000)
-                            );
+                            toastService.simpleToast(false);
                         }
                     });
 
             } else {
-                // create data
+                // create data (ask user)
                 $ctrl.showDataConfirm();
             }
         };
@@ -181,13 +162,15 @@
         // show data edit dialog
         $ctrl.showDataEdit = function (data, config) {
             // input data
+            $scope.key = angular.copy($ctrl.schema.data); // unique dataKey
             $scope.data = data;
-            $scope.key = angular.copy($ctrl.schema.data);
             $scope.config = config;
+            $scope.template = angular.copy($ctrl.schema.template); // template-name
+            $scope.name = angular.copy($ctrl.schema.name);
 
             // show dialog
             $mdDialog.show({
-                template: '<npc-data key="key" data="data" config="config"></npc-data>',
+                template: '<npc-data key="key" data="data" config="config" template="template" name="name"></npc-data>',
                 parent: $rootElement,
                 scope: $scope,
                 preserveScope: true,
@@ -219,13 +202,7 @@
                             $ctrl.saveSchema();
                         } else {
                             // show info toast
-                            $mdToast.show(
-                                $mdToast.simple()
-                                    .toastClass('toast-error')
-                                    .textContent('Creation failed!')
-                                    .position('bottom right')
-                                    .hideDelay(3000)
-                            );
+                            toastService.simpleToast(false);
                         }
                     });
             }, function () {

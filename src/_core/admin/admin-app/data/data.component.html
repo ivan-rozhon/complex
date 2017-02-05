@@ -1,12 +1,12 @@
 <md-toolbar>
     <div class="md-toolbar-tools">
-        <h2>Data editing</h2>
+        <h2 ng-class="$ctrl.name ? '' : 'text-italic'">{{ $ctrl.name ? $ctrl.name : 'Data' }}</h2>
         <span flex></span>
         <md-button class="md-icon-button" aria-label="Save">
             <md-icon md-font-icon="material-icons">save</md-icon>
             <md-tooltip>Save</md-tooltip>
         </md-button>
-        <md-button class="md-icon-button" aria-label="Reload">
+        <md-button class="md-icon-button" aria-label="Reload" ng-click="$ctrl.doLoadData()">
             <md-icon md-font-icon="material-icons">refresh</md-icon>
             <md-tooltip>Reload</md-tooltip>
         </md-button>
@@ -18,6 +18,17 @@
 </md-toolbar>
 <md-dialog-content>
     <div class="md-dialog-content">
-        {{ $ctrl.data }}
+        <div layout="column" ng-repeat="(key, value) in $ctrl.data" ng-switch="$ctrl.config[key].type">
+
+            <h4 ng-if="$ctrl.config[key].type === 'array'">{{ $ctrl.config[key].label }}</h4>
+            <npc-data-input layout="row" layout-wrap ng-switch-when="array" ng-repeat="(subKey, subValue) in value"
+                key="subKey"
+                data="subValue"
+                config="$ctrl.config"></npc-data-input>
+
+            <npc-data-input-model ng-switch-default
+                input-data="$ctrl.config[key]"
+                input-model="value"></npc-data-input-model>
+        </div>
     </div>
 </md-dialog-content>

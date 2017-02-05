@@ -7,22 +7,24 @@
 
     AuthService.$inject = ['$window'];
     function AuthService($window) {
-        var $ctrl = this;
+        var $ctrl = this,
+            // set token name in localStorage
+            tokenName = 'npc-auth-token';
 
         // Add JWT methods here
         $ctrl.parseJwt = function (token) {
             var base64Url = token.split('.')[1];
             var base64 = base64Url.replace('-', '+').replace('_', '/');
             return JSON.parse($window.atob(base64));
-        }
+        };
 
         $ctrl.saveToken = function (token) {
-            $window.localStorage['jwtToken'] = token;
-        }
+            $window.localStorage[tokenName] = token;
+        };
 
         $ctrl.getToken = function () {
-            return $window.localStorage['jwtToken'];
-        }
+            return $window.localStorage[tokenName];
+        };
 
         $ctrl.isAuthed = function () {
             var token = $ctrl.getToken();
@@ -32,10 +34,10 @@
             } else {
                 return false;
             }
-        }
+        };
 
         $ctrl.logout = function () {
-            $window.localStorage.removeItem('jwtToken');
-        }
+            $window.localStorage.removeItem(tokenName);
+        };
     }
 })();
