@@ -4,7 +4,7 @@
 
     <md-toolbar flex="nogrow">
         <div class="md-toolbar-tools">
-            <md-button class="md-icon-button" aria-label="Settings" ng-click="$ctrl.toogleLeftMenu()">
+            <md-button class="md-icon-button" aria-label="Menu" ng-click="$ctrl.toogleLeftMenu()">
                 <md-icon md-font-icon="material-icons">menu</md-icon>
             </md-button>
             <h3>{{ $ctrl.$route.current.title }}</h3>
@@ -12,7 +12,10 @@
             <md-button class="md-icon-button" aria-label="Settings">
                 <md-icon md-font-icon="material-icons">settings</md-icon>
             </md-button>
-            <md-button md-colors="{background: 'red'}" class="md-raised" ng-click="$ctrl.logout()">Logout</md-button>
+            <md-button md-colors="{background: 'red'}" aria-label="Logout" class="md-raised" ng-click="$ctrl.logout()">
+                Logout
+                <!--<md-icon md-font-icon="material-icons">power_settings_new</md-icon>-->
+            </md-button>
         </div>
     </md-toolbar>
 

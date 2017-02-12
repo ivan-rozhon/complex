@@ -54,5 +54,13 @@
                 }
             });
         };
+
+        // Save data by dataKey
+        $ctrl.saveDataModel = function (dataKey, data) {
+            return $http.post(API + 'dataSave', {
+                key: dataKey,
+                data: data
+            });
+        };
     }
 })();

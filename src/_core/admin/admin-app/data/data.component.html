@@ -2,7 +2,7 @@
     <div class="md-toolbar-tools">
         <h2 ng-class="$ctrl.name ? '' : 'text-italic'">{{ $ctrl.name ? $ctrl.name : 'Data' }}</h2>
         <span flex></span>
-        <md-button class="md-icon-button" aria-label="Save">
+        <md-button class="md-icon-button" aria-label="Save" ng-click="$ctrl.doSaveData()">
             <md-icon md-font-icon="material-icons">save</md-icon>
             <md-tooltip>Save</md-tooltip>
         </md-button>
@@ -16,19 +16,24 @@
         </md-button>
     </div>
 </md-toolbar>
+
 <md-dialog-content>
     <div class="md-dialog-content">
         <div layout="column" ng-repeat="(key, value) in $ctrl.data" ng-switch="$ctrl.config[key].type">
 
             <h4 ng-if="$ctrl.config[key].type === 'array'">{{ $ctrl.config[key].label }}</h4>
             <npc-data-input layout="row" layout-wrap ng-switch-when="array" ng-repeat="(subKey, subValue) in value"
-                key="subKey"
+                index="$index"
+                last-index="$last"
+                key="key"
                 data="subValue"
-                config="$ctrl.config"></npc-data-input>
+                config="$ctrl.config"
+                add-item="$ctrl.addDataItem(key, index)"></npc-data-input>
 
             <npc-data-input-model ng-switch-default
                 input-data="$ctrl.config[key]"
-                input-model="value"></npc-data-input-model>
+                input-model="$ctrl.data[key]"></npc-data-input-model>
+
         </div>
     </div>
 </md-dialog-content>

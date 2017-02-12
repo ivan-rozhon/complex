@@ -18,6 +18,12 @@
                 .then($ctrl.handleRequest, $ctrl.handleRequest);
         };
 
+        // Save data model
+        $ctrl.saveData = function (dataKey, data) {
+            return $q.when($ctrl.authUserService.saveDataModel(dataKey, data))
+                .then($ctrl.handleRequest, $ctrl.handleRequest);
+        };
+
         // Handle request
         $ctrl.handleRequest = function (res) {
             // log response

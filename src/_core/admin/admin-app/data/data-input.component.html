@@ -1,3 +1,18 @@
+<div flex="100">
+    <md-button ng-if="$ctrl.index !== 0" class="md-icon-button" aria-label="Up" ng-click="$ctrl.doMoveItem(true)">
+        <md-icon md-font-icon="material-icons">arrow_drop_up</md-icon>
+        <md-tooltip>Up</md-tooltip>
+    </md-button>
+    <md-button ng-if="!$ctrl.lastIndex" class="md-icon-button" aria-label="Down" ng-click="$ctrl.doMoveItem(false)">
+        <md-icon md-font-icon="material-icons">arrow_drop_down</md-icon>
+        <md-tooltip>Down</md-tooltip>
+    </md-button>
+    <md-button class="md-icon-button" aria-label="Delete" ng-click="$ctrl.doDeleteItem()">
+        <md-icon md-font-icon="material-icons">delete</md-icon>
+        <md-tooltip>Delete</md-tooltip>
+    </md-button>
+</div>
+
 <div ng-repeat="(key, value) in $ctrl.data" ng-switch="$ctrl.config[key].type" ng-class="$ctrl.config[key].type"
     flex="{{
         $ctrl.config[key].type === 'textarea' ||
@@ -7,11 +22,21 @@
 
     <h4 ng-if="$ctrl.config[key].type === 'array'">{{ $ctrl.config[key].label }}</h4>
     <npc-data-input layout="row" layout-wrap ng-switch-when="array" ng-repeat="(subKey, subValue) in value"
-            key="subKey"
+            index="$index"
+            last-index="$last"
+            key="key"
             data="subValue"
-            config="$ctrl.config"></npc-data-input>
+            config="$ctrl.config"
+            add-item="$ctrl.addDataItem(key, index)"></npc-data-input>
 
     <npc-data-input-model ng-switch-default class="md-block"
             input-data="$ctrl.config[key]"
-            input-model="value"></npc-data-input-model>
+            input-model="$ctrl.data[key]"></npc-data-input-model>
+</div>
+
+<div flex="100">
+    <md-button class="md-icon-button" aria-label="Add" ng-click="$ctrl.doAddItem()">
+        <md-icon md-font-icon="material-icons">add_box</md-icon>
+        <md-tooltip>Add</md-tooltip>
+    </md-button>
 </div>

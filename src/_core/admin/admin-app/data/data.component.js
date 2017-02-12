@@ -44,7 +44,19 @@
                         // set new data & config
                         $ctrl.data = result.data;
                         $ctrl.config = result.config;
+                    } else {
+                        // error - show info toast
+                        toastService.simpleToast(false);
+                    }
+                });
+        };
 
+        // save data model
+        $ctrl.doSaveData = function () {
+            dataService
+                .saveData($ctrl.key, $ctrl.data)
+                .then(function (result) {
+                    if (result) {
                         // success - show info toast
                         toastService.simpleToast(true);
                     } else {
@@ -52,6 +64,11 @@
                         toastService.simpleToast(false);
                     }
                 });
+        };
+
+        // Add new data item
+        $ctrl.addDataItem = function (key, index) {
+            console.log(arguments);
         };
     }
 })();

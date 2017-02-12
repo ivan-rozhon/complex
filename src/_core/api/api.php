@@ -22,10 +22,10 @@ class Api {
         });
     }
 
-    public function api($apiLogin, $apiSchemaSave, $apiDataUpdate, $apiDataNew, $apiSchemaLoad, $apiDataLoad) {
+    public function api($apiLogin, $apiSchemaSave, $apiDataUpdate, $apiDataNew, $apiDataSave, $apiSchemaLoad, $apiDataLoad) {
         switch($this->requestMethod) {
             case 'POST':
-                $this->apiPOST($apiLogin, $apiSchemaSave, $apiDataUpdate, $apiDataNew);
+                $this->apiPOST($apiLogin, $apiSchemaSave, $apiDataUpdate, $apiDataNew, $apiDataSave);
                 break;
             case 'GET':
                 $this->apiGET($apiSchemaLoad, $apiDataLoad);
@@ -34,7 +34,7 @@ class Api {
     }
 
     // POST requests
-    public function apiPOST($apiLogin, $apiSchemaSave, $apiDataUpdate, $apiDataNew) {
+    public function apiPOST($apiLogin, $apiSchemaSave, $apiDataUpdate, $apiDataNew, $apiDataSave) {
         // incoming post arguments
         $post = json_decode(file_get_contents('php://input'),true);
 
@@ -57,6 +57,11 @@ class Api {
             // create new data model
             case 'api/dataNew':
                 $apiDataNew->apiDataNew($post);
+                break;
+
+            // save data model
+            case 'api/dataSave':
+                $apiDataSave->apiDataSave($post);
                 break;
         }
     }
@@ -185,6 +190,7 @@ $apiLogin = new ApiLogin($api);
 $apiSchemaSave = new ApiSchemaSave($api);
 $apiDataUpdate = new ApiDataUpdate($api);
 $apiDataNew = new ApiDataNew($api);
+$apiDataSave = new ApiDataSave($api);
 
 // GET
 $apiSchemaLoad = new ApiSchemaLoad($api);
@@ -195,6 +201,7 @@ $api->api(
     $apiSchemaSave,
     $apiDataUpdate,
     $apiDataNew,
+    $apiDataSave,
     $apiSchemaLoad,
     $apiDataLoad
 );

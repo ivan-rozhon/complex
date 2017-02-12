@@ -23,7 +23,7 @@ class ApiSchemaSave {
         // backup if put fail
         $schemaBackup = file_get_contents('_source/web-schema.json');
 
-        // get result of update/put old version
+        // get result of update/put
         $success = file_put_contents('_source/web-schema.json', $schema) > 10 ? true : false;
 
         // apply backup if file_put_contents() failed
