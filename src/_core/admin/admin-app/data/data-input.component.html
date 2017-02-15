@@ -22,16 +22,25 @@
 
     <h4 ng-if="$ctrl.config[key].type === 'array'">{{ $ctrl.config[key].label }}</h4>
     <npc-data-input layout="row" layout-wrap ng-switch-when="array" ng-repeat="(subKey, subValue) in value"
-            index="$index"
-            last-index="$last"
-            key="key"
-            data="subValue"
-            config="$ctrl.config"
-            add-item="$ctrl.addDataItem(key, index)"></npc-data-input>
+        index="$index"
+        last-index="$last"
+        key="key"
+        data="subValue"
+        config="$ctrl.config"
+        add-item="$ctrl.addDataItem(key, index)"
+        delete-item="$ctrl.deleteDataItem(key, index)"
+        move-item="$ctrl.moveDataItem(direction, key, index)"></npc-data-input>
+
+    <div flex="100" ng-if="$ctrl.config[key].type === 'array' && !value.length">
+        <md-button class="md-icon-button" aria-label="Add group" ng-click="$ctrl.addGroup(key)">
+            <md-icon md-font-icon="material-icons">library_add</md-icon>
+            <md-tooltip>Add {{ $ctrl.config[key].label }}</md-tooltip>
+        </md-button>
+    </div>
 
     <npc-data-input-model ng-switch-default class="md-block"
-            input-data="$ctrl.config[key]"
-            input-model="$ctrl.data[key]"></npc-data-input-model>
+        input-data="$ctrl.config[key]"
+        input-model="$ctrl.data[key]"></npc-data-input-model>
 </div>
 
 <div flex="100">

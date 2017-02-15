@@ -3,19 +3,7 @@
         "prototype": {
             "title": "",
             "info": "",
-            "news": [
-                {
-                    "title": "",
-                    "info": "",
-                    "tags": [],
-                    "links": [
-                        {
-                            "title": "",
-                            "url": ""
-                        }
-                    ]
-                }
-            ],
+            "news": [],
             "showInfo": true,
             "theme": "indigo"
         },
@@ -34,7 +22,8 @@
                 "add": {
                     "title": "",
                     "info": "",
-                    "tags": []
+                    "tags": [],
+                    "links": []
                 }
             },
             "tags": {
