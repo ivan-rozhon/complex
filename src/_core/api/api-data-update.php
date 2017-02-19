@@ -26,7 +26,7 @@ class ApiDataUpdate {
 
         // Load current schema and requested template
         $schema = json_decode(file_get_contents('_source/web-schema.json'), TRUE);
-        $templatePrototype = json_decode(file_get_contents('_core/web/_templates/'.$template.'.json'), TRUE);
+        $templatePrototype = json_decode(file_get_contents('_core/web/templates/'.$template.'.json'), TRUE);
 
         // backup if put fail
         $schemaBackup = $schema;

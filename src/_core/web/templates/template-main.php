@@ -1,6 +1,6 @@
 <?php
 
-class TemplateHome {
+class TemplateMain {
     public $web;
 
     public function __construct(Web $web, SharedTemplateProvider $sharedTemplateProvider) {
@@ -8,10 +8,10 @@ class TemplateHome {
         $this->templateProvider = $sharedTemplateProvider;
     }
 
-    public function templateHome() {
+    public function templateMain() {
         $title = $this->web->templateData['title'];
-        return $this->templateProvider->sharedTemplateProvider(['title' => $title], '_core/web/_templates/template-home.html');
+        return $this->templateProvider->sharedTemplateProvider(['title' => $title], '_core/web/templates/template-main.html');
     }
 }
 
-$templateHome = new TemplateHome($web, $sharedTemplateProvider);
+$templateMain = new TemplateMain($web, $sharedTemplateProvider);

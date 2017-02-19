@@ -39,6 +39,10 @@
                 "label": "Theme",
                 "select": [
                     {
+                        "key": "black",
+                        "value": "Black"
+                    },
+                    {
                         "key": "indigo",
                         "value": "Indigo"
                     },

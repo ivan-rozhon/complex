@@ -20,7 +20,7 @@ class ApiDataNew {
         $dataKey = $this->api->newDataKey();
 
         // load template prototype
-        $templatePrototype = json_encode(json_decode(file_get_contents('_core/web/_templates/'.$template.'.json'), TRUE)['_metadata']['prototype']);
+        $templatePrototype = json_encode(json_decode(file_get_contents('_core/web/templates/'.$template.'.json'), TRUE)['_metadata']['prototype']);
 
         // create new data model
         $success = file_put_contents('_source/data/'.$dataKey.'.json', $templatePrototype) === FALSE ? FALSE : TRUE;

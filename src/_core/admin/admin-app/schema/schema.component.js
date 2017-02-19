@@ -97,7 +97,7 @@
         // Move item
         $ctrl.moveSchemaItem = function (direction, key, index) {
             // set new index of item
-            var newIndex = direction ? index - 1 : index + 1;
+            let newIndex = direction ? index - 1 : index + 1;
 
             // move item to new positon (newIndex)
             $ctrl.schema.webSchema[key].move(index, newIndex);

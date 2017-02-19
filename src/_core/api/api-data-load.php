@@ -29,7 +29,7 @@ class ApiDataLoad {
             $dataModel = file_get_contents('_source/data/'.$dataKey.'.json');
 
             // load template metadata
-            $dataConfig = json_encode(json_decode(file_get_contents('_core/web/_templates/'.$templateKey.'.json'), TRUE)['_metadata']['data']);
+            $dataConfig = json_encode(json_decode(file_get_contents('_core/web/templates/'.$templateKey.'.json'), TRUE)['_metadata']['data']);
 
             // create JWT
             $token = $this->api->createToken($decodedJWT->{'id'}, $decodedJWT->{'user'});

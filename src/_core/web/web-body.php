@@ -9,14 +9,17 @@ class WebBody {
     }
 
     public function webBody($webBodyHeader, $webBodyNav, $webBodyMain, $webBodyFooter) {
-        $jsVersion = filemtime("_core/web/_scripts/web.min.js");
+        $jsVersion = filemtime("_core/web/scripts/web.min.js");
+        $jsLibVersion = filemtime("_core/web/scripts/lib.min.js");
+
         return $this->templateProvider->sharedTemplateProvider(
                 [
                     'webBodyHeader' => $webBodyHeader,
                     'webBodyNav' => $webBodyNav,
                     'webBodyMain' => $webBodyMain,
                     'webBodyFooter' => $webBodyFooter,
-                    'jsVersion' => $jsVersion
+                    'jsVersion' => $jsVersion,
+                    'jsLibVersion' => $jsLibVersion
                 ],
                 '_core/web/web-body.html'
             );

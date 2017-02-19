@@ -1,15 +1,42 @@
 {
-    "title": "",
-    "info": "",
+    "title": "Home",
+    "info": "Some info text...\nand new line",
     "news": [
         {
-            "title": "",
-            "info": "",
-            "tags": [],
+            "title": "First",
+            "info": "Text of the first new!",
+            "tags": [
+                "success",
+                "first",
+                "test"
+            ],
             "links": [
                 {
-                    "title": "",
-                    "url": ""
+                    "title": "PHP",
+                    "url": "http:\/\/php.net\/"
+                },
+                {
+                    "title": "Angular",
+                    "url": "https:\/\/angularjs.org\/"
+                },
+                {
+                    "title": "Bootstrap",
+                    "url": "http:\/\/getbootstrap.com\/"
+                }
+            ]
+        },
+        {
+            "title": "Second",
+            "info": "Text of the second new!",
+            "tags": [
+                "second",
+                "test",
+                "it works"
+            ],
+            "links": [
+                {
+                    "title": "Material",
+                    "url": "https:\/\/material.angularjs.org\/latest\/"
                 }
             ]
         }

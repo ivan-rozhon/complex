@@ -10,7 +10,7 @@ class TemplateError {
 
     public function templateError() {
         $title = $this->web->templateData['title'];
-        return $this->templateProvider->sharedTemplateProvider(['title' => $title], '_core/web/_templates/template-error.html');
+        return $this->templateProvider->sharedTemplateProvider(['title' => $title], '_core/web/templates/template-error.html');
     }
 }
 

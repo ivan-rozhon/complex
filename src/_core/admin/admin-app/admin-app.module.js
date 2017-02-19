@@ -4,9 +4,11 @@
         'ngMaterial',
         'ngSanitize',
         'ngRoute',
+        'angularTrix',
         'adminApp.templates',
         'adminApp.shared',
         'adminApp.adminAppComponent',
+        'adminApp.config',
         'adminApp.schema',
         'adminApp.data'
     ]);

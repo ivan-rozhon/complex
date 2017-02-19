@@ -27,7 +27,7 @@ class Web {
     }
 
     public function webTemplateImport() {
-        return '_core/web/_templates/'.$this->currentQuery['template'].'.php';
+        return '_core/web/templates/'.$this->currentQuery['template'].'.php';
     }
 
     public function webTemplateData($file) {

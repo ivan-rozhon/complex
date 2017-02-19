@@ -14,7 +14,7 @@ var adminApp = {
 
 // Include plugins
 var plugins = require("gulp-load-plugins")({
-    pattern: ['gulp-*', 'gulp.*', 'less-plugin-autoprefix', 'browser-sync'],
+    pattern: ['gulp-*', 'gulp.*', 'less-plugin-autoprefix', 'browser-sync', 'yargs'],
     replaceString: /\bgulp[\-.]/
 });
 
@@ -54,20 +54,26 @@ gulp.task('scripts', ['npc-app-js', 'admin-app-js']);
 
 // npcApp JS
 gulp.task('npc-app-js', function () {
-    return gulp.src(npcApp.src + '_core/web/_scripts/*.js')
+    return gulp.src(npcApp.src + '_core/web/scripts/*.js')
+        .pipe(plugins.if(!plugins.yargs.argv.prod, plugins.sourcemaps.init()))
+        .pipe(plugins.babel())
         .pipe(plugins.concat('web.js'))
         .pipe(plugins.rename({ suffix: '.min' }))
         .pipe(plugins.uglify())
-        .pipe(gulp.dest(npcApp.dest + '_core/web/_scripts'));
+        .pipe(plugins.if(!plugins.yargs.argv.prod, plugins.sourcemaps.write('.')))
+        .pipe(gulp.dest(npcApp.dest + '_core/web/scripts'));
 });
 
 // adminApp JS
 gulp.task('admin-app-js', ['templates'], function () {
     return gulp.src([adminApp.src + '**/*.js', adminApp.tmp + 'js/templates.js'])
+        .pipe(plugins.if(!plugins.yargs.argv.prod, plugins.sourcemaps.init()))
+        .pipe(plugins.babel())
         .pipe(plugins.concat('app.js'))
         .pipe(plugins.ngmin())
         .pipe(plugins.rename({ suffix: '.min' }))
         .pipe(plugins.uglify({ mangle: false }))
+        .pipe(plugins.if(!plugins.yargs.argv.prod, plugins.sourcemaps.write('.')))
         .pipe(gulp.dest(adminApp.dest + 'js'));
 });
 
@@ -77,33 +83,37 @@ gulp.task('styles', ['npc-app-styles', 'admin-app-styles']);
 // npcApp CSS
 gulp.task('npc-app-styles', function () {
     var autoprefix = new plugins.lessPluginAutoprefix();
-    return gulp.src(npcApp.src + '_core/web/_styles/*.less')
+    return gulp.src(npcApp.src + '_core/web/**/*.less')
         .pipe(plugins.less({
             plugins: [autoprefix]
         }))
         .pipe(plugins.cssmin())
         .pipe(plugins.concat('web.css'))
         .pipe(plugins.rename({ suffix: '.min' }))
-        .pipe(gulp.dest(npcApp.dest + '_core/web/_styles'));
+        .pipe(gulp.dest(npcApp.dest + '_core/web/styles'));
 });
 
 // adminApp CSS
 gulp.task('admin-app-styles', function () {
     var autoprefix = new plugins.lessPluginAutoprefix();
     return gulp.src(adminApp.src + '**/*.less')
+        // .pipe(plugins.sourcemaps.init())
         .pipe(plugins.less({
             plugins: [autoprefix]
         }))
         .pipe(plugins.cssmin())
         .pipe(plugins.concat('app.css'))
         .pipe(plugins.rename({ suffix: '.min' }))
+        // .pipe(plugins.sourcemaps.write('.'))
         .pipe(gulp.dest(adminApp.dest + 'css'));
 });
 
-// Bower Components JS
-gulp.task('bower-js', function () {
+// Bower Components JS - Admin
+gulp.task('bower-js-admin', function () {
     return gulp.src('./bower.json')
-        .pipe(plugins.mainBowerFiles())
+        .pipe(plugins.mainBowerFiles({
+            group: 'admin'
+        }))
         .pipe(plugins.filter('**/*.js'))
         .pipe(plugins.concat('lib.js'))
         .pipe(plugins.rename({ suffix: '.min' }))
@@ -111,10 +121,25 @@ gulp.task('bower-js', function () {
         .pipe(gulp.dest(adminApp.dest + 'js'));
 });
 
-// Bower Components CSS
-gulp.task('bower-css', function () {
+// Bower Components JS - Web
+gulp.task('bower-js-web', function () {
     return gulp.src('./bower.json')
-        .pipe(plugins.mainBowerFiles())
+        .pipe(plugins.mainBowerFiles({
+            group: 'web'
+        }))
+        .pipe(plugins.filter('**/*.js'))
+        .pipe(plugins.concat('lib.js'))
+        .pipe(plugins.rename({ suffix: '.min' }))
+        .pipe(plugins.uglify())
+        .pipe(gulp.dest(npcApp.dest + '_core/web/scripts'));
+});
+
+// Bower Components CSS - Admin
+gulp.task('bower-css-admin', function () {
+    return gulp.src('./bower.json')
+        .pipe(plugins.mainBowerFiles({
+            group: 'admin'
+        }))
         .pipe(plugins.filter('**/*.css'))
         .pipe(plugins.cssmin())
         .pipe(plugins.concat('lib.css'))
@@ -122,8 +147,46 @@ gulp.task('bower-css', function () {
         .pipe(gulp.dest(adminApp.dest + 'css'));
 });
 
+// Bower Components CSS - Web
+gulp.task('bower-css-web', function () {
+    return gulp.src('./bower.json')
+        .pipe(plugins.mainBowerFiles({
+            group: 'web',
+            overrides: {
+                bootstrap: {
+                    main: [
+                        './dist/css/*.min.*'
+                    ]
+                }
+            }
+        }))
+        .pipe(plugins.filter('**/*.css'))
+        .pipe(plugins.cssmin())
+        .pipe(plugins.concat('lib.css'))
+        .pipe(plugins.rename({ suffix: '.min' }))
+        .pipe(gulp.dest(npcApp.dest + '_core/web/styles'));
+});
+
+// Bower Components Fonts - Web
+gulp.task('bower-fonts-web', function () {
+    return gulp.src('./bower.json')
+        .pipe(plugins.mainBowerFiles({
+            group: 'web',
+            overrides: {
+                bootstrap: {
+                    main: [
+                        './dist/fonts/*.*'
+                    ]
+                }
+            }
+        }))
+        .pipe(plugins.rename({dirname: ''}))
+        .pipe(plugins.filter('**/*.{eot,svg,ttf,woff,woff2}'))
+        .pipe(gulp.dest(npcApp.dest + '_core/web/fonts'));
+});
+
 // Bower Components
-gulp.task('bower', ['bower-js', 'bower-css']);
+gulp.task('bower', ['bower-js-admin', 'bower-js-web', 'bower-css-admin', 'bower-css-web', 'bower-fonts-web']);
 
 // Watch for changes in files
 gulp.task('watch', function () {
@@ -131,8 +194,8 @@ gulp.task('watch', function () {
     gulp.watch(npcApp.src + '**/*.php', ['php']);
     gulp.watch([npcApp.src + '**/*.html', '!' + adminApp.src + '**/*.html'], ['html']);
     gulp.watch(npcApp.src + '**/*.{ico,txt,json,png}', ['files']);
-    gulp.watch(npcApp.src + '_core/web/_scripts/*.js', ['npc-app-js']);
-    gulp.watch(npcApp.src + '_core/web/_styles/*.less', ['npc-app-styles']);
+    gulp.watch(npcApp.src + '_core/web/scripts/*.js', ['npc-app-js']);
+    gulp.watch(npcApp.src + '_core/web/**/*.less', ['npc-app-styles']);
 
     // adminApp
     gulp.watch([adminApp.src + '**/*.html', adminApp.src + '**/*.js'], ['admin-app-js']);
