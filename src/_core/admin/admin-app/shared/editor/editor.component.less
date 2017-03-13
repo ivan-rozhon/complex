@@ -1,0 +1,55 @@
+npc-editor {
+    & .md-toolbar-tools button.md-button {
+        min-width: 36px;
+        &.active {
+            background: rgb(189, 189, 189);
+        }
+        & .md-ripple-container {
+            background-color: transparent !important;
+            & div {
+                background: transparent !important;
+            }
+        }
+    }
+
+    & .dialog {
+        display: none;
+        &.active {
+            display: block;
+        }
+
+        & md-input-container {
+            margin: 0;
+            & .md-errors-spacer {
+                min-height: 0;
+            }
+        }
+
+        position: absolute;
+        margin-top: 42px;
+        background-color: rgb(224, 224, 224);
+        padding: 16px 8px;
+        z-index: 10;
+        left: 0;
+    }
+
+    & trix-editor {
+        margin-top: 8px;
+        background: 0 0;
+        border-radius: 0;
+        border-style: solid;
+        padding: 2px 2px 1px;
+        color: rgba(0,0,0,0.87);
+        border-width: 0 0 1px;
+        border-color: rgba(0,0,0,0.12);
+
+        &.active {
+            border-width: 0 0 2px;
+            border-color: rgb(63, 81, 181);
+        }
+
+        & a {
+            display: inline-block;
+        }
+    }
+}

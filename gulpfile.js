@@ -180,7 +180,7 @@ gulp.task('bower-fonts-web', function () {
                 }
             }
         }))
-        .pipe(plugins.rename({dirname: ''}))
+        .pipe(plugins.rename({ dirname: '' }))
         .pipe(plugins.filter('**/*.{eot,svg,ttf,woff,woff2}'))
         .pipe(gulp.dest(npcApp.dest + '_core/web/fonts'));
 });

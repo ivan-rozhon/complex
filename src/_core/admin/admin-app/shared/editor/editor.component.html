@@ -1,0 +1,70 @@
+<md-toolbar flex="nogrow" md-colors="{background: 'grey-300'}">
+    <div id="trix-toolbar" class="md-toolbar-tools" layout="row" layout-sm="column" layout-xs="column" layout-align="start center">
+
+        <div layout="row" flex>
+            <md-button class="md-raised" aria-label="Bold" data-trix-attribute="bold" title="Bold">
+                <md-icon md-font-icon="material-icons">format_bold</md-icon>
+            </md-button>
+            <md-button class="md-raised" aria-label="Italic" data-trix-attribute="italic" title="Italic">
+                <md-icon md-font-icon="material-icons">format_italic</md-icon>
+            </md-button>
+            <md-button class="md-raised" aria-label="Underline" data-trix-attribute="underline" title="Underline">
+                <md-icon md-font-icon="material-icons">format_underlined</md-icon>
+            </md-button>
+            <md-button class="md-raised" aria-label="Strikethrough" data-trix-attribute="strike" title="Strikethrough">
+                <md-icon md-font-icon="material-icons">format_strikethrough</md-icon>
+            </md-button>
+            <md-button class="md-raised" aria-label="Link" data-trix-action="link" data-trix-attribute="href" title="Link">
+                <md-icon md-font-icon="material-icons">insert_link</md-icon>
+            </md-button>
+
+            <div class="dialog" data-trix-attribute="href" data-trix-dialog="href">
+                <md-input-container>
+                    <input type="url" aria-label="URL" name="href">
+                </md-input-container>
+
+                <label for="trixLinkButton" class="md-button md-raised">Link</label>
+                <input id="trixLinkButton" type="button" value="Link" data-trix-method="setAttribute" hidden>
+
+                <label for="trixUnlinkButton" class="md-button md-raised">Unlink</label>
+                <input id="trixUnlinkButton" type="button" value="Unlink" data-trix-method="removeAttribute" hidden>
+            </div>
+        </div>
+
+        <div layout="row" flex>
+            <md-button class="md-raised" aria-label="Quote" data-trix-attribute="quote" title="Quote">
+                <md-icon md-font-icon="material-icons">format_quote</md-icon>
+            </md-button>
+            <md-button class="md-raised" aria-label="Code" data-trix-attribute="code" title="Code">
+                <md-icon md-font-icon="material-icons">code</md-icon>
+            </md-button>
+            <md-button class="md-raised" aria-label="Bullets" data-trix-attribute="bullet" title="Bullets">
+                <md-icon md-font-icon="material-icons">format_list_bulleted</md-icon>
+            </md-button>
+            <md-button class="md-raised" aria-label="Numbers" data-trix-attribute="number" title="Numbers">
+                <md-icon md-font-icon="material-icons">format_list_numbered</md-icon>
+            </md-button>
+            <md-button class="md-raised" aria-label="Numbers" data-trix-action="decreaseBlockLevel" title="Decrease Level" ng-disabled="true">
+                <md-icon md-font-icon="material-icons">format_indent_decrease</md-icon>
+            </md-button>
+            <md-button class="md-raised" aria-label="Numbers" data-trix-action="increaseBlockLevel" title="Increase Level" ng-disabled="true">
+                <md-icon md-font-icon="material-icons">format_indent_increase</md-icon>
+            </md-button>
+        </div>
+
+        <div layout="row" flex>
+            <md-button class="md-raised" aria-label="Undo" data-trix-action="undo" title="Undo" ng-disabled="true">
+                <md-icon md-font-icon="material-icons">undo</md-icon>
+            </md-button>
+            <md-button class="md-raised" aria-label="Redo" data-trix-action="redo" title="Redo" ng-disabled="true">
+                <md-icon md-font-icon="material-icons">redo</md-icon>
+            </md-button>
+        </div>
+    </div>
+</md-toolbar>
+
+<trix-editor class="trix-editor" toolbar="trix-toolbar" angular-trix ng-model="$ctrl.trix" trix-initialize="$ctrl.trixInitialize(e, editor)"
+    trix-change="$ctrl.trixChange(e, editor)" trix-selection-change="$ctrl.trixSelectionChange(e, editor)" trix-focus="$ctrl.trixFocus(e, editor)"
+    trix-blur="$ctrl.trixBlur(e, editor)" prevent-trix-file-accept="true"></trix-editor>
+
+{{ $ctrl.trix }}
