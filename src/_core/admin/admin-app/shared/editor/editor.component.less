@@ -1,7 +1,7 @@
 npc-editor {
     & .md-toolbar-tools button.md-button {
         min-width: 36px;
-        &.active {
+        &.active, &.custom-active {
             background: rgb(189, 189, 189);
         }
         & .md-ripple-container {
@@ -51,5 +51,22 @@ npc-editor {
         & a {
             display: inline-block;
         }
+    }
+
+    .title-menu {
+        margin: 0;
+    }
+
+    blockquote {
+        margin: 0 0 0 6px;
+        padding: 0 0 0 12px;
+        border-left: 6px solid rgb(189, 189, 189);
+    }
+
+    pre {
+        margin: 0;
+        padding: 12px;
+        white-space: pre-wrap;
+        background-color: #eee;
     }
 }

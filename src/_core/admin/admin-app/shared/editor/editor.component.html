@@ -17,10 +17,16 @@
             <md-button class="md-raised" aria-label="Link" data-trix-action="link" data-trix-attribute="href" title="Link">
                 <md-icon md-font-icon="material-icons">insert_link</md-icon>
             </md-button>
+            <md-button class="md-raised" aria-label="Title" data-trix-attribute="title" title="Title" ng-class="$ctrl.isAttrActive('title', 'titles') ? 'custom-active' : ''">
+                <md-icon md-font-icon="material-icons">title</md-icon>
+            </md-button>
+            <md-button class="md-raised" aria-label="Text Color" data-trix-attribute="color" title="Text Color" ng-class="$ctrl.isAttrActive('color', 'colors') ? 'custom-active' : ''">
+                <md-icon md-font-icon="material-icons">format_color_text</md-icon>
+            </md-button>
 
             <div class="dialog" data-trix-attribute="href" data-trix-dialog="href">
                 <md-input-container>
-                    <input type="url" aria-label="URL" name="href">
+                    <input type="url" aria-label="URL" name="href" ng-required="true">
                 </md-input-container>
 
                 <label for="trixLinkButton" class="md-button md-raised">Link</label>
@@ -29,9 +35,24 @@
                 <label for="trixUnlinkButton" class="md-button md-raised">Unlink</label>
                 <input id="trixUnlinkButton" type="button" value="Unlink" data-trix-method="removeAttribute" hidden>
             </div>
+
+            <div class="dialog" data-trix-attribute="title" data-trix-dialog="title">
+                <md-button ng-repeat="title in $ctrl.titles track by $index" ng-style="$ctrl.currentAttributes['title' + title] ? {'background-color': '#ffffff'} : {}" ng-show="!$ctrl.isAttrActive('title', 'titles') || $ctrl.currentAttributes['title' + title]"
+                    class="md-raised" aria-label="{{'Title ' + title}}" data-trix-attribute="{{'title' + title}}">
+                    <span ng-hide="$ctrl.currentAttributes['title' + title]">T{{title}}</span>
+                    <md-icon ng-show="$ctrl.currentAttributes['title' + title]" md-font-icon="material-icons">format_clear</md-icon>
+                </md-button>
+            </div>
+
+            <div class="dialog" data-trix-attribute="color" data-trix-dialog="color">
+                <md-button ng-repeat="color in $ctrl.colors track by $index" ng-style="{'background': '#' + color}" ng-show="!$ctrl.isAttrActive('color', 'colors') || $ctrl.currentAttributes['color' + color]"
+                    class="md-raised" aria-label="{{'Color #' + color}}" data-trix-attribute="{{'color' + color}}">
+                    <md-icon ng-show="$ctrl.currentAttributes['color' + color]" md-font-icon="material-icons">format_color_reset</md-icon>
+                </md-button>
+            </div>
         </div>
 
-        <div layout="row" flex>
+        <div layout="row" layout-align="center center" flex>
             <md-button class="md-raised" aria-label="Quote" data-trix-attribute="quote" title="Quote">
                 <md-icon md-font-icon="material-icons">format_quote</md-icon>
             </md-button>
@@ -52,7 +73,7 @@
             </md-button>
         </div>
 
-        <div layout="row" flex>
+        <div layout="row" layout-align="end center" flex>
             <md-button class="md-raised" aria-label="Undo" data-trix-action="undo" title="Undo" ng-disabled="true">
                 <md-icon md-font-icon="material-icons">undo</md-icon>
             </md-button>
@@ -67,4 +88,5 @@
     trix-change="$ctrl.trixChange(e, editor)" trix-selection-change="$ctrl.trixSelectionChange(e, editor)" trix-focus="$ctrl.trixFocus(e, editor)"
     trix-blur="$ctrl.trixBlur(e, editor)" prevent-trix-file-accept="true"></trix-editor>
 
-{{ $ctrl.trix }}
+<br> {{ $ctrl.trix }}
+<br><br> {{ $ctrl.currentAttributes }}
