@@ -1,27 +1,50 @@
 (function () {
     'use strict';
 
-    angular.module('shared.editorComponent', [])
+    angular.module('shared.editorComponent', [
+        'shared.editorInitComponent'
+    ])
         .component('npcEditor', {
             templateUrl: 'shared/editor/editor.component.html',
             controller: EditorController,
             bindings: {
-
+                data: '=data',
+                config: '<config'
             }
         });
 
-    EditorController.$inject = ['$mdDialog', '$timeout'];
-    function EditorController($mdDialog, $timeout) {
+    EditorController.$inject = ['$rootScope', '$scope','$mdDialog', '$timeout', '$document'];
+    function EditorController($rootScope, $scope, $mdDialog, $timeout, $document) {
         let $ctrl = this;
+
+        // DEBUG & TEST
+        // =========================
+        // console.log(Trix.config);
+        // =========================
+
+        // $broadcast init method
+        $rootScope.$broadcast('editorEvent', { editorInit: true });
+
+        // component initialization
+        $ctrl.$onInit = function () {
+            // initialization element
+            let element = 'npc-editor-init';
+
+            // editor id == number of searched editors
+            $ctrl.id = (angular.element(document).find(element).length).toString();
+        };
 
         // Current selected text attributes
         $ctrl.currentAttributes = {};
         // Titles (headings)
         $ctrl.titles = [1, 2, 3, 4, 5, 6];
+        // Colors
+        $ctrl.colors = $ctrl.config && $ctrl.config.colors ? $ctrl.config.colors : [];
 
-        // DEBUG
-        $ctrl.trix = '<div><!--block--><a href="http://sachinchoolur.github.io/angular-trix/">trix editor</a><br><br></div><pre><!--block-->&lt;code awesome="true"&gt;&lt;/code&gt;</pre><div><!--block--><br></div><blockquote><!--block-->Quoted <em>text italic<br></em>and<strong> bold</strong></blockquote><ul><li><h3><!--block-->T3</h3><ul><li><!--block-->2nd level <u>bullet</u></li></ul></li></ul><div><!--block--><del>strikethrough text</del></div>';
-        $ctrl.colors = ['F44336', '3F51B5', 'CDDC39', '4CAF50', 'FFC107', '795548'];
+        $ctrl.isActive = false;
+
+        // Delete (undefine) the frozen attribute
+        delete Trix.config.textAttributes.frozen;
 
         // Define "underline" format
         Trix.config.textAttributes.underline = { tagName: 'u' };
@@ -29,16 +52,49 @@
         // Define title`s formats
         angular.forEach($ctrl.titles, function (value, key) {
             Trix.config.blockAttributes[`title${value}`] = {
-                tagName: 'h' + value, breakOnReturn: true, group: false
+                tagName: 'h' + value
             };
         });
 
         // Define colors formats
         angular.forEach($ctrl.colors, function (value, key) {
-            Trix.config.textAttributes[`color${value}`] = { style: { 'color': '#' + value }, nestable: false };
+            Trix.config.textAttributes[`color${value}`] = {
+                style: { 'color': '#' + value },
+                parser: function (element) {
+                    var style = window.getComputedStyle(element),
+                        // get RGB from HEX
+                        r = $ctrl.hexToRgb(value).r,
+                        g = $ctrl.hexToRgb(value).g,
+                        b = $ctrl.hexToRgb(value).b;
+
+                    // compare color style
+                    return style.color === `rgb(${r}, ${g}, ${b})`;
+                }
+            };
         });
 
-        console.log(Trix.config);
+        // HEX to RGB convert function
+        // http://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
+        $ctrl.hexToRgb = function (hex) {
+            // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+            var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+            hex = hex.replace(shorthandRegex, function (m, r, g, b) {
+                return r + r + g + g + b + b;
+            });
+
+            var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? {
+                r: parseInt(result[1], 16),
+                g: parseInt(result[2], 16),
+                b: parseInt(result[3], 16)
+            } : null;
+        };
+
+        // Define center align
+        Trix.config.blockAttributes.center = { tagName: 'center' };
+
+        // Define justify align
+        Trix.config.blockAttributes.justify = { tagName: 'article' };
 
         // trix-initialize (trix initialization)
         // @e trix event
@@ -98,5 +154,36 @@
 
             return state;
         };
+
+        // show editor template (trix-editor directive) & toolbar
+        // & check if some instace of editor exists
+        $ctrl.revealTemplate = function () {
+            // get number of trix-editor elements (must be 0)
+            let numberOfElements = angular.element(document).find('trix-editor').length;
+
+            // check if another editor is activated
+            if (!numberOfElements) {
+                $ctrl.templateSrc = angular.copy('/tpl.html');
+                $rootScope.$broadcast('editorEvent', { disableEdit: true });
+            }
+        };
+
+        // hide editor template (trix-editor directive) & toolbar
+        $ctrl.hideTemplate = function () {
+            $ctrl.templateSrc = angular.copy('');
+            $rootScope.$broadcast('editorEvent', { disableEdit: false });
+        };
+
+        // catch $broadcasted editorEvent
+        $rootScope.$on('editorEvent', function (event, args) {
+            if (args.editorInit) {
+                $ctrl.templateSrc = angular.copy('');
+            }
+        });
+
+        // $broadcast editorEvent on scope $destroy
+        $scope.$on('$destroy', function () {
+            $rootScope.$broadcast('editorEvent', { disableEdit: false });
+        });
     }
 })();

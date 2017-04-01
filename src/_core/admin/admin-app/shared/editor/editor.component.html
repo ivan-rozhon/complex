@@ -1,92 +1,129 @@
-<md-toolbar flex="nogrow" md-colors="{background: 'grey-300'}">
-    <div id="trix-toolbar" class="md-toolbar-tools" layout="row" layout-sm="column" layout-xs="column" layout-align="start center">
+<npc-editor-init data="$ctrl.data" template-src="$ctrl.templateSrc" reveal-template="$ctrl.revealTemplate()"></npc-editor-init>
 
-        <div layout="row" flex>
-            <md-button class="md-raised" aria-label="Bold" data-trix-attribute="bold" title="Bold">
-                <md-icon md-font-icon="material-icons">format_bold</md-icon>
-            </md-button>
-            <md-button class="md-raised" aria-label="Italic" data-trix-attribute="italic" title="Italic">
-                <md-icon md-font-icon="material-icons">format_italic</md-icon>
-            </md-button>
-            <md-button class="md-raised" aria-label="Underline" data-trix-attribute="underline" title="Underline">
-                <md-icon md-font-icon="material-icons">format_underlined</md-icon>
-            </md-button>
-            <md-button class="md-raised" aria-label="Strikethrough" data-trix-attribute="strike" title="Strikethrough">
-                <md-icon md-font-icon="material-icons">format_strikethrough</md-icon>
-            </md-button>
-            <md-button class="md-raised" aria-label="Link" data-trix-action="link" data-trix-attribute="href" title="Link">
-                <md-icon md-font-icon="material-icons">insert_link</md-icon>
-            </md-button>
-            <md-button class="md-raised" aria-label="Title" data-trix-attribute="title" title="Title" ng-class="$ctrl.isAttrActive('title', 'titles') ? 'custom-active' : ''">
-                <md-icon md-font-icon="material-icons">title</md-icon>
-            </md-button>
-            <md-button class="md-raised" aria-label="Text Color" data-trix-attribute="color" title="Text Color" ng-class="$ctrl.isAttrActive('color', 'colors') ? 'custom-active' : ''">
-                <md-icon md-font-icon="material-icons">format_color_text</md-icon>
-            </md-button>
+<script type="text/ng-template" id="/tpl.html">
 
-            <div class="dialog" data-trix-attribute="href" data-trix-dialog="href">
-                <md-input-container>
-                    <input type="url" aria-label="URL" name="href" ng-required="true">
-                </md-input-container>
+    <div layout="column">
 
-                <label for="trixLinkButton" class="md-button md-raised">Link</label>
-                <input id="trixLinkButton" type="button" value="Link" data-trix-method="setAttribute" hidden>
-
-                <label for="trixUnlinkButton" class="md-button md-raised">Unlink</label>
-                <input id="trixUnlinkButton" type="button" value="Unlink" data-trix-method="removeAttribute" hidden>
-            </div>
-
-            <div class="dialog" data-trix-attribute="title" data-trix-dialog="title">
-                <md-button ng-repeat="title in $ctrl.titles track by $index" ng-style="$ctrl.currentAttributes['title' + title] ? {'background-color': '#ffffff'} : {}" ng-show="!$ctrl.isAttrActive('title', 'titles') || $ctrl.currentAttributes['title' + title]"
-                    class="md-raised" aria-label="{{'Title ' + title}}" data-trix-attribute="{{'title' + title}}">
-                    <span ng-hide="$ctrl.currentAttributes['title' + title]">T{{title}}</span>
-                    <md-icon ng-show="$ctrl.currentAttributes['title' + title]" md-font-icon="material-icons">format_clear</md-icon>
-                </md-button>
-            </div>
-
-            <div class="dialog" data-trix-attribute="color" data-trix-dialog="color">
-                <md-button ng-repeat="color in $ctrl.colors track by $index" ng-style="{'background': '#' + color}" ng-show="!$ctrl.isAttrActive('color', 'colors') || $ctrl.currentAttributes['color' + color]"
-                    class="md-raised" aria-label="{{'Color #' + color}}" data-trix-attribute="{{'color' + color}}">
-                    <md-icon ng-show="$ctrl.currentAttributes['color' + color]" md-font-icon="material-icons">format_color_reset</md-icon>
-                </md-button>
-            </div>
+        <div flex flex-order="2">
+            <trix-editor class="trix-editor" toolbar="{{ 'trix-toolbar-' + $ctrl.id }}" trix-id="{{ $ctrl.id }}" angular-trix ng-model="$ctrl.data"
+                trix-initialize="$ctrl.trixInitialize(e, editor)" trix-change="$ctrl.trixChange(e, editor)" trix-selection-change="$ctrl.trixSelectionChange(e, editor)"
+                trix-focus="$ctrl.trixFocus(e, editor)" trix-blur="$ctrl.trixBlur(e, editor)" prevent-trix-file-accept="true"></trix-editor>
         </div>
 
-        <div layout="row" layout-align="center center" flex>
-            <md-button class="md-raised" aria-label="Quote" data-trix-attribute="quote" title="Quote">
-                <md-icon md-font-icon="material-icons">format_quote</md-icon>
-            </md-button>
-            <md-button class="md-raised" aria-label="Code" data-trix-attribute="code" title="Code">
-                <md-icon md-font-icon="material-icons">code</md-icon>
-            </md-button>
-            <md-button class="md-raised" aria-label="Bullets" data-trix-attribute="bullet" title="Bullets">
-                <md-icon md-font-icon="material-icons">format_list_bulleted</md-icon>
-            </md-button>
-            <md-button class="md-raised" aria-label="Numbers" data-trix-attribute="number" title="Numbers">
-                <md-icon md-font-icon="material-icons">format_list_numbered</md-icon>
-            </md-button>
-            <md-button class="md-raised" aria-label="Numbers" data-trix-action="decreaseBlockLevel" title="Decrease Level" ng-disabled="true">
-                <md-icon md-font-icon="material-icons">format_indent_decrease</md-icon>
-            </md-button>
-            <md-button class="md-raised" aria-label="Numbers" data-trix-action="increaseBlockLevel" title="Increase Level" ng-disabled="true">
-                <md-icon md-font-icon="material-icons">format_indent_increase</md-icon>
-            </md-button>
+        <div flex flex-order="1">
+            <md-toolbar flex="nogrow" md-colors="{background: 'grey-300'}" ng-show="$ctrl.templateSrc === '/tpl.html'">
+                <div id="{{ 'trix-toolbar-' + $ctrl.id }}" class="md-toolbar-tools main" layout="column" layout-gt-md="row" layout-align="start center">
+
+                    <div layout="row" flex>
+                        <md-button class="md-raised" aria-label="Bold" data-trix-attribute="bold" title="Bold">
+                            <md-icon md-font-icon="material-icons">format_bold</md-icon>
+                        </md-button>
+                        <md-button class="md-raised" aria-label="Italic" data-trix-attribute="italic" title="Italic">
+                            <md-icon md-font-icon="material-icons">format_italic</md-icon>
+                        </md-button>
+                        <md-button class="md-raised" aria-label="Underline" data-trix-attribute="underline" title="Underline">
+                            <md-icon md-font-icon="material-icons">format_underlined</md-icon>
+                        </md-button>
+                        <md-button class="md-raised" aria-label="Strikethrough" data-trix-attribute="strike" title="Strikethrough">
+                            <md-icon md-font-icon="material-icons">format_strikethrough</md-icon>
+                        </md-button>
+                        <md-button class="md-raised" aria-label="Link" data-trix-action="link" data-trix-attribute="href" title="Link">
+                            <md-icon md-font-icon="material-icons">insert_link</md-icon>
+                        </md-button>
+                        <md-button class="md-raised" aria-label="Text color" data-trix-attribute="color" title="Text color" ng-class="$ctrl.isAttrActive('color', 'colors') ? 'custom-active' : ''">
+                            <md-icon md-font-icon="material-icons">format_color_text</md-icon>
+                        </md-button>
+                        <md-button class="md-raised" aria-label="Title" data-trix-attribute="title" title="Title" ng-class="$ctrl.isAttrActive('title', 'titles') ? 'custom-active' : ''">
+                            <md-icon md-font-icon="material-icons">title</md-icon>
+                        </md-button>
+
+                        <div class="dialog" data-trix-attribute="href" data-trix-dialog="href">
+                            <md-input-container>
+                                <input type="url" aria-label="URL" name="href" ng-required="true">
+                            </md-input-container>
+
+                            <label for="trixLinkButton" class="md-button md-raised">Link</label>
+                            <input id="trixLinkButton" type="button" value="Link" data-trix-method="setAttribute" hidden>
+
+                            <label for="trixUnlinkButton" class="md-button md-raised">Unlink</label>
+                            <input id="trixUnlinkButton" type="button" value="Unlink" data-trix-method="removeAttribute" hidden>
+                        </div>
+
+                        <div class="dialog" data-trix-attribute="title" data-trix-dialog="title">
+                            <md-button ng-repeat="title in $ctrl.titles track by $index" ng-style="$ctrl.currentAttributes['title' + title] ? {'background-color': '#ffffff'} : {}"
+                                ng-show="!$ctrl.isAttrActive('title', 'titles') || $ctrl.currentAttributes['title' + title]"
+                                class="md-raised" aria-label="{{'Title ' + title}}" data-trix-attribute="{{'title' + title}}">
+                                <span ng-hide="$ctrl.currentAttributes['title' + title]">T{{title}}</span>
+                                <md-icon ng-show="$ctrl.currentAttributes['title' + title]" md-font-icon="material-icons">format_clear</md-icon>
+                            </md-button>
+                        </div>
+
+                        <div class="dialog" data-trix-attribute="color" data-trix-dialog="color">
+                            <md-button ng-repeat="color in $ctrl.colors track by $index" ng-style="{'background': '#' + color}" ng-show="!$ctrl.isAttrActive('color', 'colors') || $ctrl.currentAttributes['color' + color]"
+                                class="md-raised" aria-label="{{'Color #' + color}}" data-trix-attribute="{{'color' + color}}">
+                                <md-icon ng-show="$ctrl.currentAttributes['color' + color]" md-font-icon="material-icons">format_color_reset</md-icon>
+                            </md-button>
+                        </div>
+                    </div>
+
+                    <div layout="row" layout-align-gt-md="center center" layout-align="start center" flex>
+                        <md-button ng-hide="$ctrl.currentAttributes.justify" class="md-raised" aria-label="Align center" data-trix-attribute="center"
+                            title="Align center">
+                            <md-icon md-font-icon="material-icons">format_align_center</md-icon>
+                        </md-button>
+                        <md-button ng-show="$ctrl.currentAttributes.justify" class="md-raised" aria-label="Align center" title="Align center" ng-disabled="true">
+                            <md-icon md-font-icon="material-icons">format_align_center</md-icon>
+                        </md-button>
+
+                        <md-button ng-hide="$ctrl.currentAttributes.center" class="md-raised" aria-label="Align justify" data-trix-attribute="justify"
+                            title="Align justify">
+                            <md-icon md-font-icon="material-icons">format_align_justify</md-icon>
+                        </md-button>
+                        <md-button ng-show="$ctrl.currentAttributes.center" class="md-raised" aria-label="Align justify" title="Align justify" ng-disabled="true">
+                            <md-icon md-font-icon="material-icons">format_align_justify</md-icon>
+                        </md-button>
+
+                        <md-button class="md-raised" aria-label="Quote" data-trix-attribute="quote" title="Quote">
+                            <md-icon md-font-icon="material-icons">format_quote</md-icon>
+                        </md-button>
+                        <md-button class="md-raised" aria-label="Code" data-trix-attribute="code" title="Code">
+                            <md-icon md-font-icon="material-icons">code</md-icon>
+                        </md-button>
+                    </div>
+
+                    <div layout="row" layout-align-gt-md="end center" layout-align="start center" flex>
+                        <md-button class="md-raised" aria-label="Bullets" data-trix-attribute="bullet" title="Bullets">
+                            <md-icon md-font-icon="material-icons">format_list_bulleted</md-icon>
+                        </md-button>
+                        <md-button class="md-raised" aria-label="Numbers" data-trix-attribute="number" title="Numbers">
+                            <md-icon md-font-icon="material-icons">format_list_numbered</md-icon>
+                        </md-button>
+                        <md-button class="md-raised" aria-label="Numbers" data-trix-action="decreaseBlockLevel" title="Decrease Level" ng-disabled="true">
+                            <md-icon md-font-icon="material-icons">format_indent_decrease</md-icon>
+                        </md-button>
+                        <md-button class="md-raised" aria-label="Numbers" data-trix-action="increaseBlockLevel" title="Increase Level" ng-disabled="true">
+                            <md-icon md-font-icon="material-icons">format_indent_increase</md-icon>
+                        </md-button>
+
+                        <md-button class="md-raised" aria-label="Undo" data-trix-action="undo" title="Undo" ng-disabled="true">
+                            <md-icon md-font-icon="material-icons">undo</md-icon>
+                        </md-button>
+                        <md-button class="md-raised" aria-label="Redo" data-trix-action="redo" title="Redo" ng-disabled="true">
+                            <md-icon md-font-icon="material-icons">redo</md-icon>
+                        </md-button>
+
+                        <md-button class="md-raised" aria-label="Close" title="Close" ng-click="$ctrl.hideTemplate()">
+                            <md-icon md-font-icon="material-icons">close</md-icon>
+                        </md-button>
+                    </div>
+                </div>
+            </md-toolbar>
         </div>
 
-        <div layout="row" layout-align="end center" flex>
-            <md-button class="md-raised" aria-label="Undo" data-trix-action="undo" title="Undo" ng-disabled="true">
-                <md-icon md-font-icon="material-icons">undo</md-icon>
-            </md-button>
-            <md-button class="md-raised" aria-label="Redo" data-trix-action="redo" title="Redo" ng-disabled="true">
-                <md-icon md-font-icon="material-icons">redo</md-icon>
-            </md-button>
-        </div>
     </div>
-</md-toolbar>
 
-<trix-editor class="trix-editor" toolbar="trix-toolbar" angular-trix ng-model="$ctrl.trix" trix-initialize="$ctrl.trixInitialize(e, editor)"
-    trix-change="$ctrl.trixChange(e, editor)" trix-selection-change="$ctrl.trixSelectionChange(e, editor)" trix-focus="$ctrl.trixFocus(e, editor)"
-    trix-blur="$ctrl.trixBlur(e, editor)" prevent-trix-file-accept="true"></trix-editor>
+</script>
 
-<br> {{ $ctrl.trix }}
-<br><br> {{ $ctrl.currentAttributes }}
+<div id="tpl-content" ng-include src="$ctrl.templateSrc"></div>
+
+<!--{{ $ctrl.data }}-->

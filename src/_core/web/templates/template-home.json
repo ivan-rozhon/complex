@@ -3,6 +3,7 @@
         "prototype": {
             "title": "",
             "info": "",
+            "editor": "",
             "news": [],
             "showInfo": true,
             "theme": "indigo"
@@ -16,12 +17,17 @@
                 "type": "textarea",
                 "label": "Info"
             },
+            "editor": {
+                "type": "editor",
+                "colors": ["F44336", "3F51B5", "CDDC39", "4CAF50", "FFC107", "795548"]
+            },
             "news": {
                 "type": "array",
                 "label": "News",
                 "add": {
                     "title": "",
                     "info": "",
+                    "editor": "",
                     "tags": [],
                     "links": []
                 }

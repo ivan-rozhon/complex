@@ -54,6 +54,9 @@
                                     '<md-chips placeholder="{{inputData.label}}" class="md-block" ng-model="inputModel" readonly="false" md-removable="true">' +
                                     '</md-chips>';
                                 break;
+                            case 'editor':
+                                template = '<npc-editor data="inputModel" config="inputData" class="md-block"></npc-editor>';
+                                break;
                         }
                         return template;
                     };
