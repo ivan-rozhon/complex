@@ -157,7 +157,17 @@ gulp.task('bower-css-web', function () {
                     main: [
                         './dist/css/*.min.*'
                     ]
+                },
+                "font-awesome": {
+                    main: [
+                        './css/*.min.*'
+                    ]
                 }
+                // semantic: {
+                //     main: [
+                //         './dist/*.min.*'
+                //     ]
+                // }
             }
         }))
         .pipe(plugins.filter('**/*.css'))
@@ -172,14 +182,34 @@ gulp.task('bower-fonts-web', function () {
     return gulp.src('./bower.json')
         .pipe(plugins.mainBowerFiles({
             group: 'web',
+            // overrides: {
+            //     bootstrap: {
+            //         main: [
+            //             './dist/fonts/*.*'
+            //         ]
+            //     }
+            // }
+            // overrides: {
+            //     semantic: {
+            //         main: [
+            //             './dist/themes/**/*.*'
+            //         ]
+            //     }
+            // }
             overrides: {
-                bootstrap: {
+                "font-awesome": {
                     main: [
-                        './dist/fonts/*.*'
+                        './fonts/*.*'
                     ]
                 }
             }
         }))
+        // semantic
+        // .pipe(plugins.flatten({ includeParents: [0, -4] }))
+        // .pipe(plugins.filter('**/*.{eot,svg,ttf,woff,woff2}'))
+        // .pipe(gulp.dest(npcApp.dest + '_core/web/styles'));
+
+        // bootstrap
         .pipe(plugins.rename({ dirname: '' }))
         .pipe(plugins.filter('**/*.{eot,svg,ttf,woff,woff2}'))
         .pipe(gulp.dest(npcApp.dest + '_core/web/fonts'));

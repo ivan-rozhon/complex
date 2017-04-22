@@ -9,6 +9,11 @@ class WebBodyHeader {
     }
 
     public function webBodyHeader() {
-        return $this->templateProvider->sharedTemplateProvider([], '_core/web/web-body-header.html');
+        $title = $this->webBody->web->webSectionData('web-body-header')['title'];
+        return $this->templateProvider->sharedTemplateProvider(
+            [
+                'title' => $title
+            ]
+            ,'_core/web/web-body-header.html');
     }
 }

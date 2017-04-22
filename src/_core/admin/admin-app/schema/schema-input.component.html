@@ -7,15 +7,15 @@
         <md-icon md-colors="$ctrl.schema.data ? {} : {color: 'red'}" md-font-icon="material-icons">storage</md-icon>
         <md-tooltip>Data</md-tooltip>
     </md-button>
-    <md-button ng-if="$ctrl.index !== 0" class="md-icon-button" aria-label="Up" ng-click="$ctrl.doMoveItem(true)">
+    <md-button ng-if="$ctrl.index !== 0 && $ctrl.schemaKey !== 'webSections'" class="md-icon-button" aria-label="Up" ng-click="$ctrl.doMoveItem(true)">
         <md-icon md-font-icon="material-icons">arrow_drop_up</md-icon>
         <md-tooltip>Up</md-tooltip>
     </md-button>
-    <md-button ng-if="!$ctrl.lastIndex" class="md-icon-button" aria-label="Down" ng-click="$ctrl.doMoveItem(false)">
+    <md-button ng-if="!$ctrl.lastIndex && $ctrl.schemaKey !== 'webSections'" class="md-icon-button" aria-label="Down" ng-click="$ctrl.doMoveItem(false)">
         <md-icon md-font-icon="material-icons">arrow_drop_down</md-icon>
         <md-tooltip>Down</md-tooltip>
     </md-button>
-    <md-button ng-if="!($ctrl.schemaKey === $ctrl.schemaMainKey && $ctrl.lastIndex && $ctrl.index === 0)"
+    <md-button ng-if="!($ctrl.schemaKey === $ctrl.schemaMainKey && $ctrl.lastIndex && $ctrl.index === 0) && $ctrl.schemaKey !== 'webSections'"
         class="md-icon-button" aria-label="Delete" ng-click="$ctrl.doDeleteItem()">
         <md-icon md-font-icon="material-icons">delete</md-icon>
         <md-tooltip>Delete</md-tooltip>
@@ -54,11 +54,12 @@
 
     <npc-schema-input-model ng-switch-default
         input-data="$ctrl.inputData(key)"
+        is-item="$ctrl.schemaKey === 'webSections' ? true : false"
         input-model="$ctrl.schema[key]"
         output-model="$ctrl.onSelectChange(inputModel)"></npc-schema-input-model>
 </div>
 
-<div flex="100" ng-if="$ctrl.schemaKey !== 'options'">
+<div flex="100" ng-if="$ctrl.schemaKey !== 'options' && $ctrl.schemaKey !== 'webSections'">
     <md-button class="md-icon-button" aria-label="Add" ng-click="$ctrl.doAddItem()">
         <md-icon md-font-icon="material-icons">add_box</md-icon>
         <md-tooltip>Add</md-tooltip>

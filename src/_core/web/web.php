@@ -36,6 +36,14 @@ class Web {
         }
     }
 
+    public function webSectionData($id) {
+        $sectionIndex = $this->sharedRouter->findIndex($this->webSchema['webSections'], 'sectionId', $id);
+
+        if ($sectionIndex !== -1) {
+            return $this->webTemplateData($this->webSchema['webSections'][$sectionIndex]['data']);
+        }
+    }
+
     public function camelCase($kebabCase) {
         return lcfirst(str_replace(' ', '', ucwords(str_replace('-', ' ', $kebabCase))));
     }

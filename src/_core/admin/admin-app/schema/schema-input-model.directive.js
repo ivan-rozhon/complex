@@ -7,6 +7,7 @@
                 restrict: 'E',
                 scope: {
                     inputData: '<',
+                    isItem: '<',
                     inputModel: '=',
                     outputModel: '&'
                 },
@@ -14,7 +15,7 @@
                     var getTemplate = function (inputData, inputModel, outputModel) {
                         var template;
 
-                        switch (inputData.type) {
+                        switch (inputData ? inputData.type : null) {
                             case 'boolean':
                                 template =
                                     '<md-input-container>' +
@@ -27,14 +28,14 @@
                                 template =
                                     '<md-input-container>' +
                                     '<label>{{inputData.label}}</label>' +
-                                    '<input type="text" ng-model="inputModel">' +
+                                    '<input type="text" ng-model="inputModel" ng-disabled="isItem">' +
                                     '</md-input-container>';
                                 break;
                             case 'list':
                                 template =
                                     '<md-input-container>' +
                                     '<label>{{inputData.label}}</label>' +
-                                    '<md-select ng-model="inputModel" ng-change="outputModel({ inputModel: inputModel})">' +
+                                    '<md-select ng-model="inputModel" ng-change="outputModel({ inputModel: inputModel})" ng-disabled="isItem">' +
                                     '<md-option ng-repeat="option in inputData.select" value="{{option.key}}">' +
                                     '{{option.value}}' +
                                     '</md-select>' +

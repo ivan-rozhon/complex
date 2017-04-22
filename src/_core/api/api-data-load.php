@@ -24,12 +24,16 @@ class ApiDataLoad {
         $dataKey = $headers[$dataId];
         $templateKey = $headers[$templateId];
 
-        if (file_exists('_source/data/'.$dataKey.'.json')) {
+        // get template path
+        $templatePath = substr($templateKey, 0, strlen('template')) === 'template' ? '_core/web/templates/'.$templateKey.'.json' :
+            (substr($templateKey, 0, strlen('web')) === 'web' ? '_core/web/'.$templateKey.'.json' : '-');
+
+        if (file_exists('_source/data/'.$dataKey.'.json') && file_exists($templatePath)) {
             // load data model
             $dataModel = file_get_contents('_source/data/'.$dataKey.'.json');
 
             // load template metadata
-            $dataConfig = json_encode(json_decode(file_get_contents('_core/web/templates/'.$templateKey.'.json'), TRUE)['_metadata']['data']);
+            $dataConfig = json_encode(json_decode(file_get_contents($templatePath), TRUE)['_metadata']['data']);
 
             // create JWT
             $token = $this->api->createToken($decodedJWT->{'id'}, $decodedJWT->{'user'});

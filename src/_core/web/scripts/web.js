@@ -1,3 +1,11 @@
 (function () {
-    // console.log("web.js");
+    'use strict';
+
+    // semantic
+    // fix main menu to page on passing
+    // $('.main.menu').visibility({
+    //     type: 'fixed'
+    // });
+
+    // $('.ui.dropdown').dropdown();
 })();

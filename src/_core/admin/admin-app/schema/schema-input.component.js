@@ -142,7 +142,7 @@
             if ($ctrl.schema.data) {
                 // edit data
                 schemaService
-                    .loadData($ctrl.schema.data, $ctrl.schema.template)
+                    .loadData($ctrl.schema.data, $ctrl.schema.template ? $ctrl.schema.template : $ctrl.schema.sectionId)
                     .then(function (result) {
                         if (result) {
                             // success
@@ -193,7 +193,7 @@
             $mdDialog.show(confirm).then(function () {
                 // ok
                 schemaService
-                    .createData($ctrl.schema.template)
+                    .createData($ctrl.schema.template ? $ctrl.schema.template : $ctrl.schema.sectionId)
                     .then(function (result) {
                         if (result) {
                             // set new data key

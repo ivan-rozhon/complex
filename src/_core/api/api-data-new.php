@@ -19,19 +19,25 @@ class ApiDataNew {
         // generate new (unique) data key
         $dataKey = $this->api->newDataKey();
 
-        // load template prototype
-        $templatePrototype = json_encode(json_decode(file_get_contents('_core/web/templates/'.$template.'.json'), TRUE)['_metadata']['prototype']);
+        // get template path
+        $templatePath = substr($template, 0, strlen('template')) === 'template' ? '_core/web/templates/'.$template.'.json' :
+            (substr($template, 0, strlen('web')) === 'web' ? '_core/web/'.$template.'.json' : '-');
 
-        // create new data model
-        $success = file_put_contents('_source/data/'.$dataKey.'.json', $templatePrototype) === FALSE ? FALSE : TRUE;
+        if (file_exists($templatePath)) {
+            // load template prototype
+            $templatePrototype = json_encode(json_decode(file_get_contents($templatePath), TRUE)['_metadata']['prototype']);
 
-        // create JWT
-        $token = $this->api->createToken($decodedJWT->{'id'}, $decodedJWT->{'user'});
+            // create new data model
+            $success = file_put_contents('_source/data/'.$dataKey.'.json', $templatePrototype) === FALSE ? FALSE : TRUE;
 
-        // response data object
-        $data = array('token' => $token, 'data' => $dataKey, 'success' => $success);
+            // create JWT
+            $token = $this->api->createToken($decodedJWT->{'id'}, $decodedJWT->{'user'});
 
-        // successful response
-        echo json_encode($data);
+            // response data object
+            $data = array('token' => $token, 'data' => $dataKey, 'success' => $success);
+
+            // successful response
+            echo json_encode($data);
+        }
     }
 }

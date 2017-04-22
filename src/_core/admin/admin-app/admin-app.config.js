@@ -10,8 +10,8 @@
                     title: 'Web config',
                     template: '<npc-config></npc-config>'
                 })
-                .when('/schema', {
-                    title: 'Web schema',
+                .when('/structure', {
+                    title: 'Web structure',
                     template: '<npc-schema></npc-schema>'
                 })
                 .otherwise('/');
