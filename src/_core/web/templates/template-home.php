@@ -38,8 +38,7 @@ class TemplateHome {
                 <div>'.$value['editor'].'</div>';
 
                 foreach($value['tags'] as $tagKey => $tagValue) {
-                    // $news .= '<span class="label label-default">'.$tagValue.'</span>';
-                    $news .= '<div class="ui label">'.$tagValue.'</div>';
+                    $news .= '<span class="bg-inverse text-white rounded px-2 py-1 m-1">'.$tagValue.'</span>';
                 }
 
                 $news .= '<div class="links">';

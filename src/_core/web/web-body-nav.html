@@ -1,42 +1,19 @@
-<!--<div class="ui borderless stackable main menu">
-    <div class="ui text container">
-        <a href="[[basePath]]">
-            <div class="header item">
-                <img class="logo" src="_source/images/shared/logo-128x128.png?v=[[logoVersion]]"> NPC
-            </div>
-        </a>
-        [[navbar]]
-    </div>
-</div>-->
+<nav class="navbar navbar-toggleable-md navbar-light sticky-top bg-faded">
+    <button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon d-flex flex-row justify-content-center align-items-center">
+            <i class="fa fa-close"></i>
+        </span>
+    </button>
 
-<!--<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="[[basePath]]">
-                <img alt="Brand" height="20" src="_source/images/shared/logo-32x32.png?v=[[logoVersion]]">
-            </a>
-        </div>
-        <ul class="nav navbar-nav">
+    <!--<a class="navbar-brand" href="[[basePath]]">
+            <img src="_source/images/shared/logo-32x32.png?v=[[logoVersion]]" width="30" height="30" class="d-inline-block align-top"
+                alt="">
+        </a>-->
+
+    <div class="collapse navbar-collapse" id="navbarToggler">
+        <ul class="navbar-nav mr-auto">
             [[navbar]]
         </ul>
     </div>
-</nav>-->
-
-<div class="container">
-    <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler"
-            aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <a class="navbar-brand" href="[[basePath]]">
-            <img src="_source/images/shared/logo-32x32.png?v=[[logoVersion]]" width="30" height="30" class="d-inline-block align-top"
-                alt=""> NPC
-        </a>
-
-        <div class="collapse navbar-collapse" id="navbarToggler">
-            <ul class="navbar-nav mr-auto">
-                [[navbar]]
-            </ul>
-        </div>
-    </nav>
-</div>
+</nav>

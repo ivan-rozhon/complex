@@ -1,19 +1,22 @@
-/*.navbar {
-    & .dropdown-submenu {
-        position: relative;
-        & .dropdown-menu {
-            top: 0;
-            left: 100%;
-            margin-top: -6px;
+.navbar {
+    /* customize navbar-toogler (burger-menu) */
+    .navbar-toggler {
+        cursor: pointer;
+        & i {
+            color: rgba(0, 0, 0, 0.498039);
+            visibility: hidden;
         }
-        &:hover > .dropdown-menu {
-            display:block;
+        &[aria-expanded="true"] {
+            & .navbar-toggler-icon {
+                background: transparent;
+                & > i {
+                    visibility: visible;
+                }
+            }
         }
     }
-}*/
 
-/* navbar sub dropdown */
-.navbar {
+    /* navbar sub dropdown */
     & .dropdown-sub::after {
         display: inline-block;
         content: " ";
@@ -50,42 +53,23 @@
         visibility: visible;
         opacity: 1;
     }
+    @media (max-width: 991px) {
+        .dropdown-sub-md {
+            /*&::after {
+                display: none;
+            }
+            &:hover + .dropdown-sub-menu {
+                display: none;
+            }*/
+            & + .dropdown-sub-menu {
+                left: 0;
+                margin: 1rem;
+            }
+        }
+    }
 }
 
+/* article element (tag) is justified text in npc-editor (trix-editor) */
 article {
     text-align: justify;
 }
-
-/*
-sematnic styles
-.main.menu {
-    margin-top: 4em;
-    border-radius: 0;
-    border: none;
-    box-shadow: none;
-    transition: box-shadow 0.5s ease, padding 0.5s ease;
-    & .item img.logo {
-        margin-right: 1.5em;
-    }
-    &.fixed {
-        background-color: #FFFFFF;
-        border: 1px solid #DDD;
-        box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
-    }
-    & .sub-active {
-        background: rgba(0,0,0,.05);
-        color: rgba(0,0,0,.95);
-        font-weight: 400;
-        box-shadow: none;
-    }
-    & .ui.dropdown .menu > .item.sub-dropdown {
-        padding: 0 !important;
-    }
-    & .nav-item {
-        color: rgba(0,0,0,.95) !important;
-        display: block;
-        padding: .78571429em 1.14285714em;
-    }
-}
-*/
-
