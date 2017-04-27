@@ -14,6 +14,6 @@ class WebBodyHeader {
             [
                 'title' => $title
             ]
-            ,'_core/web/web-body-header.html');
+            , '_core/web/web-body-header.html');
     }
 }

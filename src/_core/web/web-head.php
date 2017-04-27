@@ -19,6 +19,7 @@ class WebHead {
         $faviconVersion = filemtime("favicon.ico");
         $cssVersion = filemtime("_core/web/styles/web.min.css");
         $cssLibVersion = filemtime("_core/web/styles/lib.min.css");
+        $baseUrl = $this->web->sharedRouter->baseUrl();
 
         return $this->templateProvider->sharedTemplateProvider(
                 [
@@ -28,7 +29,8 @@ class WebHead {
                     'title' => $title,
                     'faviconVersion' => $faviconVersion,
                     'cssVersion' => $cssVersion,
-                    'cssLibVersion' => $cssLibVersion
+                    'cssLibVersion' => $cssLibVersion,
+                    'baseUrl' => $baseUrl,
                 ],
                 '_core/web/web-head.html'
             );

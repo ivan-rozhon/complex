@@ -7,8 +7,10 @@ class SharedRouter {
         $this->system = $system;
         // decode shared-router-config.json
         $this->sharedRouterConfig = json_decode(file_get_contents('_source/shared-router-config.json'), TRUE)['sharedRouterConfig'];
+        // check & save if code run on localhost & prettyUrl are enabled
+        $this->prettyUrl = $this->strposa("http://$_SERVER[HTTP_HOST]", ['localhost', '127.0.0.1']) ? false : $this->sharedRouterConfig['prettyUrl'];
         // array of url queries
-        $this->urlQueryArr = explode("/", parse_url($this->system->url, PHP_URL_QUERY));
+        $this->urlQueryArr = $this->prettyUrl ? explode('/', trim(str_replace('/?', '', $_SERVER['REQUEST_URI']), '/')) : explode('/', parse_url($this->system->url, PHP_URL_QUERY));
     }
 
     public function sharedRouter() {
@@ -110,13 +112,24 @@ class SharedRouter {
         }
     }
 
+    // strpos() for array of strings
+    // http://stackoverflow.com/questions/6284553/using-an-array-as-needles-in-strpos
+    function strposa($haystack, $needle, $offset=0) {
+        if(!is_array($needle)) $needle = array($needle);
+        foreach($needle as $query) {
+            if(strpos($haystack, $query, $offset) !== false) return true; // stop on first true result
+        }
+        return false;
+    }
+
     // base path of app
     public function basePath() {
-        return parse_url($this->system->url, PHP_URL_PATH);
+        return $this->prettyUrl ? "http://$_SERVER[HTTP_HOST]/" : parse_url($this->system->url, PHP_URL_PATH).'?';
     }
 
     // base url of app
     public function baseUrl() {
-        return 'http://'.parse_url($this->system->url, PHP_URL_HOST).$this->basePath();
+        // return 'http://'.parse_url($this->system->url, PHP_URL_HOST).$this->basePath();
+        return "http://$_SERVER[HTTP_HOST]/";
     }
 }

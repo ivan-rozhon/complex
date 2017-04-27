@@ -4,6 +4,7 @@
         "queryExceptions": [
             "admin",
             "api"
-        ]
+        ],
+        "prettyUrl": true
     }
 }

@@ -10,9 +10,12 @@ class WebBodyFooter {
 
     public function webBodyFooter() {
         $title = $this->webBody->web->webSectionData('web-body-footer')['title'];
+        $baseUrl = $this->webBody->web->sharedRouter->baseUrl();
+
         return $this->templateProvider->sharedTemplateProvider(
             [
-                'title' => $title
+                'title' => $title,
+                'baseUrl' => $baseUrl
             ]
             , '_core/web/web-body-footer.html');
     }

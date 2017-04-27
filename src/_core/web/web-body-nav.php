@@ -14,11 +14,13 @@ class WebBodyNav {
     }
 
     public function webBodyNav() {
+        $baseUrl = $this->baseUrl;
         $basePath = $this->basePath;
         $navbar = $this->webBodyNavbar($this->webBody->web->webSchema['webSchemaMain'], 0);
         $logoVersion = filemtime("_source/images/shared/logo-32x32.png");
         return $this->templateProvider->sharedTemplateProvider(
                 [
+                    'baseUrl' => $baseUrl,
                     'basePath' => $basePath,
                     'navbar' => $navbar,
                     'logoVersion' => $logoVersion
@@ -35,7 +37,7 @@ class WebBodyNav {
                     if (count($value['sub']) == 0 || $value['options']['end'] == true) {
                         $navbar .= '
                             <li class="nav-item m-2 '.$this->webBodyNavbarActive($value['id'], $switch).'">
-                                <a class="nav-link" href="'.$this->webBody->web->lastCharacter($this->basePath.'?'.$value['id'], '?').'">
+                                <a class="nav-link" href="'.$this->webBody->web->lastCharacter($this->basePath.$value['id'], '?').'">
                                     '.$this->webBodyNavbarIcon($value).'
                                     '.$value['name'].'
                                 </a>
@@ -61,7 +63,7 @@ class WebBodyNav {
                     if (count($value['sub']) == 0 || $value['options']['end'] == true) {
                         $navbar .= '
                             <a class="dropdown-item '.$this->webBodyNavbarActive($value['id'], $switch).'"
-                                href="'.$this->basePath.'?'.$this->currentMainQuery.'/'.$value['id'].'">
+                                href="'.$this->basePath.$this->currentMainQuery.'/'.$value['id'].'">
                                 '.$value['name'].'
                             </a>
                         ';
@@ -69,7 +71,7 @@ class WebBodyNav {
                         $this->currentSubQuery = $value['id'];
                         $navbar .= '
                             <a class="dropdown-item dropdown-sub dropdown-sub-md '.$this->webBodyNavbarActive($value['id'], $switch).'"
-                                href="'.$this->basePath.'?'.$this->currentMainQuery.'/'.$value['id'].'">
+                                href="'.$this->basePath.$this->currentMainQuery.'/'.$value['id'].'">
                                 '.$value['name'].'
                             </a>
                             <div class="dropdown-sub-menu">
@@ -81,7 +83,7 @@ class WebBodyNav {
                 case 2:
                     $navbar .= '
                         <a class="dropdown-item '.$this->webBodyNavbarActive($value['id'], $switch).'"
-                            href="'.$this->basePath.'?'.$this->currentMainQuery.'/'.$this->currentSubQuery.'/'.$value['id'].'">
+                            href="'.$this->basePath.$this->currentMainQuery.'/'.$this->currentSubQuery.'/'.$value['id'].'">
                             '.$value['name'].'
                         </a>
                     ';
