@@ -16,6 +16,7 @@
   },
   "homepage": "https://github.com/ivan-rozhon/php_cms_nosql#readme",
   "devDependencies": {
+    "autoprefixer": "^6.7.7",
     "babel-preset-env": "^1.1.8",
     "browser-sync": "^2.18.8",
     "gulp": "^3.9.1",
@@ -33,11 +34,14 @@
     "gulp-main-bower-files": "^1.6.1",
     "gulp-ng-templates": "0.0.10",
     "gulp-ngmin": "^0.3.0",
+    "gulp-postcss": "^6.4.0",
     "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "^2.4.1",
     "gulp-uglify": "^2.0.1",
     "jshint": "^2.9.4",
     "less-plugin-autoprefix": "^1.5.1",
+    "merge-stream": "^1.0.1",
     "yargs": "^6.6.0"
   },
   "dependencies": {}

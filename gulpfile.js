@@ -14,7 +14,7 @@ var adminApp = {
 
 // Include plugins
 var plugins = require("gulp-load-plugins")({
-    pattern: ['gulp-*', 'gulp.*', 'less-plugin-autoprefix', 'browser-sync', 'yargs'],
+    pattern: ['gulp-*', 'gulp.*', 'less-plugin-autoprefix', 'browser-sync', 'yargs', 'merge-stream', 'autoprefixer'],
     replaceString: /\bgulp[\-.]/
 });
 
@@ -82,15 +82,28 @@ gulp.task('styles', ['npc-app-styles', 'admin-app-styles']);
 
 // npcApp CSS
 gulp.task('npc-app-styles', function () {
+    // .less files
     var autoprefix = new plugins.lessPluginAutoprefix();
-    return gulp.src(npcApp.src + '_core/web/**/*.less')
+    var lessStream = gulp.src(npcApp.src + '_core/web/**/*.less')
         .pipe(plugins.less({
             plugins: [autoprefix]
         }))
+        .pipe(plugins.concat('web-less.css'));
+
+    // .scss files
+    var scssStream = gulp.src(npcApp.src + '_core/web/**/*.scss')
+        .pipe(plugins.sass())
+        .pipe(plugins.concat('web-scss.css'));
+
+    // merge all together
+    var mergedStream = plugins.mergeStream(lessStream, scssStream)
         .pipe(plugins.cssmin())
         .pipe(plugins.concat('web.css'))
+        .pipe(plugins.postcss([ plugins.autoprefixer() ]))
         .pipe(plugins.rename({ suffix: '.min' }))
         .pipe(gulp.dest(npcApp.dest + '_core/web/styles'));
+
+    return mergedStream;
 });
 
 // adminApp CSS
@@ -206,7 +219,7 @@ gulp.task('watch', function () {
     gulp.watch([npcApp.src + '**/*.html', '!' + adminApp.src + '**/*.html'], ['html']);
     gulp.watch(npcApp.src + '**/*.{ico,txt,json,png}', ['files']);
     gulp.watch(npcApp.src + '_core/web/scripts/*.js', ['npc-app-js']);
-    gulp.watch(npcApp.src + '_core/web/**/*.less', ['npc-app-styles']);
+    gulp.watch(npcApp.src + '_core/web/**/*.{less,scss}', ['npc-app-styles']);
 
     // adminApp
     gulp.watch([adminApp.src + '**/*.html', adminApp.src + '**/*.js'], ['admin-app-js']);

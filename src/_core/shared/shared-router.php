@@ -129,7 +129,13 @@ class SharedRouter {
 
     // base url of app
     public function baseUrl() {
-        // return 'http://'.parse_url($this->system->url, PHP_URL_HOST).$this->basePath();
-        return "http://$_SERVER[HTTP_HOST]/";
+        // get URI
+        $REQUEST_URI = $_SERVER['REQUEST_URI'];
+        // find query position
+        $queryPosition = strrpos($REQUEST_URI,'/?');
+        // cut query (/?...)
+        $path = $queryPosition || $queryPosition === 0 ? substr($REQUEST_URI, 0, $queryPosition) : substr($REQUEST_URI, 0, strrpos($REQUEST_URI,'/'));
+
+        return $this->prettyUrl ? 'http://'.$_SERVER['HTTP_HOST'].'/' : 'http://'.$_SERVER['HTTP_HOST'].$path.'/';
     }
 }
