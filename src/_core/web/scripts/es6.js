@@ -8,7 +8,7 @@
     let evens = [1, 5, 10, 15],
         fives = [];
 
-    // ═ Expression bodies ═
+    // Expression bodies
     let odds = evens.map(v => v + 1);
     let nums = evens.map((v, i) => v + i);
     let pairs = evens.map(v => ({ even: v, odd: v + 1 }));
@@ -51,8 +51,6 @@
     }
 
     console.log(square(2, 4, 7.5, 8, 11.5, 21));
-
-    // « Classes »
 
     // « Default + Rest + Spread »
 
@@ -118,6 +116,174 @@
         return x + y + w + h;
     }
 
-    console.log(r({x:1, y:2}));
+    console.log(r({ x: 1, y: 2 }));
+
+    // « Object.assign »
+    function countdownTimer(target, timeleft, options = {}) {
+        // default value of "options" parameter
+        let defaults = {
+            container: '.timer-display',
+            timeUnit: 'seconds'
+        };
+
+        // merge options and defaults by Object.assing method
+        let settings = Object.assign({}, defaults, options);
+
+        console.log(settings.container);
+        console.log(settings.timeUnit);
+    }
+
+    countdownTimer($('.btn-undo'), 60, { container: '.new-post-options' });
+
+    // « Arrays »
+    let users = ['Sam', 'Tyler', 'Brook'];
+
+    // Array destructuring
+    let [a, , b] = users;
+    console.log(a, b);
+
+    // ... with Rest params
+    let [firstUser, ...rest] = users;
+    console.log(firstUser, rest);
+
+    // Using for...of to loop over arrays
+    for (let user of users) {
+        console.log(user);
+    }
+
+    // Check if object is iterable by Symbol.iterator
+    console.log(typeof users[Symbol.iterator]); // > function
+    console.log(typeof user[Symbol.iterator]); // > undefined
+
+    // Finding an element in an array - find() method
+    let users2 = [
+        { login: 'Sam', admin: false },
+        { login: 'Brook', admin: true },
+        { login: 'Tyler', admin: true }
+    ];
+
+    let admin = users2.find(user => {
+        return user.admin;
+    });
+    // or shorter way
+    let admin2 = users2.find(user => user.admin);
+
+    console.log(admin, admin2);
+
+    // « Maps »
+    // Map
+    let mapSettings = new Map();
+
+    mapSettings.set('user', 'Sam');
+    mapSettings.set('topic', 'ES2015');
+    mapSettings.set('replies', ['Cant`t wait!', 'So Cool']);
+
+    // Iterating map
+    for (let [key, value] of mapSettings) {
+        console.log(`${key} = ${value}`);
+    }
+
+    // Weakmap
+    // - only objects can be passed as keys
+    // - not iterable
+    let user2 = {};
+
+    let mapSettings2 = new WeakMap();
+    mapSettings2.set(user2, 'ES2015');
+
+    console.log(mapSettings2.get(user2));
+    console.log(mapSettings2.has(user2));
+    console.log(mapSettings2.delete(user2));
+
+    // « Sets »
+    // - stores unique values of any type
+    // - iterable
+    let tags = new Set();
+
+    tags.add('JavaScript');
+    tags.add('Programming');
+    tags.add({ version: '2015' });
+    tags.add('Web');
+
+    // Using for...of to loop over set
+    for (let tag of tags) {
+        console.log(tag);
+    }
+
+    // Array destructuring
+    let [d, e, g, h] = tags;
+    console.log(d, e, g, h);
+
+    // Weakset
+    // - only object are allowed to be stored
+    // - not iterable
+    let weakTags = new WeakSet();
+
+    weakTags.add({ name: 'JavaScript' });
+    let iOS = { name: 'iOS' };
+    weakTags.add(iOS);
+
+    console.log(weakTags.has(iOS));
+    console.log(weakTags.delete(iOS));
+
+    // « Classes »
+    class Widget {
+        constructor() {
+            this.baseCSS = 'site-widget';
+        }
+
+        parse(value) {
+            return `${value} - class: ${this.baseCSS}`;
+        }
+
+        parse2(value) {
+            return value;
+        }
+    }
+
+    // Using extends to inherit from base class
+    class SponsorWidget extends Widget {
+        constructor(name, description, url) {
+            // runs parent`s setup code
+            super();
+
+            // use this to access instance properties
+            this.url = url;
+            this.name = name;
+            this.description = description;
+        }
+
+        render() {
+            // use this to access instance methods
+            let link = this._buildLink(this.url);
+            console.log(link);
+
+            // inherits methods
+            let parsedName = this.parse(this.name);
+            console.log(parsedName);
+
+            // inherits properties
+            let css = this._buildLink(this.baseCSS);
+            console.log(css);
+        }
+
+        parse2() {
+            // Calls the parent version of parse2() method
+            let parsedName = super.parse2(this.name);
+            return `Sponsor: ${parsedName}`;
+        }
+
+        // prefixing a method with an underscore is a convention for indicating
+        // that it should not be invoked from the public API (= private function)
+        _buildLink(url) {
+            return url;
+        }
+    }
+
+    let sponsorWidget = new SponsorWidget('Promo Add', 'This is sponsor widget!', 'http://rozhon.net/');
+    sponsorWidget.render();
+    console.log(sponsorWidget.parse2());
+
+    // « Modules »
 
 })();
