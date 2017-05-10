@@ -1,10 +1,22 @@
-(function () {
+// « Modules #1/2 »
+import * as es6 from './modules/es6-module';
+import { MAX_USERS, MAX_REPLIES } from './modules/es6-module';
+import { FlashMessage } from './modules/es6-module';
+
+(() => {
     return;
     // ╔══════════════════════════╗
     // ║ ECMAScript 2015 Features ║
     // ╚══════════════════════════╝
-    // « Arrows and Lexical This »
+    // « Modules #2/2 »
+    es6.logMessage('es6-module.js');
 
+    console.log(`MAX_USERS: ${MAX_USERS}, MAX_REPLIES: ${MAX_REPLIES}`);
+
+    let flash = new FlashMessage('Hello');
+    flash.renderLog();
+
+    // « Arrows and Lexical This »
     let evens = [1, 5, 10, 15],
         fives = [];
 
@@ -283,7 +295,4 @@
     let sponsorWidget = new SponsorWidget('Promo Add', 'This is sponsor widget!', 'http://rozhon.net/');
     sponsorWidget.render();
     console.log(sponsorWidget.parse2());
-
-    // « Modules »
-
 })();

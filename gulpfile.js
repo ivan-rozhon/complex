@@ -14,7 +14,7 @@ var adminApp = {
 
 // Include plugins
 var plugins = require("gulp-load-plugins")({
-    pattern: ['gulp-*', 'gulp.*', 'less-plugin-autoprefix', 'browser-sync', 'yargs', 'merge-stream', 'autoprefixer'],
+    pattern: ['gulp-*', 'gulp.*', 'less-plugin-autoprefix', 'browser-sync', 'yargs', 'merge-stream', 'autoprefixer', 'browserify', 'del', 'vinyl-source-stream', 'vinyl-buffer'],
     replaceString: /\bgulp[\-.]/
 });
 
@@ -53,15 +53,40 @@ gulp.task('templates', function () {
 gulp.task('scripts', ['npc-app-js', 'admin-app-js']);
 
 // npcApp JS
-gulp.task('npc-app-js', function () {
+gulp.task('npc-app-js-main', function () {
     return gulp.src(npcApp.src + '_core/web/scripts/*.js')
-        .pipe(plugins.if(!plugins.yargs.argv.prod, plugins.sourcemaps.init()))
         .pipe(plugins.babel())
         .pipe(plugins.concat('web.js'))
-        .pipe(plugins.rename({ suffix: '.min' }))
+        .pipe(gulp.dest(npcApp.dest + '_core/web/scripts'));
+});
+
+// clean npcApp JS Modules directory
+// gulp.task('clean-modules', function () {
+//     return plugins.del([npcApp.dest + '_core/web/scripts/modules']);
+// });
+
+// get all npcApp JS Modules
+gulp.task('npc-app-js-modules', [/*'clean-modules', */'npc-app-js-main'], function () {
+    return gulp.src(npcApp.src + '_core/web/scripts/modules/*.js')
+        .pipe(plugins.babel())
+        .pipe(gulp.dest(npcApp.dest + '_core/web/scripts/modules'));
+});
+
+// bundle npcApp JS Modules
+gulp.task('npc-app-js-modules-bundle', ['npc-app-js-modules'], function () {
+    return plugins.browserify([npcApp.dest + '_core/web/scripts/web.js']).bundle()
+        .pipe(plugins.vinylSourceStream('web.js'))
+        .pipe(plugins.vinylBuffer())
+        .pipe(plugins.if(!plugins.yargs.argv.prod, plugins.sourcemaps.init()))
         .pipe(plugins.uglify())
+        .pipe(plugins.rename({ suffix: '.min' }))
         .pipe(plugins.if(!plugins.yargs.argv.prod, plugins.sourcemaps.write('.')))
         .pipe(gulp.dest(npcApp.dest + '_core/web/scripts'));
+});
+
+// delete 'web.js' & 'modules' folder after all npc-app-js tasks
+gulp.task('npc-app-js', ['npc-app-js-modules-bundle'], function () {
+    return plugins.del([npcApp.dest + '_core/web/scripts/web.js']);
 });
 
 // adminApp JS
@@ -99,7 +124,7 @@ gulp.task('npc-app-styles', function () {
     var mergedStream = plugins.mergeStream(lessStream, scssStream)
         .pipe(plugins.cssmin())
         .pipe(plugins.concat('web.css'))
-        .pipe(plugins.postcss([ plugins.autoprefixer() ]))
+        .pipe(plugins.postcss([plugins.autoprefixer()]))
         .pipe(plugins.rename({ suffix: '.min' }))
         .pipe(gulp.dest(npcApp.dest + '_core/web/styles'));
 
@@ -218,7 +243,7 @@ gulp.task('watch', function () {
     gulp.watch(npcApp.src + '**/*.php', ['php']);
     gulp.watch([npcApp.src + '**/*.html', '!' + adminApp.src + '**/*.html'], ['html']);
     gulp.watch(npcApp.src + '**/*.{ico,txt,json,png}', ['files']);
-    gulp.watch(npcApp.src + '_core/web/scripts/*.js', ['npc-app-js']);
+    gulp.watch(npcApp.src + '_core/web/**/*.js', ['npc-app-js']);
     gulp.watch(npcApp.src + '_core/web/**/*.{less,scss}', ['npc-app-styles']);
 
     // adminApp
