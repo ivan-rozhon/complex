@@ -4,17 +4,10 @@ import { MAX_USERS, MAX_REPLIES } from './modules/es6-module';
 import { FlashMessage } from './modules/es6-module';
 
 (() => {
-    return;
+    // return;
     // ╔══════════════════════════╗
     // ║ ECMAScript 2015 Features ║
     // ╚══════════════════════════╝
-    // « Modules #2/2 »
-    es6.logMessage('es6-module.js');
-
-    console.log(`MAX_USERS: ${MAX_USERS}, MAX_REPLIES: ${MAX_REPLIES}`);
-
-    let flash = new FlashMessage('Hello');
-    flash.renderLog();
 
     // « Arrows and Lexical This »
     let evens = [1, 5, 10, 15],
@@ -295,4 +288,57 @@ import { FlashMessage } from './modules/es6-module';
     let sponsorWidget = new SponsorWidget('Promo Add', 'This is sponsor widget!', 'http://rozhon.net/');
     sponsorWidget.render();
     console.log(sponsorWidget.parse2());
+
+    // « Modules #2/2 »
+    es6.logMessage(`es6-module.js`);
+
+    console.log(`MAX_USERS: ${MAX_USERS}, MAX_REPLIES: ${MAX_REPLIES}`);
+
+    let flash = new FlashMessage('Hello');
+    flash.renderLog();
+
+    // « Promises »
+    function getPoolResultsFromServer(poolName) {
+
+        return new Promise((resolve, reject) => {
+            let url = `/?api/${poolName}`;
+            let request = new XMLHttpRequest();
+            request.open('GET', url, true);
+
+            request.onload = () => {
+                if (request.status >= 200 && request.status < 400) {
+                    resolve(JSON.parse(request.response));
+                } else {
+                    reject(new Error(request.status));
+                }
+            };
+
+            request.onerror = () => {
+                reject(new Error("Error Fetching Results"));
+            };
+
+            request.send();
+        });
+    }
+
+    function filterResults(results) {
+        return results.filter(results => results.city === 'Prague');
+    }
+
+    let ui = {
+        // method initializer shorthand
+        logResults(filterResults) {
+            console.log(filterResults);
+        }
+    };
+
+    getPoolResultsFromServer('es6')
+        .then(filterResults)
+        .then(ui.logResults)
+        .catch(error => {
+            console.log(`Error: ${error}`);
+        });
+
+    // « Iterators »
+
 })();

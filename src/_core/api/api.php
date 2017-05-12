@@ -22,13 +22,13 @@ class Api {
         });
     }
 
-    public function api($apiLogin, $apiSchemaSave, $apiDataUpdate, $apiDataNew, $apiDataSave, $apiSchemaLoad, $apiDataLoad) {
+    public function api($apiLogin, $apiSchemaSave, $apiDataUpdate, $apiDataNew, $apiDataSave, $apiSchemaLoad, $apiDataLoad, $apiWebDemo) {
         switch($this->requestMethod) {
             case 'POST':
                 $this->apiPOST($apiLogin, $apiSchemaSave, $apiDataUpdate, $apiDataNew, $apiDataSave);
                 break;
             case 'GET':
-                $this->apiGET($apiSchemaLoad, $apiDataLoad);
+                $this->apiGET($apiSchemaLoad, $apiDataLoad, $apiWebDemo);
                 break;
         }
     }
@@ -67,7 +67,7 @@ class Api {
     }
 
     // GET requests
-    public function apiGET($apiSchemaLoad, $apiDataLoad) {
+    public function apiGET($apiSchemaLoad, $apiDataLoad, $apiWebDemo) {
         switch($this->queryString) {
             // load web schema
             case 'api/schemaLoad':
@@ -77,6 +77,11 @@ class Api {
             // load data model
             case 'api/dataLoad':
                 $apiDataLoad->apiDataLoad();
+                break;
+
+            // demo API for web (*.js)
+            case 'api/es6':
+                $apiWebDemo->apiWebDemo();
                 break;
         }
     }
@@ -195,6 +200,7 @@ $apiDataSave = new ApiDataSave($api);
 // GET
 $apiSchemaLoad = new ApiSchemaLoad($api);
 $apiDataLoad = new ApiDataLoad($api);
+$apiWebDemo = new ApiWebDemo($api);
 
 $api->api(
     $apiLogin,
@@ -203,5 +209,6 @@ $api->api(
     $apiDataNew,
     $apiDataSave,
     $apiSchemaLoad,
-    $apiDataLoad
+    $apiDataLoad,
+    $apiWebDemo
 );
