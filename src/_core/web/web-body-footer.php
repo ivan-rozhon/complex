@@ -11,11 +11,13 @@ class WebBodyFooter {
     public function webBodyFooter() {
         $title = $this->webBody->web->webSectionData('web-body-footer')['title'];
         $baseUrl = $this->webBody->web->sharedRouter->baseUrl();
+        $basePath = $this->webBody->web->sharedRouter->basePath();
 
         return $this->templateProvider->sharedTemplateProvider(
             [
                 'title' => $title,
-                'baseUrl' => $baseUrl
+                'baseUrl' => $baseUrl,
+                'basePath' => $basePath
             ]
             , '_core/web/web-body-footer.html');
     }

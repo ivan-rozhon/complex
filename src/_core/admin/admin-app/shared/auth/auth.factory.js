@@ -9,11 +9,14 @@
     function AuthFactory(API, authService, $q, $timeout) {
         var $ctrl = this;
 
+        // create full API URL
+        $ctrl.apiURL = `${location.protocol}//${location.host}/${API}`;
+
         // load Authorization token if aviable
         $ctrl.loadToken = function (config) {
             return $q(function (resolve, reject) {
                 var token = authService.getToken();
-                if (config.url.indexOf(API) === 0 && token) {
+                if (config.url.indexOf($ctrl.apiURL) === 0 && token) {
                     config.headers.authorization = 'Bearer ' + token;
                 }
                 resolve(config);
@@ -34,7 +37,7 @@
 
             // If a token was sent back, save it
             response: function (res) {
-                if (res.config.url.indexOf(API) === 0 && res.data.token) {
+                if (res.config.url.indexOf($ctrl.apiURL) === 0 && res.data.token) {
                     authService.saveToken(res.data.token);
                 }
 

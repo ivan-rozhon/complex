@@ -30,7 +30,7 @@ class WebHead {
                     'faviconVersion' => $faviconVersion,
                     'cssVersion' => $cssVersion,
                     'cssLibVersion' => $cssLibVersion,
-                    'baseUrl' => $baseUrl,
+                    'baseUrl' => $baseUrl
                 ],
                 '_core/web/web-head.html'
             );

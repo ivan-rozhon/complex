@@ -16,6 +16,8 @@ class AdminHead {
         $faviconVersion = filemtime("favicon.ico");
         $cssLibVersion = filemtime("_core/admin/admin-app/css/lib.min.css");
         $cssAppVersion = filemtime("_core/admin/admin-app/css/app.min.css");
+        $baseUrl = $this->admin->sharedRouter->baseUrl();
+
         return $this->templateProvider->sharedTemplateProvider(
                 [
                     'description' => $description,
@@ -24,7 +26,8 @@ class AdminHead {
                     'title' => $title,
                     'faviconVersion' => $faviconVersion,
                     'cssLibVersion' => $cssLibVersion,
-                    'cssAppVersion' => $cssAppVersion
+                    'cssAppVersion' => $cssAppVersion,
+                    'baseUrl' => $baseUrl
                 ],
                 '_core/admin/admin-head.html'
             );

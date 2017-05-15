@@ -84,7 +84,7 @@ gulp.task('npc-app-js-modules-bundle', ['npc-app-js-modules'], function () {
         .pipe(gulp.dest(npcApp.dest + '_core/web/scripts'));
 });
 
-// delete 'web.js' & 'modules' folder after all npc-app-js tasks
+// delete 'web.js' after all npc-app-js sub tasks
 gulp.task('npc-app-js', ['npc-app-js-modules-bundle'], function () {
     return plugins.del([npcApp.dest + '_core/web/scripts/web.js']);
 });

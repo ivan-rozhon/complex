@@ -16,7 +16,7 @@
   },
   "homepage": "https://github.com/ivan-rozhon/php_cms_nosql#readme",
   "devDependencies": {
-    "autoprefixer": "^6.7.7",
+    "autoprefixer": "^7.0.1",
     "babel-preset-env": "^1.4.0",
     "browser-sync": "^2.18.8",
     "browserify": "^14.3.0",
@@ -24,19 +24,19 @@
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-concat": "^2.6.1",
-    "gulp-connect-php": "0.0.8",
+    "gulp-connect-php": "^1.0.1",
     "gulp-cssmin": "^0.1.7",
-    "gulp-debug": "^2.1.2",
-    "gulp-filter": "^4.0.0",
+    "gulp-debug": "^3.1.0",
+    "gulp-filter": "^5.0.0",
     "gulp-flatten": "^0.3.1",
     "gulp-htmlmin": "^3.0.0",
     "gulp-if": "^2.0.2",
     "gulp-less": "^3.3.0",
     "gulp-load-plugins": "^1.5.0",
     "gulp-main-bower-files": "^1.6.2",
-    "gulp-ng-templates": "0.0.10",
+    "gulp-ng-templates": "^0.0.10",
     "gulp-ngmin": "^0.3.0",
-    "gulp-postcss": "^6.4.0",
+    "gulp-postcss": "^7.0.0",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "^2.6.0",
@@ -46,7 +46,7 @@
     "merge-stream": "^1.0.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
-    "yargs": "^6.6.0"
+    "yargs": "^8.0.1"
   },
   "dependencies": {}
 }
