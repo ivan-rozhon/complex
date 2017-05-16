@@ -1,10 +1,13 @@
+// babel-polyfill (includes a custom regenerator runtime and core-js)
+import './modules/polyfill';
+
 // « Modules #1/2 »
 import * as es6 from './modules/es6-module';
 import { MAX_USERS, MAX_REPLIES } from './modules/es6-module';
 import { FlashMessage } from './modules/es6-module';
 
 (() => {
-    // return;
+    return;
     // ╔══════════════════════════╗
     // ║ ECMAScript 2015 Features ║
     // ╚══════════════════════════╝
@@ -301,7 +304,7 @@ import { FlashMessage } from './modules/es6-module';
     function getPoolResultsFromServer(poolName) {
 
         return new Promise((resolve, reject) => {
-            let url = `/?api/${poolName}`;
+            let url = `${location.protocol}//${location.host}/?api/${poolName}`;
             let request = new XMLHttpRequest();
             request.open('GET', url, true);
 
@@ -340,5 +343,64 @@ import { FlashMessage } from './modules/es6-module';
         });
 
     // « Iterators »
+    // iterate over plain JS object
+    let post = {
+        title: 'New Features in JS',
+        replies: 19
+    };
+
+    // Iterator object function
+    post[Symbol.iterator] = function () {
+
+        let properties = Object.keys(this);
+        let count = 0;
+        let isDone = false;
+
+        let next = () => {
+            // Ends the loop after reaching the last property
+            if (count >= properties.length) {
+                isDone = true;
+            }
+            // keyword 'this' refers to the post object
+            return { done: isDone, value: this[properties[count++]] };
+        };
+
+        return { next };
+    };
+
+    // iterate over object using for...of loop
+    for (let p of post) {
+        console.log(p);
+    }
+
+    // ...or with the spread operator
+    let values = [...post];
+    console.log(values);
+
+    // ...or with destructuring
+    let [title, replies] = post;
+    console.log(`title: ${title}, replies: ${replies}`);
+
+    // « Generators »
+    let post2 = {
+        title: 'New Features in JS: Generators',
+        replies: 20
+    };
+
+    // Generator function
+    post2[Symbol.iterator] = function *() {
+
+        let properties = Object.keys(this);
+        for (let p of properties) {
+            // each time 'yield' is called, function returns a new iterator object:
+            // { done: boolean, value: any }
+            yield this[p];
+        }
+    };
+
+    // iterate over object using for...of loop
+    for (let p of post2) {
+        console.log(p);
+    }
 
 })();

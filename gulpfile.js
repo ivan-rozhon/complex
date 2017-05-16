@@ -67,7 +67,7 @@ gulp.task('npc-app-js-main', function () {
 
 // get all npcApp JS Modules
 gulp.task('npc-app-js-modules', [/*'clean-modules', */'npc-app-js-main'], function () {
-    return gulp.src(npcApp.src + '_core/web/scripts/modules/*.js')
+    return gulp.src([npcApp.src + '_core/web/scripts/modules/*.js', 'node_modules/babel-polyfill/dist/polyfill.js'])
         .pipe(plugins.babel())
         .pipe(gulp.dest(npcApp.dest + '_core/web/scripts/modules'));
 });
