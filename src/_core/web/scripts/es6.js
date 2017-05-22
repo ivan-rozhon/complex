@@ -61,7 +61,6 @@ import { FlashMessage } from './modules/es6-module';
     console.log(square(2, 4, 7.5, 8, 11.5, 21));
 
     // « Default + Rest + Spread »
-
     function f(x, y = 12) {
         // y is 12 if not passed (or passed as undefined)
         return x + y;
