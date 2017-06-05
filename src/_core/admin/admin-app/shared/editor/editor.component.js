@@ -13,7 +13,7 @@
             }
         });
 
-    EditorController.$inject = ['$rootScope', '$scope','$mdDialog', '$timeout', '$document'];
+    EditorController.$inject = ['$rootScope', '$scope', '$mdDialog', '$timeout', '$document'];
     function EditorController($rootScope, $scope, $mdDialog, $timeout, $document) {
         let $ctrl = this;
 
@@ -32,14 +32,32 @@
 
             // editor id == number of searched editors
             $ctrl.id = (angular.element(document).find(element).length).toString();
+
+            // Colors
+            $ctrl.colors = $ctrl.config && $ctrl.config.colors ? $ctrl.config.colors : [];
+
+            // Define colors formats
+            angular.forEach($ctrl.colors, function (value, key) {
+                Trix.config.textAttributes[`color${value}`] = {
+                    style: { 'color': '#' + value },
+                    parser: function (element) {
+                        var style = window.getComputedStyle(element),
+                            // get RGB from HEX
+                            r = $ctrl.hexToRgb(value).r,
+                            g = $ctrl.hexToRgb(value).g,
+                            b = $ctrl.hexToRgb(value).b;
+
+                        // compare color style
+                        return style.color === `rgb(${r}, ${g}, ${b})`;
+                    }
+                };
+            });
         };
 
         // Current selected text attributes
         $ctrl.currentAttributes = {};
         // Titles (headings)
         $ctrl.titles = [1, 2, 3, 4, 5, 6];
-        // Colors
-        $ctrl.colors = $ctrl.config && $ctrl.config.colors ? $ctrl.config.colors : [];
 
         $ctrl.isActive = false;
 
@@ -53,23 +71,6 @@
         angular.forEach($ctrl.titles, function (value, key) {
             Trix.config.blockAttributes[`title${value}`] = {
                 tagName: 'h' + value
-            };
-        });
-
-        // Define colors formats
-        angular.forEach($ctrl.colors, function (value, key) {
-            Trix.config.textAttributes[`color${value}`] = {
-                style: { 'color': '#' + value },
-                parser: function (element) {
-                    var style = window.getComputedStyle(element),
-                        // get RGB from HEX
-                        r = $ctrl.hexToRgb(value).r,
-                        g = $ctrl.hexToRgb(value).g,
-                        b = $ctrl.hexToRgb(value).b;
-
-                    // compare color style
-                    return style.color === `rgb(${r}, ${g}, ${b})`;
-                }
             };
         });
 

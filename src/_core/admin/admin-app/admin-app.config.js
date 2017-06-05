@@ -4,6 +4,9 @@
     angular.module('adminApp.adminAppConfig', [])
         .config(function ($routeProvider, $locationProvider) {
 
+            // hash prefix config
+            $locationProvider.hashPrefix('');
+
             // routing config
             $routeProvider
                 .when('/config', {

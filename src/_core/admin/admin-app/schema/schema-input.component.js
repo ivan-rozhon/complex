@@ -28,8 +28,11 @@
     function SchemaInputController($mdDialog, toastService, schemaService, $rootElement, $scope) {
         var $ctrl = this;
 
-        // save old template value
-        $ctrl.oldTemplate = angular.copy($ctrl.schema.template);
+        // component initialization
+        $ctrl.$onInit = function () {
+            // save old template value
+            $ctrl.oldTemplate = angular.copy($ctrl.schema.template);
+        };
 
         // get type of input
         $ctrl.inputType = function (key) {
