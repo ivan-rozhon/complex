@@ -12,7 +12,7 @@ class System {
 
     public static function autoload($class) {
         // camelCase -> kebab-case
-        $class = strtolower(ucfirst(preg_replace('/((?<=[^$])[A-Z0-9]+)/', '-$1', $class)));
+        $class = strtolower(ucfirst(preg_replace('/((?<=[^$])[A-Z]+)/', '-$1', $class)));
         require $class.'.php';
     }
 }
@@ -26,6 +26,7 @@ set_include_path(
         array(
             get_include_path(),
             $system->pathPrefix.'_core/admin/',
+            $system->pathPrefix.'_core/admin2/',
             $system->pathPrefix.'_core/api/',
             $system->pathPrefix.'_core/shared/',
             $system->pathPrefix.'_core/web/'

@@ -1,9 +1,10 @@
 {
   "name": "php_cms_nosql",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Experimental NoSQL PHP CMS",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "webpack-dev-server --inline --progress --port 9000 --open",
+    "build": "rimraf dist/_core/admin/admin-app && webpack --config config/webpack.prod.js --progress --profile --bail"
   },
   "repository": {
     "type": "git",
@@ -15,7 +16,37 @@
     "url": "https://github.com/ivan-rozhon/php_cms_nosql/issues"
   },
   "homepage": "https://github.com/ivan-rozhon/php_cms_nosql#readme",
+  "dependencies": {
+    "@angular/common": "~4.1.0",
+    "@angular/compiler": "~4.1.0",
+    "@angular/core": "~4.1.0",
+    "@angular/forms": "~4.1.0",
+    "@angular/http": "~4.1.0",
+    "@angular/platform-browser": "~4.1.0",
+    "@angular/platform-browser-dynamic": "~4.1.0",
+    "@angular/router": "~4.1.0",
+    "core-js": "^2.4.1",
+    "rxjs": "^5.4.0",
+    "zone.js": "^0.8.4",
+    "babel-polyfill": "^6.23.0"
+  },
   "devDependencies": {
+    "@types/node": "^7.0.0",
+    "angular2-template-loader": "^0.6.0",
+    "awesome-typescript-loader": "^3.0.4",
+    "css-loader": "^0.26.1",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "file-loader": "^0.9.0",
+    "html-loader": "^0.4.3",
+    "html-webpack-plugin": "^2.16.1",
+    "null-loader": "^0.1.1",
+    "raw-loader": "^0.5.1",
+    "rimraf": "^2.5.2",
+    "style-loader": "^0.13.1",
+    "typescript": "~2.3.1",
+    "webpack": "^2.6.1",
+    "webpack-dev-server": "^2.4.5",
+    "webpack-merge": "^4.0.0",
     "autoprefixer": "^7.0.1",
     "babel-preset-env": "^1.4.0",
     "browser-sync": "^2.18.8",
@@ -47,8 +78,5 @@
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "yargs": "^8.0.1"
-  },
-  "dependencies": {
-    "babel-polyfill": "^6.23.0"
   }
 }

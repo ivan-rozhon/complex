@@ -11,6 +11,9 @@ var adminApp = {
     tmp: 'src/_core/admin/admin-app/tmp/',
     dest: 'dist/_core/admin/admin-app/'
 };
+var adminApp2 = {
+    src: 'src/_core/admin2/admin-app/',
+};
 
 // Include plugins
 var plugins = require("gulp-load-plugins")({
@@ -26,7 +29,7 @@ gulp.task('php', function () {
 
 // npcApp HTML
 gulp.task('html', function () {
-    return gulp.src([npcApp.src + '**/*.html', '!' + adminApp.src + '**/*.html'])
+    return gulp.src([npcApp.src + '**/*.html', '!' + adminApp.src + '**/*.html', '!' + adminApp2.src + '**/*.html'])
         .pipe(gulp.dest(npcApp.dest));
 });
 
@@ -241,7 +244,7 @@ gulp.task('bower', ['bower-js-admin', 'bower-js-web', 'bower-css-admin', 'bower-
 gulp.task('watch', function () {
     // npcApp
     gulp.watch(npcApp.src + '**/*.php', ['php']);
-    gulp.watch([npcApp.src + '**/*.html', '!' + adminApp.src + '**/*.html'], ['html']);
+    gulp.watch([npcApp.src + '**/*.html', '!' + adminApp.src + '**/*.html', '!' + adminApp2.src + '**/*.html'], ['html']);
     gulp.watch(npcApp.src + '**/*.{ico,txt,json,png}', ['files']);
     gulp.watch(npcApp.src + '_core/web/**/*.js', ['npc-app-js']);
     gulp.watch(npcApp.src + '_core/web/**/*.{less,scss}', ['npc-app-styles']);

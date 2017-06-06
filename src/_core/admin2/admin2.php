@@ -1,6 +1,6 @@
 <?php
 
-class Admin {
+class Admin2 {
     public $system, $sharedRouter, $adminConfig;
 
     public function __construct(System $system, SharedRouter $sharedRouter, SharedTemplateProvider $sharedTemplateProvider) {
@@ -10,25 +10,25 @@ class Admin {
         $this->adminConfig = json_decode(file_get_contents('_source/admin-config.json'), TRUE)['adminConfig'];
     }
 
-    public function admin($adminHead, $adminBody) {
+    public function admin2($admin2Head, $admin2Body) {
         $lang = $this->adminConfig['lang'];
         echo $this->templateProvider->sharedTemplateProvider(
                 [
                     'lang' => $lang,
-                    'adminHead' => $adminHead,
-                    'adminBody' => $adminBody
+                    'adminHead' => $admin2Head,
+                    'adminBody' => $admin2Body
                 ],
-                '_core/admin/admin.html'
+                '_core/admin2/admin2.html'
             );
     }
 }
 
-$admin = new Admin($system, $sharedRouter, $sharedTemplateProvider);
+$admin2 = new Admin2($system, $sharedRouter, $sharedTemplateProvider);
 
-$adminHead = new AdminHead($admin);
-$adminBody = new AdminBody($admin);
+$admin2Head = new Admin2Head($admin2);
+$admin2Body = new Admin2Body($admin2);
 
-$admin->admin(
-    $adminHead->adminHead(),
-    $adminBody->adminBody()
+$admin2->admin2(
+    $admin2Head->admin2Head(),
+    $admin2Body->admin2Body()
 );
