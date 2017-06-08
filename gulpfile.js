@@ -13,11 +13,25 @@ var adminApp = {
 };
 var adminApp2 = {
     src: 'src/_core/admin2/admin-app/',
+    dest: 'dist/_core/admin2/admin-app/'
 };
 
 // Include plugins
 var plugins = require("gulp-load-plugins")({
-    pattern: ['gulp-*', 'gulp.*', 'less-plugin-autoprefix', 'browser-sync', 'yargs', 'merge-stream', 'autoprefixer', 'browserify', 'del', 'vinyl-source-stream', 'vinyl-buffer'],
+    pattern: [
+        'gulp-*',
+        'gulp.*',
+        'less-plugin-autoprefix',
+        'browser-sync',
+        'yargs',
+        'merge-stream',
+        'autoprefixer',
+        'browserify',
+        'del',
+        'vinyl-source-stream',
+        'vinyl-buffer',
+        'run-sequence'
+    ],
     replaceString: /\bgulp[\-.]/
 });
 
@@ -35,7 +49,7 @@ gulp.task('html', function () {
 
 // npcApp Files
 gulp.task('files', function () {
-    return gulp.src(npcApp.src + '**/*.{ico,txt,json,png}')
+    return gulp.src([npcApp.src + '**/*.{ico,txt,json,png}', '!' + adminApp2.src + '**/*'])
         .pipe(gulp.dest(npcApp.dest));
 });
 
@@ -255,7 +269,18 @@ gulp.task('watch', function () {
 });
 
 // Build Task
-gulp.task('build', ['php', 'html', 'files', 'bower', 'scripts', 'styles']);
+gulp.task('build', function (callback) {
+    plugins.runSequence(
+        'clean',
+        ['php', 'html', 'files', 'bower', 'scripts', 'styles'],
+        callback
+    );
+});
+
+// Clean Task
+gulp.task('clean', function () {
+    return plugins.del([npcApp.dest]);
+});
 
 // Server Task
 gulp.task('connect', function () {
