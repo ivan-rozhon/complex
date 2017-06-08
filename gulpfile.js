@@ -49,7 +49,7 @@ gulp.task('html', function () {
 
 // npcApp Files
 gulp.task('files', function () {
-    return gulp.src([npcApp.src + '**/*.{ico,txt,json,png}', '!' + adminApp2.src + '**/*'])
+    return gulp.src([npcApp.src + '**/*.{ico,txt,json,png,jpeg,jpg,gif,svg}', '!' + adminApp2.src + '**/*'])
         .pipe(gulp.dest(npcApp.dest));
 });
 
@@ -259,7 +259,7 @@ gulp.task('watch', function () {
     // npcApp
     gulp.watch(npcApp.src + '**/*.php', ['php']);
     gulp.watch([npcApp.src + '**/*.html', '!' + adminApp.src + '**/*.html', '!' + adminApp2.src + '**/*.html'], ['html']);
-    gulp.watch(npcApp.src + '**/*.{ico,txt,json,png}', ['files']);
+    gulp.watch([npcApp.src + '**/*.{ico,txt,json,png,jpeg,jpg,gif,svg}', '!' + adminApp2.src + '**/*'], ['files']);
     gulp.watch(npcApp.src + '_core/web/**/*.js', ['npc-app-js']);
     gulp.watch(npcApp.src + '_core/web/**/*.{less,scss}', ['npc-app-styles']);
 
@@ -294,6 +294,12 @@ gulp.task('connect', function () {
             });
         }
     );
+});
+
+// Task for copy data files (edited by developer in Admin App) from dist/ to src/ (reverse)
+gulp.task('reverse', function () {
+    return gulp.src(npcApp.dest + '_source/**/*.json')
+        .pipe(gulp.dest(npcApp.src +  '_source/'));
 });
 
 // Default Task

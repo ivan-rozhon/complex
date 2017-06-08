@@ -1,15 +1,9 @@
 {
     "adminConfig": {
-        "mainSchema": "adminSchemaMain",
-        "mainQuery": "admin",
         "lang": "en",
         "description": "Experimental NoSQL PHP CMS",
         "keywords": "NoSQL, PHP, CMS",
         "author": "Ivan",
-        "title": "NPC Admin",
-        "titleSeparator": [
-            "|",
-            "-"
-        ]
+        "title": "NPC Admin"
     }
 }
