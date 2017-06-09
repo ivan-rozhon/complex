@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 
-import '../assets/css/styles.css';
+import '../assets/styles/styles.scss';
 
 @Component({
     selector: 'admin-app',
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css']
+    styleUrls: ['./app.component.scss']
 })
 
 export class AppComponent { }

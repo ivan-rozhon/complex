@@ -2,6 +2,11 @@ var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var helpers = require('./helpers');
 
+const extractSass = new ExtractTextPlugin({
+  filename: "[name].css",
+  disable: process.env.NODE_ENV === "development"
+});
+
 module.exports = {
   entry: {
     'polyfills': './src/_core/admin2/admin-app/polyfills.ts',
@@ -42,6 +47,24 @@ module.exports = {
         test: /\.css$/,
         include: helpers.root('src/_core/admin2/admin-app', 'app'),
         loader: 'raw-loader'
+      },
+      {
+        test: /\.scss$/,
+        exclude: helpers.root('src/_core/admin2/admin-app', 'app'),
+        use: extractSass.extract({
+          use: [{
+            loader: "css-loader"
+          }, {
+            loader: "sass-loader"
+          }],
+          // use style-loader in development
+          fallback: "style-loader"
+        })
+      },
+      {
+        test: /\.scss$/,
+        include: helpers.root('src/_core/admin2/admin-app', 'app'),
+        loaders: ['raw-loader', 'sass-loader'] // sass-loader not scss-loader
       }
     ]
   },
@@ -60,6 +83,8 @@ module.exports = {
 
     new webpack.optimize.CommonsChunkPlugin({
       name: ['app', 'vendor', 'polyfills']
-    })
+    }),
+
+    extractSass
   ]
 };
