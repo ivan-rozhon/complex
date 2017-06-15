@@ -52,11 +52,10 @@ module.exports = {
         test: /\.scss$/,
         exclude: helpers.root('src/_core/admin2/admin-app', 'app'),
         use: extractSass.extract({
-          use: [{
-            loader: "css-loader"
-          }, {
-            loader: "sass-loader"
-          }],
+          use: [
+            { loader: 'css-loader', query: { modules: true, importLoaders: 2 } },
+            { loader: 'postcss-loader' },
+            { loader: 'sass-loader', options: {} }],
           // use style-loader in development
           fallback: "style-loader"
         })
@@ -64,7 +63,7 @@ module.exports = {
       {
         test: /\.scss$/,
         include: helpers.root('src/_core/admin2/admin-app', 'app'),
-        loaders: ['raw-loader', 'sass-loader'] // sass-loader not scss-loader
+        loaders: ['raw-loader', { loader: 'sass-loader', options: { importLoaders: 1 } }, 'postcss-loader'] // sass-loader not scss-loader
       }
     ]
   },
