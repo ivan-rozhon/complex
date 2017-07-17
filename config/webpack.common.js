@@ -22,7 +22,7 @@ module.exports = {
     rules: [
       {
         test: /\.ts$/,
-        loaders: [
+        use: [
           {
             loader: 'awesome-typescript-loader',
             options: { configFileName: helpers.root('', 'tsconfig.json') }
@@ -32,21 +32,26 @@ module.exports = {
       },
       {
         test: /\.html$/,
-        loader: 'html-loader'
+        use: 'html-loader'
       },
       {
         test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
-        loader: 'file-loader?name=assets/[name].[ext]'
+        use: 'file-loader?name=assets/[name].[ext]'
       },
       {
         test: /\.css$/,
         exclude: helpers.root('src/_core/admin2/admin-app', 'app'),
-        loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader?sourceMap' })
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            { loader: 'css-loader?sourceMap' }
+          ]
+        })
       },
       {
         test: /\.css$/,
         include: helpers.root('src/_core/admin2/admin-app', 'app'),
-        loader: 'raw-loader'
+        use: 'raw-loader'
       },
       {
         test: /\.scss$/,
@@ -55,7 +60,8 @@ module.exports = {
           use: [
             { loader: 'css-loader', query: { modules: true, importLoaders: 2 } },
             { loader: 'postcss-loader' },
-            { loader: 'sass-loader', options: {} }],
+            { loader: 'sass-loader', options: {} }
+          ],
           // use style-loader in development
           fallback: "style-loader"
         })
@@ -63,7 +69,7 @@ module.exports = {
       {
         test: /\.scss$/,
         include: helpers.root('src/_core/admin2/admin-app', 'app'),
-        loaders: ['raw-loader', { loader: 'sass-loader', options: { importLoaders: 1 } }, 'postcss-loader'] // sass-loader not scss-loader
+        use: ['raw-loader', { loader: 'sass-loader', options: { importLoaders: 1 } }, 'postcss-loader'] // sass-loader not scss-loader
       }
     ]
   },
