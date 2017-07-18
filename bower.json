@@ -45,7 +45,7 @@
     ]
   },
   "resolutions": {
-    "angular": "1.5.8",
+    "angular": "1.6.4",
     "bootstrap": "v4.0.0-alpha.6"
   }
 }
