@@ -168,7 +168,7 @@
             $scope.key = angular.copy($ctrl.schema.data); // unique dataKey
             $scope.data = data;
             $scope.config = config;
-            $scope.template = angular.copy($ctrl.schema.template); // template-name
+            $scope.template = angular.copy($ctrl.schema.template ? $ctrl.schema.template : $ctrl.schema.sectionId); // template-name
             $scope.name = angular.copy($ctrl.schema.name);
 
             // show dialog
