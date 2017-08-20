@@ -1,12 +1,37 @@
 {
     "_metadata": {
         "prototype": {
-            "title": ""
+            "title": "",
+            "generic": []
         },
         "data": {
             "title": {
                 "type": "string",
                 "label": "Title"
+            },
+            "generic": {
+                "type": "generic",
+                "label": "Generic",
+                "aviable": {
+                    "string": "",
+                    "editor": ""
+                }
+            },
+            "string": {
+                "type": "textarea",
+                "label": "Text"
+            },
+            "editor": {
+                "type": "editor",
+                "label": "Editor",
+                "colors": [
+                    "F44336",
+                    "3F51B5",
+                    "CDDC39",
+                    "4CAF50",
+                    "FFC107",
+                    "795548"
+                ]
             }
         }
     }

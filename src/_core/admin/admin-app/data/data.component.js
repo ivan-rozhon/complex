@@ -93,5 +93,19 @@
             // move item to new positon (newIndex)
             $ctrl.data[key].move(index, newIndex);
         };
+
+        // open 'Add generic' menu
+        $ctrl.openGenericMenu = function ($mdMenu, ev) {
+            $mdMenu.open(ev);
+        };
+
+        // add generic item
+        $ctrl.addGeneric = function (container, item, index = 0) {
+            // make copy of new item value
+            let newGenericItemValue = angular.copy($ctrl.config[container].aviable[item]);
+
+            // new item has specific position
+            $ctrl.data[container].splice(index + 1, 0, { [item]: newGenericItemValue });
+        };
     }
 })();

@@ -21,8 +21,13 @@
     <div class="md-dialog-content">
         <div layout="column" ng-repeat="(key, value) in $ctrl.data" ng-switch="$ctrl.config[key].type">
 
-            <h4 ng-if="$ctrl.config[key].type === 'array'">{{ $ctrl.config[key].label }}</h4>
-            <npc-data-input layout="row" layout-wrap ng-switch-when="array" ng-repeat="(subKey, subValue) in value"
+            <!-- Array/Generic -->
+            <h4 ng-if="$ctrl.config[key].type === 'array' || $ctrl.config[key].type === 'generic'">{{ $ctrl.config[key].label }}</h4>
+
+            <!-- Array/Generic -->
+            <npc-data-input ng-switch-when="array|generic" ng-switch-when-separator="|" ng-repeat="(subKey, subValue) in value"
+                layout-wrap
+                layout="row"
                 index="$index"
                 last-index="$last"
                 key="key"
@@ -30,8 +35,10 @@
                 config="$ctrl.config"
                 add-item="$ctrl.addDataItem(key, index)"
                 delete-item="$ctrl.deleteDataItem(key, index)"
-                move-item="$ctrl.moveDataItem(direction, key, index)"></npc-data-input>
+                move-item="$ctrl.moveDataItem(direction, key, index)"
+                add-generic="$ctrl.addGeneric(container, item, index)"></npc-data-input>
 
+            <!-- Array -->
             <div flex="100" ng-if="$ctrl.config[key].type === 'array' && !value.length">
                 <md-button class="md-icon-button" aria-label="Add group" ng-click="$ctrl.addGroup(key)">
                     <md-icon md-font-icon="material-icons">library_add</md-icon>
@@ -39,6 +46,23 @@
                 </md-button>
             </div>
 
+            <!-- Generic -->
+            <div flex="100" ng-if="$ctrl.config[key].type === 'generic' && !value.length">
+                <md-menu>
+                    <md-button class="md-icon-button" aria-label="Add generic" ng-click="$ctrl.openGenericMenu($mdMenu, $event)">
+                        <md-icon md-font-icon="material-icons">library_add</md-icon>
+                    </md-button>
+                    <md-menu-content width="4">
+                        <md-menu-item ng-repeat="(subKey, subValue) in $ctrl.config[key].aviable">
+                            <md-button ng-click="$ctrl.addGeneric(key, subKey)">
+                                {{ $ctrl.config[subKey].label }}
+                            </md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+            </div>
+
+            <!-- Input -->
             <npc-data-input-model ng-switch-default
                 input-data="$ctrl.config[key]"
                 input-model="$ctrl.data[key]"></npc-data-input-model>

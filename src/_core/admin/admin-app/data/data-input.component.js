@@ -15,7 +15,8 @@
                 config: '<config',
                 addItem: '&addItem',
                 deleteItem: '&deleteItem',
-                moveItem: '&moveItem'
+                moveItem: '&moveItem',
+                addGeneric: '&addGeneric'
             }
         });
 
@@ -64,6 +65,16 @@
 
             // move item to new positon (newIndex)
             $ctrl.data[key].move(index, newIndex);
+        };
+
+        // open 'Add generic' menu
+        $ctrl.openGenericMenu = function ($mdMenu, ev) {
+            $mdMenu.open(ev);
+        };
+
+        // add new generic item (depends on md-menu select)
+        $ctrl.addGenericItem = function (container, item) {
+            $ctrl.addGeneric({container: container, item: item, index: $ctrl.index});
         };
     }
 })();
