@@ -36,6 +36,7 @@
     "autoprefixer": "^7.1.2",
     "awesome-typescript-loader": "^3.2.3",
     "babel-preset-env": "^1.6.0",
+    "babel-register": "^6.26.0",
     "browser-sync": "^2.18.13",
     "browserify": "^14.4.0",
     "css-loader": "^0.28.5",
