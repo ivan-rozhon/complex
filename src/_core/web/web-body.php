@@ -9,8 +9,9 @@ class WebBody {
     }
 
     public function webBody($webBodyHeader, $webBodyNav, $webBodyMain, $webBodyFooter) {
-        $jsVersion = filemtime("_core/web/scripts/web.min.js");
-        $jsLibVersion = filemtime("_core/web/scripts/lib.min.js");
+        $jsVersion = filemtime("_core/web/scripts/web.js");
+        $jsVendorVersion = filemtime("_core/web/scripts/vendor.js");
+        $jsPolyfillsVersion = filemtime("_core/web/scripts/polyfills.js");
         $baseUrl = $this->web->sharedRouter->baseUrl();
 
         return $this->templateProvider->sharedTemplateProvider(
@@ -20,7 +21,8 @@ class WebBody {
                     'webBodyMain' => $webBodyMain,
                     'webBodyFooter' => $webBodyFooter,
                     'jsVersion' => $jsVersion,
-                    'jsLibVersion' => $jsLibVersion,
+                    'jsVendorVersion' => $jsVendorVersion,
+                    'jsPolyfillsVersion' => $jsPolyfillsVersion,
                     'baseUrl' => $baseUrl,
                 ],
                 '_core/web/web-body.html'

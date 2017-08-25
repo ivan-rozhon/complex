@@ -1,10 +1,9 @@
 # [Complex]
 
 Experimental web dev pack, that contains:
-- NoSQL PHP CMS
-- JS Admin App (Angular)
+- PHP and Javascript (Angular) CMS
 - REST API
-- Local development environment
+- Local development environment (Gulp, Webpack)
 
 ## Install
 ```
@@ -29,6 +28,13 @@ gulp build -prod
 
 ## Local dev server
 (PHP ~7.1.0 required)
+
+After successful build:
 ```
 gulp connect
 ```
+
+## News & Near future
+- Webpack 3
+- Angular 4 Admin App
+- Removing Bower (deprecated) & Gulp

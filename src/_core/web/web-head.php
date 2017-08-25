@@ -17,8 +17,8 @@ class WebHead {
         $author = $this->web->webConfig['author'];
         $title = $this->webHeadTitle();
         $faviconVersion = filemtime("favicon.ico");
-        $cssVersion = filemtime("_core/web/styles/web.min.css");
-        $cssLibVersion = filemtime("_core/web/styles/lib.min.css");
+        $cssVersion = filemtime("_core/web/styles/web.css");
+        $cssVendorVersion = filemtime("_core/web/styles/vendor.css");
         $baseUrl = $this->web->sharedRouter->baseUrl();
 
         return $this->templateProvider->sharedTemplateProvider(
@@ -29,7 +29,7 @@ class WebHead {
                     'title' => $title,
                     'faviconVersion' => $faviconVersion,
                     'cssVersion' => $cssVersion,
-                    'cssLibVersion' => $cssLibVersion,
+                    'cssVendorVersion' => $cssVendorVersion,
                     'baseUrl' => $baseUrl
                 ],
                 '_core/web/web-head.html'

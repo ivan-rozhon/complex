@@ -7,7 +7,7 @@ import { MAX_USERS, MAX_REPLIES } from './modules/es6-module';
 import { FlashMessage } from './modules/es6-module';
 
 (() => {
-    return;
+    // return;
     // ╔══════════════════════════╗
     // ║ ECMAScript 2015 Features ║
     // ╚══════════════════════════╝
