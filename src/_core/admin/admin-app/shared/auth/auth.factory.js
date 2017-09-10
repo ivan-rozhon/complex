@@ -10,7 +10,7 @@
         var $ctrl = this;
 
         // create full API URL
-        $ctrl.apiURL = `${location.protocol}//${location.host}/${API}`;
+        $ctrl.apiURL = `${location.protocol}//${location.host}${location.pathname}${API}`;
 
         // load Authorization token if aviable
         $ctrl.loadToken = function (config) {

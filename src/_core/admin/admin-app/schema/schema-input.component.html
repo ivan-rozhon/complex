@@ -7,6 +7,10 @@
         <md-icon md-colors="$ctrl.schema.data ? {} : {color: 'red'}" md-font-icon="material-icons">storage</md-icon>
         <md-tooltip>Data</md-tooltip>
     </md-button>
+    <md-button class="md-icon-button" aria-label="Data" ng-click="$ctrl.schema.data = ''" ng-show="$ctrl.schema.data">
+        <md-icon md-font-icon="material-icons">clear</md-icon>
+        <md-tooltip>Clear Data</md-tooltip>
+    </md-button>
     <md-button ng-if="$ctrl.index !== 0 && $ctrl.schemaKey !== 'webSections'" class="md-icon-button" aria-label="Up" ng-click="$ctrl.doMoveItem(true)">
         <md-icon md-font-icon="material-icons">arrow_drop_up</md-icon>
         <md-tooltip>Up</md-tooltip>

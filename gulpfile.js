@@ -67,7 +67,10 @@ gulp.task('templates', function () {
         .pipe(gulp.dest(adminApp.tmp + 'js'));
 });
 
-gulp.task('scripts', ['npc-app-js', 'admin-app-js']);
+gulp.task('scripts', [
+    // 'npc-app-js',
+    'admin-app-js'
+]);
 
 // npcApp JS
 gulp.task('npc-app-js-main', function () {
@@ -120,7 +123,10 @@ gulp.task('admin-app-js', ['templates'], function () {
 });
 
 // CSS
-gulp.task('styles', ['npc-app-styles', 'admin-app-styles']);
+gulp.task('styles', [
+    // 'npc-app-styles',
+    'admin-app-styles'
+]);
 
 // npcApp CSS
 gulp.task('npc-app-styles', function () {
@@ -257,11 +263,11 @@ gulp.task('bower', ['bower-js-admin', 'bower-js-web', 'bower-css-admin', 'bower-
 // Watch for changes in files
 gulp.task('watch', function () {
     // npcApp
-    gulp.watch(npcApp.src + '**/*.php', ['php']);
-    gulp.watch([npcApp.src + '**/*.html', '!' + adminApp.src + '**/*.html', '!' + adminApp2.src + '**/*.html'], ['html']);
-    gulp.watch([npcApp.src + '**/*.{ico,txt,json,png,jpeg,jpg,gif,svg}', '!' + adminApp2.src + '**/*'], ['files']);
-    gulp.watch(npcApp.src + '_core/web/**/*.js', ['npc-app-js']);
-    gulp.watch(npcApp.src + '_core/web/**/*.{less,scss}', ['npc-app-styles']);
+    // gulp.watch(npcApp.src + '**/*.php', ['php']);
+    // gulp.watch([npcApp.src + '**/*.html', '!' + adminApp.src + '**/*.html', '!' + adminApp2.src + '**/*.html'], ['html']);
+    // gulp.watch([npcApp.src + '**/*.{ico,txt,json,png,jpeg,jpg,gif,svg}', '!' + adminApp2.src + '**/*'], ['files']);
+    // gulp.watch(npcApp.src + '_core/web/**/*.js', ['npc-app-js']);
+    // gulp.watch(npcApp.src + '_core/web/**/*.{less,scss}', ['npc-app-styles']);
 
     // adminApp
     gulp.watch([adminApp.src + '**/*.html', adminApp.src + '**/*.js'], ['admin-app-js']);
@@ -271,8 +277,15 @@ gulp.task('watch', function () {
 // Build Task
 gulp.task('build', function (callback) {
     plugins.runSequence(
-        'clean',
-        ['php', 'html', 'files', 'bower', 'scripts', 'styles'],
+        // 'clean',
+        [
+            // 'php',
+            // 'html',
+            // 'files',
+            'bower',
+            'scripts',
+            'styles'
+        ],
         callback
     );
 });
@@ -283,12 +296,12 @@ gulp.task('clean', function () {
 });
 
 // Server Task
-gulp.task('connect', function () {
+gulp.task('serve', function () {
     plugins.connectPhp.server(
         { base: 'dist', port: 8010, keepalive: true }, function () {
             plugins.browserSync({
                 proxy: '127.0.0.1:8010',
-                port: 8080,
+                port: 8090,
                 cors: true,
                 files: ['dist/**/*', '!dist/**/*.json']
             });
