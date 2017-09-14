@@ -45,20 +45,20 @@
 
 <div flex="100">
     <!-- Non-generic 'Add' btn -->
-    <md-button ng-if="$ctrl.key !== 'generic'" class="md-icon-button" aria-label="Add" ng-click="$ctrl.doAddItem()">
+    <md-button ng-if="$ctrl.key !== 'generic' && $ctrl.key !== 'common'" class="md-icon-button" aria-label="Add" ng-click="$ctrl.doAddItem()">
         <md-icon md-font-icon="material-icons">add_box</md-icon>
         <md-tooltip>Add</md-tooltip>
     </md-button>
 
     <!-- Generic 'Add' btn -->
-    <div flex="100" ng-if="$ctrl.key === 'generic'">
-        <md-menu flex="100" ng-if="$ctrl.key === 'generic'">
+    <div flex="100" ng-if="$ctrl.key === 'generic' || $ctrl.key === 'common'">
+        <md-menu flex="100" ng-if="$ctrl.key === 'generic' || $ctrl.key === 'common'">
             <md-button class="md-icon-button" aria-label="Add generic" ng-click="$ctrl.openGenericMenu($mdMenu, $event)">
                 <md-icon md-font-icon="material-icons">add_box</md-icon>
             </md-button>
             <md-menu-content width="4">
                 <md-menu-item ng-repeat="(subKey, subValue) in $ctrl.config[$ctrl.key].aviable">
-                    <md-button ng-click="$ctrl.addGenericItem($ctrl.key, subKey)">
+                    <md-button ng-disabled="$ctrl.isUsedCommon(subKey)" ng-click="$ctrl.addGenericItem($ctrl.key, subKey)">
                         {{ $ctrl.config[subKey].label }}
                     </md-button>
                 </md-menu-item>

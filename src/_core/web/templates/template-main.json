@@ -2,12 +2,25 @@
     "_metadata": {
         "prototype": {
             "title": "",
+            "common": [],
             "generic": []
         },
         "data": {
+            "common": {
+                "type": "common",
+                "label": "Common",
+                "aviable": {
+                    "title": "",
+                    "show": false
+                }
+            },
             "title": {
                 "type": "string",
                 "label": "Title"
+            },
+            "show": {
+                "type": "boolean",
+                "label": "Show"
             },
             "generic": {
                 "type": "generic",

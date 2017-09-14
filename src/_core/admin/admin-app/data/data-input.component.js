@@ -12,6 +12,7 @@
                 lastIndex: '<lastIndex',
                 key: '<key',
                 data: '=data',
+                commonData: '<commonData',
                 config: '<config',
                 addItem: '&addItem',
                 deleteItem: '&deleteItem',
@@ -75,6 +76,14 @@
         // add new generic item (depends on md-menu select)
         $ctrl.addGenericItem = function (container, item) {
             $ctrl.addGeneric({container: container, item: item, index: $ctrl.index});
+        };
+
+        // check if common item is already used
+        $ctrl.isUsedCommon = function (itemType) {
+            // search id common data array for object with property (already used property)
+            const itemExists = $ctrl.commonData.find(o => o.hasOwnProperty(itemType));
+
+            return $ctrl.key === 'common' && itemExists;
         };
     }
 })();
