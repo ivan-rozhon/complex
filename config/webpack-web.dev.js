@@ -16,8 +16,7 @@ module.exports = webpackMerge(commonConfig, {
         new WriteFilePlugin()
     ],
 
-    // devServer: {
-    //     historyApiFallback: true,
-    //     stats: 'minimal'
-    // }
+    devServer: {
+        watchContentBase: true
+    }
 });

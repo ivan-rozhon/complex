@@ -1,13 +1,9 @@
-// babel-polyfill (includes a custom regenerator runtime and core-js)
-import './modules/polyfill';
-
 // « Modules #1/2 »
 import * as es6 from './modules/es6-module';
 import { MAX_USERS, MAX_REPLIES } from './modules/es6-module';
 import { FlashMessage } from './modules/es6-module';
 
 (() => {
-    // return;
     // ╔══════════════════════════╗
     // ║ ECMAScript 2015 Features ║
     // ╚══════════════════════════╝
@@ -387,7 +383,7 @@ import { FlashMessage } from './modules/es6-module';
     };
 
     // Generator function
-    post2[Symbol.iterator] = function *() {
+    post2[Symbol.iterator] = function* () {
 
         let properties = Object.keys(this);
         for (let p of properties) {

@@ -74,8 +74,12 @@ module.exports = {
             $: 'jquery',
             jQuery: 'jquery',
             "window.jQuery": 'jquery',
+            // Popper.js (required by bootstrap)
+            Popper: ['popper.js', 'default'],
             // and Tether
-            Tether: 'tether'
+            Tether: 'tether',
+            // ...and RxJS
+            Rx: 'rxjs'
         }),
 
         extractSass,
