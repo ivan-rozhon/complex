@@ -57,7 +57,7 @@
                 <md-icon md-font-icon="material-icons">add_box</md-icon>
             </md-button>
             <md-menu-content width="4">
-                <md-menu-item ng-repeat="(subKey, subValue) in $ctrl.config[$ctrl.key].aviable">
+                <md-menu-item ng-repeat="(subKey, subValue) in $ctrl.config[$ctrl.key].available">
                     <md-button ng-disabled="$ctrl.isUsedCommon(subKey)" ng-click="$ctrl.addGenericItem($ctrl.key, subKey)">
                         {{ $ctrl.config[subKey].label }}
                     </md-button>

@@ -12,7 +12,7 @@
         // create full API URL
         $ctrl.apiURL = `${location.protocol}//${location.host}${location.pathname}${API}`;
 
-        // load Authorization token if aviable
+        // load Authorization token if available
         $ctrl.loadToken = function (config) {
             return $q(function (resolve, reject) {
                 var token = authService.getToken();
@@ -26,7 +26,7 @@
         return {
             // automatically attach Authorization header
             request: function (config) {
-                // load Authorization token if aviable (asynchronous - not necessary)
+                // load Authorization token if available (asynchronous - not necessary)
                 var updatedConfig = $ctrl.loadToken(config);
 
                 // wait for token and return config (with or without token)

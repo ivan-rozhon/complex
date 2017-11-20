@@ -54,7 +54,7 @@
                         <md-icon md-font-icon="material-icons">library_add</md-icon>
                     </md-button>
                     <md-menu-content width="4">
-                        <md-menu-item ng-repeat="(subKey, subValue) in $ctrl.config[key].aviable">
+                        <md-menu-item ng-repeat="(subKey, subValue) in $ctrl.config[key].available">
                             <md-button ng-click="$ctrl.addGeneric(key, subKey)">
                                 {{ $ctrl.config[subKey].label }}
                             </md-button>

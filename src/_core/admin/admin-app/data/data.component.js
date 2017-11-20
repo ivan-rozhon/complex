@@ -102,7 +102,7 @@
         // add generic item
         $ctrl.addGeneric = function (container, item, index = 0) {
             // make copy of new item value
-            let newGenericItemValue = angular.copy($ctrl.config[container].aviable[item]);
+            let newGenericItemValue = angular.copy($ctrl.config[container].available[item]);
 
             // new item has specific position
             $ctrl.data[container].splice(index + 1, 0, { [item]: newGenericItemValue });

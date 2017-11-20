@@ -9,7 +9,7 @@
             "common": {
                 "type": "common",
                 "label": "Common",
-                "aviable": {
+                "available": {
                     "title": "",
                     "show": false
                 }
@@ -25,7 +25,7 @@
             "generic": {
                 "type": "generic",
                 "label": "Generic",
-                "aviable": {
+                "available": {
                     "string": "",
                     "editor": ""
                 }
