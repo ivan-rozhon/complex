@@ -4,10 +4,11 @@
   "description": "Experimental NoSQL PHP CMS",
   "scripts": {
     "clean": "rimraf dist",
-    "clear": "rimraf node_modules dist",
+    "prestart": "npm run clean",
+    "start": "parallel-webpack --watch",
     "prebuild": "npm run clean",
-    "serve": "php -S localhost:8000 -t dist/",
-    "build": "parallel-webpack --watch"
+    "build": "parallel-webpack",
+    "serve": "php -S localhost:8000 -t dist/"
   },
   "repository": {
     "type": "git",
@@ -28,7 +29,6 @@
     "@angular/platform-browser": "~4.4.1",
     "@angular/platform-browser-dynamic": "~4.4.1",
     "@angular/router": "~4.4.1",
-    "babel-polyfill": "^6.26.0",
     "bootstrap": "^4.0.0-beta",
     "core-js": "^2.5.1",
     "font-awesome": "^4.7.0",
@@ -40,7 +40,6 @@
   "devDependencies": {
     "@types/node": "^8.0.28",
     "angular2-template-loader": "^0.6.2",
-    "autoprefixer": "^7.1.4",
     "awesome-typescript-loader": "^3.2.3",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.7",
@@ -48,12 +47,9 @@
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^0.11.2",
     "html-loader": "^0.5.1",
-    "html-webpack-plugin": "^2.30.1",
     "jquery": "^3.2.1",
     "jshint": "^2.9.5",
-    "less-plugin-autoprefix": "^1.5.1",
-    "node-sass": "^4.5.3",
-    "null-loader": "^0.1.1",
+    "node-sass": "^4.7.2",
     "parallel-webpack": "^2.2.0",
     "postcss-cssnext": "^3.0.2",
     "postcss-import": "^11.0.0",
@@ -64,7 +60,6 @@
     "style-loader": "^0.18.2",
     "typescript": "~2.5.2",
     "webpack": "^3.6.0",
-    "webpack-merge": "^4.1.0",
-    "write-file-webpack-plugin": "^4.1.0"
+    "webpack-merge": "^4.1.0"
   }
 }

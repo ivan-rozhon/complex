@@ -11,7 +11,6 @@ npm install
 ```
 
 ## Build & watch
-Basic build & watch:
 ```
 npm run build
 ```
