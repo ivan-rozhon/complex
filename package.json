@@ -4,6 +4,7 @@
   "description": "Experimental NoSQL PHP CMS",
   "scripts": {
     "clean": "rimraf dist",
+    "delete": "rimraf dist node_modules",
     "prestart": "npm run clean",
     "start": "parallel-webpack --watch",
     "prebuild": "npm run clean",
@@ -35,7 +36,7 @@
     "zone.js": "^0.8.17"
   },
   "devDependencies": {
-    "@types/node": "^8.0.28",
+    "@types/node": "^8.0.53",
     "angular2-template-loader": "^0.6.2",
     "awesome-typescript-loader": "^3.2.3",
     "copy-webpack-plugin": "^4.0.1",

@@ -1,7 +1,7 @@
 <?php
 
 class Api {
-    const SECRET = 'secret-npc-admin-key';
+    const SECRET = 'secret-complex-admin-key';
 
     public $system, $sharedJWT, $requestMethod;
 

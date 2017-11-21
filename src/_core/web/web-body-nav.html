@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light sticky-top bg-faded">
+<!-- <nav class="navbar navbar-expand-md navbar-light sticky-top bg-faded">
     <button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse" data-target="#navbarToggler"
         aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon d-flex flex-row justify-content-center align-items-center">
@@ -16,4 +16,23 @@
             [[navbar]]
         </ul>
     </div>
-</nav>
+</nav> -->
+
+<div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container" uk-navbar>
+        <div class="uk-navbar-left">
+            <a href="" class="uk-navbar-item uk-logo">
+                <img src="[[baseUrl]]_source/images/shared/logo-32x32.png?v=[[logoVersion]]">
+            </a>
+
+            <ul class="uk-navbar-nav">
+                <li>
+                    <a href="#">
+                        <span class="uk-icon uk-margin-small-right" uk-icon="icon: star"></span>
+                        Features
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>

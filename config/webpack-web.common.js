@@ -77,8 +77,10 @@ module.exports = {
             $: 'jquery',
             jQuery: 'jquery',
             "window.jQuery": 'jquery',
-            // ...and RxJS
-            Rx: 'rxjs'
+            // RxJS | https://github.com/reactivex/rxjs
+            Rx: 'rxjs',
+            // UIkit | https://getuikit.com/
+            UIkit: 'uikit'
         }),
 
         extractSass,

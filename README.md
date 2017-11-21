@@ -1,27 +1,39 @@
 # [Complex]
 
 Experimental web dev pack, that contains:
-- PHP and Javascript (Angular) CMS
-- REST API
+- PHP and Javascript/TypeScript (Angular) web CMS
+- REST API - authorization (JWT), data manipulation
 - Local development environment (Webpack, PHP Webserver)
+
+## Prerequisites
+[Node.js and npm](https://nodejs.org/en/download/) (Node 6.9.0 or higher, together with NPM 3 or higher) if they are not already on your machine.
 
 ## Install
 ```
 npm install
 ```
 
-## Build & watch
+## Build
 ```
 npm run build
 ```
 
-## Local dev server
-(PHP ~7.1.0 required)
 
-After successful build (in separate terminal):
+## Local development server
+
+Run build with watch:
+```
+npm start
+```
+
+After successful build, run (in separate terminal):
+
+(PHP ~7.1.0 required)
 ```
 npm run serve
 ```
+
+Navigate to `http://localhost:8000/`.
 
 ## News
 - Webpack 3 build
