@@ -3,7 +3,6 @@
         "defaultRoute": "web",
         "queryExceptions": [
             "admin",
-            "admin2",
             "api"
         ],
         "prettyUrl": true

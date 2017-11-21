@@ -9,13 +9,13 @@ class AdminHead {
     }
 
     public function adminHead() {
+        $baseUrl = $this->admin->sharedRouter->baseUrl();
         $description = $this->admin->adminConfig['description'];
         $keywords = $this->admin->adminConfig['keywords'];
         $author = $this->admin->adminConfig['author'];
         $title = $this->admin->adminConfig['title'];
         $faviconVersion = filemtime("favicon.ico");
-        $cssLibVersion = filemtime("_core/admin/admin-app/css/lib.min.css");
-        $cssAppVersion = filemtime("_core/admin/admin-app/css/app.min.css");
+        $cssAppVersion = filemtime("_core/admin/admin-app/app.css");
         $baseUrl = $this->admin->sharedRouter->baseUrl();
 
         return $this->templateProvider->sharedTemplateProvider(
@@ -25,7 +25,6 @@ class AdminHead {
                     'author' => $author,
                     'title' => $title,
                     'faviconVersion' => $faviconVersion,
-                    'cssLibVersion' => $cssLibVersion,
                     'cssAppVersion' => $cssAppVersion,
                     'baseUrl' => $baseUrl
                 ],

@@ -20,8 +20,8 @@ module.exports = [
         devtool: 'source-map',
 
         output: {
-            path: helpers.root('dist/_core/admin2/admin-app'),
-            publicPath: '_core/admin2/admin-app/',
+            path: helpers.root('dist/_core/admin/admin-app'),
+            publicPath: '_core/admin/admin-app/',
             filename: '[name].js',
             chunkFilename: '[id].chunk.js'
         },

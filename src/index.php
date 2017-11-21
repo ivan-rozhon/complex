@@ -26,7 +26,6 @@ set_include_path(
         array(
             get_include_path(),
             $system->pathPrefix.'_core/admin/',
-            $system->pathPrefix.'_core/admin2/',
             $system->pathPrefix.'_core/api/',
             $system->pathPrefix.'_core/shared/',
             $system->pathPrefix.'_core/web/'

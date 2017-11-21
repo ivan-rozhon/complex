@@ -9,9 +9,9 @@ const extractSass = new ExtractTextPlugin({
 
 module.exports = {
   entry: {
-    'polyfills': './src/_core/admin2/admin-app/polyfills.ts',
-    'vendor': './src/_core/admin2/admin-app/vendor.ts',
-    'app': './src/_core/admin2/admin-app/main.ts'
+    'polyfills': './src/_core/admin/admin-app/polyfills.ts',
+    'vendor': './src/_core/admin/admin-app/vendor.ts',
+    'app': './src/_core/admin/admin-app/main.ts'
   },
 
   resolve: {
@@ -40,7 +40,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        exclude: helpers.root('src/_core/admin2/admin-app', 'app'),
+        exclude: helpers.root('src/_core/admin/admin-app', 'app'),
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [
@@ -50,12 +50,12 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        include: helpers.root('src/_core/admin2/admin-app', 'app'),
+        include: helpers.root('src/_core/admin/admin-app', 'app'),
         use: 'raw-loader'
       },
       {
         test: /\.scss$/,
-        exclude: helpers.root('src/_core/admin2/admin-app', 'app'),
+        exclude: helpers.root('src/_core/admin/admin-app', 'app'),
         use: extractSass.extract({
           use: [
             { loader: 'css-loader', query: { modules: true, importLoaders: 2 } },
@@ -68,7 +68,7 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        include: helpers.root('src/_core/admin2/admin-app', 'app'),
+        include: helpers.root('src/_core/admin/admin-app', 'app'),
         use: ['raw-loader', { loader: 'sass-loader', options: { importLoaders: 1 } }, 'postcss-loader'] // sass-loader not scss-loader
       }
     ]
@@ -82,7 +82,7 @@ module.exports = {
 
       // FIX: https://github.com/angular/angular/issues/11580
       /angular(\\|\/)core(\\|\/)@angular/,
-      helpers.root('./src/_core/admin2/admin-app'), // location of your src
+      helpers.root('./src/_core/admin/admin-app'), // location of your src
       {} // a map of your routes
     ),
 

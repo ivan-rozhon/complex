@@ -1,9 +1,12 @@
 <body ng-app="adminApp">
     <admin-app></admin-app>
 
-    <!-- Bower Components Lib -->
-    <script src="[[baseUrl]]_core/admin/admin-app/js/lib.min.js?v=[[jsLibVersion]]"></script>
+    <!-- Polyfills -->
+    <script src="[[baseUrl]]_core/admin/admin-app/polyfills.js?v=[[jsPolyfillsVersion]]"></script>
 
-    <!-- adminApp -->
-    <script src="[[baseUrl]]_core/admin/admin-app/js/app.min.js?v=[[jsAppVersion]]"></script>
+    <!-- Vendor -->
+    <script src="[[baseUrl]]_core/admin/admin-app/vendor.js?v=[[jsVendorVersion]]"></script>
+
+    <!-- App -->
+    <script src="[[baseUrl]]_core/admin/admin-app/app.js?v=[[jsAppVersion]]"></script>
 </body>

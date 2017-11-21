@@ -96,8 +96,7 @@ module.exports = {
                     '*.js',
                     '*.scss',
                     '*.less',
-                    '_core/admin/admin-app/**/*',
-                    '_core/admin2/admin-app/**/*'
+                    '_core/admin/admin-app/**/*'
                 ],
 
                 // By default, we only copy modified files during
