@@ -1,6 +1,6 @@
 {
   "name": "complex",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Experimental NoSQL PHP CMS",
   "scripts": {
     "clean": "rimraf dist",
@@ -29,12 +29,9 @@
     "@angular/platform-browser": "~4.4.1",
     "@angular/platform-browser-dynamic": "~4.4.1",
     "@angular/router": "~4.4.1",
-    "bootstrap": "^4.0.0-beta",
     "core-js": "^2.5.1",
-    "font-awesome": "^4.7.0",
-    "popper.js": "^1.12.5",
     "rxjs": "^5.4.3",
-    "tether": "^1.4.0",
+    "uikit": "^3.0.0-beta.35",
     "zone.js": "^0.8.17"
   },
   "devDependencies": {
@@ -56,8 +53,11 @@
     "postcss-loader": "^2.0.6",
     "raw-loader": "^0.5.1",
     "rimraf": "^2.6.2",
+    "sass-lint": "^1.12.1",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
+    "ts-loader": "^3.1.1",
+    "tslint": "^5.8.0",
     "typescript": "~2.5.2",
     "webpack": "^3.6.0",
     "webpack-merge": "^4.1.0"

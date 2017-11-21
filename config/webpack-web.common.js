@@ -11,19 +11,22 @@ const extractSass = new ExtractTextPlugin({
 
 module.exports = {
     entry: {
-        'polyfills': './src/_core/web/scripts/polyfills.js',
-        'vendor': './src/_core/web/scripts/vendor.js',
-        'web': './src/_core/web/scripts/web.js'
+        'polyfills': './src/_core/web/scripts/polyfills.ts',
+        'vendor': './src/_core/web/scripts/vendor.ts',
+        'web': './src/_core/web/scripts/web.ts'
     },
 
     context: path.join(__dirname, '../.'),
 
     resolve: {
-        extensions: ['.js']
+        // `.ts` and `.tsx` (typescript) as a resolvable extension
+        extensions: ['.ts', '.tsx', '.js']
     },
 
     module: {
         rules: [
+            // all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`
+            { test: /\.tsx?$/, loader: 'ts-loader' },
             {
                 test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
                 use: [{
@@ -74,10 +77,6 @@ module.exports = {
             $: 'jquery',
             jQuery: 'jquery',
             "window.jQuery": 'jquery',
-            // Popper.js (required by bootstrap)
-            Popper: ['popper.js', 'default'],
-            // and Tether
-            Tether: 'tether',
             // ...and RxJS
             Rx: 'rxjs'
         }),

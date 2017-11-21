@@ -1,0 +1,14 @@
+#   Sample Configs
+#     - https://github.com/sasstools/sass-lint/blob/develop/docs/sass-lint.yml
+
+#   Sass Lint Rules
+#     - https://github.com/sasstools/sass-lint/tree/develop/docs/rules
+
+# Rule Configuration
+rules:
+  # disable indentation
+  indentation:
+    - 0
+  property-sort-order:
+    - 1
+    - order: concentric
