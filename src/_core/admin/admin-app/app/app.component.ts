@@ -1,13 +1,10 @@
-import { Component } from '@angular/core';
-
-import '../assets/styles/styles.scss';
-// UIKit general styles
-import 'uikit/dist/css/uikit.css';
+import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
     selector: 'admin-app',
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss']
+    styleUrls: ['./app.component.scss'],
+    encapsulation: ViewEncapsulation.None
 })
 
 export class AppComponent { }

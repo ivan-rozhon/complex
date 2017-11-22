@@ -10,3 +10,8 @@ import 'rxjs';
 
 // Other vendors for example jQuery, Lodash or Bootstrap
 // You can import js, ts, css, sass, ...
+
+// UIKit | https://getuikit.com/
+import * as UIkit from 'uikit';
+import * as Icons from 'uikit/dist/js/uikit-icons';
+UIkit.use(Icons);

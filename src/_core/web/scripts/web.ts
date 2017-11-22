@@ -4,6 +4,9 @@ import '../styles/web.scss';
 // ES6 features
 // import './es6.js';
 
+// Web Components
+// import './web-components.js';
+
 // RxJS features
 // - Combination
 import { combineAll } from './rxjs/combination/combineAll';

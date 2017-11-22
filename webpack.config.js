@@ -5,10 +5,10 @@ var commonAdminConfig = require('./config/webpack-admin.common.js');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var helpers = require('./config/helpers');
 
-const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
-
 module.exports = [
     webpackMerge(commonWebConfig, {
+        devtool: 'cheap-module-eval-source-map', // Chrome: Associated files are aviable via file tree (ng://) or Ctrl + P
+
         output: {
             path: helpers.root('dist'),
             filename: '_core/web/scripts/[name].js',
@@ -17,7 +17,7 @@ module.exports = [
         plugins: []
     }),
     webpackMerge(commonAdminConfig, {
-        devtool: 'source-map',
+        devtool: 'cheap-module-eval-source-map', // Chrome: Associated files are aviable via file tree (ng://) or Ctrl + P
 
         output: {
             path: helpers.root('dist/_core/admin/admin-app'),
@@ -34,11 +34,6 @@ module.exports = [
                 }
             }),
             new ExtractTextPlugin('[name].css'),
-            new webpack.DefinePlugin({
-                'process.env': {
-                    'ENV': JSON.stringify(ENV)
-                }
-            }),
             new webpack.LoaderOptionsPlugin({
                 htmlLoader: {
                     minimize: false // workaround for ng2

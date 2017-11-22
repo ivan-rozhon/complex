@@ -5,8 +5,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const extractSass = new ExtractTextPlugin({
-    filename: "_core/web/styles/web.css",
-    disable: process.env.NODE_ENV === "development"
+    filename: "_core/web/styles/web.css"
 });
 
 module.exports = {

@@ -3,8 +3,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var helpers = require('./helpers');
 
 const extractSass = new ExtractTextPlugin({
-  filename: "[name].css",
-  disable: process.env.NODE_ENV === "development"
+  filename: "[name].css"
 });
 
 module.exports = {
@@ -69,7 +68,7 @@ module.exports = {
       {
         test: /\.scss$/,
         include: helpers.root('src/_core/admin/admin-app', 'app'),
-        use: ['raw-loader', { loader: 'sass-loader', options: { importLoaders: 1 } }, 'postcss-loader'] // sass-loader not scss-loader
+        use: ['raw-loader', 'sass-loader'] // sass-loader not scss-loader
       }
     ]
   },
