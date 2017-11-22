@@ -6,9 +6,9 @@
     "clean": "rimraf dist",
     "delete": "rimraf dist node_modules",
     "prestart": "npm run clean",
-    "start": "parallel-webpack --watch",
+    "start": "SET NODE_ENV=development && parallel-webpack --watch",
     "prebuild": "npm run clean",
-    "build": "parallel-webpack",
+    "build": "SET NODE_ENV=production && parallel-webpack",
     "serve": "php -S localhost:8000 -t dist/"
   },
   "repository": {
@@ -30,6 +30,11 @@
     "@angular/platform-browser": "5.0.2",
     "@angular/platform-browser-dynamic": "5.0.2",
     "@angular/router": "5.0.2",
+    "@ngrx/effects": "^4.1.1",
+    "@ngrx/entity": "^4.1.1",
+    "@ngrx/router-store": "^4.1.1",
+    "@ngrx/store": "^4.1.1",
+    "@ngrx/store-devtools": "^4.1.1",
     "core-js": "2.5.1",
     "rxjs": "5.5.2",
     "uikit": "3.0.0-beta.35",

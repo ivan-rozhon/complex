@@ -19,4 +19,12 @@ export class LoginComponent implements OnInit {
             password: ['', Validators.required]
         });
     }
+
+    /**
+     * Log in user.
+     * @param credentials User`s Username and Password.
+     */
+    login(credentials: { username: string, password: string }) {
+
+    }
 }

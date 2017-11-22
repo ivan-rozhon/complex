@@ -3,7 +3,8 @@
 
         <div class="uk-width-medium@s">
             <div class="uk-card uk-card-body uk-card-default">
-                <form novalidate>
+
+                <form [formGroup]="loginForm" novalidate>
                     <fieldset class="uk-fieldset">
 
                         <legend class="uk-legend">Login</legend>
@@ -13,21 +14,22 @@
                         <div class="uk-margin">
                             <div class="uk-inline">
                                 <span class="uk-form-icon" uk-icon="icon: user"></span>
-                                <input class="uk-input" type="text" placeholder="Username">
+                                <input class="uk-input" type="text" placeholder="Username" formControlName="username">
                             </div>
                         </div>
 
                         <div class="uk-margin">
                             <div class="uk-inline">
                                 <span class="uk-form-icon" uk-icon="icon: lock"></span>
-                                <input class="uk-input" type="password" placeholder="Password">
+                                <input class="uk-input" type="password" placeholder="Password" formControlName="password">
                             </div>
                         </div>
 
                     </fieldset>
 
-                    <button class="uk-button uk-button-default uk-width-1-1">Log in</button>
+                    <button class="uk-button uk-button-default uk-width-1-1" (click)="login(loginForm.value)">Log in</button>
                 </form>
+
             </div>
         </div>
 

@@ -5,6 +5,9 @@ var commonAdminConfig = require('./config/webpack-admin.common.js');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var helpers = require('./config/helpers');
 
+// https://stackoverflow.com/questions/43986852/webpack-config-js-process-env-node-env-not-workinkg-reactjs
+const ENV = JSON.stringify(process.env.NODE_ENV.trim());
+
 module.exports = [
     webpackMerge(commonWebConfig, {
         devtool: 'cheap-module-eval-source-map', // Chrome: Associated files are aviable via file tree (ng://) or Ctrl + P
@@ -34,6 +37,11 @@ module.exports = [
                 }
             }),
             new ExtractTextPlugin('[name].css'),
+            new webpack.DefinePlugin({
+                'process.env': {
+                    'ENV': ENV
+                }
+            }),
             new webpack.LoaderOptionsPlugin({
                 htmlLoader: {
                     minimize: false // workaround for ng2
