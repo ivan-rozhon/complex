@@ -44,7 +44,6 @@ class ApiLogin {
         $token = $this->api->createToken($this->api->apiUsers['apiUsers'][$userIndex]['i'], $this->username);
 
         // successful response
-        $data = array('message' => '', 'token' => $token);
-        echo json_encode($data);
+        echo $this->api->dataResponse(null, $token, true, 'Logged in');
     }
 }

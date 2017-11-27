@@ -13,7 +13,7 @@ Experimental web dev pack, that contains:
 npm install
 ```
 
-## Build
+## Build (production)
 ```
 npm run build
 ```
@@ -21,14 +21,12 @@ npm run build
 
 ## Local development server
 
-Run build with watch:
+Run build (development) with watch:
 ```
 npm start
 ```
 
 After successful build, run (in separate terminal):
-
-(PHP ~7.1.0 required)
 ```
 npm run serve
 ```

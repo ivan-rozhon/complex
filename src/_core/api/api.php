@@ -16,9 +16,10 @@ class Api {
         assert_options(ASSERT_BAIL, 1);
         assert_options(ASSERT_QUIET_EVAL, 1);
         assert_options(ASSERT_CALLBACK, function($file, $line, $code, $status) {
+            // set the error response code (assertion code)
             http_response_code($this->$status[0]);
-            $data = array('message' => $this->$status[1]);
-            echo json_encode($data);
+            // compose data response
+            echo $this->dataResponse(null, null, false, $this->$status[1], 'error');
         });
     }
 
@@ -31,6 +32,19 @@ class Api {
                 $this->apiGET($apiSchemaLoad, $apiDataLoad, $apiWebDemo);
                 break;
         }
+    }
+
+    // main data response method (composing data response)
+    public function dataResponse($data, $token, $success, $messageText, $messageType = 'info') {
+        return json_encode([
+            'data' => $data,
+            'token' => $token,
+            'success' => $success,
+            'message' => [
+                'text' => $messageText,
+                'type' => $messageType
+            ]
+        ]);
     }
 
     // POST requests
