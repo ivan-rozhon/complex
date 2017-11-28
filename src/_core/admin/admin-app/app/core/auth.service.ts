@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
 import { Moment } from 'moment/moment';
@@ -11,8 +12,12 @@ import { Credentials } from './core.model';
 @Injectable()
 export class AuthService {
 
+    // store the URL so we can redirect after logging in
+    redirectUrl: string;
+
     constructor(
-        private dataService: DataService
+        private dataService: DataService,
+        private router: Router
     ) { }
 
     /**
@@ -27,6 +32,9 @@ export class AuthService {
     /** Logout user - remove JWT */
     logout(): void {
         localStorage.removeItem('jwtComplex');
+
+        // redirect user (to login page)
+        this.router.navigate(['/login']);
     }
 
     /** Check if user is logged in (if JWT is not expired) */
@@ -42,7 +50,7 @@ export class AuthService {
         // decode and get JWT payload
         const jwtPayload = jwt ? jwtDecode(jwt).exp : 0;
 
-        // return expiration as moment
-        return moment(jwtPayload);
+        // return expiration as moment (need to convert PHP timestamp)
+        return moment(new Date(jwtPayload * 1000));
     }
 }

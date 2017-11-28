@@ -30,6 +30,12 @@ module.exports = {
         ]
       },
       {
+        test: /\.(ts|js)$/,
+        use: [
+          'angular-router-loader'
+        ]
+      },
+      {
         test: /\.html$/,
         use: 'html-loader'
       },

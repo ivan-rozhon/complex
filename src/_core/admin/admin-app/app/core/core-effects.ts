@@ -8,6 +8,7 @@ import { of } from 'rxjs/observable/of';
 import * as CoreActions from './core-actions';
 import { Credentials } from './core.model';
 import { AuthService } from './auth.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class CoreEffects {
@@ -17,12 +18,22 @@ export class CoreEffects {
         .switchMap((credentials: Credentials) =>
             this.authService
                 .login(credentials)
-                .map(() => new CoreActions.LoginSuccess())
+                .map(() => {
+                    // redirect user to original requested URL
+                    // If no redirect has been set, use the default
+                    const redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '';
+
+                    // redirect the user
+                    this.router.navigate([redirect]);
+
+                    return new CoreActions.LoginSuccess();
+                })
                 .catch(() => of(new CoreActions.LoginFail()))
         );
 
     constructor(
         private actions$: Actions,
-        private authService: AuthService
+        private authService: AuthService,
+        private router: Router
     ) { }
 }

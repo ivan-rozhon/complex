@@ -1,0 +1,26 @@
+<div class="uk-padding uk-grid-divider" uk-grid>
+    <div class="uk-width-auto">
+        <ul class="uk-nav uk-nav-default">
+            <li [routerLink]="['/pages']" [routerLinkActive]="['uk-active']">
+                <a>
+                    <span class="uk-margin-small-right" uk-icon="icon: album"></span> Pages</a>
+            </li>
+            <li [routerLink]="['/media']" [routerLinkActive]="['uk-active']">
+                <a>
+                    <span class="uk-margin-small-right" uk-icon="icon: image"></span> Media</a>
+            </li>
+            <li [routerLink]="['/config']" [routerLinkActive]="['uk-active']">
+                <a>
+                    <span class="uk-margin-small-right" uk-icon="icon: settings"></span> Config</a>
+            </li>
+            <li class="uk-nav-divider"></li>
+            <li>
+                <a (click)="logout()">
+                    <span class="uk-margin-small-right" uk-icon="icon: sign-out"></span> Log out</a>
+            </li>
+        </ul>
+    </div>
+    <div class="uk-width-expand">
+        <router-outlet></router-outlet>
+    </div>
+</div>

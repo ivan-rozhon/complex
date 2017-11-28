@@ -9,7 +9,7 @@ export class AuthInterceptor implements HttpInterceptor {
         // get auth JWT from local storage
         const jwtReq = localStorage.getItem('jwtComplex');
 
-        // clone request and assign 'Authorization' header if jwtReq is available
+        // clone request and assign 'Authorization' header if JWT is available
         const authReq = jwtReq
             ? req.clone({
                 headers: req.headers.set('Authorization', `Bearer ${jwtReq}`)

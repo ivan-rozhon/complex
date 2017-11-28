@@ -3,7 +3,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { DataService } from './data.service';
 import { AuthService } from './auth.service';
-import { AuthInterceptor } from './auth-interceptor';
+import { AuthGuard } from './auth-guard.service';
+import { AuthInterceptor } from './auth-interceptor.service';
 
 @NgModule({
     imports: [],
@@ -11,6 +12,7 @@ import { AuthInterceptor } from './auth-interceptor';
     providers: [
         DataService,
         AuthService,
+        AuthGuard,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AuthInterceptor,

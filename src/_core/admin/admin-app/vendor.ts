@@ -15,3 +15,9 @@ import 'rxjs';
 import * as UIkit from 'uikit';
 import * as Icons from 'uikit/dist/js/uikit-icons';
 UIkit.use(Icons);
+
+// moment.js | https://momentjs.com/
+import 'moment';
+
+// Decode JWT tokens | https://github.com/auth0/jwt-decode
+import 'jwt-decode';

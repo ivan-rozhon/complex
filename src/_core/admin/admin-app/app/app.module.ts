@@ -10,14 +10,15 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 // ngrx app modules
 import { reducers, metaReducers } from './app-reducers';
 import { AppRouterStateSerializer } from './app-router-state-serializer';
+import { CoreEffects } from './core/core-effects';
 
 // app modules
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
+import { BoardModule } from './board/board.module';
 
 import { AppComponent } from './app.component';
-import { CoreEffects } from './core/core-effects';
 
 // check if environment is production (production/development)
 const production = process.env.ENV === 'production';
@@ -29,6 +30,7 @@ const production = process.env.ENV === 'production';
         AppRoutingModule,
         CoreModule,
         SharedModule,
+        BoardModule,
 
         // StoreModule.forRoot is imported once in the root module, accepting a reducer function or object map of reducer functions.
         StoreModule.forRoot(reducers, { metaReducers }),
