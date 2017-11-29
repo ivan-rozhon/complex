@@ -1,18 +1,29 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { HttpInterceptor, HttpEvent, HttpHandler, HttpRequest, HttpResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 
+import { AuthService } from './auth.service';
+
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
+    constructor(
+        private injector: Injector
+    ) { }
+
+    // getter auth service - because of cyclic dependency
+    get authService(): AuthService {
+        return this.injector.get(AuthService);
+    }
+
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        // get auth JWT from local storage
-        const jwtReq = localStorage.getItem('jwtComplex');
+        // get auth JWT
+        const jwtReq = this.authService.getAuthHeader();
 
         // clone request and assign 'Authorization' header if JWT is available
-        const authReq = jwtReq
+        const authReq = jwtReq.length
             ? req.clone({
-                headers: req.headers.set('Authorization', `Bearer ${jwtReq}`)
+                headers: req.headers.set('Authorization', jwtReq)
             })
             : req;
 

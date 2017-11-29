@@ -22,7 +22,7 @@ export class AuthService {
 
     /**
      * Sign/Log in user
-     * @param credentials username & login
+     * @param credentials username & password
      */
     login(credentials: Credentials): Observable<null> {
         return this.dataService
@@ -52,5 +52,13 @@ export class AuthService {
 
         // return expiration as moment (need to convert PHP timestamp)
         return moment(new Date(jwtPayload * 1000));
+    }
+
+    /** Returns 'Bearer' auth header */
+    getAuthHeader(): string {
+        // get auth JWT from local storage
+        const jwt = localStorage.getItem('jwtComplex');
+
+        return jwt ? `Bearer ${jwt}` : '';
     }
 }

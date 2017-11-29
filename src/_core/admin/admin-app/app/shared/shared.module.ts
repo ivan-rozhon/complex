@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { LayoutComponent } from './layout/layout.component';
 import { LoginComponent } from './login/login.component';
+import { UploadComponent } from './upload/upload.component';
 
 @NgModule({
     imports: [
@@ -13,11 +14,13 @@ import { LoginComponent } from './login/login.component';
     ],
     exports: [
         LayoutComponent,
-        LoginComponent
+        LoginComponent,
+        UploadComponent
     ],
     declarations: [
         LayoutComponent,
-        LoginComponent
+        LoginComponent,
+        UploadComponent
     ],
     providers: [],
 })

@@ -1,0 +1,10 @@
+<div #upload class="uk-placeholder uk-text-center" [ngClass]="{ 'uk-background-muted': !progress.hidden, 'uk-disabled': !progress.hidden }">
+    <span uk-icon="icon: cloud-upload"></span>
+    <span class="uk-text-middle">Attach files by dropping them here or</span>
+    <div uk-form-custom>
+        <input type="file" multiple>
+        <span [class.uk-link]="progress.hidden">selecting one</span>
+    </div>
+</div>
+
+<progress class="uk-progress" [value]="progress.value" [max]="progress.max" *ngIf="!progress.hidden"></progress>
