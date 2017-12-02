@@ -23,10 +23,16 @@ class Api {
         });
     }
 
-    public function api($apiLogin, $apiSchemaSave, $apiDataUpdate, $apiDataNew, $apiDataSave, $apiSchemaLoad, $apiDataLoad, $apiWebDemo) {
+    public function api(
+        // POST
+        $apiLogin, $apiSchemaSave, $apiDataUpdate, $apiDataNew, $apiDataSave, $apiMediaSave,
+        // GET
+        $apiSchemaLoad, $apiDataLoad, $apiWebDemo
+        ) {
+
         switch($this->requestMethod) {
             case 'POST':
-                $this->apiPOST($apiLogin, $apiSchemaSave, $apiDataUpdate, $apiDataNew, $apiDataSave);
+                $this->apiPOST($apiLogin, $apiSchemaSave, $apiDataUpdate, $apiDataNew, $apiDataSave, $apiMediaSave);
                 break;
             case 'GET':
                 $this->apiGET($apiSchemaLoad, $apiDataLoad, $apiWebDemo);
@@ -35,7 +41,7 @@ class Api {
     }
 
     // main data response method (composing data response)
-    public function dataResponse($data, $token, $success, $messageText, $messageType = 'info') {
+    public function dataResponse($data, $token, $success, $messageText = '', $messageType = 'info') {
         return json_encode([
             'data' => $data,
             'token' => $token,
@@ -48,35 +54,48 @@ class Api {
     }
 
     // POST requests
-    public function apiPOST($apiLogin, $apiSchemaSave, $apiDataUpdate, $apiDataNew, $apiDataSave) {
+    public function apiPOST($apiLogin, $apiSchemaSave, $apiDataUpdate, $apiDataNew, $apiDataSave, $apiMediaSave) {
         // incoming post arguments
-        $post = json_decode(file_get_contents('php://input'),true);
+        $post = json_decode(file_get_contents('php://input'), true);
 
-        switch($this->queryString) {
+        // explode query string to array of strings
+        $queryStringArr = explode('/', $this->queryString);
+
+        // get the path from query string
+        $path = array_key_exists(1, $queryStringArr) ? $queryStringArr[1] : '';
+
+        // get the after path params
+        $pathParams = count($queryStringArr) > 2 ? array_slice($queryStringArr, 2) : [];
+
+        switch($path) {
             // Login authentication
-            case 'api/login':
+            case 'login':
                 $apiLogin->apiLogin($post);
                 break;
 
             // Save schema
-            case 'api/schemaSave':
+            case 'schemaSave':
                 $apiSchemaSave->apiSchemaSave($post);
                 break;
 
             // Update data model
-            case 'api/dataUpdate':
+            case 'dataUpdate':
                 $apiDataUpdate->apiDataUpdate($post);
                 break;
 
             // create new data model
-            case 'api/dataNew':
+            case 'dataNew':
                 $apiDataNew->apiDataNew($post);
                 break;
 
             // save data model
-            case 'api/dataSave':
+            case 'dataSave':
                 $apiDataSave->apiDataSave($post);
                 break;
+
+            // save media (images/gallery)
+            case 'mediaSave':
+                $apiMediaSave->apiMediaSave($post, $pathParams);
         }
     }
 
@@ -84,17 +103,17 @@ class Api {
     public function apiGET($apiSchemaLoad, $apiDataLoad, $apiWebDemo) {
         switch($this->queryString) {
             // load web schema
-            case 'api/schemaLoad':
+            case 'schemaLoad':
                 $apiSchemaLoad->apiSchemaLoad();
                 break;
 
             // load data model
-            case 'api/dataLoad':
+            case 'dataLoad':
                 $apiDataLoad->apiDataLoad();
                 break;
 
             // demo API for web (*.js)
-            case 'api/es6':
+            case 'es6':
                 $apiWebDemo->apiWebDemo();
                 break;
         }
@@ -141,7 +160,7 @@ class Api {
     // decode incoming token
     public function decodeToken($headers) {
         // first uppercase letter fix
-        $key = $headers['authorization'] ? 'authorization' : 'Authorization';
+        $key = array_key_exists('authorization', $headers) ? 'authorization' : 'Authorization';
 
         // explode authorization header
         $authorization = explode(' ', $headers[$key]);
@@ -210,6 +229,7 @@ $apiSchemaSave = new ApiSchemaSave($api);
 $apiDataUpdate = new ApiDataUpdate($api);
 $apiDataNew = new ApiDataNew($api);
 $apiDataSave = new ApiDataSave($api);
+$apiMediaSave = new ApiMediaSave($api);
 
 // GET
 $apiSchemaLoad = new ApiSchemaLoad($api);
@@ -217,11 +237,14 @@ $apiDataLoad = new ApiDataLoad($api);
 $apiWebDemo = new ApiWebDemo($api);
 
 $api->api(
+    // POST
     $apiLogin,
     $apiSchemaSave,
     $apiDataUpdate,
     $apiDataNew,
     $apiDataSave,
+    $apiMediaSave,
+    // GET
     $apiSchemaLoad,
     $apiDataLoad,
     $apiWebDemo

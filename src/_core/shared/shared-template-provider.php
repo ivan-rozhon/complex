@@ -8,7 +8,7 @@ class SharedTemplateProvider {
 
     public function sharedTemplateProvider($varArr, $templatePath) {
         // get html template
-        $template = file_exists($system->pathPrefix.$templatePath) ? file_get_contents($system->pathPrefix.$templatePath) : 'file "'.$templatePath.'" not found!';
+        $template = file_exists($this->system->pathPrefix.$templatePath) ? file_get_contents($this->system->pathPrefix.$templatePath) : 'file "'.$templatePath.'" not found!';
 
         // search for [[variables]]
         while (strpos($template, '[[') && strpos($template, ']]')) {

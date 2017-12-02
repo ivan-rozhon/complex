@@ -98,8 +98,16 @@ export class UploadComponent implements OnInit, AfterViewInit {
             },
 
             // after all completed successfully
-            completeAll: function () {
+            completeAll: function (request) {
                 _this.reset();
+
+                // get the response in JSON
+                const response = JSON.parse(request.response);
+
+                // save token to local storage
+                _this.authService.setToken(response.token ? response.token : null);
+
+                // TODO... callback
             },
 
             // error functions...

@@ -17,7 +17,7 @@ class WebBodyNav {
         $baseUrl = $this->baseUrl;
         $basePath = $this->basePath;
         $navbar = $this->webBodyNavbar($this->webBody->web->webSchema['webSchemaMain'], 0);
-        $logoVersion = filemtime("_source/images/shared/logo-32x32.png");
+        $logoVersion = filemtime("_source/media/shared/logo-32x32.png");
         return $this->templateProvider->sharedTemplateProvider(
                 [
                     'baseUrl' => $baseUrl,

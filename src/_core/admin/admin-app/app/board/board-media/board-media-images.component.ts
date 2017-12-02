@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+import { apiUrl } from './../../core/data.service';
 import { UploadConfig } from '../../shared/shared.model';
 
 @Component({
@@ -16,7 +17,7 @@ export class BoardMediaImagesComponent implements OnInit {
         // set the configuration of upload component
         this.uploadConfig = {
             // url: 'http://localhost:8000/file-upload.php',
-            url: '?api',
+            url: `${apiUrl}/mediaSave/image`,
             multiple: true,
             mime: 'image/(jpeg|png)'
         };

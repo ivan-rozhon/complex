@@ -42,6 +42,12 @@ export class AuthService {
         return moment().isBefore(this.getExpiration());
     }
 
+    /** Set auth JWT to local storage */
+    setToken(jwt: string): void {
+        // save token to local storage (set session)
+        localStorage.setItem('jwtComplex', jwt);
+    }
+
     /** Find out expiration in JWT */
     getExpiration(): Moment {
         // get JWT from local storage
