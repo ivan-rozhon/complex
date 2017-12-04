@@ -29,6 +29,77 @@
 </div>
 
 <div class="uk-button-group">
+    <button class="uk-button uk-button-default uk-button-small" (click)="execCommand('outdent')" title="Outdent">
+        <i class="fa fa-outdent"></i>
+    </button>
+    <button class="uk-button uk-button-default uk-button-small" (click)="execCommand('indent')" title="Indent">
+        <i class="fa fa-indent"></i>
+    </button>
+</div>
+
+<div class="uk-button-group">
+    <button class="uk-button uk-button-default uk-button-small" type="button" title="Heading">
+        <i class="fa fa-header"></i>
+        <i class="fa fa-caret-down"></i>
+    </button>
+    <div uk-dropdown>
+        <ul class="uk-nav uk-dropdown-nav">
+            <li (click)="execCommand('formatBlock', 'h1')">
+                <a href="#" (click)="execCommand('formatBlock', 'h1')" title="Heading 1">Heading 1</a>
+            </li>
+            <li (click)="execCommand('formatBlock', 'h2')">
+                <a href="#" (click)="execCommand('formatBlock', 'h2')" title="Heading 2">Heading 2</a>
+            </li>
+            <li (click)="execCommand('formatBlock', 'h3')">
+                <a href="#" (click)="execCommand('formatBlock', 'h3')" title="Heading 3">Heading 3</a>
+            </li>
+            <li (click)="execCommand('formatBlock', 'h4')">
+                <a href="#" (click)="execCommand('formatBlock', 'h4')" title="Heading 4">Heading 4</a>
+            </li>
+            <li (click)="execCommand('formatBlock', 'h5')">
+                <a href="#" (click)="execCommand('formatBlock', 'h5')" title="Heading 5">Heading 5</a>
+            </li>
+            <li (click)="execCommand('formatBlock', 'h6')">
+                <a href="#" (click)="execCommand('formatBlock', 'h6')" title="Heading 6">Heading 6</a>
+            </li>
+        </ul>
+    </div>
+    <button class="uk-button uk-button-default uk-button-small" (click)="execCommand('formatBlock', 'p')" title="Paragraph">
+        <b>P</b>
+    </button>
+    <button class="uk-button uk-button-default uk-button-small" (click)="execCommand('formatBlock', 'div')" title="Remove Heading/Paragraph">
+        <i class="fa fa-ban"></i>
+    </button>
+    <button class="uk-button uk-button-default uk-button-small" (click)="execCommand('insertParagraph')" title="New line">
+        <i class="fa fa-paragraph"></i>
+    </button>
+</div>
+
+<div class="uk-button-group">
+    <button class="uk-button uk-button-default uk-button-small" (click)="execCommand('insertUnorderedList')" title="Unordered List">
+        <i class="fa fa-list-ul"></i>
+    </button>
+    <button class="uk-button uk-button-default uk-button-small" (click)="execCommand('insertOrderedList')" title="Ordered List">
+        <i class="fa fa-list-ol"></i>
+    </button>
+</div>
+
+<div class="uk-button-group">
+    <button class="uk-button uk-button-default uk-button-small" (click)="execCommand('subscript')" title="Subscript">
+        <i class="fa fa-subscript"></i>
+    </button>
+    <button class="uk-button uk-button-default uk-button-small" (click)="execCommand('superscript')" title="Superscript">
+        <i class="fa fa-superscript"></i>
+    </button>
+</div>
+
+<div class="uk-button-group">
+    <button class="uk-button uk-button-default uk-button-small" (click)="execCommand('removeFormat')" title="Remove Format">
+        <i class="fa fa-times"></i>
+    </button>
+</div>
+
+<div class="uk-button-group">
     <button class="uk-button uk-button-default uk-button-small" (click)="execCommand('undo')" title="Undo">
         <i class="fa fa-undo"></i>
     </button>

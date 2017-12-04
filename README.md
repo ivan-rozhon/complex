@@ -6,9 +6,9 @@ Experimental web dev pack, that contains:
 - Local development environment (Webpack, PHP Webserver)
 
 ## Prerequisites
-[Node.js and npm](https://nodejs.org/en/download/) (Node 6.9.0 or higher, together with NPM 3 or higher) if they are not already on your machine.
+[Node.js and npm](https://nodejs.org/en/download/) already installed  on your machine.
 
-## Install
+## Instalation
 ```
 npm install
 ```
@@ -31,7 +31,7 @@ After successful build, run (in separate terminal):
 npm run serve
 ```
 
-Navigate to `http://localhost:8000/`.
+Navigate to `http://localhost:9000/`.
 
 ## News
 - Webpack 3 build
