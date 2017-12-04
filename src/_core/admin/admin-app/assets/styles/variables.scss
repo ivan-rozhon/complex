@@ -10,3 +10,6 @@
 
 // 4. Import UIkit.
 @import '~uikit/src/scss/uikit-theme';
+
+// Font Awesome | http://fontawesome.io/
+$fa-font-path: './_core/admin/admin-app/assets'; // loaded by font-awesome.css in vendor.ts

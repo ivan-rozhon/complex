@@ -11,6 +11,7 @@ class Api {
         $this->requestMethod = $_SERVER['REQUEST_METHOD'];
         $this->queryString = $_SERVER['QUERY_STRING'];
         $this->apiUsers = json_decode(file_get_contents('_source/api-users.json'), TRUE);
+        // general assertion options
         assert_options(ASSERT_ACTIVE, 1);
         assert_options(ASSERT_WARNING, 0);
         assert_options(ASSERT_BAIL, 1);
@@ -27,7 +28,7 @@ class Api {
         // POST
         $apiLogin, $apiSchemaSave, $apiDataUpdate, $apiDataNew, $apiDataSave, $apiMediaSave,
         // GET
-        $apiSchemaLoad, $apiDataLoad, $apiWebDemo
+        $apiSchemaLoad, $apiDataLoad, $apiMediaLoad, $apiMediaRemove, $apiWebDemo
         ) {
 
         switch($this->requestMethod) {
@@ -35,7 +36,7 @@ class Api {
                 $this->apiPOST($apiLogin, $apiSchemaSave, $apiDataUpdate, $apiDataNew, $apiDataSave, $apiMediaSave);
                 break;
             case 'GET':
-                $this->apiGET($apiSchemaLoad, $apiDataLoad, $apiWebDemo);
+                $this->apiGET($apiSchemaLoad, $apiDataLoad, $apiMediaLoad, $apiMediaRemove, $apiWebDemo);
                 break;
         }
     }
@@ -100,8 +101,17 @@ class Api {
     }
 
     // GET requests
-    public function apiGET($apiSchemaLoad, $apiDataLoad, $apiWebDemo) {
-        switch($this->queryString) {
+    public function apiGET($apiSchemaLoad, $apiDataLoad, $apiMediaLoad, $apiMediaRemove, $apiWebDemo) {
+        // explode query string to array of strings
+        $queryStringArr = explode('/', $this->queryString);
+
+        // get the path from query string
+        $path = array_key_exists(1, $queryStringArr) ? $queryStringArr[1] : '';
+
+        // get the after path params
+        $pathParams = count($queryStringArr) > 2 ? array_slice($queryStringArr, 2) : [];
+
+        switch($path) {
             // load web schema
             case 'schemaLoad':
                 $apiSchemaLoad->apiSchemaLoad();
@@ -110,6 +120,16 @@ class Api {
             // load data model
             case 'dataLoad':
                 $apiDataLoad->apiDataLoad();
+                break;
+
+            // load media (images/gallery)
+            case 'mediaLoad':
+                $apiMediaLoad->apiMediaLoad($pathParams);
+                break;
+
+            // remove media (images/gallery)
+            case 'mediaRemove':
+                $apiMediaRemove->apiMediaRemove($pathParams);
                 break;
 
             // demo API for web (*.js)
@@ -234,6 +254,8 @@ $apiMediaSave = new ApiMediaSave($api);
 // GET
 $apiSchemaLoad = new ApiSchemaLoad($api);
 $apiDataLoad = new ApiDataLoad($api);
+$apiMediaLoad = new ApiMediaLoad($api);
+$apiMediaRemove = new ApiMediaRemove($api);
 $apiWebDemo = new ApiWebDemo($api);
 
 $api->api(
@@ -247,5 +269,7 @@ $api->api(
     // GET
     $apiSchemaLoad,
     $apiDataLoad,
+    $apiMediaLoad,
+    $apiMediaRemove,
     $apiWebDemo
 );

@@ -22,4 +22,9 @@ export class BoardMediaImagesComponent implements OnInit {
             mime: 'image/(jpeg|png)'
         };
     }
+
+    /** After upload behavior (actions) */
+    uploadComplete(): void {
+        console.log('upload complete');
+    }
 }

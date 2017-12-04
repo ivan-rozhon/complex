@@ -21,3 +21,6 @@ import 'moment';
 
 // Decode JWT tokens | https://github.com/auth0/jwt-decode
 import 'jwt-decode';
+
+// Font Awesome | http://fontawesome.io/
+import 'font-awesome/css/font-awesome.css';

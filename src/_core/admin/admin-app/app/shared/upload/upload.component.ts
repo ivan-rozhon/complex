@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild, Input, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 
 import { UploadConfig } from './../shared.model';
 import { AuthService } from './../../core/auth.service';
@@ -14,6 +14,7 @@ export class UploadComponent implements OnInit, AfterViewInit {
     @ViewChild('upload') uploadElementRef: ElementRef;
 
     @Input() config: UploadConfig;
+    @Output() complete: EventEmitter<any> = new EventEmitter();
 
     progress: {
         max: number;
@@ -107,7 +108,8 @@ export class UploadComponent implements OnInit, AfterViewInit {
                 // save token to local storage
                 _this.authService.setToken(response.token ? response.token : null);
 
-                // TODO... callback
+                // callback after upload completed
+                _this.complete.emit();
             },
 
             // error functions...
@@ -115,16 +117,22 @@ export class UploadComponent implements OnInit, AfterViewInit {
             // like Network Error etc.
             error: function () {
                 console.log('error', arguments);
+
+                // TODO... notification
             },
 
             // If name or MIME type are invalid
             fail: function () {
                 console.log('fail', arguments);
+
+                // TODO... notification
             },
 
             // callback on abort
             abort: function () {
                 console.log('abort', arguments);
+
+                // TODO... notification
             }
         });
     }
