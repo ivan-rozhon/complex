@@ -1,4 +1,4 @@
-<div class="uk-button-group">
+<div class="uk-button-group uk-margin-small-top">
     <button class="uk-button uk-button-default uk-button-small" (click)="execCommand('bold')" title="Bold">
         <i class="fa fa-bold"></i>
     </button>
@@ -13,7 +13,28 @@
     </button>
 </div>
 
-<div class="uk-button-group">
+<div class="uk-button-group uk-margin-small-top">
+    <button class="uk-button uk-button-default uk-button-small" type="button" title="Font Color">
+        <i class="fa fa-tint"></i>
+        <i class="fa fa-caret-down"></i>
+    </button>
+    <div uk-dropdown>
+        <div class="uk-flex uk-flex-row uk-flex-wrap">
+            <a *ngFor="let color of foreColors" href="#" class="uk-padding-small" [style.backgroundColor]="color" (click)="execCommand('foreColor', color)"></a>
+        </div>
+    </div>
+    <button class="uk-button uk-button-default uk-button-small" type="button" title="Background Color">
+        <i class="fa fa-paint-brush"></i>
+        <i class="fa fa-caret-down"></i>
+    </button>
+    <div uk-dropdown>
+        <div class="uk-flex uk-flex-row uk-flex-wrap">
+            <a *ngFor="let color of backColors" href="#" class="uk-padding-small" [style.backgroundColor]="color" (click)="execCommand('backColor', color)"></a>
+        </div>
+    </div>
+</div>
+
+<div class="uk-button-group uk-margin-small-top">
     <button class="uk-button uk-button-default uk-button-small" (click)="execCommand('justifyLeft')" title="Align Left">
         <i class="fa fa-align-left"></i>
     </button>
@@ -28,7 +49,7 @@
     </button>
 </div>
 
-<div class="uk-button-group">
+<div class="uk-button-group uk-margin-small-top">
     <button class="uk-button uk-button-default uk-button-small" (click)="execCommand('outdent')" title="Outdent">
         <i class="fa fa-outdent"></i>
     </button>
@@ -37,29 +58,41 @@
     </button>
 </div>
 
-<div class="uk-button-group">
+<div class="uk-button-group uk-margin-small-top">
+    <button class="uk-button uk-button-default uk-button-small" (click)="createLink()" title="Link">
+        <i class="fa fa-link"></i>
+    </button>
+    <button class="uk-button uk-button-default uk-button-small" (click)="execCommand('unlink')" title="Unlink">
+        <i class="fa fa-unlink"></i>
+    </button>
+    <button class="uk-button uk-button-default uk-button-small" (click)="insertImage()" title="Insert Image">
+        <i class="fa fa-picture-o"></i>
+    </button>
+</div>
+
+<div class="uk-button-group uk-margin-small-top">
     <button class="uk-button uk-button-default uk-button-small" type="button" title="Heading">
         <i class="fa fa-header"></i>
         <i class="fa fa-caret-down"></i>
     </button>
     <div uk-dropdown>
         <ul class="uk-nav uk-dropdown-nav">
-            <li (click)="execCommand('formatBlock', 'h1')">
+            <li>
                 <a href="#" (click)="execCommand('formatBlock', 'h1')" title="Heading 1">Heading 1</a>
             </li>
-            <li (click)="execCommand('formatBlock', 'h2')">
+            <li>
                 <a href="#" (click)="execCommand('formatBlock', 'h2')" title="Heading 2">Heading 2</a>
             </li>
-            <li (click)="execCommand('formatBlock', 'h3')">
+            <li>
                 <a href="#" (click)="execCommand('formatBlock', 'h3')" title="Heading 3">Heading 3</a>
             </li>
-            <li (click)="execCommand('formatBlock', 'h4')">
+            <li>
                 <a href="#" (click)="execCommand('formatBlock', 'h4')" title="Heading 4">Heading 4</a>
             </li>
-            <li (click)="execCommand('formatBlock', 'h5')">
+            <li>
                 <a href="#" (click)="execCommand('formatBlock', 'h5')" title="Heading 5">Heading 5</a>
             </li>
-            <li (click)="execCommand('formatBlock', 'h6')">
+            <li>
                 <a href="#" (click)="execCommand('formatBlock', 'h6')" title="Heading 6">Heading 6</a>
             </li>
         </ul>
@@ -67,15 +100,44 @@
     <button class="uk-button uk-button-default uk-button-small" (click)="execCommand('formatBlock', 'p')" title="Paragraph">
         <b>P</b>
     </button>
-    <button class="uk-button uk-button-default uk-button-small" (click)="execCommand('formatBlock', 'div')" title="Remove Heading/Paragraph">
+    <button class="uk-button uk-button-default uk-button-small" (click)="execCommand('formatBlock', 'div')" title="Clear Heading/Paragraph">
         <i class="fa fa-ban"></i>
     </button>
+    <button class="uk-button uk-button-default uk-button-small" type="button" title="Font Size">
+        <i class="fa fa-text-height"></i>
+        <i class="fa fa-caret-down"></i>
+    </button>
+    <div uk-dropdown>
+        <ul class="uk-nav uk-dropdown-nav">
+            <li>
+                <a href="#" (click)="execCommand('fontSize', '1')" title="X-Small">X-Small</a>
+            </li>
+            <li>
+                <a href="#" (click)="execCommand('fontSize', '2')" title="Small">Small</a>
+            </li>
+            <li>
+                <a href="#" (click)="execCommand('fontSize', '3')" title="Medium">Medium</a>
+            </li>
+            <li>
+                <a href="#" (click)="execCommand('fontSize', '4')" title="Large">Large</a>
+            </li>
+            <li>
+                <a href="#" (click)="execCommand('fontSize', '5')" title="X-Large">X-Large</a>
+            </li>
+            <li>
+                <a href="#" (click)="execCommand('fontSize', '6')" title="XX-Large">XX-Large</a>
+            </li>
+            <li>
+                <a href="#" (click)="execCommand('fontSize', '7')" title="XXX-Large">XXX-Large</a>
+            </li>
+        </ul>
+    </div>
     <button class="uk-button uk-button-default uk-button-small" (click)="execCommand('insertParagraph')" title="New line">
         <i class="fa fa-paragraph"></i>
     </button>
 </div>
 
-<div class="uk-button-group">
+<div class="uk-button-group uk-margin-small-top">
     <button class="uk-button uk-button-default uk-button-small" (click)="execCommand('insertUnorderedList')" title="Unordered List">
         <i class="fa fa-list-ul"></i>
     </button>
@@ -84,7 +146,7 @@
     </button>
 </div>
 
-<div class="uk-button-group">
+<div class="uk-button-group uk-margin-small-top">
     <button class="uk-button uk-button-default uk-button-small" (click)="execCommand('subscript')" title="Subscript">
         <i class="fa fa-subscript"></i>
     </button>
@@ -93,13 +155,13 @@
     </button>
 </div>
 
-<div class="uk-button-group">
-    <button class="uk-button uk-button-default uk-button-small" (click)="execCommand('removeFormat')" title="Remove Format">
-        <i class="fa fa-times"></i>
+<div class="uk-button-group uk-margin-small-top">
+    <button class="uk-button uk-button-default uk-button-small" (click)="execCommand('removeFormat')" title="Clear Format">
+        <i class="fa fa-eraser"></i>
     </button>
 </div>
 
-<div class="uk-button-group">
+<div class="uk-button-group uk-margin-small-top">
     <button class="uk-button uk-button-default uk-button-small" (click)="execCommand('undo')" title="Undo">
         <i class="fa fa-undo"></i>
     </button>

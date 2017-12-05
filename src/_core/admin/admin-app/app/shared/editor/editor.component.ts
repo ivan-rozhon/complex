@@ -10,6 +10,8 @@ export class EditorComponent {
     // default value of editor content
     editorContentValue: string;
 
+    @Input() foreColors: string[] = [];
+    @Input() backColors: string[] = [];
     @Input()
     get editorContent() {
         // get editorContent value aside of itself into another private variable
@@ -37,5 +39,21 @@ export class EditorComponent {
         this.contentEditableElementRef.emitChanges(
             this.contentEditableElementRef.elementRef.nativeElement.innerHTML
         );
+    }
+
+    /** Handle before 'createLink' command */
+    createLink(): void {
+        // get user link via prompt window
+        const url = prompt('Insert a link: ', '');
+
+        // check if user fill link
+        if (url) {
+            this.execCommand('createLink', url);
+        }
+    }
+
+    /** Handle before 'insertImage' command */
+    insertImage(): void {
+
     }
 }

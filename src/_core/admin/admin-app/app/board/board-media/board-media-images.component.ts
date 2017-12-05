@@ -26,5 +26,7 @@ export class BoardMediaImagesComponent implements OnInit {
     /** After upload behavior (actions) */
     uploadComplete(): void {
         console.log('upload complete');
+
+        // TODO... reload images
     }
 }
