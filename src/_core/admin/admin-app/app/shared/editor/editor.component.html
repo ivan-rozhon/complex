@@ -20,7 +20,8 @@
     </button>
     <div uk-dropdown>
         <div class="uk-flex uk-flex-row uk-flex-wrap">
-            <a *ngFor="let color of foreColors" href="#" class="uk-padding-small" [style.backgroundColor]="color" (click)="execCommand('foreColor', color)"></a>
+            <a *ngFor="let color of foreColors" href="#" class="uk-padding-small uk-border-rounded ca-color-square" [title]="color" [style.backgroundColor]="color"
+                (click)="execCommand('foreColor', color)"></a>
         </div>
     </div>
     <button class="uk-button uk-button-default uk-button-small" type="button" title="Background Color">
@@ -29,7 +30,8 @@
     </button>
     <div uk-dropdown>
         <div class="uk-flex uk-flex-row uk-flex-wrap">
-            <a *ngFor="let color of backColors" href="#" class="uk-padding-small" [style.backgroundColor]="color" (click)="execCommand('backColor', color)"></a>
+            <a *ngFor="let color of backColors" href="#" class="uk-padding-small uk-border-rounded ca-color-square" [title]="color" [style.backgroundColor]="color"
+                (click)="execCommand('backColor', color)"></a>
         </div>
     </div>
 </div>
@@ -68,6 +70,9 @@
     <button class="uk-button uk-button-default uk-button-small" (click)="insertImage()" title="Insert Image">
         <i class="fa fa-picture-o"></i>
     </button>
+    <button class="uk-button uk-button-default uk-button-small" (click)="insertCode()" title="Code">
+        <i class="fa fa-code"></i>
+    </button>
 </div>
 
 <div class="uk-button-group uk-margin-small-top">
@@ -78,31 +83,37 @@
     <div uk-dropdown>
         <ul class="uk-nav uk-dropdown-nav">
             <li>
-                <a href="#" (click)="execCommand('formatBlock', 'h1')" title="Heading 1">Heading 1</a>
+                <a href="#" (click)="execCommand('formatBlock', 'h1')" title="Heading 1">
+                    <h1>Heading 1</h1>
+                </a>
             </li>
             <li>
-                <a href="#" (click)="execCommand('formatBlock', 'h2')" title="Heading 2">Heading 2</a>
+                <a href="#" (click)="execCommand('formatBlock', 'h2')" title="Heading 2">
+                    <h2>Heading 2</h2>
+                </a>
             </li>
             <li>
-                <a href="#" (click)="execCommand('formatBlock', 'h3')" title="Heading 3">Heading 3</a>
+                <a href="#" (click)="execCommand('formatBlock', 'h3')" title="Heading 3">
+                    <h3>Heading 3</h3>
+                </a>
             </li>
             <li>
-                <a href="#" (click)="execCommand('formatBlock', 'h4')" title="Heading 4">Heading 4</a>
+                <a href="#" (click)="execCommand('formatBlock', 'h4')" title="Heading 4">
+                    <h4>Heading 4</h4>
+                </a>
             </li>
             <li>
-                <a href="#" (click)="execCommand('formatBlock', 'h5')" title="Heading 5">Heading 5</a>
+                <a href="#" (click)="execCommand('formatBlock', 'h5')" title="Heading 5">
+                    <h5>Heading 5</h5>
+                </a>
             </li>
             <li>
-                <a href="#" (click)="execCommand('formatBlock', 'h6')" title="Heading 6">Heading 6</a>
+                <a href="#" (click)="execCommand('formatBlock', 'h6')" title="Heading 6">
+                    <h6>Heading 6</h6>
+                </a>
             </li>
         </ul>
     </div>
-    <button class="uk-button uk-button-default uk-button-small" (click)="execCommand('formatBlock', 'p')" title="Paragraph">
-        <b>P</b>
-    </button>
-    <button class="uk-button uk-button-default uk-button-small" (click)="execCommand('formatBlock', 'div')" title="Clear Heading/Paragraph">
-        <i class="fa fa-ban"></i>
-    </button>
     <button class="uk-button uk-button-default uk-button-small" type="button" title="Font Size">
         <i class="fa fa-text-height"></i>
         <i class="fa fa-caret-down"></i>
@@ -110,29 +121,43 @@
     <div uk-dropdown>
         <ul class="uk-nav uk-dropdown-nav">
             <li>
-                <a href="#" (click)="execCommand('fontSize', '1')" title="X-Small">X-Small</a>
+                <a href="#" (click)="execCommand('fontSize', '1')" title="X-Small">
+                    <font size="1">X-Small</font>
+                </a>
             </li>
             <li>
-                <a href="#" (click)="execCommand('fontSize', '2')" title="Small">Small</a>
+                <a href="#" (click)="execCommand('fontSize', '2')" title="Small">
+                    <font size="2">Small</font>
+                </a>
             </li>
             <li>
-                <a href="#" (click)="execCommand('fontSize', '3')" title="Medium">Medium</a>
+                <a href="#" (click)="execCommand('fontSize', '3')" title="Medium">
+                    <font size="3">Medium</font>
+                </a>
             </li>
             <li>
-                <a href="#" (click)="execCommand('fontSize', '4')" title="Large">Large</a>
+                <a href="#" (click)="execCommand('fontSize', '4')" title="Large">
+                    <font size="4">Large</font>
+                </a>
             </li>
             <li>
-                <a href="#" (click)="execCommand('fontSize', '5')" title="X-Large">X-Large</a>
+                <a href="#" (click)="execCommand('fontSize', '5')" title="X-Large">
+                    <font size="5">X-Large</font>
+                </a>
             </li>
             <li>
-                <a href="#" (click)="execCommand('fontSize', '6')" title="XX-Large">XX-Large</a>
+                <a href="#" (click)="execCommand('fontSize', '6')" title="XX-Large">
+                    <font size="6">XX-Large</font>
+                </a>
             </li>
             <li>
-                <a href="#" (click)="execCommand('fontSize', '7')" title="XXX-Large">XXX-Large</a>
+                <a href="#" (click)="execCommand('fontSize', '7')" title="XXX-Large">
+                    <font size="7">XXX-Large</font>
+                </a>
             </li>
         </ul>
     </div>
-    <button class="uk-button uk-button-default uk-button-small" (click)="execCommand('insertParagraph')" title="New line">
+    <button class="uk-button uk-button-default uk-button-small" (click)="execCommand('insertParagraph')" title="Paragraph">
         <i class="fa fa-paragraph"></i>
     </button>
 </div>
@@ -147,6 +172,12 @@
 </div>
 
 <div class="uk-button-group uk-margin-small-top">
+    <button class="uk-button uk-button-default uk-button-small" (click)="insertTable()" title="Insert Table">
+        <i class="fa fa-table"></i>
+    </button>
+</div>
+
+<div class="uk-button-group uk-margin-small-top">
     <button class="uk-button uk-button-default uk-button-small" (click)="execCommand('subscript')" title="Subscript">
         <i class="fa fa-subscript"></i>
     </button>
@@ -156,8 +187,12 @@
 </div>
 
 <div class="uk-button-group uk-margin-small-top">
-    <button class="uk-button uk-button-default uk-button-small" (click)="execCommand('removeFormat')" title="Clear Format">
+    <button class="uk-button uk-button-default uk-button-small" (click)="execCommand('removeFormat'); execCommand('formatBlock', 'div')"
+        title="Clear Format">
         <i class="fa fa-eraser"></i>
+    </button>
+    <button class="uk-button uk-button-default uk-button-small" (click)="execCommand('selectAll'); execCommand('delete')" title="Delete">
+        <i class="fa fa-times"></i>
     </button>
 </div>
 
@@ -170,4 +205,10 @@
     </button>
 </div>
 
-<div #caContentEditable="caContentEditable" class="uk-placeholder" contenteditable="true" caContentEditable [(editorModel)]="editorContent"></div>
+<!-- <div class="uk-button-group uk-margin-small-top">
+    <button class="uk-button uk-button-default uk-button-small" (click)="insertHtml()" title="">
+        Lol
+    </button>
+</div> -->
+
+<div #caContentEditable="caContentEditable" class="uk-placeholder" [attr.contenteditable]="contenteditable" caContentEditable [(editorModel)]="editorContent"></div>

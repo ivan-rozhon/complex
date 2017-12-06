@@ -1,5 +1,10 @@
 import { NgModule } from '@angular/core';
 
+// @ngrx/...
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { reducers } from './board-reducers';
+
 import { SharedModule } from '../shared/shared.module';
 
 import { BoardRoutingModule } from './board-routing.module';
@@ -16,7 +21,8 @@ import { BoardService } from './board.service';
 @NgModule({
     imports: [
         SharedModule,
-        BoardRoutingModule
+        BoardRoutingModule,
+        StoreModule.forFeature('board', reducers)
     ],
     exports: [],
     declarations: [
