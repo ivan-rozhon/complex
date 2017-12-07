@@ -74,12 +74,12 @@ export class EditorComponent {
             <table style=" ">
                 <tbody>
                     <tr>
-                        <td rowspan="2"></td>
                         <td></td>
                         <td></td>
                     </tr>
                     <tr>
-                        <td colspan="2"></td>
+                        <td></td>
+                        <td></td>
                     </tr>
                 </tbody>
             </table>
@@ -131,6 +131,10 @@ export class EditorComponent {
         const selectedCellIndex = selectedCell.index();
         const selectedRowIndex = selectedRow.index();
 
+        // get colspan and rowspan of selected cell
+        const selectedCellColspan = selectedCell.attr('colspan') ? Number(selectedCell.attr('colspan')) : null;
+        const selectedCellRowspan = selectedCell.attr('rowspan') ? Number(selectedCell.attr('rowspan')) : null;
+
         // count number of rows in table
         const rowsCount = selectedTableBody.find('tr').length;
 
@@ -176,6 +180,118 @@ export class EditorComponent {
 
             // do/undo rowspan
             case 'rowspan': {
+                // can`t apply rowspan to colspan
+                if (selectedCellColspan && selectedCellColspan > 1) { return; }
+
+                // get next row
+                const nextRow = selectedCellRowspan
+                    // if cell has rowspan get next row after 'rowspanned' row
+                    ? selectedTableBody.find('tr').eq(selectedRowIndex + selectedCellRowspan)
+                    : selectedRow.next();
+
+                // initial selected cell position
+                let selectedCellPosition = 0;
+
+                // get true position of cell including colspan
+                selectedRow.find('td').each(index => {
+                    // get current cell and its colspan
+                    const currentCell = selectedRow.find('td').eq(index);
+                    const currentCellColspan = currentCell.attr('colspan') ? Number(currentCell.attr('colspan')) : null;
+
+                    if (selectedCellIndex > index) {
+                        // replace index with colspan if it set on cell
+                        selectedCellPosition += currentCellColspan ? currentCellColspan : 1;
+                    }
+                });
+
+                if (remove) {
+                    // exit if selected cell has no cellspan
+                    if (!selectedCellRowspan || selectedCellRowspan < 2) { return; }
+
+                    // row to insert cell
+                    const nextRowToInsert = selectedTableBody.find('tr').eq(selectedRowIndex + selectedCellRowspan - 1);
+
+                    // index of next cell to insert
+                    let nextCellToInsertIndex;
+                    let nextCellToInsertPosition = 0;
+
+                    // get index of corresponding cell
+                    nextRow.find('td').each(index => {
+                        // get current cell and its colspan
+                        const currentCell = nextRow.find('td').eq(index);
+                        const currentCellColspan = currentCell.attr('colspan') ? Number(currentCell.attr('colspan')) : null;
+
+                        // increase position by colspan/index until it reaches selected cell position
+                        if (nextCellToInsertPosition <= selectedCellPosition) {
+                            nextCellToInsertIndex = index;
+                            nextCellToInsertPosition += currentCellColspan ? currentCellColspan : 1;
+                        }
+                    });
+
+                    // add cell on missing place
+                    nextRowToInsert.get(0).insertCell(nextCellToInsertIndex - 1);
+
+                    // decrease 'rowspan' of selected cell
+                    selectedCell.attr(
+                        'rowspan',
+                        selectedCellRowspan - 1
+                    );
+
+                    // colspan of updated selected cell
+                    const actualCellRowspan = selectedCell.attr('rowspan') ? Number(selectedCell.attr('rowspan')) : null;
+
+                    // remove colspan if is '1'
+                    if (actualCellRowspan === 1) {
+                        selectedCell.removeAttr('rowspan');
+                    }
+
+                    break;
+                }
+
+                // check if next cell exists
+                if (!nextRow || !nextRow.get().length) { return; }
+
+                // index of next cell to delete
+                let nextCellIndex;
+                let nextCellPosition = 0;
+
+                // get index of corresponding cell
+                nextRow.find('td').each(index => {
+                    // get current cell and its colspan
+                    const currentCell = nextRow.find('td').eq(index);
+                    const currentCellColspan = currentCell.attr('colspan') ? Number(currentCell.attr('colspan')) : null;
+
+                    // increase position by colspan/index until it reaches selected cell position
+                    if (nextCellPosition <= selectedCellPosition) {
+                        nextCellIndex = index;
+                        nextCellPosition += currentCellColspan ? currentCellColspan : 1;
+                    }
+                });
+
+                // get next cell index & colspan & rowspan if exists
+                const nextCell = nextRow.find('td').eq(nextCellIndex);
+                const nextCellColspan = nextCell.attr('colspan') ? Number(nextCell.attr('colspan')) : null;
+                const nextCellRowspan = nextCell.attr('rowspan') ? Number(nextCell.attr('rowspan')) : null;
+
+                // can`t apply rowspan to colspan
+                if (nextCellColspan && nextCellColspan > 1) { return; }
+
+                // delete cell on next row
+                nextRow.get(0).deleteCell(nextCellIndex);
+
+                if (nextCellRowspan && nextCellRowspan > 1) {
+                    // increase 'rowspan' of selected cell by 'rowspan' of selected cell
+                    selectedCell.attr(
+                        'rowspan',
+                        selectedCellRowspan ? selectedCellRowspan + nextCellRowspan : nextCellRowspan + 1
+                    );
+                } else {
+                    // add rowspan attr to selected cell
+                    selectedCell.attr(
+                        'rowspan',
+                        selectedCellRowspan ? selectedCellRowspan + 1 : 2
+                    );
+                }
 
                 break;
             }
@@ -217,10 +333,6 @@ export class EditorComponent {
 
             // do/undo colspan
             case 'colspan': {
-                // get colspan and rowspan of selected cell
-                const selectedCellColspan = selectedCell.attr('colspan') ? Number(selectedCell.attr('colspan')) : null;
-                const selectedCellRowspan = selectedCell.attr('rowspan') ? Number(selectedCell.attr('rowspan')) : null;
-
                 // can`t apply colspan to rowspan
                 if (selectedCellRowspan && selectedCellRowspan > 1) { return; }
 
@@ -237,10 +349,18 @@ export class EditorComponent {
                         selectedCellColspan - 1
                     );
 
+                    // colspan of updated selected cell
+                    const actualCellColspan = selectedCell.attr('colspan') ? Number(selectedCell.attr('colspan')) : null;
+
+                    // remove colspan if is '1'
+                    if (actualCellColspan === 1) {
+                        selectedCell.removeAttr('colspan');
+                    }
+
                     break;
                 }
 
-                // get next cell and
+                // get next cell
                 const nextCell = selectedCell.next();
 
                 // check if next cell exists
@@ -260,7 +380,7 @@ export class EditorComponent {
                     // increase 'colspan' of selected cell
                     selectedCell.attr(
                         'colspan',
-                        selectedCellColspan ? selectedCellColspan + nextCellColspan : nextCellColspan
+                        selectedCellColspan ? selectedCellColspan + nextCellColspan : nextCellColspan + 1
                     );
                 } else {
                     // just increase 'colspan'
