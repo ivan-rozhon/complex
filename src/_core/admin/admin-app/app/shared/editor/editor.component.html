@@ -172,9 +172,73 @@
 </div>
 
 <div class="uk-button-group uk-margin-small-top">
-    <button class="uk-button uk-button-default uk-button-small" (click)="insertTable()" title="Insert Table">
+    <button class="uk-button uk-button-default uk-button-small" type="button" title="Table">
         <i class="fa fa-table"></i>
+        <i class="fa fa-caret-down"></i>
     </button>
+    <div uk-dropdown>
+        <ul class="uk-nav uk-dropdown-nav">
+            <li class="uk-nav-header">Insert</li>
+            <li class="uk-margin-small-top">
+                <ul class="uk-iconnav">
+                    <li>
+                        <a href="#" (click)="insertTable()" title="Insert Table">
+                            <i class="fa fa-th-large"></i>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="uk-margin-small-top">
+                <ul class="uk-iconnav">
+                    <li>
+                        <a href="#" (click)="editTable('row')" title="Insert Row">
+                            <i class="fa fa-window-minimize"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" (click)="editTable('column')" title="Insert Column">
+                            <i class="fa fa-columns"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" (click)="editTable('rowspan')" title="Vertical Merge">
+                            <i class="fa fa-arrows-v"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" (click)="editTable('colspan')" title="Horizontal Merge">
+                            <i class="fa fa-arrows-h"></i>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="uk-nav-header">Remove</li>
+            <li class="uk-margin-small-top">
+                <ul class="uk-iconnav">
+                    <li>
+                        <a href="#" (click)="editTable('row', true)" title="Remove Row">
+                            <i class="fa fa-window-minimize"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" (click)="editTable('column', true)" title="Remove Column">
+                            <i class="fa fa-columns"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" (click)="editTable('rowspan', true)" title="Vertical Split">
+                            <i class="fa fa-arrows-v"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" (click)="editTable('colspan', true)" title="Horizontal Split">
+                            <i class="fa fa-arrows-h"></i>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
 </div>
 
 <div class="uk-button-group uk-margin-small-top">
@@ -205,10 +269,5 @@
     </button>
 </div>
 
-<!-- <div class="uk-button-group uk-margin-small-top">
-    <button class="uk-button uk-button-default uk-button-small" (click)="insertHtml()" title="">
-        Lol
-    </button>
-</div> -->
-
-<div #caContentEditable="caContentEditable" class="uk-placeholder" [attr.contenteditable]="contenteditable" caContentEditable [(editorModel)]="editorContent"></div>
+<div #caContentEditable="caContentEditable" class="uk-placeholder" [attr.contenteditable]="contenteditable" caContentEditable
+    [(editorModel)]="editorContent"></div>

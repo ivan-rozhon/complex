@@ -24,3 +24,9 @@ import 'jwt-decode';
 
 // Font Awesome | http://fontawesome.io/
 import 'font-awesome/css/font-awesome.css';
+
+// Lodash | https://lodash.com/
+import 'lodash';
+
+// jQuery | https://jquery.com/
+import 'jquery';

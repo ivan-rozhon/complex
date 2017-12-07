@@ -27,19 +27,25 @@ export class ContentEditableDirective implements OnChanges {
     @HostListener('keyup', ['$event'])
     onkeyup($event: KeyboardEvent) {
         // emit changes in HTML content of 'contentEditable' element
-        this.onEvent(this.elementRef.nativeElement.innerHTML);
+        this.emitChanges(this.elementRef.nativeElement.innerHTML);
     }
 
     @HostListener('input', ['$event'])
     oninput($event: Event) {
         // emit changes in HTML content of 'contentEditable' element
-        this.onEvent(this.elementRef.nativeElement.innerHTML);
+        this.emitChanges(this.elementRef.nativeElement.innerHTML);
     }
 
     @HostListener('blur', ['$event'])
     onblur($event: FocusEvent) {
         // emit changes in HTML content of 'contentEditable' element
-        this.onEvent(this.elementRef.nativeElement.innerHTML);
+        this.emitChanges(this.elementRef.nativeElement.innerHTML);
+    }
+
+    @HostListener('focus', ['$event'])
+    onfocus($event: FocusEvent) {
+        // emit changes in HTML content of 'contentEditable' element
+        this.emitChanges(this.elementRef.nativeElement.innerHTML);
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -56,19 +62,14 @@ export class ContentEditableDirective implements OnChanges {
         }
     }
 
-    /** propagate changes on events (keyup/input) */
-    onEvent(innerHTML: string): void {
-        // filter (remove) remaining '<br>'/'<div><br></div>' tag if remains
-        innerHTML = innerHTML === '<br>' || innerHTML === '<div><br></div>' ? '' : innerHTML;
-
-        // emit changes (update model)
-        this.emitChanges(innerHTML);
-    }
-
     /** emit changes in model */
-    emitChanges(content: string) {
+    emitChanges(innerHTML: string) {
+        // filter (remove) remaining '<br>'/'<div><br></div>' tag if remains
+        innerHTML = innerHTML === '<br>' || innerHTML === '<br><br>' || innerHTML === '<div><br></div>' ? '' : innerHTML;
+
+        // finally emit sanitized changes in HTML content
         this.editorModelChange.emit(
-            this.sanitize(content)
+            this.sanitize(innerHTML)
         );
     }
 

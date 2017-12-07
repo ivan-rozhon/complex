@@ -2,3 +2,16 @@
 admin-app {
     background: inherit;
 }
+
+ca-editor {
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+
+    td {
+        // TODO... color as variable
+        border: 1px solid #e5e5e5;
+    }
+}
