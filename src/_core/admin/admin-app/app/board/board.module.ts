@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 // @ngrx/...
 import { StoreModule } from '@ngrx/store';
@@ -17,12 +18,15 @@ import { BoardMediaGalleriesComponent } from './board-media/board-media-gallerie
 import { BoardConfigComponent } from './board-config/board-config.component';
 
 import { BoardService } from './board.service';
+import { BoardEffects } from './board-effects';
 
 @NgModule({
     imports: [
+        CommonModule,
         SharedModule,
         BoardRoutingModule,
-        StoreModule.forFeature('board', reducers)
+        StoreModule.forFeature('board', reducers),
+        EffectsModule.forFeature([BoardEffects])
     ],
     exports: [],
     declarations: [

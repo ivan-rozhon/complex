@@ -1,1 +1,22 @@
 <ca-upload [config]="uploadConfig" (complete)="uploadComplete()"></ca-upload>
+
+<table class="uk-table uk-table-small uk-table-striped">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let image of images">
+            <td class="uk-table-expand">{{ image.name }}</td>
+            <td class="uk-width-small">
+                <ul class="uk-iconnav uk-align-right">
+                    <li>
+                        <a (click)="deleteImage(image.name)" uk-icon="icon: trash" title="Delete"></a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</table>

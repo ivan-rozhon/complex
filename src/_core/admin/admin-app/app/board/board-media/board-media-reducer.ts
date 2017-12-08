@@ -9,13 +9,16 @@ export interface State {
 }
 
 // board-media initial state
-export const mediaInitialState: State = {
+export const initialState: State = {
     images: [],
     imagesLoading: false
 };
 
 // board-media state reducer
-export function reducer(state = mediaInitialState, action: MediaActions.Actions) {
+export function reducer(
+    state = initialState,
+    action: MediaActions.Actions
+): State {
     switch (action.type) {
         case MediaActions.LOAD_IMAGES: {
             return {
@@ -32,8 +35,13 @@ export function reducer(state = mediaInitialState, action: MediaActions.Actions)
                 imagesLoading: false
             };
         }
+
+        default: {
+            return state;
+        }
     }
 }
 
 // board-media selectors
 export const getImages = (state: State) => state.images;
+export const getImagesLoading = (state: State) => state.imagesLoading;
