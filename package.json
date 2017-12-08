@@ -46,7 +46,7 @@
     "zone.js": "0.8.18"
   },
   "devDependencies": {
-    "@types/node": "8.0.56",
+    "@types/node": "8.0.57",
     "angular-router-loader": "0.8.0",
     "angular2-template-loader": "0.6.2",
     "awesome-typescript-loader": "3.4.1",

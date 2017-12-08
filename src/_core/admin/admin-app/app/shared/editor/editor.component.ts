@@ -13,6 +13,7 @@ import { ContentEditableDirective } from './../directives/content-editable.direc
 export class EditorComponent {
     editorContentValue: string;
     contenteditable = true;
+    contenteditableView = true;
 
     @Input() foreColors: string[] = [];
     @Input() backColors: string[] = [];
@@ -69,18 +70,37 @@ export class EditorComponent {
 
     /** Handle inserting table by 'insertHtml' command */
     insertTable(): void {
+        // get number of rows
+        const rows = Number(prompt('Rows: ', ''));
+
+        // if inputs are not numbers od 'zero' - do not continue
+        if (typeof rows !== 'number' || !rows) { return; }
+
+        // get number of columns
+        const columns = Number(prompt('Columns: ', ''));
+
+        // if inputs are not numbers od 'zero' - do not continue
+        if (typeof columns !== 'number' || !columns) { return; }
+
+        // table body template
+        let tableBodyHTML = '';
+
+        // create rows and columns depending on number of it
+        for (let r = 0; r < rows; r++) {
+            tableBodyHTML += '<tr>';
+
+            for (let c = 0; c < columns; c++) {
+                tableBodyHTML += '<td></td>';
+            }
+
+            tableBodyHTML += '</tr>';
+        }
+
         // prepare table HTML string
         const tableHTML = `
-            <table style=" ">
+            <table>
                 <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                    </tr>
+                    ${tableBodyHTML}
                 </tbody>
             </table>
         `;
@@ -302,6 +322,9 @@ export class EditorComponent {
                     // don`t remove column if number of columns is lower than 2
                     if (columnsCount < 2) { return; }
 
+                    // temporary helper variable for recognizing cells in rowspan
+                    let rowspan;
+
                     // remove one cell from each row or decrease colspan attr
                     selectedTableBody.find('tr').each((index) => {
                         // get current row
@@ -310,12 +333,35 @@ export class EditorComponent {
                         // check if last column in row has 'colspan' attr
                         const colspan = currentRow.find('td').last().attr('colspan');
 
+                        // get current cell
+                        const currentCell = currentRow.find('td').last();
+
                         if (colspan && colspan > 1) {
                             // decrease colspan
-                            currentRow.find('td').last().attr('colspan', colspan - 1);
+                            currentCell.attr('colspan', colspan - 1);
+
+                            // colspan of current updated cell
+                            const currentCellColspan = currentCell.attr('colspan')
+                                ? Number(currentCell.attr('colspan'))
+                                : null;
+
+                            // remove colspan if is '1'
+                            if (currentCellColspan === 1) {
+                                currentCell.removeAttr('colspan');
+                            }
                         } else {
+                            // rowspan of current updated cell
+                            const currentCellRowspan = currentCell.attr('rowspan')
+                                ? Number(currentCell.attr('rowspan'))
+                                : null;
+
                             // no 'colspan' - just remove cell
-                            const removedCell = currentRow.get(0) ? currentRow.get(0).deleteCell(-1) : null;
+                            const removedCell = currentRow.get(0) && !rowspan ? currentRow.get(0).deleteCell(-1) : null;
+
+                            // get temporary rowspan in exists for next iteration (cell will not be deleted)
+                            rowspan = currentCellRowspan
+                                ? currentCellRowspan - 1
+                                : rowspan ? rowspan - 1 : rowspan;
                         }
                     });
 

@@ -3,6 +3,10 @@ admin-app {
     background: inherit;
 }
 
+// border color same as in UIkit
+$ca-border-color: #e5e5e5;
+
+// ca-editor styles
 ca-editor {
     table {
         width: 100%;
@@ -11,7 +15,6 @@ ca-editor {
     }
 
     td {
-        // TODO... color as variable
-        border: 1px solid #e5e5e5;
+        border: 1px solid $ca-border-color;
     }
 }
