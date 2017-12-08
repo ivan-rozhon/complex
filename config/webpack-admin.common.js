@@ -14,7 +14,16 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['.ts', '.js']
+    extensions: ['.ts', '.js'],
+    modules: [
+      helpers.root('node_modules')
+    ]
+  },
+
+  resolveLoader: {
+    modules: [
+      helpers.root('node_modules')
+    ]
   },
 
   module: {
@@ -80,13 +89,16 @@ module.exports = {
   },
 
   plugins: [
-    // Workaround for angular/angular#11580
+    // Workaround for https://github.com/angular/angular/issues/11580
     new webpack.ContextReplacementPlugin(
       // The (\\|\/) piece accounts for path separators in *nix and Windows
       // /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
 
       // FIX: https://github.com/angular/angular/issues/11580
-      /angular(\\|\/)core(\\|\/)@angular/,
+      // /angular(\\|\/)core(\\|\/)@angular/,
+
+      // https://github.com/angular/angular/issues/20357
+      /\@angular(\\|\/)core(\\|\/)esm5/,
       helpers.root('./src/_core/admin/admin-app'), // location of your src
       {} // a map of your routes
     ),

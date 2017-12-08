@@ -2,6 +2,7 @@ module.exports = {
     plugins: {
         'postcss-import': {},
         'postcss-cssnext': {},
-        'cssnano': {}
+        // Disable autoprefixer, because it's already included in cssnext
+        'cssnano': { autoprefixer: false }
     }
 };
