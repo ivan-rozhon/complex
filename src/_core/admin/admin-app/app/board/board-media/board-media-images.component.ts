@@ -13,7 +13,7 @@ export class BoardMediaImagesComponent implements OnInit {
     @Input() images: Image[];
     @Input() loading: boolean;
     @Output() onLoadImages = new EventEmitter<any>();
-    @Output() onDeleteImage = new EventEmitter<string>();
+    @Output() onDeleteImage = new EventEmitter<any>();
 
     uploadConfig: UploadConfig;
 
@@ -45,9 +45,9 @@ export class BoardMediaImagesComponent implements OnInit {
 
     /**
      * Delete image by its name
-     * @param imageName name of the image to delete
+     * @param mediaName name of the image to delete
      */
-    deleteImage(imageName: string): void {
-        this.onDeleteImage.emit(imageName);
+    deleteImage(mediaName: string): void {
+        this.onDeleteImage.emit({ mediaType: 'images', mediaName });
     }
 }

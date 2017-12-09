@@ -33,8 +33,8 @@ export class BoardMediaComponent implements OnInit {
         this.store.dispatch(new MediaActions.LoadImages());
     }
 
-    /** dispatch action for delete image */
-    deleteImage(imageName: string) {
-        console.log(imageName);
+    /** dispatch action for delete image/gallery */
+    deleteMedia(event: { mediaType: string, mediaName: string }): void {
+        this.store.dispatch(new MediaActions.DeleteMedia({ mediaType: event.mediaType, mediaName: event.mediaName }));
     }
 }

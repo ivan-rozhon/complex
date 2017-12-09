@@ -9,7 +9,7 @@
 
 <ul class="uk-switcher uk-margin">
     <li>
-        <ca-board-media-images [images]="images$ | async" [loading]="imagesLoading$ | async" (onLoadImages)="loadImages()" (onDeleteImage)="deleteImage($event)"></ca-board-media-images>
+        <ca-board-media-images [images]="images$ | async" [loading]="imagesLoading$ | async" (onLoadImages)="loadImages()" (onDeleteImage)="deleteMedia($event)"></ca-board-media-images>
     </li>
     <li>
         <ca-board-media-galleries></ca-board-media-galleries>

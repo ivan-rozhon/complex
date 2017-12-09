@@ -24,4 +24,18 @@ export class BoardEffects {
                 .map((images: Image[]) => new MediaActions.LoadImagesSuccess(images))
                 .catch(err => of(new MediaActions.LoadImagesFail([])))
         );
+
+    @Effect()
+    deleteMedia$: Observable<Action> = this.actions$.ofType(MediaActions.DELETE_MEDIA)
+        .map((action: MediaActions.DeleteMedia) => action.payload)
+        .switchMap((payload: { mediaType: string, mediaName: string }) =>
+            this.boardService
+                .removeMedia<null>(payload.mediaType, payload.mediaName)
+                .concatMap(() => of(...[
+                    new MediaActions.DeleteMediaSuccess(),
+                    // reload images after successful delete
+                    new MediaActions.LoadImages()
+                ]))
+                .catch(err => of(new MediaActions.DeleteMediaFail()))
+        );
 }

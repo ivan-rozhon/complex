@@ -12,11 +12,20 @@ export class BoardService {
 
     /**
      * Load images/gallery images
-     * @param type is it image or gallery
-     * @param gallery name of gallery folder if loading gallery
+     * @param mediaType images or gallery
+     * @param galleryName name of gallery folder if loading gallery
      */
-    loadMedia<T>(type: string, gallery?: string): Observable<T> {
+    loadMedia<T>(mediaType: string, galleryName?: string): Observable<T> {
         return this.dataService
-            .get(gallery ? `mediaLoad/${type}/${gallery}` : `mediaLoad/${type}`);
+            .get(galleryName ? `mediaLoad/${mediaType}/${galleryName}` : `mediaLoad/${mediaType}`);
+    }
+
+    /** Remove image/gallery
+     * @param mediaType image or gallery
+     * @param path path to image to delete (image/gallery name)
+     */
+    removeMedia<T>(mediaType: string, path: string): Observable<T> {
+        return this.dataService
+            .get(`mediaRemove/${mediaType}/${path}`);
     }
 }

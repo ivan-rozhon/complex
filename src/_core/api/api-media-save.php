@@ -16,9 +16,6 @@ class ApiMediaSave {
         // type of media
         $mediaType = array_key_exists(0, $pathParams) ? $pathParams[0] : '';
 
-        // create JWT
-        $token = $this->api->createToken($decodedJWT->{'id'}, $decodedJWT->{'user'});
-
         if ($_FILES) {
             // reorder icoming array of files
             $fileArr = $this->reArrayFiles($_FILES['files']);
@@ -52,6 +49,9 @@ class ApiMediaSave {
                     }
                 }
             }
+
+            // create JWT
+            $token = $this->api->createToken($decodedJWT->{'id'}, $decodedJWT->{'user'});
 
             // successful response
             echo $this->api->dataResponse(null, $token, true);

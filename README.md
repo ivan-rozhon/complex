@@ -13,22 +13,15 @@ Experimental web dev pack, that contains:
 npm install
 ```
 
-## Build (production)
+## Build
 ```
 npm run build
 ```
 
 
-## Local development server
-
-Run build (development) with watch:
+## Development
 ```
 npm start
-```
-
-After successful build, run (in separate terminal):
-```
-npm run serve
 ```
 
 Navigate to `http://localhost:9000/`.

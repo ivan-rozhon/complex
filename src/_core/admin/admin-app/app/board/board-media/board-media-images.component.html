@@ -1,12 +1,6 @@
 <ca-upload [config]="uploadConfig" (complete)="uploadComplete()"></ca-upload>
 
-<table class="uk-table uk-table-small uk-table-striped">
-    <thead>
-        <tr>
-            <th>Image</th>
-            <th></th>
-        </tr>
-    </thead>
+<table class="uk-table uk-table-small uk-table-striped" *ngIf="images.length">
     <tbody>
         <tr *ngFor="let image of images">
             <td class="uk-table-expand">{{ image.name }}</td>
