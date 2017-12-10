@@ -13,7 +13,7 @@ export class BoardMediaImagesComponent implements OnInit {
     @Input() images: Image[];
     @Input() loading: boolean;
     @Output() onLoadImages = new EventEmitter<any>();
-    @Output() onDeleteImage = new EventEmitter<any>();
+    @Output() onDeleteImage = new EventEmitter<{ mediaType: string; mediaName: string }>();
 
     uploadConfig: UploadConfig;
 

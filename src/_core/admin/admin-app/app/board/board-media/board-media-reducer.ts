@@ -1,17 +1,21 @@
 import * as MediaActions from './board-media-actions';
 
-import { Image } from '../board.model';
+import { Image, Gallery } from '../board.model';
 
 // board-media state interface
 export interface State {
     images: Image[];
     imagesLoading: boolean;
+    galleries: Gallery[];
+    galleriesLoading: boolean;
 }
 
 // board-media initial state
 export const initialState: State = {
     images: [],
-    imagesLoading: false
+    imagesLoading: false,
+    galleries: [],
+    galleriesLoading: false
 };
 
 // board-media state reducer
@@ -33,6 +37,22 @@ export function reducer(
                 ...state,
                 images: action.payload,
                 imagesLoading: false
+            };
+        }
+
+        case MediaActions.LOAD_GALLERIES: {
+            return {
+                ...state,
+                galleriesLoading: true
+            };
+        }
+
+        case MediaActions.LOAD_GALLERIES_SUCCESS:
+        case MediaActions.LOAD_GALLERIES_FAIL: {
+            return {
+                ...state,
+                galleries: action.payload,
+                galleriesLoading: false
             };
         }
 

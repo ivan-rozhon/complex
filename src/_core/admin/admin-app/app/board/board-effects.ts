@@ -5,7 +5,7 @@ import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 
-import { Image } from './board.model';
+import { Image, Gallery } from './board.model';
 import { BoardService } from './board.service';
 import * as MediaActions from './board-media/board-media-actions';
 
@@ -23,6 +23,15 @@ export class BoardEffects {
                 .loadMedia<Image[]>('images')
                 .map((images: Image[]) => new MediaActions.LoadImagesSuccess(images))
                 .catch(err => of(new MediaActions.LoadImagesFail([])))
+        );
+
+    @Effect()
+    loadGalleries$: Observable<Action> = this.actions$.ofType(MediaActions.LOAD_GALLERIES)
+        .switchMap(() =>
+            this.boardService
+                .loadMedia<Gallery[]>('gallery')
+                .map((galleries: Gallery[]) => new MediaActions.LoadGalleriesSuccess(galleries))
+                .catch(err => of(new MediaActions.LoadGalleriesFail([])))
         );
 
     @Effect()

@@ -33,6 +33,16 @@ export class BoardMediaComponent implements OnInit {
         this.store.dispatch(new MediaActions.LoadImages());
     }
 
+    /** dispatch action for load galleries */
+    loadGalleries(): void {
+        this.store.dispatch(new MediaActions.LoadGalleries());
+    }
+
+    /** dispatch action for create gallery */
+    createGallery(galleryName): void {
+        this.store.dispatch(new MediaActions.CreateGallery(galleryName));
+    }
+
     /** dispatch action for delete image/gallery */
     deleteMedia(event: { mediaType: string, mediaName: string }): void {
         this.store.dispatch(new MediaActions.DeleteMedia({ mediaType: event.mediaType, mediaName: event.mediaName }));
