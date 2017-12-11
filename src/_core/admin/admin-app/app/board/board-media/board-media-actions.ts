@@ -17,7 +17,12 @@ export const CREATE_GALLERY = '[Board Media] Create Gallery';
 export const CREATE_GALLERY_SUCCESS = '[Board Media] Create Gallery Success';
 export const CREATE_GALLERY_FAIL = '[Board Media] Create Gallery Fail';
 
-// delete image actions
+// load gallery images actions
+export const LOAD_GALLERY_IMAGES = '[Board Media] Load Gallery Images';
+export const LOAD_GALLERY_IMAGES_SUCCESS = '[Board Media] Load Gallery Images Success';
+export const LOAD_GALLERY_IMAGES_FAIL = '[Board Media] Load Gallery Images Fail';
+
+// delete media (image/gallery) actions
 export const DELETE_MEDIA = '[Board Media] Delete Image';
 export const DELETE_MEDIA_SUCCESS = '[Board Media] Delete Image Success';
 export const DELETE_MEDIA_FAIL = '[Board Media] Delete Image Fail';
@@ -87,14 +92,36 @@ export class CreateGalleryFail implements Action {
 }
 // ===
 
-// delete image actions
+// load gallery images actions
+// ===
+export class LoadGalleryImages implements Action {
+    readonly type = LOAD_GALLERY_IMAGES;
+
+    constructor(public payload: string) { }
+}
+
+export class LoadGalleryImagesSuccess implements Action {
+    readonly type = LOAD_GALLERY_IMAGES_SUCCESS;
+
+    constructor(public payload: Image[]) { }
+}
+
+export class LoadGalleryImagesFail implements Action {
+    readonly type = LOAD_GALLERY_IMAGES_FAIL;
+
+    constructor(public payload: Image[]) { }
+}
+// ===
+
+// delete media (image/gallery) actions
 // ===
 export class DeleteMedia implements Action {
     readonly type = DELETE_MEDIA;
 
     constructor(public payload: {
         mediaType: string,
-        mediaName: string
+        mediaName: string,
+        deepMediaName?: string
     }) { }
 }
 
@@ -116,4 +143,5 @@ export type Actions =
     LoadImages | LoadImagesSuccess | LoadImagesFail |
     LoadGalleries | LoadGalleriesSuccess | LoadGalleriesFail |
     CreateGallery | CreateGallerySuccess | CreateGalleryFail |
+    LoadGalleryImages | LoadGalleryImagesSuccess | LoadGalleryImagesFail |
     DeleteMedia | DeleteMediaSuccess | DeleteMediaFail;

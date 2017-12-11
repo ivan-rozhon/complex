@@ -8,6 +8,8 @@ export interface State {
     imagesLoading: boolean;
     galleries: Gallery[];
     galleriesLoading: boolean;
+    galleryImages: Image[];
+    galleryImagesLoading: boolean;
 }
 
 // board-media initial state
@@ -15,7 +17,9 @@ export const initialState: State = {
     images: [],
     imagesLoading: false,
     galleries: [],
-    galleriesLoading: false
+    galleriesLoading: false,
+    galleryImages: [],
+    galleryImagesLoading: false
 };
 
 // board-media state reducer
@@ -56,6 +60,22 @@ export function reducer(
             };
         }
 
+        case MediaActions.LOAD_GALLERY_IMAGES: {
+            return {
+                ...state,
+                galleryImagesLoading: true
+            };
+        }
+
+        case MediaActions.LOAD_GALLERY_IMAGES_SUCCESS:
+        case MediaActions.LOAD_GALLERY_IMAGES_FAIL: {
+            return {
+                ...state,
+                galleryImages: action.payload,
+                galleryImagesLoading: false
+            };
+        }
+
         default: {
             return state;
         }
@@ -69,3 +89,6 @@ export const getImagesLoading = (state: State) => state.imagesLoading;
 // galleries
 export const getGalleries = (state: State) => state.galleries;
 export const getGalleriesLoading = (state: State) => state.galleriesLoading;
+// gallery images
+export const getGalleryImages = (state: State) => state.galleryImages;
+export const getGalleryImagesLoading = (state: State) => state.galleryImagesLoading;

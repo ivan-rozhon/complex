@@ -26,6 +26,16 @@ export class BoardEffects {
         );
 
     @Effect()
+    loadGalleryImages$: Observable<Action> = this.actions$.ofType(MediaActions.LOAD_GALLERY_IMAGES)
+        .map((action: MediaActions.LoadGalleryImages) => action.payload)
+        .switchMap((galleryName: string) =>
+            this.boardService
+                .loadMedia<Image[]>('gallery', galleryName)
+                .map((images: Image[]) => new MediaActions.LoadGalleryImagesSuccess(images))
+                .catch(err => of(new MediaActions.LoadGalleryImagesFail([])))
+        );
+
+    @Effect()
     loadGalleries$: Observable<Action> = this.actions$.ofType(MediaActions.LOAD_GALLERIES)
         .switchMap(() =>
             this.boardService
@@ -51,15 +61,18 @@ export class BoardEffects {
     @Effect()
     deleteMedia$: Observable<Action> = this.actions$.ofType(MediaActions.DELETE_MEDIA)
         .map((action: MediaActions.DeleteMedia) => action.payload)
-        .switchMap((payload: { mediaType: string, mediaName: string }) =>
+        .switchMap((payload: { mediaType: string, mediaName: string, deepMediaName?: string }) =>
             this.boardService
-                .removeMedia<null>(payload.mediaType, payload.mediaName)
+                .removeMedia<null>(payload.mediaType, payload.mediaName, payload.deepMediaName)
                 .concatMap(() => of(...[
                     new MediaActions.DeleteMediaSuccess(),
                     // reload images/galleries after successful delete
                     payload.mediaType === 'images'
                         ? new MediaActions.LoadImages()
-                        : new MediaActions.LoadGalleries()
+                        // reload galleries or gallery images (if was deleting gallery/image in gallery)
+                        : payload.deepMediaName
+                            ? new MediaActions.LoadGalleryImages(payload.mediaName)
+                            : new MediaActions.LoadGalleries()
                 ]))
                 .catch(err => of(new MediaActions.DeleteMediaFail()))
         );

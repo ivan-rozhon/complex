@@ -42,10 +42,18 @@ class ApiMediaRemove {
                     break;
 
                 case 'gallery':
-                    // remove whole directory of gallery
-                    $this->deleteDirectory($path);
+                    if ($deepMediaName) {
+                        // remove file (image) in specific gallery
+                        unlink($path);
 
-                    // TODO... remove image in gallery
+                        // delete thumbnail
+                        $thumbPath = '_source/media/'.$mediaType.'/'.$mediaName.'/thumb/thumb_'.$deepMediaName;
+                        unlink($thumbPath);
+
+                    } else {
+                        // remove whole directory of gallery
+                        $this->deleteDirectory($path);
+                    }
 
                     break;
             }

@@ -10,12 +10,13 @@ import { Image } from '../board.model';
 })
 
 export class BoardMediaImagesComponent implements OnInit {
+    uploadConfig: UploadConfig;
+
     @Input() images: Image[];
     @Input() loading: boolean;
+
     @Output() onLoadImages = new EventEmitter<any>();
     @Output() onDeleteImage = new EventEmitter<{ mediaType: string; mediaName: string }>();
-
-    uploadConfig: UploadConfig;
 
     constructor() { }
 

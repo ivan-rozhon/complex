@@ -3,7 +3,11 @@
     <button class="uk-button uk-button-default" (click)="createGallery()">New Gallery</button>
 </p>
 
-<table class="uk-table uk-table-small uk-table-striped uk-table-hover" *ngIf="galleries.length && !loading && !selectedGallery">
+<div class="uk-flex uk-flex-center" *ngIf="galleriesLoading && !selectedGallery">
+    <div uk-spinner></div>
+</div>
+
+<table class="uk-table uk-table-small uk-table-striped uk-table-hover" *ngIf="galleries.length && !galleriesLoading && !selectedGallery">
     <tbody>
         <tr *ngFor="let gallery of galleries">
             <td class="uk-table-expand" (click)="selectGallery(gallery.name)">{{ gallery.name }}</td>
@@ -26,3 +30,31 @@
 </p>
 
 <ca-upload [config]="uploadConfig" (complete)="uploadComplete()" *ngIf="selectedGallery"></ca-upload>
+
+<ul class="uk-breadcrumb" *ngIf="selectedGallery">
+    <li>
+        <a (click)="selectedGallery = null">GALLERIES</a>
+    </li>
+    <li>
+        <span>{{ selectedGallery }}</span>
+    </li>
+</ul>
+
+<div class="uk-flex uk-flex-center" *ngIf="galleryImagesLoading && selectedGallery">
+    <div uk-spinner></div>
+</div>
+
+<table class="uk-table uk-table-small uk-table-striped uk-table-hover" *ngIf="galleryImages.length && !galleryImagesLoading && selectedGallery">
+    <tbody>
+        <tr *ngFor="let galleryImage of galleryImages">
+            <td class="uk-table-expand">{{ galleryImage.name }}</td>
+            <td class="uk-table-shrink">
+                <ul class="uk-iconnav uk-align-right">
+                    <li>
+                        <a (click)="deleteGalleryImage(selectedGallery, galleryImage.name)" uk-icon="icon: trash" title="Delete"></a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</table>

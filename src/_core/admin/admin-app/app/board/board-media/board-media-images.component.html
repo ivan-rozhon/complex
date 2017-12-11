@@ -1,10 +1,14 @@
 <ca-upload [config]="uploadConfig" (complete)="uploadComplete()"></ca-upload>
 
-<table class="uk-table uk-table-small uk-table-striped" *ngIf="images.length && !loading">
+<div class="uk-flex uk-flex-center" *ngIf="loading">
+    <div uk-spinner></div>
+</div>
+
+<table class="uk-table uk-table-small uk-table-striped uk-table-hover" *ngIf="images.length && !loading">
     <tbody>
         <tr *ngFor="let image of images">
             <td class="uk-table-expand">{{ image.name }}</td>
-            <td class="uk-width-small">
+            <td class="uk-table-shrink">
                 <ul class="uk-iconnav uk-align-right">
                     <li>
                         <a (click)="deleteImage(image.name)" uk-icon="icon: trash" title="Delete"></a>

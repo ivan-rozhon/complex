@@ -20,7 +20,10 @@ export class BoardMediaComponent implements OnInit {
     imagesLoading$: Observable<boolean>;
     // galleries streams
     galleries$: Observable<Gallery[]>;
-    galleriesLoading: Observable<boolean>;
+    galleriesLoading$: Observable<boolean>;
+    // gallery images streams
+    galleryImages$: Observable<Image[]>;
+    galleryImagesLoading$: Observable<boolean>;
 
     constructor(
         private store: Store<fromBoard.State>
@@ -32,12 +35,20 @@ export class BoardMediaComponent implements OnInit {
         this.imagesLoading$ = this.store.select(fromBoard.getImagesLoading);
         // galleries & loading indication store streams
         this.galleries$ = this.store.select(fromBoard.getGalleries);
-        this.galleriesLoading = this.store.select(fromBoard.getGalleriesLoading);
+        this.galleriesLoading$ = this.store.select(fromBoard.getGalleriesLoading);
+        // gallery images & loading indication store streams
+        this.galleryImages$ = this.store.select(fromBoard.getGalleryImages);
+        this.galleryImagesLoading$ = this.store.select(fromBoard.getGalleryImagesLoading);
     }
 
     /** dispatch action for load images */
     loadImages(): void {
         this.store.dispatch(new MediaActions.LoadImages());
+    }
+
+    /** dispatch action for load gallery images */
+    loadGalleryImages(galleryName): void {
+        this.store.dispatch(new MediaActions.LoadGalleryImages(galleryName));
     }
 
     /** dispatch action for load galleries */
@@ -51,7 +62,9 @@ export class BoardMediaComponent implements OnInit {
     }
 
     /** dispatch action for delete image/gallery */
-    deleteMedia(event: { mediaType: string, mediaName: string }): void {
-        this.store.dispatch(new MediaActions.DeleteMedia({ mediaType: event.mediaType, mediaName: event.mediaName }));
+    deleteMedia(event: { mediaType: string, mediaName: string, deepMediaName?: string }): void {
+        this.store.dispatch(
+            new MediaActions.DeleteMedia({ mediaType: event.mediaType, mediaName: event.mediaName, deepMediaName: event.deepMediaName })
+        );
     }
 }

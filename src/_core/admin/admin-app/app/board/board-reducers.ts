@@ -29,3 +29,6 @@ export const getImagesLoading = createSelector(selectBoardMediaState, fromMedia.
 // media-galleries
 export const getGalleries = createSelector(selectBoardMediaState, fromMedia.getGalleries);
 export const getGalleriesLoading = createSelector(selectBoardMediaState, fromMedia.getGalleriesLoading);
+// media-gallery-images
+export const getGalleryImages = createSelector(selectBoardMediaState, fromMedia.getGalleryImages);
+export const getGalleryImagesLoading = createSelector(selectBoardMediaState, fromMedia.getGalleryImagesLoading);

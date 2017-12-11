@@ -32,10 +32,11 @@ export class BoardService {
 
     /** Remove image/gallery
      * @param mediaType image or gallery
-     * @param path path to image to delete (image/gallery name)
+     * @param mediaName path to media to delete (image/gallery name)
+     * @param deepMediaName specific - deep media name (image in gallery)
      */
-    removeMedia<T>(mediaType: string, path: string): Observable<T> {
+    removeMedia<T>(mediaType: string, mediaName: string, deepMediaName?: string): Observable<T> {
         return this.dataService
-            .get(`mediaRemove/${mediaType}/${path}`);
+            .get(deepMediaName ? `mediaRemove/${mediaType}/${mediaName}/${deepMediaName}` : `mediaRemove/${mediaType}/${mediaName}`);
     }
 }
