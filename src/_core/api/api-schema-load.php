@@ -15,16 +15,13 @@ class ApiSchemaLoad {
 
         if (file_exists('_source/web-schema.json')) {
             // load schema
-            $schema = file_get_contents('_source/web-schema.json');
+            $data = file_get_contents('_source/web-schema.json');
 
             // create JWT
             $token = $this->api->createToken($decodedJWT->{'id'}, $decodedJWT->{'user'});
 
-            // response data object
-            $data = array('token' => $token, 'schema' => $schema);
-
             // successful response
-            echo json_encode($data);
+            echo $this->api->dataResponse($data, $token, true);
         }
     }
 }

@@ -20,6 +20,12 @@ export class BoardService {
             .get(mediaName ? `mediaLoad/${mediaType}/${mediaName}` : `mediaLoad/${mediaType}`);
     }
 
+    /** Load pages (web schema) */
+    loadPages<T>(): Observable<T> {
+        return this.dataService
+            .get('schemaLoad');
+    }
+
     /**
      * Save media (gallery - folder, immages)
      * @param mediaType images or gallery

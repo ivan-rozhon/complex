@@ -8,6 +8,7 @@ import { of } from 'rxjs/observable/of';
 import { Image, Gallery } from './board.model';
 import { BoardService } from './board.service';
 import * as MediaActions from './board-media/board-media-actions';
+import * as PagesActions from './board-pages/board-pages-actions';
 
 @Injectable()
 export class BoardEffects {
@@ -16,6 +17,8 @@ export class BoardEffects {
         private boardService: BoardService
     ) { }
 
+    // board-media effects
+    // ===
     @Effect()
     loadImages$: Observable<Action> = this.actions$.ofType(MediaActions.LOAD_IMAGES)
         .switchMap(() =>
@@ -76,4 +79,17 @@ export class BoardEffects {
                 ]))
                 .catch(err => of(new MediaActions.DeleteMediaFail()))
         );
+    // ===
+
+    // board-pages effects
+    // ===
+    @Effect()
+    loadPages$: Observable<Action> = this.actions$.ofType(PagesActions.LOAD_PAGES)
+        .switchMap(() =>
+            this.boardService
+                .loadPages<any>()
+                .map((pages: any) => new PagesActions.LoadPagesSuccess(pages))
+                .catch(err => of(new PagesActions.LoadPagesFail([])))
+        );
+    // ===
 }

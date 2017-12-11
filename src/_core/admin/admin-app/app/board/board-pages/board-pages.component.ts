@@ -1,10 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
+import { Observable } from 'rxjs/Observable';
+import { Store } from '@ngrx/store';
+
+import * as PagesActions from './board-pages-actions';
+import * as fromBoard from './../board-reducers';
 
 @Component({
     selector: 'ca-board-pages',
     templateUrl: 'board-pages.component.html'
 })
-export class BoardPagesComponent {
+export class BoardPagesComponent implements OnInit {
     editorContent = '';
     colors = [
         '#F44336',
@@ -15,5 +21,17 @@ export class BoardPagesComponent {
         '#795548'
     ];
 
-    constructor() { }
+    constructor(
+        private store: Store<fromBoard.State>
+    ) { }
+
+    ngOnInit(): void {
+        // load pages on init
+        this.loadPages();
+    }
+
+    /** dispatch action for load pages */
+    loadPages(): void {
+        this.store.dispatch(new PagesActions.LoadPages());
+    }
 }
