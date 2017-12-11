@@ -12,6 +12,6 @@
         <ca-board-media-images [images]="images$ | async" [loading]="imagesLoading$ | async" (onLoadImages)="loadImages()" (onDeleteImage)="deleteMedia($event)"></ca-board-media-images>
     </li>
     <li>
-        <ca-board-media-galleries (onLoadGalleries)="loadGalleries()" (onCreateGallery)="createGallery($event)"></ca-board-media-galleries>
+        <ca-board-media-galleries [galleries]="galleries$ | async" [loading]="galleriesLoading$ | async" (onLoadGalleries)="loadGalleries()" (onCreateGallery)="createGallery($event)" (onDeleteGallery)="deleteMedia($event)"></ca-board-media-galleries>
     </li>
 </ul>

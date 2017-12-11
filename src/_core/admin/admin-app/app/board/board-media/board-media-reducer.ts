@@ -63,5 +63,9 @@ export function reducer(
 }
 
 // board-media selectors
+// images
 export const getImages = (state: State) => state.images;
 export const getImagesLoading = (state: State) => state.imagesLoading;
+// galleries
+export const getGalleries = (state: State) => state.galleries;
+export const getGalleriesLoading = (state: State) => state.galleriesLoading;

@@ -22,7 +22,7 @@ export class BoardMediaImagesComponent implements OnInit {
     ngOnInit(): void {
         // set the configuration of upload component
         this.uploadConfig = {
-            url: `${apiUrl}/mediaSave/image`,
+            url: `${apiUrl}/mediaSave/images`,
             multiple: true,
             mime: 'image/(jpeg|png)'
         };
@@ -37,7 +37,7 @@ export class BoardMediaImagesComponent implements OnInit {
         this.onLoadImages.emit();
     }
 
-    /** After upload behavior (actions) */
+    /** After upload images behavior */
     uploadComplete(): void {
         // reload images
         this.loadImages();
@@ -45,9 +45,9 @@ export class BoardMediaImagesComponent implements OnInit {
 
     /**
      * Delete image by its name
-     * @param mediaName name of the image to delete
+     * @param imageName name of the image to delete
      */
-    deleteImage(mediaName: string): void {
-        this.onDeleteImage.emit({ mediaType: 'images', mediaName });
+    deleteImage(imageName: string): void {
+        this.onDeleteImage.emit({ mediaType: 'images', mediaName: imageName });
     }
 }

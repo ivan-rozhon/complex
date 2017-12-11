@@ -1,3 +1,28 @@
-<p uk-margin>
+<!-- galleries -->
+<p uk-margin *ngIf="!selectedGallery">
     <button class="uk-button uk-button-default" (click)="createGallery()">New Gallery</button>
 </p>
+
+<table class="uk-table uk-table-small uk-table-striped uk-table-hover" *ngIf="galleries.length && !loading && !selectedGallery">
+    <tbody>
+        <tr *ngFor="let gallery of galleries">
+            <td class="uk-table-expand" (click)="selectGallery(gallery.name)">{{ gallery.name }}</td>
+            <td class="uk-table-shrink">
+                <ul class="uk-iconnav uk-align-right">
+                    <li>
+                        <a (click)="deleteGallery(gallery.name)" uk-icon="icon: trash" title="Delete"></a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- gallery - images -->
+<p uk-margin *ngIf="selectedGallery">
+    <button class="uk-button uk-button-default" (click)="selectedGallery = null">
+        <span uk-icon="icon: chevron-left"></span>
+    </button>
+</p>
+
+<ca-upload [config]="uploadConfig" (complete)="uploadComplete()" *ngIf="selectedGallery"></ca-upload>

@@ -13,11 +13,21 @@ export class BoardService {
     /**
      * Load images/gallery images
      * @param mediaType images or gallery
-     * @param galleryName name of gallery folder if loading gallery
+     * @param mediaName name of media (gallery) folder if loading specific gallery
      */
-    loadMedia<T>(mediaType: string, galleryName?: string): Observable<T> {
+    loadMedia<T>(mediaType: string, mediaName?: string): Observable<T> {
         return this.dataService
-            .get(galleryName ? `mediaLoad/${mediaType}/${galleryName}` : `mediaLoad/${mediaType}`);
+            .get(mediaName ? `mediaLoad/${mediaType}/${mediaName}` : `mediaLoad/${mediaType}`);
+    }
+
+    /**
+     * Save media (gallery - folder, immages)
+     * @param mediaType images or gallery
+     * @param mediaName name of media (gallery) to save
+     */
+    saveMedia<T>(mediaType: string, mediaName: string): Observable<T> {
+        return this.dataService
+            .post(`mediaSave/${mediaType}/${mediaName}`);
     }
 
     /** Remove image/gallery

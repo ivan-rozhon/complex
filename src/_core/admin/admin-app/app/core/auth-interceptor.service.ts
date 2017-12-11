@@ -1,5 +1,5 @@
 import { Injectable, Injector } from '@angular/core';
-import { HttpInterceptor, HttpEvent, HttpHandler, HttpRequest, HttpResponse } from '@angular/common/http';
+import { HttpInterceptor, HttpEvent, HttpHandler, HttpRequest, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 
@@ -36,6 +36,14 @@ export class AuthInterceptor implements HttpInterceptor {
 
                     // save token to local storage (set session)
                     localStorage.setItem('jwtComplex', jwtRes);
+                }
+            },
+            // intercept http errors
+            (error: HttpErrorResponse) => {
+                // user is unauthorized - go to login page
+                if (error.status === 401) {
+                    // redirect user to login page
+                    this.authService.logout();
                 }
             });
     }

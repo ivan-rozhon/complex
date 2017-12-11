@@ -23,5 +23,9 @@ export const selectBoardMediaState = createSelector(
     (state: BoardState) => state.media
 );
 
+// media-images
 export const getImages = createSelector(selectBoardMediaState, fromMedia.getImages);
 export const getImagesLoading = createSelector(selectBoardMediaState, fromMedia.getImagesLoading);
+// media-galleries
+export const getGalleries = createSelector(selectBoardMediaState, fromMedia.getGalleries);
+export const getGalleriesLoading = createSelector(selectBoardMediaState, fromMedia.getGalleriesLoading);

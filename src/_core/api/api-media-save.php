@@ -16,12 +16,18 @@ class ApiMediaSave {
         // type of media
         $mediaType = array_key_exists(0, $pathParams) ? $pathParams[0] : '';
 
+        // name of media (name of gallery folder)
+        $mediaName = array_key_exists(1, $pathParams) ? $pathParams[1] : null;
+
+        // base directory of all media
+        $baseDir = '_source/media/';
+
+        // directory to create/upload files
+        $targetDir = $mediaName ? $baseDir.$mediaType.'/'.$mediaName : $baseDir.$mediaType;
+
         if ($_FILES) {
             // reorder icoming array of files
             $fileArr = $this->reArrayFiles($_FILES['files']);
-
-            // directory to upload files
-            $targetDir = $this->mediaDir($mediaType);
 
             // loop through file array and save each
             foreach ($fileArr as $file) {
@@ -49,13 +55,21 @@ class ApiMediaSave {
                     }
                 }
             }
-
-            // create JWT
-            $token = $this->api->createToken($decodedJWT->{'id'}, $decodedJWT->{'user'});
-
-            // successful response
-            echo $this->api->dataResponse(null, $token, true);
+        } else {
+            // create new directory (gallery) only if doesn`t exists
+            if (!file_exists($targetDir)) {
+                // create media (gallery) folder
+                mkdir($targetDir);
+                // create thumbnails directory
+                mkdir($targetDir.'/thumb');
+            }
         }
+
+        // create JWT
+        $token = $this->api->createToken($decodedJWT->{'id'}, $decodedJWT->{'user'});
+
+        // successful response
+        echo $this->api->dataResponse(null, $token, true);
     }
 
     // reorder file array from post request to the cleaner array
@@ -72,19 +86,6 @@ class ApiMediaSave {
         }
 
         return $fileArr;
-    }
-
-    private function mediaDir($mediaType) {
-        $baseDir = '_source/media/';
-
-        $dirArr = [
-            'image' => 'images',
-            'gallery' => 'gallery'
-        ];
-
-        return array_key_exists($mediaType, $dirArr)
-            ? $baseDir.$dirArr[$mediaType]
-            : null;
     }
 
     // scale uploaded image

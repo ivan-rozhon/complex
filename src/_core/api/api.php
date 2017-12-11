@@ -183,7 +183,7 @@ class Api {
         $key = array_key_exists('authorization', $headers) ? 'authorization' : 'Authorization';
 
         // explode authorization header
-        $authorization = explode(' ', $headers[$key]);
+        $authorization = explode(' ', array_key_exists($key, $headers) ? $headers[$key] : ' ');
 
         // check Bearer header
         $this->assertStatus = [401, 'Invalid header'];
