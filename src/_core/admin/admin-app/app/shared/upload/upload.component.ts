@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild, Input, Output, EventEmitter, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, Input, Output, EventEmitter, ElementRef, ChangeDetectorRef } from '@angular/core';
 
 import { UploadConfig } from './../shared.model';
 import { AuthService } from './../../core/auth.service';
@@ -23,7 +23,8 @@ export class UploadComponent implements OnInit, AfterViewInit {
     };
 
     constructor(
-        public authService: AuthService
+        public authService: AuthService,
+        private changeDetector: ChangeDetectorRef
     ) { }
 
     ngOnInit(): void {
@@ -78,24 +79,33 @@ export class UploadComponent implements OnInit, AfterViewInit {
             },
 
             // loading (uploading) functions...
-
+            // ===
             // uploading started - activate loading bar
             loadStart: function (e) {
                 _this.progress.hidden = false;
                 _this.progress.max = e.total;
                 _this.progress.value = e.loaded;
+
+                // manually detect changes
+                _this.changeDetector.detectChanges();
             },
 
             // propagate progress via progress bar
             progress: function (e) {
                 _this.progress.max = e.total;
                 _this.progress.value = e.loaded;
+
+                // manually detect changes
+                _this.changeDetector.detectChanges();
             },
 
             // still scan the progress of loading
             loadEnd: function (e) {
                 _this.progress.max = e.total;
                 _this.progress.value = e.loaded;
+
+                // manually detect changes
+                _this.changeDetector.detectChanges();
             },
 
             // after all completed successfully
@@ -108,12 +118,16 @@ export class UploadComponent implements OnInit, AfterViewInit {
                 // save token to local storage
                 _this.authService.setToken(response.token ? response.token : null);
 
+                // manually detect changes
+                _this.changeDetector.detectChanges();
+
                 // callback after upload completed
                 _this.complete.emit();
             },
+            // ===
 
             // error functions...
-
+            // ===
             // like Network Error etc.
             error: function () {
                 console.log('error', arguments);
@@ -134,6 +148,7 @@ export class UploadComponent implements OnInit, AfterViewInit {
 
                 // TODO... notification
             }
+            // ===
         });
     }
 }
