@@ -2,6 +2,7 @@
 
 {{ editorContent }} -->
 
-<ng-container *ngFor="let schema of (pages$ | async)?.webSchema | caMapToIterable">
-    <ca-board-pages-list [pages]="schema | caFirstItem:'value'" [metadata]="(pages$ | async)?._metadata"></ca-board-pages-list>
+<ng-container *ngFor="let schema of pages?.webSchema | caMapToIterable; let i = index">
+    <!-- {{ ((pages?.webSchema | caMapToIterable)[i] | caPickItem:'key') }} -->
+    <ca-board-pages-list [pages]="schema | caPickItem:'value'" (pagesChange)="updateSchemes(i, $event)" [metadata]="pages?._metadata"></ca-board-pages-list>
 </ng-container>

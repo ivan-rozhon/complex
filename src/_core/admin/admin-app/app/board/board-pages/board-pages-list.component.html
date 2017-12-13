@@ -1,13 +1,13 @@
 <ul class="uk-list uk-list-striped uk-margin-small-top uk-margin-small-bottom">
-    <ng-container *ngFor="let page of pages; let last = last">
+    <ng-container *ngFor="let page of pages; let i = index">
 
         <li>
-            <ca-board-pages-input *ngFor="let input of page | caMapToIterable" [inputKey]="input | caFirstItem:'key'" [inputValue]="input | caFirstItem:'value'"
+            <ca-board-pages-input *ngFor="let input of page | caMapToIterable" [inputKey]="input | caPickItem:'key'" [inputValue]="input | caPickItem:'value'"
                 [inputData]="metadata?.data"></ca-board-pages-input>
         </li>
 
         <ng-container *ngIf="page.sub?.length">
-            <ca-board-pages-list [pages]="page.sub" [metadata]="metadata"></ca-board-pages-list>
+            <ca-board-pages-list [pages]="page.sub" (pagesChange)="updatePages(i, $event)" [metadata]="metadata"></ca-board-pages-list>
         </ng-container>
 
     </ng-container>

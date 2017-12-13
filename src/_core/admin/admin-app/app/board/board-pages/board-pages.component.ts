@@ -1,20 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 
 import * as PagesActions from './board-pages-actions';
 import * as fromBoard from './../board-reducers';
-import { Pages } from '../board.model';
+import { Pages, Page } from '../board.model';
+import { PickItemPipe } from './../../shared/pipes/pickItem.pipe';
 
 @Component({
     selector: 'ca-board-pages',
     templateUrl: 'board-pages.component.html'
 })
-export class BoardPagesComponent implements OnInit {
+export class BoardPagesComponent implements OnInit, OnDestroy {
     // pages streams
     pages$: Observable<Pages>;
     pagesLoading$: Observable<boolean>;
+    // subscription of pages stream
+    pagesSubscription: Subscription;
+    // pages
+    pages: Pages;
 
     editorContent = '';
     colors = [
@@ -27,13 +33,19 @@ export class BoardPagesComponent implements OnInit {
     ];
 
     constructor(
-        private store: Store<fromBoard.State>
+        private store: Store<fromBoard.State>,
+        private pickItem: PickItemPipe
     ) { }
 
     ngOnInit(): void {
         // pages & loading indication store streams
         this.pages$ = this.store.select(fromBoard.getPages);
         this.pagesLoading$ = this.store.select(fromBoard.getPagesLoading);
+
+        // subscribe pages stream
+        this.pagesSubscription =
+            this.pages$
+                .subscribe(pages => this.pages = Object.assign({}, pages));
 
         // load pages on init
         this.loadPages();
@@ -42,5 +54,19 @@ export class BoardPagesComponent implements OnInit {
     /** dispatch action for load pages */
     loadPages(): void {
         this.store.dispatch(new PagesActions.LoadPages());
+    }
+
+    /** update schemes model (two-way data binding) */
+    updateSchemes(index: number, event: Page[]): void {
+        // update each schema according to index in iteration
+        this.pages.webSchema[
+            // use pickItemPipe to get proper key
+            this.pickItem.transform(this.pages.webSchema, 'key', index)
+        ] = event;
+    }
+
+    ngOnDestroy(): void {
+        // unsubscribe subscriptions
+        this.pagesSubscription.unsubscribe();
     }
 }

@@ -17,7 +17,7 @@
     </div>
 
     <div *ngSwitchCase="'container'" class="uk-inline">
-        <ca-board-pages-input *ngFor="let item of inputValue | caMapToIterable" [inputKey]="item | caFirstItem:'key'" [inputValue]="item | caFirstItem:'value'"
+        <ca-board-pages-input *ngFor="let item of inputValue | caMapToIterable" [inputKey]="item | caPickItem:'key'" [inputValue]="item | caPickItem:'value'"
             [inputData]="inputData"></ca-board-pages-input>
     </div>
 </span>

@@ -1,19 +1,22 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-    name: 'caFirstItem'
+    name: 'caPickItem'
 })
 
-export class FirstItemPipe implements PipeTransform {
-    transform(value: any, type: string): any {
+export class PickItemPipe implements PipeTransform {
+    transform(value: any, type: string, index?: number): any {
         // get array of keys of object
         const keys = value ? Object.keys(value) : [];
 
+        // default index is 0
+        index = index ? index : 0;
+
         return keys.length
             ? type === 'value'
-                ? value[keys[0]]
+                ? value[keys[index]]
                 : type === 'key'
-                    ? keys[0]
+                    ? keys[index]
                     : value
             : value;
     }

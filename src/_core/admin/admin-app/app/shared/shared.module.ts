@@ -10,7 +10,7 @@ import { UploadComponent } from './upload/upload.component';
 import { ContentEditableDirective } from './directives/content-editable.directive';
 
 import { MapToIterablePipe } from './pipes/mapToIterable.pipe';
-import { FirstItemPipe } from './pipes/firstItem.pipe';
+import { PickItemPipe } from './pipes/pickItem.pipe';
 
 @NgModule({
     declarations: [
@@ -23,7 +23,7 @@ import { FirstItemPipe } from './pipes/firstItem.pipe';
         ContentEditableDirective,
         // pipes
         MapToIterablePipe,
-        FirstItemPipe
+        PickItemPipe
     ],
     imports: [
         CommonModule,
@@ -40,8 +40,10 @@ import { FirstItemPipe } from './pipes/firstItem.pipe';
         ContentEditableDirective,
         // pipes
         MapToIterablePipe,
-        FirstItemPipe
+        PickItemPipe
     ],
-    providers: [],
+    providers: [
+        PickItemPipe
+    ],
 })
 export class SharedModule { }
