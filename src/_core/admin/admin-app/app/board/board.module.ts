@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 // @ngrx/...
 import { StoreModule } from '@ngrx/store';
@@ -11,11 +12,13 @@ import { SharedModule } from '../shared/shared.module';
 import { BoardRoutingModule } from './board-routing.module';
 
 import { BoardComponent } from './board.component';
-import { BoardPagesComponent } from './board-pages/board-pages.component';
+import { BoardConfigComponent } from './board-config/board-config.component';
 import { BoardMediaComponent } from './board-media/board-media.component';
 import { BoardMediaImagesComponent } from './board-media/board-media-images.component';
 import { BoardMediaGalleriesComponent } from './board-media/board-media-galleries.component';
-import { BoardConfigComponent } from './board-config/board-config.component';
+import { BoardPagesComponent } from './board-pages/board-pages.component';
+import { BoardPagesListComponent } from './board-pages/board-pages-list.component';
+import { BoardPagesInputComponent } from './board-pages/board-pages-input.component';
 
 import { BoardService } from './board.service';
 import { BoardEffects } from './board-effects';
@@ -23,6 +26,7 @@ import { BoardEffects } from './board-effects';
 @NgModule({
     imports: [
         CommonModule,
+        FormsModule,
         SharedModule,
         BoardRoutingModule,
         StoreModule.forFeature('board', reducers),
@@ -31,11 +35,13 @@ import { BoardEffects } from './board-effects';
     exports: [],
     declarations: [
         BoardComponent,
-        BoardPagesComponent,
+        BoardConfigComponent,
         BoardMediaComponent,
         BoardMediaImagesComponent,
         BoardMediaGalleriesComponent,
-        BoardConfigComponent
+        BoardPagesComponent,
+        BoardPagesListComponent,
+        BoardPagesInputComponent
     ],
     providers: [
         BoardService

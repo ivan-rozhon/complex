@@ -1,14 +1,26 @@
 import * as PagesActions from './board-pages-actions';
 
+import { Pages } from './../board.model';
+
 // board-pages state interface
 export interface State {
-    pages: any;
+    pages: Pages;
     pagesLoading: boolean;
 }
 
 // board-pages initial state
 export const initialState: State = {
-    pages: [],
+    pages: {
+        _metadata: {
+            schemes: {},
+            data: {}
+        },
+        webSchema: {
+            webSchemaMain: [],
+            webSchemaOther: [],
+            webSections: []
+        }
+    },
     pagesLoading: false
 };
 
@@ -25,11 +37,19 @@ export function reducer(
             };
         }
 
-        case PagesActions.LOAD_PAGES_SUCCESS:
-        case PagesActions.LOAD_PAGES_FAIL: {
+        case PagesActions.LOAD_PAGES_SUCCESS: {
             return {
                 ...state,
                 pages: action.payload,
+                pagesLoading: false
+            };
+        }
+
+        case PagesActions.LOAD_PAGES_FAIL: {
+            return {
+                ...state,
+                // if pages load fail - get initial state
+                pages: initialState.pages,
                 pagesLoading: false
             };
         }

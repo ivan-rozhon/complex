@@ -64,7 +64,7 @@ export class ContentEditableDirective implements OnChanges {
 
     /** emit changes in model */
     emitChanges(innerHTML: string) {
-        // filter (remove) remaining '<br>'/'<div><br></div>' tag if remains
+        // filter (remove) remaining '<br>'/'<div><br></div>'/'<div><br></div>' tag if remains
         innerHTML = innerHTML === '<br>' || innerHTML === '<br><br>' || innerHTML === '<div><br></div>' ? '' : innerHTML;
 
         // finally emit sanitized changes in HTML content

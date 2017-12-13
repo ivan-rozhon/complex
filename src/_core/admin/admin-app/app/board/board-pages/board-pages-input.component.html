@@ -1,0 +1,9 @@
+<span [ngSwitch]="inputData[inputKey]?.type">
+    <div *ngSwitchCase="'string'" class="uk-inline uk-margin-small-right">
+        <label>{{ inputData[inputKey]?.label }}</label>
+        <input class="uk-input" type="text" [(ngModel)]="inputValue">
+    </div>
+
+    <ca-board-pages-input *ngSwitchCase="'container'" [inputKey]="inputValue | caFirstItem:'key'" [inputValue]="inputValue | caFirstItem:'value'"
+        [inputData]="inputData"></ca-board-pages-input>
+</span>

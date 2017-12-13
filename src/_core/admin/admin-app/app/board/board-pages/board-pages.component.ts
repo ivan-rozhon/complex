@@ -5,12 +5,17 @@ import { Store } from '@ngrx/store';
 
 import * as PagesActions from './board-pages-actions';
 import * as fromBoard from './../board-reducers';
+import { Pages } from '../board.model';
 
 @Component({
     selector: 'ca-board-pages',
     templateUrl: 'board-pages.component.html'
 })
 export class BoardPagesComponent implements OnInit {
+    // pages streams
+    pages$: Observable<Pages>;
+    pagesLoading$: Observable<boolean>;
+
     editorContent = '';
     colors = [
         '#F44336',
@@ -26,6 +31,10 @@ export class BoardPagesComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
+        // pages & loading indication store streams
+        this.pages$ = this.store.select(fromBoard.getPages);
+        this.pagesLoading$ = this.store.select(fromBoard.getPagesLoading);
+
         // load pages on init
         this.loadPages();
     }

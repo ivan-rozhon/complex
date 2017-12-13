@@ -1,3 +1,7 @@
-<ca-editor [(editorContent)]="editorContent" [foreColors]="colors" [backColors]="colors"></ca-editor>
+<!-- <ca-editor [(editorContent)]="editorContent" [foreColors]="colors" [backColors]="colors"></ca-editor>
 
-{{ editorContent }}
+{{ editorContent }} -->
+
+<ng-container *ngFor="let schema of (pages$ | async)?.webSchema | caMapToIterable">
+    <ca-board-pages-list [pages]="schema | caFirstItem:'value'" [metadata]="(pages$ | async)?._metadata"></ca-board-pages-list>
+</ng-container>

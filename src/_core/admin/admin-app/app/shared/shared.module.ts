@@ -9,12 +9,10 @@ import { UploadComponent } from './upload/upload.component';
 
 import { ContentEditableDirective } from './directives/content-editable.directive';
 
+import { MapToIterablePipe } from './pipes/mapToIterable.pipe';
+import { FirstItemPipe } from './pipes/firstItem.pipe';
+
 @NgModule({
-    imports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule
-    ],
     declarations: [
         // components
         EditorComponent,
@@ -22,7 +20,15 @@ import { ContentEditableDirective } from './directives/content-editable.directiv
         LoginComponent,
         UploadComponent,
         // directives
-        ContentEditableDirective
+        ContentEditableDirective,
+        // pipes
+        MapToIterablePipe,
+        FirstItemPipe
+    ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule
     ],
     exports: [
         // components
@@ -30,7 +36,11 @@ import { ContentEditableDirective } from './directives/content-editable.directiv
         LayoutComponent,
         LoginComponent,
         UploadComponent,
-        ContentEditableDirective
+        // directives
+        ContentEditableDirective,
+        // pipes
+        MapToIterablePipe,
+        FirstItemPipe
     ],
     providers: [],
 })
