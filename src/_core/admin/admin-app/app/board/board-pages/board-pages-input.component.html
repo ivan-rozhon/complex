@@ -4,6 +4,20 @@
         <input class="uk-input" type="text" [(ngModel)]="inputValue">
     </div>
 
-    <ca-board-pages-input *ngSwitchCase="'container'" [inputKey]="inputValue | caFirstItem:'key'" [inputValue]="inputValue | caFirstItem:'value'"
-        [inputData]="inputData"></ca-board-pages-input>
+    <div *ngSwitchCase="'list'" class="uk-inline uk-margin-small-right">
+        <label>{{ inputData[inputKey]?.label }}</label>
+        <select class="uk-select" [(ngModel)]="inputValue">
+            <option *ngFor="let option of inputData[inputKey]?.select" [value]="option.key">{{ option.value }}</option>
+        </select>
+    </div>
+
+    <div *ngSwitchCase="'boolean'" class="uk-inline uk-margin-small-right">
+        <label>
+            <input class="uk-checkbox" type="checkbox" [(ngModel)]="inputValue"> {{ inputData[inputKey]?.label }}</label>
+    </div>
+
+    <div *ngSwitchCase="'container'" class="uk-inline">
+        <ca-board-pages-input *ngFor="let item of inputValue | caMapToIterable" [inputKey]="item | caFirstItem:'key'" [inputValue]="item | caFirstItem:'value'"
+            [inputData]="inputData"></ca-board-pages-input>
+    </div>
 </span>
