@@ -2,7 +2,11 @@
 
 {{ editorContent }} -->
 
+<!-- TODO... action bar -->
+
+<!-- TODO... loading -->
+
 <ng-container *ngFor="let schema of pages?.webSchema | caMapToIterable; let index = index">
-    <!-- {{ ((pages?.webSchema | caMapToIterable)[i] | caPickItem:'key') }} -->
+    <span class="uk-text-lead">{{ pages?._metadata?.schemes[((pages?.webSchema | caMapToIterable)[index] | caPickItem:'key')]?.name }}</span>
     <ca-board-pages-list [pages]="schema | caPickItem:'value'" (pagesChange)="updateSchema(index, $event)" [metadata]="pages?._metadata"></ca-board-pages-list>
 </ng-container>

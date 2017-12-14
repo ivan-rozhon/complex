@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
-// @ngrx/... modules
+// ngrx/platform modules
 import { StoreModule } from '@ngrx/store';
 import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router-store';
 import { EffectsModule } from '@ngrx/effects';
@@ -41,6 +41,8 @@ const production = process.env.ENV === 'production';
         // Store devtools instrument the store retaining past versions of state and recalculating new states.
         !production ? StoreDevtoolsModule.instrument() : [],
 
+        // EffectsModule.forRoot() is imported once in the root module
+        // and sets up the effects class to be initialized immediately when the application starts.
         EffectsModule.forRoot([CoreEffects])
     ],
     providers: [

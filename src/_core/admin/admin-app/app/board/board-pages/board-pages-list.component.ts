@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { Page, PagesMetadata } from '../board.model';
 import { PickItemPipe } from '../../shared/pipes/pickItem.pipe';
+import { SharedService } from './../../shared/shared.service';
 
 @Component({
     selector: 'ca-board-pages-list',
@@ -26,7 +27,8 @@ export class BoardPagesListComponent {
     }
 
     constructor(
-        private pickItem: PickItemPipe
+        private pickItem: PickItemPipe,
+        private sharedService: SharedService
     ) { }
 
     /**
@@ -55,5 +57,25 @@ export class BoardPagesListComponent {
             // use pickItemPipe to get proper key
             this.pickItem.transform(this.pages, 'key', index)
         ].sub = value;
+    }
+
+    /**
+     * move page item in array of pages
+     * @param direction up/down (increase/decrease) index
+     * @param index current index of page item
+     */
+    movePage(direction: 'up' | 'down', index: number): void {
+        // get new index according to direction of move
+        const newIndex = direction === 'up'
+            ? index - 1
+            : direction === 'down'
+                ? index + 1
+                : null;
+
+        // do not anything if newIndex doesn`t exists
+        if (newIndex === null) { return; }
+
+        // reorder items in array
+        this.pages = this.sharedService.moveArrayItem(this.pages, index, newIndex);
     }
 }

@@ -1,11 +1,43 @@
 <ul class="uk-list uk-list-striped uk-margin-small-top uk-margin-small-bottom">
-    <ng-container *ngFor="let page of pages; let index = index">
+    <ng-container *ngFor="let page of pages; let index = index; first as isFirst; last as isLast">
 
-        <li>
+        <!-- Main pages & Other pages -->
+        <li *ngIf="!page.sectionId">
+            <div>
+                <a class="uk-icon-link uk-margin-small-right" uk-icon="icon: file-edit" title="Edit Content"></a>
+                <a class="uk-icon-link uk-margin-small-right" uk-icon="icon: close" title="Clear Content"></a>
+                <a *ngIf="!isFirst" class="uk-icon-link uk-margin-small-right" uk-icon="icon: triangle-up" title="Move Up" (click)="movePage('up', index)"></a>
+                <a *ngIf="!isLast" class="uk-icon-link uk-margin-small-right" uk-icon="icon: triangle-down" title="Move Down" (click)="movePage('down', index)"></a>
+                <a class="uk-icon-link uk-margin-small-right" uk-icon="icon: trash" title="Delete"></a>
+            </div>
+
+            <hr class="uk-divider">
+
+            <ca-board-pages-input *ngFor="let input of page | caMapToIterable; let inputIndex = index" [inputKey]="input | caPickItem:'key'"
+                [inputValue]="input | caPickItem:'value'" (inputValueChange)="updateInput(index, inputIndex, $event)" [inputData]="metadata?.data"></ca-board-pages-input>
+
+            <hr class="uk-divider">
+
+            <div>
+                <a class="uk-icon-link uk-margin-small-right" uk-icon="icon: plus" title="Add"></a>
+                <a class="uk-icon-link uk-margin-small-right" uk-icon="icon: plus-circle" title="Add Child"></a>
+            </div>
+        </li>
+
+        <!-- Sections -->
+        <li *ngIf="page.sectionId">
+            <div>
+                <a class="uk-icon-link uk-margin-small-right" uk-icon="icon: file-edit" title="Edit Content"></a>
+                <a class="uk-icon-link uk-margin-small-right" uk-icon="icon: close" title="Clear Content"></a>
+            </div>
+
+            <hr class="uk-divider">
+
             <ca-board-pages-input *ngFor="let input of page | caMapToIterable; let inputIndex = index" [inputKey]="input | caPickItem:'key'"
                 [inputValue]="input | caPickItem:'value'" (inputValueChange)="updateInput(index, inputIndex, $event)" [inputData]="metadata?.data"></ca-board-pages-input>
         </li>
 
+        <!-- Sub pages -->
         <ng-container *ngIf="page.sub?.length">
             <ca-board-pages-list [pages]="page.sub" (pagesChange)="updatePage(index, $event)" [metadata]="metadata"></ca-board-pages-list>
         </ng-container>

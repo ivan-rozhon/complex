@@ -1,4 +1,9 @@
 <span [ngSwitch]="inputData[inputKey]?.type">
+    <div *ngSwitchCase="'readonly'" class="uk-inline uk-margin-small-right">
+        <label>{{ inputData[inputKey]?.label }}</label>
+        <input class="uk-input" type="text" [value]="inputValue" disabled>
+    </div>
+
     <div *ngSwitchCase="'string'" class="uk-inline uk-margin-small-right">
         <label>{{ inputData[inputKey]?.label }}</label>
         <input class="uk-input" type="text" [(ngModel)]="inputValue">

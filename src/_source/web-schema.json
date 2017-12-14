@@ -179,6 +179,10 @@
             "sub": {
                 "type": "sub",
                 "label": "Sub"
+            },
+            "sectionName": {
+                "type": "readonly",
+                "label": "Name"
             }
         }
     },
@@ -293,12 +297,12 @@
         "webSections": [
             {
                 "sectionId": "web-body-header",
-                "name": "Header",
+                "sectionName": "Header",
                 "data": ""
             },
             {
                 "sectionId": "web-body-footer",
-                "name": "Footer",
+                "sectionName": "Footer",
                 "data": ""
             }
         ]

@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { SharedService } from './shared.service';
+
 import { EditorComponent } from './editor/editor.component';
 import { LayoutComponent } from './layout/layout.component';
 import { LoginComponent } from './login/login.component';
@@ -43,6 +45,7 @@ import { PickItemPipe } from './pipes/pickItem.pipe';
         PickItemPipe
     ],
     providers: [
+        SharedService,
         PickItemPipe
     ],
 })

@@ -5,6 +5,7 @@ import { LoginComponent } from './shared/login/login.component';
 import { AuthGuard } from './core/auth-guard.service';
 
 const routes: Routes = [
+    { path: '', redirectTo: '/pages', pathMatch: 'full' },
     { path: 'login', component: LoginComponent }
 ];
 

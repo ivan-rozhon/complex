@@ -8,7 +8,6 @@ import { BoardMediaComponent } from './board-media/board-media.component';
 import { BoardConfigComponent } from './board-config/board-config.component';
 
 const routes: Routes = [
-    { path: '', redirectTo: '/pages', pathMatch: 'full' },
     {
         path: '',
         component: BoardComponent,
