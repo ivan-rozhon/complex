@@ -22,15 +22,15 @@ export class BoardPagesComponent implements OnInit, OnDestroy {
     // pages
     pages: Pages;
 
-    editorContent = '';
-    colors = [
-        '#F44336',
-        '#3F51B5',
-        '#CDDC39',
-        '#4CAF50',
-        '#FFC107',
-        '#795548'
-    ];
+    // editorContent = '';
+    // colors = [
+    //     '#F44336',
+    //     '#3F51B5',
+    //     '#CDDC39',
+    //     '#4CAF50',
+    //     '#FFC107',
+    //     '#795548'
+    // ];
 
     constructor(
         private store: Store<fromBoard.State>,
@@ -56,13 +56,17 @@ export class BoardPagesComponent implements OnInit, OnDestroy {
         this.store.dispatch(new PagesActions.LoadPages());
     }
 
-    /** update schemes model (two-way data binding) */
-    updateSchemes(index: number, event: Page[]): void {
+    /**
+     * update schemes model (two-way data binding)
+     * @param index index of schema to update
+     * @param value updated value
+     */
+    updateSchema(index: number, value: Page[]): void {
         // update each schema according to index in iteration
         this.pages.webSchema[
             // use pickItemPipe to get proper key
             this.pickItem.transform(this.pages.webSchema, 'key', index)
-        ] = event;
+        ] = value;
     }
 
     ngOnDestroy(): void {
