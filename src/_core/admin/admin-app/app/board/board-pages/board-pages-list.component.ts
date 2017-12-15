@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-import { Page, PagesMetadata } from '../board.model';
+import { Page, InputMetatdata, SchemaMetadata } from '../board.model';
 import { PickItemPipe } from '../../shared/pipes/pickItem.pipe';
 import { SharedService } from './../../shared/shared.service';
 
@@ -16,7 +16,9 @@ export class BoardPagesListComponent {
     get pages(): Page[] {
         return this.pagesModel;
     }
-    @Input() metadata: PagesMetadata;
+    @Input() inputMetadata: InputMetatdata;
+    @Input() schemaMetadata: SchemaMetadata;
+    @Input() schemaDepth: number;
 
     @Output() pagesChange = new EventEmitter<Page[]>();
 
@@ -77,5 +79,46 @@ export class BoardPagesListComponent {
 
         // reorder items in array
         this.pages = this.sharedService.moveArrayItem(this.pages, index, newIndex);
+    }
+
+    /**
+     * delete page item
+     * @param index index of page item to delete
+     */
+    deletePage(index: number): void {
+        this.pages.splice(index, 1);
+    }
+
+    /**
+     * add page item
+     * @param index index of page item from which comes event
+     */
+    addPage(index: number): void {
+        // add new item (from 'add' array) after the item from which comes event
+        this.pages.splice(index + 1, 0, this.schemaMetadata.add[0]);
+    }
+
+    /**
+     * add sub page item
+     * @param index index of page item which will be contain sub item
+     */
+    addSubPage(index: number): void {
+        // directly push new item to 'sub' array (it will be the first item)
+        this.pages[index].sub
+            .push(this.schemaMetadata.add[1]);
+    }
+
+    /**
+     * remove first item of 'add' array in schema metadata
+     * @param schemaMetadata original object of schema metadata
+     */
+    removeFirstAdd(schemaMetadata: SchemaMetadata): SchemaMetadata {
+        // create deep copy of schema metadata object
+        const deeperSchemaMetadata = Object.assign({}, schemaMetadata);
+
+        // remove first item in 'add' array (for deeper components)
+        deeperSchemaMetadata.add = this.sharedService.removeArrayItem(deeperSchemaMetadata.add, 0);
+
+        return deeperSchemaMetadata;
     }
 }

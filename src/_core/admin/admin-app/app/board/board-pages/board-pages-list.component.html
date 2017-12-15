@@ -5,22 +5,22 @@
         <li *ngIf="!page.sectionId">
             <div>
                 <a class="uk-icon-link uk-margin-small-right" uk-icon="icon: file-edit" title="Edit Content"></a>
-                <a class="uk-icon-link uk-margin-small-right" uk-icon="icon: close" title="Clear Content"></a>
+                <a *ngIf="page.data?.length" class="uk-icon-link uk-margin-small-right" uk-icon="icon: close" title="Clear Content"></a>
                 <a *ngIf="!isFirst" class="uk-icon-link uk-margin-small-right" uk-icon="icon: triangle-up" title="Move Up" (click)="movePage('up', index)"></a>
                 <a *ngIf="!isLast" class="uk-icon-link uk-margin-small-right" uk-icon="icon: triangle-down" title="Move Down" (click)="movePage('down', index)"></a>
-                <a class="uk-icon-link uk-margin-small-right" uk-icon="icon: trash" title="Delete"></a>
+                <a *ngIf="!(pages.length === 1) || schemaMetadata.add.length !== schemaDepth" class="uk-icon-link uk-margin-small-right" uk-icon="icon: trash" title="Delete" (click)="deletePage(index)"></a>
             </div>
 
             <hr class="uk-divider">
 
             <ca-board-pages-input *ngFor="let input of page | caMapToIterable; let inputIndex = index" [inputKey]="input | caPickItem:'key'"
-                [inputValue]="input | caPickItem:'value'" (inputValueChange)="updateInput(index, inputIndex, $event)" [inputData]="metadata?.data"></ca-board-pages-input>
+                [inputValue]="input | caPickItem:'value'" (inputValueChange)="updateInput(index, inputIndex, $event)" [inputMetadata]="inputMetadata"></ca-board-pages-input>
 
             <hr class="uk-divider">
 
             <div>
-                <a class="uk-icon-link uk-margin-small-right" uk-icon="icon: plus" title="Add"></a>
-                <a class="uk-icon-link uk-margin-small-right" uk-icon="icon: plus-circle" title="Add Child"></a>
+                <a class="uk-icon-link uk-margin-small-right" uk-icon="icon: plus" title="Add" (click)="addPage(index)"></a>
+                <a *ngIf="page.sub && !page.sub?.length" class="uk-icon-link uk-margin-small-right" uk-icon="icon: plus-circle" title="Add Child" (click)="addSubPage(index)"></a>
             </div>
         </li>
 
@@ -28,18 +28,18 @@
         <li *ngIf="page.sectionId">
             <div>
                 <a class="uk-icon-link uk-margin-small-right" uk-icon="icon: file-edit" title="Edit Content"></a>
-                <a class="uk-icon-link uk-margin-small-right" uk-icon="icon: close" title="Clear Content"></a>
+                <a *ngIf="page.data?.length" class="uk-icon-link uk-margin-small-right" uk-icon="icon: close" title="Clear Content"></a>
             </div>
 
             <hr class="uk-divider">
 
             <ca-board-pages-input *ngFor="let input of page | caMapToIterable; let inputIndex = index" [inputKey]="input | caPickItem:'key'"
-                [inputValue]="input | caPickItem:'value'" (inputValueChange)="updateInput(index, inputIndex, $event)" [inputData]="metadata?.data"></ca-board-pages-input>
+                [inputValue]="input | caPickItem:'value'" [inputMetadata]="inputMetadata" (inputValueChange)="updateInput(index, inputIndex, $event)"></ca-board-pages-input>
         </li>
 
         <!-- Sub pages -->
         <ng-container *ngIf="page.sub?.length">
-            <ca-board-pages-list [pages]="page.sub" (pagesChange)="updatePage(index, $event)" [metadata]="metadata"></ca-board-pages-list>
+            <ca-board-pages-list [pages]="page.sub" [inputMetadata]="inputMetadata" [schemaMetadata]="removeFirstAdd(schemaMetadata)" (pagesChange)="updatePage(index, $event)"></ca-board-pages-list>
         </ng-container>
 
     </ng-container>

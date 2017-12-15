@@ -12,7 +12,11 @@ export interface State {
 export const initialState: State = {
     pages: {
         _metadata: {
-            schemes: {},
+            schemes: {
+                webSchemaMain: { name: '' },
+                webSchemaOther: { name: '' },
+                webSections: { name: '' }
+            },
             data: {}
         },
         webSchema: {

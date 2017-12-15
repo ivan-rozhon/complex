@@ -7,6 +7,7 @@
 <!-- TODO... loading -->
 
 <ng-container *ngFor="let schema of pages?.webSchema | caMapToIterable; let index = index">
-    <span class="uk-text-lead">{{ pages?._metadata?.schemes[((pages?.webSchema | caMapToIterable)[index] | caPickItem:'key')]?.name }}</span>
-    <ca-board-pages-list [pages]="schema | caPickItem:'value'" (pagesChange)="updateSchema(index, $event)" [metadata]="pages?._metadata"></ca-board-pages-list>
+    <span class="uk-text-lead">{{ pages?._metadata?.schemes[(schema | caPickItem:'key')]?.name }}</span>
+    <ca-board-pages-list [pages]="schema | caPickItem:'value'" [inputMetadata]="pages?._metadata?.data" [schemaMetadata]="pages?._metadata?.schemes[(schema | caPickItem:'key')]"
+        [schemaDepth]="pages?._metadata?.schemes[(schema | caPickItem:'key')].add?.length" (pagesChange)="updateSchema(index, $event)"></ca-board-pages-list>
 </ng-container>

@@ -19,14 +19,14 @@ export interface Pages {
     };
 }
 
+// pages metadata interface
 export interface PagesMetadata {
     schemes: {
-        [x: string]: {
-            name: string;
-            add?: Page[];
-        }
+        webSchemaMain: SchemaMetadata;
+        webSchemaOther: SchemaMetadata;
+        webSections: SchemaMetadata;
     };
-    data: InputData;
+    data: InputMetatdata;
 }
 
 // page interface
@@ -54,8 +54,14 @@ export interface Input {
     [x: string]: string | boolean | any[] | Input;
 }
 
-// input data (config) interface
-export interface InputData {
+// schemes metadata (structure) interface
+export interface SchemaMetadata {
+    name: string;
+    add?: Page[];
+}
+
+// input metadata (config/metadata) interface
+export interface InputMetatdata {
     [x: string]: {
         type: string;
         lagel: string;

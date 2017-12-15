@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-import { InputData } from '../board.model';
+import { InputMetatdata } from './../board.model';
 import { PickItemPipe } from './../../shared/pipes/pickItem.pipe';
 
 @Component({
@@ -16,7 +16,7 @@ export class BoardPagesInputComponent {
     get inputValue(): any {
         return this.inputValueModel;
     }
-    @Input() inputData: InputData;
+    @Input() inputMetadata: InputMetatdata;
 
     @Output() inputValueChange = new EventEmitter<any>();
 
