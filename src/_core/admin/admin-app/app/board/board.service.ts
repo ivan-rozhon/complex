@@ -29,6 +29,16 @@ export class BoardService {
     }
 
     /**
+     * load page content (data) with template metadata
+     * @param dataId ID of data to load
+     * @param templateId ID of template
+     */
+    loadContent<T>(dataId: string, templateId: string): Observable<T> {
+        return this.dataService
+            .get<T>(`dataLoad/${dataId}/${templateId}`);
+    }
+
+    /**
      * Save media (gallery - folder, immages)
      * @param mediaType images or gallery
      * @param mediaName name of media (gallery) to save

@@ -6,8 +6,13 @@
 
 <!-- TODO... loading -->
 
+<!-- Schemes/Pages -->
 <ng-container *ngFor="let schema of pages?.webSchema | caMapToIterable; let index = index">
     <span class="uk-text-lead">{{ pages?._metadata?.schemes[(schema | caPickItem:'key')]?.name }}</span>
     <ca-board-pages-list [pages]="schema | caPickItem:'value'" [inputMetadata]="pages?._metadata?.data" [schemaMetadata]="pages?._metadata?.schemes[(schema | caPickItem:'key')]"
-        [schemaDepth]="pages?._metadata?.schemes[(schema | caPickItem:'key')].add?.length" (pagesChange)="updateSchema(index, $event)"></ca-board-pages-list>
+        [schemaDepth]="pages?._metadata?.schemes[(schema | caPickItem:'key')].add?.length" (pagesChange)="updateSchema(index, $event)"
+        (onEditContent)="loadContent($event)"></ca-board-pages-list>
 </ng-container>
+
+<!-- Content modal -->
+<ca-board-pages-content [content]="content | async"></ca-board-pages-content>

@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 
 import * as PagesActions from './board-pages-actions';
 import * as fromBoard from './../board-reducers';
-import { Pages, Page } from '../board.model';
+import { Pages, Page, Content } from '../board.model';
 import { PickItemPipe } from './../../shared/pipes/pickItem.pipe';
 
 @Component({
@@ -17,6 +17,9 @@ export class BoardPagesComponent implements OnInit, OnDestroy {
     // pages streams
     pages$: Observable<Pages>;
     pagesLoading$: Observable<boolean>;
+    // content streams
+    content$: Observable<Content>;
+    contentLoading$: Observable<boolean>;
     // subscription of pages stream
     pagesSubscription: Subscription;
     // pages
@@ -42,6 +45,10 @@ export class BoardPagesComponent implements OnInit, OnDestroy {
         this.pages$ = this.store.select(fromBoard.getPages);
         this.pagesLoading$ = this.store.select(fromBoard.getPagesLoading);
 
+        // content & loading indication store streams
+        this.content$ = this.store.select(fromBoard.getContent);
+        this.contentLoading$ = this.store.select(fromBoard.getContentLoading);
+
         // subscribe pages stream
         this.pagesSubscription =
             this.pages$
@@ -54,6 +61,15 @@ export class BoardPagesComponent implements OnInit, OnDestroy {
     /** dispatch action for load pages */
     loadPages(): void {
         this.store.dispatch(new PagesActions.LoadPages());
+    }
+
+    /**
+     * dispatch action for edit page`s content (data)
+     * @param dataId ID of data to edit
+     * @param templateId ID of template
+     */
+    loadContent({ dataId, templateId }: { dataId: string, templateId: string }): void {
+        this.store.dispatch(new PagesActions.LoadContent({ dataId, templateId }));
     }
 
     /**

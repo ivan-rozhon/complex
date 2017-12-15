@@ -119,7 +119,7 @@ class Api {
 
             // load data model
             case 'dataLoad':
-                $apiDataLoad->apiDataLoad();
+                $apiDataLoad->apiDataLoad($pathParams);
                 break;
 
             // load media (images/gallery)

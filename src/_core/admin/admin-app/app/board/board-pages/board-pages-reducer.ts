@@ -1,11 +1,13 @@
 import * as PagesActions from './board-pages-actions';
 
-import { Pages } from './../board.model';
+import { Pages, Content } from './../board.model';
 
 // board-pages state interface
 export interface State {
     pages: Pages;
     pagesLoading: boolean;
+    content: Content;
+    contentLoading: boolean;
 }
 
 // board-pages initial state
@@ -25,7 +27,15 @@ export const initialState: State = {
             webSections: []
         }
     },
-    pagesLoading: false
+    pagesLoading: false,
+    content: {
+        _metadata: {},
+        data: {
+            common: [],
+            generic: []
+        }
+    },
+    contentLoading: false
 };
 
 // board-media state reducer
@@ -58,6 +68,30 @@ export function reducer(
             };
         }
 
+        case PagesActions.LOAD_CONTENT: {
+            return {
+                ...state,
+                contentLoading: true
+            };
+        }
+
+        case PagesActions.LOAD_CONTENT_SUCCESS: {
+            return {
+                ...state,
+                content: action.payload,
+                contentLoading: false
+            };
+        }
+
+        case PagesActions.LOAD_CONTENT_FAIL: {
+            return {
+                ...state,
+                // if content load fail - get initial state
+                content: initialState.content,
+                contentLoading: false
+            };
+        }
+
         default: {
             return state;
         }
@@ -65,6 +99,11 @@ export function reducer(
 }
 
 // board-pages selectors
+// ===
 // pages
 export const getPages = (state: State) => state.pages;
 export const getPagesLoading = (state: State) => state.pagesLoading;
+// content
+export const getContent = (state: State) => state.content;
+export const getContentLoading = (state: State) => state.contentLoading;
+// ===

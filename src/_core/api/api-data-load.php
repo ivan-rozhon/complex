@@ -6,7 +6,7 @@ class ApiDataLoad {
         $this->api = $api;
     }
 
-    public function apiDataLoad() {
+    public function apiDataLoad($pathParams) {
         // request headers
         $headers = getallheaders();
 
@@ -16,33 +16,29 @@ class ApiDataLoad {
         // verify token
         $this->api->verifyToken($decodedJWT);
 
-        // first uppercase letter fix
-        $dataId = $headers['data'] ? 'data' : 'Data';
-        $templateId = $headers['template'] ? 'template' : 'Template';
-
-        // get dataKey & templateKey
-        $dataKey = $headers[$dataId];
-        $templateKey = $headers[$templateId];
+        // get dataId & templateId
+        $dataId = array_key_exists(0, $pathParams) ? $pathParams[0] : '';
+        $templateId = array_key_exists(1, $pathParams) ? $pathParams[1] : '';
 
         // get template path
-        $templatePath = substr($templateKey, 0, strlen('template')) === 'template' ? '_core/web/templates/'.$templateKey.'.json' :
-            (substr($templateKey, 0, strlen('web')) === 'web' ? '_core/web/'.$templateKey.'.json' : '-');
+        $templatePath = substr($templateId, 0, strlen('template')) === 'template' ? '_core/web/templates/'.$templateId.'.json' :
+            (substr($templateId, 0, strlen('web')) === 'web' ? '_core/web/'.$templateId.'.json' : '-');
 
-        if (file_exists('_source/data/'.$dataKey.'.json') && file_exists($templatePath)) {
+        if (file_exists('_source/data/'.$dataId.'.json') && file_exists($templatePath)) {
             // load data model
-            $dataModel = file_get_contents('_source/data/'.$dataKey.'.json');
+            $dataModel = file_get_contents('_source/data/'.$dataId.'.json');
 
             // load template metadata
             $dataConfig = json_encode(json_decode(file_get_contents($templatePath), TRUE)['_metadata']['data']);
 
+            // response data object
+            $data = array('_metadata' => $dataConfig, 'data' => $dataModel);
+
             // create JWT
             $token = $this->api->createToken($decodedJWT->{'id'}, $decodedJWT->{'user'});
 
-            // response data object
-            $data = array('token' => $token, 'data' => $dataModel, 'config' => $dataConfig);
-
             // successful response
-            echo json_encode($data);
+            echo $this->api->dataResponse($data, $token, true);
         }
     }
 }

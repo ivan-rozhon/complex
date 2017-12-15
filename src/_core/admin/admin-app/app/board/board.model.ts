@@ -71,3 +71,16 @@ export interface InputMetatdata {
         }[];
     };
 }
+
+// page content (data) interface
+export interface Content {
+    _metadata: {
+        [x: string]: {
+            [x: string]: any
+        }
+    };
+    data: {
+        common: any[];
+        generic: any[];
+    };
+}

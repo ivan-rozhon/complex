@@ -17,8 +17,9 @@ import { BoardMediaComponent } from './board-media/board-media.component';
 import { BoardMediaImagesComponent } from './board-media/board-media-images.component';
 import { BoardMediaGalleriesComponent } from './board-media/board-media-galleries.component';
 import { BoardPagesComponent } from './board-pages/board-pages.component';
-import { BoardPagesListComponent } from './board-pages/board-pages-list.component';
+import { BoardPagesContentComponent } from './board-pages/board-pages-content.component';
 import { BoardPagesInputComponent } from './board-pages/board-pages-input.component';
+import { BoardPagesListComponent } from './board-pages/board-pages-list.component';
 
 import { BoardService } from './board.service';
 import { BoardEffects } from './board-effects';
@@ -40,8 +41,9 @@ import { BoardEffects } from './board-effects';
         BoardMediaImagesComponent,
         BoardMediaGalleriesComponent,
         BoardPagesComponent,
+        BoardPagesContentComponent,
+        BoardPagesInputComponent,
         BoardPagesListComponent,
-        BoardPagesInputComponent
     ],
     providers: [
         BoardService

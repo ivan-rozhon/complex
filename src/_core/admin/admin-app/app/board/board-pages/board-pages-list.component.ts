@@ -21,6 +21,7 @@ export class BoardPagesListComponent {
     @Input() schemaDepth: number;
 
     @Output() pagesChange = new EventEmitter<Page[]>();
+    @Output() onEditContent = new EventEmitter<{ dataId: string, templateId: string }>();
 
     // pages model setter
     set pages(value: Page[]) {
@@ -59,6 +60,18 @@ export class BoardPagesListComponent {
             // use pickItemPipe to get proper key
             this.pickItem.transform(this.pages, 'key', index)
         ].sub = value;
+    }
+
+    /**
+     * edit page`s content (data)
+     * @param dataId ID of data to edit
+     * @param templateId ID of template
+     */
+    editContent({ dataId, templateId }: { dataId: string, templateId: string }): void {
+        // if dataId & templateId exists emit event to edit content
+        if (dataId.length && templateId.length) {
+            this.onEditContent.emit({ dataId, templateId });
+        }
     }
 
     /**

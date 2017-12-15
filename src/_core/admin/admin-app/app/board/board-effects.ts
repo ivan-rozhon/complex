@@ -5,7 +5,7 @@ import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 
-import { Image, Gallery, Pages } from './board.model';
+import { Image, Gallery, Pages, Content } from './board.model';
 import { BoardService } from './board.service';
 import * as MediaActions from './board-media/board-media-actions';
 import * as PagesActions from './board-pages/board-pages-actions';
@@ -90,6 +90,16 @@ export class BoardEffects {
                 .loadPages<Pages>()
                 .map((pages: Pages) => new PagesActions.LoadPagesSuccess(pages))
                 .catch(err => of(new PagesActions.LoadPagesFail()))
+        );
+
+    @Effect()
+    loadContent$: Observable<Action> = this.actions$.ofType(PagesActions.LOAD_CONTENT)
+        .map((action: PagesActions.LoadContent) => action.payload)
+        .switchMap((payload: { dataId: string, templateId: string }) =>
+            this.boardService
+                .loadContent<Content>(payload.dataId, payload.templateId)
+                .map((content: Content) => new PagesActions.LoadContentSuccess(content))
+                .catch(err => of(new PagesActions.LoadContentFail()))
         );
     // ===
 }
