@@ -215,7 +215,7 @@
                         "id": "cms",
                         "name": "CMS",
                         "template": "template-main",
-                        "data": "JAS4eNVQpQ-1483995296",
+                        "data": "",
                         "options": {
                             "end": false
                         },
@@ -225,7 +225,7 @@
                         "id": "nosql",
                         "name": "NoSQL",
                         "template": "template-main",
-                        "data": "rbRmxXoR5l-1483995321",
+                        "data": "",
                         "options": {
                             "end": false
                         },
@@ -234,7 +234,7 @@
                                 "id": "why-nosql",
                                 "name": "Why NoSQL",
                                 "template": "template-main",
-                                "data": "Z0G76Cd0JG-1483995330"
+                                "data": ""
                             }
                         ]
                     }
@@ -255,7 +255,7 @@
                         "id": "examples",
                         "name": "Examples",
                         "template": "template-main",
-                        "data": "tf6b9S7ceE-1483995349",
+                        "data": "",
                         "options": {
                             "end": false
                         },
@@ -281,7 +281,7 @@
                 "id": "webmap",
                 "name": "Webmap",
                 "template": "template-webmap",
-                "data": "E7kFySgjuB-1483995373",
+                "data": "",
                 "abstract": "none",
                 "sub": []
             },
@@ -289,7 +289,7 @@
                 "id": "error",
                 "name": "Error",
                 "template": "template-error",
-                "data": "KYCQmatyw4-1483995380",
+                "data": "",
                 "abstract": "none",
                 "sub": []
             }

@@ -1,9 +1,22 @@
 {
     "_metadata": {
         "prototype": {
-            "title": ""
+            "common": [],
+            "generic": []
         },
         "data": {
+            "common": {
+                "type": "common",
+                "label": "Common",
+                "available": {
+                    "title": ""
+                }
+            },
+            "generic": {
+                "type": "generic",
+                "label": "Generic",
+                "available": {}
+            },
             "title": {
                 "type": "string",
                 "label": "Title"

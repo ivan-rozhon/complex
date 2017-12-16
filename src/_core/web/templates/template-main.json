@@ -1,7 +1,6 @@
 {
     "_metadata": {
         "prototype": {
-            "title": "",
             "common": [],
             "generic": []
         },
@@ -10,29 +9,19 @@
                 "type": "common",
                 "label": "Common",
                 "available": {
-                    "title": "",
-                    "show": false
+                    "title": ""
                 }
-            },
-            "title": {
-                "type": "string",
-                "label": "Title"
-            },
-            "show": {
-                "type": "boolean",
-                "label": "Show"
             },
             "generic": {
                 "type": "generic",
                 "label": "Generic",
                 "available": {
-                    "string": "",
                     "editor": ""
                 }
             },
-            "string": {
-                "type": "textarea",
-                "label": "Text"
+            "title": {
+                "type": "string",
+                "label": "Title"
             },
             "editor": {
                 "type": "editor",

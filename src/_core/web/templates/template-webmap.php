@@ -9,8 +9,10 @@ class TemplateWebmap {
     }
 
     public function templateWebmap() {
-        $title = $this->web->templateData['title'];
-        return $this->templateProvider->sharedTemplateProvider(['title' => $title], '_core/web/templates/template-webmap.html');
+        return $this->templateProvider->sharedTemplateProvider(
+            [],
+            '_core/web/templates/template-webmap.html'
+        );
     }
 }
 

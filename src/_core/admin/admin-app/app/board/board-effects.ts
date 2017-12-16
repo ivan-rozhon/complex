@@ -97,8 +97,14 @@ export class BoardEffects {
         .map((action: PagesActions.LoadContent) => action.payload)
         .switchMap((payload: { dataId: string, templateId: string }) =>
             this.boardService
-                .loadContent<Content>(payload.dataId, payload.templateId)
-                .map((content: Content) => new PagesActions.LoadContentSuccess(content))
+                .loadContent<any>(payload.dataId, payload.templateId)
+                .map((content: any) => new PagesActions.LoadContentSuccess(
+                    // parse stringifyed data (so JS can work with them as object)
+                    Object.assign({}, {
+                        _metadata: JSON.parse(content._metadata),
+                        data: JSON.parse(content.data)
+                    })
+                ))
                 .catch(err => of(new PagesActions.LoadContentFail()))
         );
     // ===

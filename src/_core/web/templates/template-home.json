@@ -1,44 +1,51 @@
 {
     "_metadata": {
         "prototype": {
-            "title": "",
-            "info": "",
-            "editor": "",
-            "news": [],
-            "showInfo": true,
-            "theme": "indigo"
+            "common": [],
+            "generic": []
         },
         "data": {
+            "common": {
+                "type": "common",
+                "label": "Common",
+                "available": {
+                    "title": "",
+                    "editor": "",
+                    "news": []
+                }
+            },
+            "generic": {
+                "type": "generic",
+                "label": "Generic",
+                "available": {
+                    "editor": ""
+                }
+            },
             "title": {
                 "type": "string",
                 "label": "Title"
             },
-            "info": {
-                "type": "textarea",
-                "label": "Info"
-            },
             "editor": {
                 "type": "editor",
-                "colors": ["F44336", "3F51B5", "CDDC39", "4CAF50", "FFC107", "795548"]
+                "label": "Editor",
+                "colors": [
+                    "F44336",
+                    "3F51B5",
+                    "CDDC39",
+                    "4CAF50",
+                    "FFC107",
+                    "795548"
+                ]
             },
             "news": {
                 "type": "array",
                 "label": "News",
                 "add": {
                     "title": "",
-                    "info": "",
+                    "theme": "indigo",
                     "editor": "",
-                    "tags": [],
                     "links": []
                 }
-            },
-            "tags": {
-                "type": "chips",
-                "label": "Tags"
-            },
-            "showInfo": {
-                "type": "boolean",
-                "label": "Show info"
             },
             "theme": {
                 "type": "list",
