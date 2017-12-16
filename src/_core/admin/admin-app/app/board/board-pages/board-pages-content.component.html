@@ -9,39 +9,10 @@
 
         <div class="uk-modal-body" uk-overflow-auto>
 
-            <!-- {{ content?._metadata?.common?.available | json }} -->
-
-            <!-- {{ content.data | json }} -->
-
-            <!-- Common -->
-            <span class="uk-text-lead">Common</span>
-            <div *ngFor="let commonItem of content?.data?.common"></div>
-
-            <div class="uk-clearfix uk-margin">
-                <a class="uk-icon-button" uk-icon="icon: plus"></a>
-                <div uk-dropdown="mode: click">
-                    <ul class="uk-nav uk-dropdown-nav">
-                        <li *ngFor="let commonAvailable of content?._metadata?.common?.available | caMapToIterable">
-                            <a>{{ content?._metadata[commonAvailable | caPickItem:'key']?.label }}</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Generic -->
-            <span class="uk-text-lead">Generic</span>
-            <div *ngFor="let genericItem of content?.data?.generic"></div>
-
-            <div class="uk-clearfix uk-margin">
-                <a class="uk-icon-button" uk-icon="icon: plus"></a>
-                <div uk-dropdown="mode: click">
-                    <ul class="uk-nav uk-dropdown-nav">
-                        <li *ngFor="let genericAvailable of content?._metadata?.generic?.available | caMapToIterable">
-                            <a>{{ content?._metadata[genericAvailable | caPickItem:'key']?.label }}</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            <ng-container *ngFor="let contentData of content?.data | caMapToIterable">
+                <ca-board-pages-content-list [contentValue]="contentData | caPickItem:'value'" [contentKey]="contentData | caPickItem:'key'"
+                    [contentMetadata]="content?._metadata"></ca-board-pages-content-list>
+            </ng-container>
 
         </div>
 

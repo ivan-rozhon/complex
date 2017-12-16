@@ -30,10 +30,7 @@ export const initialState: State = {
     pagesLoading: false,
     content: {
         _metadata: {},
-        data: {
-            common: [],
-            generic: []
-        }
+        data: {}
     },
     contentLoading: false
 };

@@ -80,7 +80,6 @@ export interface Content {
         }
     };
     data: {
-        common: any[];
-        generic: any[];
+        [x: string]: any[];
     };
 }

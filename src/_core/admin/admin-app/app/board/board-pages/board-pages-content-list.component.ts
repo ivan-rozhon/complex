@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'ca-board-pages-content-list',
@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
 })
 
 export class BoardPagesContentListComponent {
+    @Input() contentValue: any[];
+    @Input() contentKey: string;
+    @Input() contentMetadata: any;
+
     constructor() { }
 }

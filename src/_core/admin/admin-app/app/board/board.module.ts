@@ -21,6 +21,7 @@ import { BoardMediaGalleriesComponent } from './board-media/board-media-gallerie
 
 import { BoardPagesComponent } from './board-pages/board-pages.component';
 import { BoardPagesContentComponent } from './board-pages/board-pages-content.component';
+import { BoardPagesContentInputComponent } from './board-pages/board-pages-content-input.component';
 import { BoardPagesContentListComponent } from './board-pages/board-pages-content-list.component';
 import { BoardPagesInputComponent } from './board-pages/board-pages-input.component';
 import { BoardPagesListComponent } from './board-pages/board-pages-list.component';
@@ -49,6 +50,7 @@ import { BoardEffects } from './board-effects';
 
         BoardPagesComponent,
         BoardPagesContentComponent,
+        BoardPagesContentInputComponent,
         BoardPagesContentListComponent,
         BoardPagesInputComponent,
         BoardPagesListComponent,
