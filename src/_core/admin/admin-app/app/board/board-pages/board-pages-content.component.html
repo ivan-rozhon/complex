@@ -18,7 +18,7 @@
             <div *ngFor="let commonItem of content?.data?.common"></div>
 
             <div class="uk-clearfix uk-margin">
-                <button class="uk-button uk-button-default" type="button">Add</button>
+                <a class="uk-icon-button" uk-icon="icon: plus"></a>
                 <div uk-dropdown="mode: click">
                     <ul class="uk-nav uk-dropdown-nav">
                         <li *ngFor="let commonAvailable of content?._metadata?.common?.available | caMapToIterable">
@@ -33,7 +33,7 @@
             <div *ngFor="let genericItem of content?.data?.generic"></div>
 
             <div class="uk-clearfix uk-margin">
-                <button class="uk-button uk-button-default" type="button">Add</button>
+                <a class="uk-icon-button" uk-icon="icon: plus"></a>
                 <div uk-dropdown="mode: click">
                     <ul class="uk-nav uk-dropdown-nav">
                         <li *ngFor="let genericAvailable of content?._metadata?.generic?.available | caMapToIterable">

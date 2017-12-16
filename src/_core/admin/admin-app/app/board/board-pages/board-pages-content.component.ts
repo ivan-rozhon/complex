@@ -28,9 +28,7 @@ export class BoardPagesContentComponent implements OnChanges {
         }
     }
 
-    /**
-     * open modal window contains page content
-     */
+    /** open modal window contains page content */
     openContentModal(): void {
         UIkit.modal(this.contentModalElementRef.nativeElement).show();
     }
