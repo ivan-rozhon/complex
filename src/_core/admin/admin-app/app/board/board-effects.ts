@@ -107,5 +107,16 @@ export class BoardEffects {
                 ))
                 .catch(err => of(new PagesActions.LoadContentFail()))
         );
+
+    @Effect()
+    createContent$: Observable<Action> = this.actions$.ofType(PagesActions.CREATE_CONTENT)
+        .map((action: PagesActions.CreateContent) => action.payload)
+        .switchMap((payload: { templateId: string, indexes: number[], pages: Pages }) =>
+            this.boardService
+                .createContent<string>(payload.templateId)
+                // TODO... update pages with new dataId
+                .map((dataId: string) => new PagesActions.CreateContentSuccess(payload.pages))
+                .catch(err => of(new PagesActions.CreateContentFail()))
+        );
     // ===
 }

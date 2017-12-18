@@ -73,6 +73,20 @@ export class BoardPagesComponent implements OnInit, OnDestroy {
     }
 
     /**
+     * dispatch action for create new content (data) ID
+     * @param templateId ID of template
+     * @param indexes indexes - path of requested page in pages object/array
+     * @param index index of actual pages/schema
+     */
+    createContent({ templateId, indexes }: { templateId: string, indexes: number[] }, index: number) {
+        this.store.dispatch(new PagesActions.CreateContent({
+            templateId,
+            indexes: [index, ...indexes],
+            pages: this.pages
+        }));
+    }
+
+    /**
      * update schemes model (two-way data binding)
      * @param index index of schema to update
      * @param value updated value

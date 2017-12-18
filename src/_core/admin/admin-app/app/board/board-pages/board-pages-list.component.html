@@ -4,7 +4,7 @@
         <!-- Main pages & Other pages -->
         <li *ngIf="!page.sectionId">
             <div>
-                <a class="uk-icon-link uk-margin-small-right" uk-icon="icon: file-edit" title="Edit Content" (click)="editContent({ dataId: page.data, templateId: page.template })"></a>
+                <a class="uk-icon-link uk-margin-small-right" uk-icon="icon: file-edit" title="Edit Content" (click)="editContent({ dataId: page.data, templateId: page.template, index: index })"></a>
                 <a *ngIf="page.data?.length" class="uk-icon-link uk-margin-small-right" uk-icon="icon: close" title="Clear Content"></a>
                 <a *ngIf="!isFirst" class="uk-icon-link uk-margin-small-right" uk-icon="icon: triangle-up" title="Move Up" (click)="movePage('up', index)"></a>
                 <a *ngIf="!isLast" class="uk-icon-link uk-margin-small-right" uk-icon="icon: triangle-down" title="Move Down" (click)="movePage('down', index)"></a>
@@ -29,7 +29,7 @@
         <!-- Sections -->
         <li *ngIf="page.sectionId">
             <div>
-                <a class="uk-icon-link uk-margin-small-right" uk-icon="icon: file-edit" title="Edit Content" (click)="editContent({ dataId: page.data, templateId: page.template })"></a>
+                <a class="uk-icon-link uk-margin-small-right" uk-icon="icon: file-edit" title="Edit Content" (click)="editContent({ dataId: page.data, templateId: page.sectionId, index: index })"></a>
                 <a *ngIf="page.data?.length" class="uk-icon-link uk-margin-small-right" uk-icon="icon: close" title="Clear Content"></a>
             </div>
 
@@ -42,7 +42,8 @@
         <!-- Sub pages -->
         <ng-container *ngIf="page.sub?.length">
             <ca-board-pages-list [pages]="page.sub" [inputMetadata]="inputMetadata" [schemaMetadata]="removeFirstAdd(schemaMetadata)"
-                (pagesChange)="updatePage(index, $event)" (onEditContent)="editContent($event)"></ca-board-pages-list>
+                [schemaDepth]="schemaDepth" (pagesChange)="updatePage(index, $event)" (onEditContent)="editContent($event)"
+                (onCreateContent)="createContent($event, index)"></ca-board-pages-list>
         </ng-container>
 
     </ng-container>

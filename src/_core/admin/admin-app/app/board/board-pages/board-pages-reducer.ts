@@ -89,6 +89,13 @@ export function reducer(
             };
         }
 
+        case PagesActions.CREATE_CONTENT_SUCCESS: {
+            return {
+                ...state,
+                pages: action.payload
+            };
+        }
+
         default: {
             return state;
         }

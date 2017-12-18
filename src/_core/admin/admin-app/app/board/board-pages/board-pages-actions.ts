@@ -10,6 +10,11 @@ export const LOAD_CONTENT = '[Board Pages] Load Content';
 export const LOAD_CONTENT_SUCCESS = '[Board Pages] Load Content Success';
 export const LOAD_CONTENT_FAIL = '[Board Pages] Load Content Fail';
 
+// create page content actions
+export const CREATE_CONTENT = '[Board Pages] Create Content';
+export const CREATE_CONTENT_SUCCESS = '[Board Pages] Create Content Success';
+export const CREATE_CONTENT_FAIL = '[Board Pages] Create Content Fail';
+
 import { Pages, Content } from '../board.model';
 
 // Every action is comprised of at least a type and an optional payload
@@ -59,7 +64,33 @@ export class LoadContentFail implements Action {
 }
 // ===
 
+// create page content actions
+// ===
+export class CreateContent implements Action {
+    readonly type = CREATE_CONTENT;
+
+    constructor(public payload: {
+        templateId: string;
+        indexes: (number | string)[];
+        pages: Pages
+    }) { }
+}
+
+export class CreateContentSuccess implements Action {
+    readonly type = CREATE_CONTENT_SUCCESS;
+
+    constructor(public payload: Pages) { }
+}
+
+export class CreateContentFail implements Action {
+    readonly type = CREATE_CONTENT_FAIL;
+
+    constructor(public payload?: any) { }
+}
+// ===
+
 // export all types of actions
 export type Actions =
     LoadPages | LoadPagesSuccess | LoadPagesFail |
-    LoadContent | LoadContentSuccess | LoadContentFail;
+    LoadContent | LoadContentSuccess | LoadContentFail |
+    CreateContent | CreateContentSuccess | CreateContentFail;

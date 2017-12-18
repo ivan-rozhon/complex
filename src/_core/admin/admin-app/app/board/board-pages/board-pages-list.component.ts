@@ -22,6 +22,7 @@ export class BoardPagesListComponent {
 
     @Output() pagesChange = new EventEmitter<Page[]>();
     @Output() onEditContent = new EventEmitter<{ dataId: string, templateId: string }>();
+    @Output() onCreateContent = new EventEmitter<{ templateId: string, indexes: number[] }>();
 
     // pages model setter
     set pages(value: Page[]) {
@@ -67,11 +68,27 @@ export class BoardPagesListComponent {
      * @param dataId ID of data to edit
      * @param templateId ID of template
      */
-    editContent({ dataId, templateId }: { dataId: string, templateId: string }): void {
+    editContent({ dataId, templateId, index }: { dataId: string, templateId: string, index?: number }): void {
         // if dataId & templateId exists emit event to edit content
         if (dataId.length && templateId.length) {
             this.onEditContent.emit({ dataId, templateId });
+
+            // if data ID doesn`t exists - do create one (template ID must exists) - emit event
+        } else if (!dataId.length && templateId.length) {
+            // TODO... prompt window
+
+            this.onCreateContent.emit({ templateId, indexes: [index] });
         }
+    }
+
+    /**
+     * create new page`s content (data)
+     * @param templateId ID of template
+     * @param indexes indexes - path of requested page in pages object/array
+     * @param index index of actual pages/schema
+     */
+    createContent({ templateId, indexes }: { templateId: string, indexes: number[] }, index: number): void {
+        this.onCreateContent.emit({ templateId, indexes: [index, ...indexes] });
     }
 
     /**

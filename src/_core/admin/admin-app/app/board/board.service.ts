@@ -38,6 +38,11 @@ export class BoardService {
             .get<T>(`dataLoad/${dataId}/${templateId}`);
     }
 
+    createContent<T>(templateId: string): Observable<T> {
+        return this.dataService
+            .post<T>(`dataNew`, { templateId });
+    }
+
     /**
      * Save media (gallery - folder, immages)
      * @param mediaType images or gallery
