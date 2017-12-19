@@ -29,6 +29,8 @@ class ApiSchemaSave {
         // apply backup if file_put_contents() failed
         if (!$success) { file_put_contents('_source/web-schema.json', $schemaBackup); }
 
+        // TODO... do clean (remove all unused data files)
+
         // create JWT
         $token = $this->api->createToken($decodedJWT->{'id'}, $decodedJWT->{'user'});
 

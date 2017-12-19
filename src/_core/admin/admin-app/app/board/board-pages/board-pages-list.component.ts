@@ -1,5 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
+import * as UIkit from 'uikit';
+
 import { Page, InputMetatdata, SchemaMetadata } from '../board.model';
 import { PickItemPipe } from '../../shared/pipes/pickItem.pipe';
 import { SharedService } from './../../shared/shared.service';
@@ -75,9 +77,15 @@ export class BoardPagesListComponent {
 
             // if data ID doesn`t exists - do create one (template ID must exists) - emit event
         } else if (!dataId.length && templateId.length) {
-            // TODO... prompt window
-
-            this.onCreateContent.emit({ templateId, indexes: [index] });
+            // show confirmation dialog before create new content (data ID)
+            UIkit.modal
+                .confirm(`There is no content yet. Create one?`)
+                .then(() => {
+                    // emit event to delete gallery
+                    this.onCreateContent.emit({ templateId, indexes: [index] });
+                },
+                // catch a rejection
+                () => { });
         }
     }
 

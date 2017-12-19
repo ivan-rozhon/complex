@@ -11,7 +11,7 @@
     <span class="uk-text-lead">{{ pages?._metadata?.schemes[(schema | caPickItem:'key')]?.name }}</span>
     <ca-board-pages-list [pages]="schema | caPickItem:'value'" [inputMetadata]="pages?._metadata?.data" [schemaMetadata]="pages?._metadata?.schemes[(schema | caPickItem:'key')]"
         [schemaDepth]="pages?._metadata?.schemes[(schema | caPickItem:'key')].add?.length" (pagesChange)="updateSchema(index, $event)"
-        (onEditContent)="loadContent($event)" (onCreateContent)="createContent($event, index)"></ca-board-pages-list>
+        (onEditContent)="loadContent($event)" (onCreateContent)="createContent($event, schema)"></ca-board-pages-list>
 </ng-container>
 
 <!-- Content modal -->
