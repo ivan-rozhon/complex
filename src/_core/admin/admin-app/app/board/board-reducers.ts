@@ -2,8 +2,8 @@ import { ActionReducerMap } from '@ngrx/store';
 import { createSelector, createFeatureSelector } from '@ngrx/store';
 
 import * as fromRoot from './../app-reducers';
-import * as fromMedia from './board-media/board-media-reducer';
-import * as fromPages from './board-pages/board-pages-reducer';
+import * as fromMedia from './media/media-reducer';
+import * as fromPages from './pages/pages-reducer';
 
 export interface BoardState {
     media: fromMedia.State;
@@ -22,7 +22,7 @@ export const reducers = {
 // 'board' feature selector
 export const selectBoardState = createFeatureSelector<BoardState>('board');
 
-// 'board-media' state selector
+// 'media' state selector
 export const selectBoardMediaState = createSelector(
     selectBoardState,
     (state: BoardState) => state.media
@@ -38,7 +38,7 @@ export const getGalleriesLoading = createSelector(selectBoardMediaState, fromMed
 export const getGalleryImages = createSelector(selectBoardMediaState, fromMedia.getGalleryImages);
 export const getGalleryImagesLoading = createSelector(selectBoardMediaState, fromMedia.getGalleryImagesLoading);
 
-// 'board-pages' state selector
+// 'pages' state selector
 export const selectBoardPagesState = createSelector(
     selectBoardState,
     (state: BoardState) => state.pages

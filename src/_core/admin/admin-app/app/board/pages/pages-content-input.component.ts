@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-    selector: 'ca-board-pages-content-input',
-    templateUrl: 'board-pages-content-input.component.html'
+    selector: 'ca-pages-content-input',
+    templateUrl: 'pages-content-input.component.html'
 })
 
-export class BoardPagesContentInputComponent {
+export class PagesContentInputComponent {
     @Input() inputValue: any;
     @Input() inputKey: string;
     @Input() inputMetadata: any;

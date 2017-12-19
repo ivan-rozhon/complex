@@ -13,18 +13,18 @@ import { BoardRoutingModule } from './board-routing.module';
 
 import { BoardComponent } from './board.component';
 
-import { BoardConfigComponent } from './board-config/board-config.component';
+import { ConfigComponent } from './config/config.component';
 
-import { BoardMediaComponent } from './board-media/board-media.component';
-import { BoardMediaImagesComponent } from './board-media/board-media-images.component';
-import { BoardMediaGalleriesComponent } from './board-media/board-media-galleries.component';
+import { MediaComponent } from './media/media.component';
+import { MediaImagesComponent } from './media/media-images.component';
+import { MediaGalleriesComponent } from './media/media-galleries.component';
 
-import { BoardPagesComponent } from './board-pages/board-pages.component';
-import { BoardPagesContentComponent } from './board-pages/board-pages-content.component';
-import { BoardPagesContentInputComponent } from './board-pages/board-pages-content-input.component';
-import { BoardPagesContentListComponent } from './board-pages/board-pages-content-list.component';
-import { BoardPagesInputComponent } from './board-pages/board-pages-input.component';
-import { BoardPagesListComponent } from './board-pages/board-pages-list.component';
+import { PagesComponent } from './pages/pages.component';
+import { PagesContentComponent } from './pages/pages-content.component';
+import { PagesContentInputComponent } from './pages/pages-content-input.component';
+import { PagesContentListComponent } from './pages/pages-content-list.component';
+import { PagesInputComponent } from './pages/pages-input.component';
+import { PagesListComponent } from './pages/pages-list.component';
 
 import { BoardService } from './board.service';
 import { BoardEffects } from './board-effects';
@@ -42,18 +42,18 @@ import { BoardEffects } from './board-effects';
     declarations: [
         BoardComponent,
 
-        BoardConfigComponent,
+        ConfigComponent,
 
-        BoardMediaComponent,
-        BoardMediaImagesComponent,
-        BoardMediaGalleriesComponent,
+        MediaComponent,
+        MediaImagesComponent,
+        MediaGalleriesComponent,
 
-        BoardPagesComponent,
-        BoardPagesContentComponent,
-        BoardPagesContentInputComponent,
-        BoardPagesContentListComponent,
-        BoardPagesInputComponent,
-        BoardPagesListComponent,
+        PagesComponent,
+        PagesContentComponent,
+        PagesContentInputComponent,
+        PagesContentListComponent,
+        PagesInputComponent,
+        PagesListComponent,
     ],
     providers: [
         BoardService

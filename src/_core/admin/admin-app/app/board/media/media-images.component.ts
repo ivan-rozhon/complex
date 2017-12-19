@@ -5,11 +5,11 @@ import { UploadConfig } from '../../shared/shared.model';
 import { Image } from '../board.model';
 
 @Component({
-    selector: 'ca-board-media-images',
-    templateUrl: 'board-media-images.component.html'
+    selector: 'ca-media-images',
+    templateUrl: 'media-images.component.html'
 })
 
-export class BoardMediaImagesComponent implements OnInit {
+export class MediaImagesComponent implements OnInit {
     uploadConfig: UploadConfig;
 
     @Input() images: Image[];

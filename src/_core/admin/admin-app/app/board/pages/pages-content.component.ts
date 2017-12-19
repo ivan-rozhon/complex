@@ -5,11 +5,11 @@ import * as UIkit from 'uikit';
 import { Content } from './../board.model';
 
 @Component({
-    selector: 'ca-board-pages-content',
-    templateUrl: 'board-pages-content.component.html'
+    selector: 'ca-pages-content',
+    templateUrl: 'pages-content.component.html'
 })
 
-export class BoardPagesContentComponent implements OnChanges {
+export class PagesContentComponent implements OnChanges {
     @Input() content: Content;
 
     @ViewChild('caContentModal') contentModalElementRef: ElementRef;

@@ -1,8 +1,8 @@
-import * as PagesActions from './board-pages-actions';
+import * as PagesActions from './pages-actions';
 
 import { Pages, Content } from './../board.model';
 
-// board-pages state interface
+// pages state interface
 export interface State {
     pages: Pages;
     pagesLoading: boolean;
@@ -10,7 +10,7 @@ export interface State {
     contentLoading: boolean;
 }
 
-// board-pages initial state
+// pages initial state
 export const initialState: State = {
     pages: {
         _metadata: {
@@ -35,7 +35,7 @@ export const initialState: State = {
     contentLoading: false
 };
 
-// board-media state reducer
+// media state reducer
 export function reducer(
     state = initialState,
     action: PagesActions.Actions
@@ -102,7 +102,7 @@ export function reducer(
     }
 }
 
-// board-pages selectors
+// pages selectors
 // ===
 // pages
 export const getPages = (state: State) => state.pages;

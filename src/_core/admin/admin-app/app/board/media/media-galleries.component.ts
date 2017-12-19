@@ -7,11 +7,11 @@ import { Gallery, Image } from '../board.model';
 import { UploadConfig } from '../../shared/shared.model';
 
 @Component({
-    selector: 'ca-board-media-galleries',
-    templateUrl: 'board-media-galleries.component.html'
+    selector: 'ca-media-galleries',
+    templateUrl: 'media-galleries.component.html'
 })
 
-export class BoardMediaGalleriesComponent implements OnInit {
+export class MediaGalleriesComponent implements OnInit {
     selectedGallery: string;
     uploadConfig: UploadConfig;
 

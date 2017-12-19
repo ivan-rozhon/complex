@@ -10,8 +10,8 @@
         <div class="uk-modal-body" uk-overflow-auto>
 
             <ng-container *ngFor="let contentData of content?.data | caMapToIterable">
-                <ca-board-pages-content-list [contentValue]="contentData | caPickItem:'value'" [contentKey]="contentData | caPickItem:'key'"
-                    [contentMetadata]="content?._metadata"></ca-board-pages-content-list>
+                <ca-pages-content-list [contentValue]="contentData | caPickItem:'value'" [contentKey]="contentData | caPickItem:'key'"
+                    [contentMetadata]="content?._metadata"></ca-pages-content-list>
             </ng-container>
 
         </div>

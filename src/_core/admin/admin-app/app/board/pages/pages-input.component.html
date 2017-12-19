@@ -22,7 +22,7 @@
     </div>
 
     <div *ngSwitchCase="'container'" class="uk-inline">
-        <ca-board-pages-input *ngFor="let input of inputValue | caMapToIterable; let index = index" [inputKey]="input | caPickItem:'key'"
-            [inputValue]="input | caPickItem:'value'" (inputValueChange)="updateInput(index, $event)" [inputMetadata]="inputMetadata"></ca-board-pages-input>
+        <ca-pages-input *ngFor="let input of inputValue | caMapToIterable; let index = index" [inputKey]="input | caPickItem:'key'"
+            [inputValue]="input | caPickItem:'value'" (inputValueChange)="updateInput(index, $event)" [inputMetadata]="inputMetadata"></ca-pages-input>
     </div>
 </span>

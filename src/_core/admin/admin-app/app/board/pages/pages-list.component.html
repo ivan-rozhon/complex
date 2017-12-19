@@ -14,8 +14,8 @@
 
             <hr class="uk-divider">
 
-            <ca-board-pages-input *ngFor="let input of page | caMapToIterable; let inputIndex = index" [inputKey]="input | caPickItem:'key'"
-                [inputValue]="input | caPickItem:'value'" (inputValueChange)="updateInput(index, inputIndex, $event)" [inputMetadata]="inputMetadata"></ca-board-pages-input>
+            <ca-pages-input *ngFor="let input of page | caMapToIterable; let inputIndex = index" [inputKey]="input | caPickItem:'key'"
+                [inputValue]="input | caPickItem:'value'" (inputValueChange)="updateInput(index, inputIndex, $event)" [inputMetadata]="inputMetadata"></ca-pages-input>
 
             <hr class="uk-divider">
 
@@ -35,15 +35,15 @@
 
             <hr class="uk-divider">
 
-            <ca-board-pages-input *ngFor="let input of page | caMapToIterable; let inputIndex = index" [inputKey]="input | caPickItem:'key'"
-                [inputValue]="input | caPickItem:'value'" [inputMetadata]="inputMetadata" (inputValueChange)="updateInput(index, inputIndex, $event)"></ca-board-pages-input>
+            <ca-pages-input *ngFor="let input of page | caMapToIterable; let inputIndex = index" [inputKey]="input | caPickItem:'key'"
+                [inputValue]="input | caPickItem:'value'" [inputMetadata]="inputMetadata" (inputValueChange)="updateInput(index, inputIndex, $event)"></ca-pages-input>
         </li>
 
         <!-- Sub pages -->
         <ng-container *ngIf="page.sub?.length">
-            <ca-board-pages-list [pages]="page.sub" [inputMetadata]="inputMetadata" [schemaMetadata]="removeFirstAdd(schemaMetadata)"
+            <ca-pages-list [pages]="page.sub" [inputMetadata]="inputMetadata" [schemaMetadata]="removeFirstAdd(schemaMetadata)"
                 [schemaDepth]="schemaDepth" (pagesChange)="updatePage(index, $event)" (onEditContent)="editContent($event)"
-                (onCreateContent)="createContent($event, index)"></ca-board-pages-list>
+                (onCreateContent)="createContent($event, index)"></ca-pages-list>
         </ng-container>
 
     </ng-container>

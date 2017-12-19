@@ -1,8 +1,8 @@
-import * as MediaActions from './board-media-actions';
+import * as MediaActions from './media-actions';
 
 import { Image, Gallery } from '../board.model';
 
-// board-media state interface
+// media state interface
 export interface State {
     images: Image[];
     imagesLoading: boolean;
@@ -12,7 +12,7 @@ export interface State {
     galleryImagesLoading: boolean;
 }
 
-// board-media initial state
+// media initial state
 export const initialState: State = {
     images: [],
     imagesLoading: false,
@@ -22,7 +22,7 @@ export const initialState: State = {
     galleryImagesLoading: false
 };
 
-// board-media state reducer
+// media state reducer
 export function reducer(
     state = initialState,
     action: MediaActions.Actions
@@ -82,7 +82,7 @@ export function reducer(
     }
 }
 
-// board-media selectors
+// media selectors
 // images
 export const getImages = (state: State) => state.images;
 export const getImagesLoading = (state: State) => state.imagesLoading;

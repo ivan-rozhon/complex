@@ -4,16 +4,16 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 
-import * as PagesActions from './board-pages-actions';
+import * as PagesActions from './pages-actions';
 import * as fromBoard from './../board-reducers';
 import { Pages, Page, Content } from '../board.model';
 import { PickItemPipe } from './../../shared/pipes/pickItem.pipe';
 
 @Component({
-    selector: 'ca-board-pages',
-    templateUrl: 'board-pages.component.html'
+    selector: 'ca-pages',
+    templateUrl: 'pages.component.html'
 })
-export class BoardPagesComponent implements OnInit, OnDestroy {
+export class PagesComponent implements OnInit, OnDestroy {
     // pages streams
     pages$: Observable<Pages>;
     pagesLoading$: Observable<boolean>;

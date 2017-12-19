@@ -7,11 +7,11 @@ import { PickItemPipe } from '../../shared/pipes/pickItem.pipe';
 import { SharedService } from './../../shared/shared.service';
 
 @Component({
-    selector: 'ca-board-pages-list',
-    templateUrl: 'board-pages-list.component.html'
+    selector: 'ca-pages-list',
+    templateUrl: 'pages-list.component.html'
 })
 
-export class BoardPagesListComponent {
+export class PagesListComponent {
     pagesModel: Page[];
 
     @Input()

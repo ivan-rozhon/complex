@@ -3,18 +3,18 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
-import * as MediaActions from './board-media-actions';
+import * as MediaActions from './media-actions';
 import * as fromBoard from './../board-reducers';
 
 import { Image, Gallery } from './../board.model';
 
 @Component({
-    selector: 'ca-board-media',
-    templateUrl: 'board-media.component.html',
+    selector: 'ca-media',
+    templateUrl: 'media.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class BoardMediaComponent implements OnInit {
+export class MediaComponent implements OnInit {
     // images streams
     images$: Observable<Image[]>;
     imagesLoading$: Observable<boolean>;

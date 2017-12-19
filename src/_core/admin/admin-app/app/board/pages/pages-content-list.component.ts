@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-    selector: 'ca-board-pages-content-list',
-    templateUrl: 'board-pages-content-list.component.html'
+    selector: 'ca-pages-content-list',
+    templateUrl: 'pages-content-list.component.html'
 })
 
-export class BoardPagesContentListComponent {
+export class PagesContentListComponent {
     @Input() contentValue: any[];
     @Input() contentKey: string;
     @Input() contentMetadata: any;

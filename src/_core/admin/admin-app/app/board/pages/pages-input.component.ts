@@ -4,11 +4,11 @@ import { InputMetatdata } from './../board.model';
 import { PickItemPipe } from './../../shared/pipes/pickItem.pipe';
 
 @Component({
-    selector: 'ca-board-pages-input',
-    templateUrl: 'board-pages-input.component.html'
+    selector: 'ca-pages-input',
+    templateUrl: 'pages-input.component.html'
 })
 
-export class BoardPagesInputComponent {
+export class PagesInputComponent {
     inputValueModel: any;
 
     @Input() inputKey: string;
