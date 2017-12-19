@@ -94,6 +94,7 @@ module.exports = {
                 ignore: [
                     // Doesn't copy any files with/in...
                     '*.js',
+                    '*.ts',
                     '*.scss',
                     '*.less',
                     '_core/admin/admin-app/**/*'
