@@ -111,11 +111,15 @@ export class BoardEffects {
     @Effect()
     createContent$: Observable<Action> = this.actions$.ofType(PagesActions.CREATE_CONTENT)
         .map((action: PagesActions.CreateContent) => action.payload)
-        .switchMap((payload: { templateId: string, indexes: number[], pages: Pages }) =>
+        .switchMap((payload: { templateId: string, indexes: (number | string)[], pages: Pages }) =>
             this.boardService
                 .createContent<string>(payload.templateId)
-                // TODO... update pages with new dataId
-                .map((dataId: string) => new PagesActions.CreateContentSuccess(payload.pages))
+                // .do((dataId: string) => this.boardService.updatePageItem(payload.pages, payload.indexes, 'data', dataId))
+                .map((dataId: string) => new PagesActions.CreateContentSuccess(
+                    // update pages schema with new data ID via board service
+                    this.boardService.updatePageItem(payload.pages, payload.indexes, 'data', dataId)
+                    // TODO... load content
+                ))
                 .catch(err => of(new PagesActions.CreateContentFail()))
         );
     // ===
