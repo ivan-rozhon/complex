@@ -5,7 +5,7 @@
         <li *ngIf="!page.sectionId">
             <div>
                 <a class="uk-icon-link uk-margin-small-right" uk-icon="icon: file-edit" title="Edit Content" (click)="editContent({ dataId: page.data, templateId: page.template, index: index })"></a>
-                <a *ngIf="page.data?.length" class="uk-icon-link uk-margin-small-right" uk-icon="icon: close" title="Clear Content"></a>
+                <a *ngIf="page.data?.length" class="uk-icon-link uk-margin-small-right" uk-icon="icon: close" title="Clear Content" (click)="deleteContent({ dataId: page.data, indexes: [] }, index)"></a>
                 <a *ngIf="!isFirst" class="uk-icon-link uk-margin-small-right" uk-icon="icon: triangle-up" title="Move Up" (click)="movePage('up', index)"></a>
                 <a *ngIf="!isLast" class="uk-icon-link uk-margin-small-right" uk-icon="icon: triangle-down" title="Move Down" (click)="movePage('down', index)"></a>
                 <a *ngIf="!(pages.length === 1) || schemaMetadata.add.length !== schemaDepth" class="uk-icon-link uk-margin-small-right"
@@ -30,7 +30,7 @@
         <li *ngIf="page.sectionId">
             <div>
                 <a class="uk-icon-link uk-margin-small-right" uk-icon="icon: file-edit" title="Edit Content" (click)="editContent({ dataId: page.data, templateId: page.sectionId, index: index })"></a>
-                <a *ngIf="page.data?.length" class="uk-icon-link uk-margin-small-right" uk-icon="icon: close" title="Clear Content"></a>
+                <a *ngIf="page.data?.length" class="uk-icon-link uk-margin-small-right" uk-icon="icon: close" title="Clear Content" (click)="deleteContent({ dataId: page.data, indexes: [] }, index)"></a>
             </div>
 
             <hr class="uk-divider">
@@ -41,9 +41,9 @@
 
         <!-- Sub pages -->
         <ng-container *ngIf="page.sub?.length">
-            <ca-pages-list [pages]="page.sub" [inputMetadata]="inputMetadata" [schemaMetadata]="removeFirstAdd(schemaMetadata)"
-                [schemaDepth]="schemaDepth" (pagesChange)="updatePage(index, $event)" (onEditContent)="editContent($event)"
-                (onCreateContent)="createContent($event, index)"></ca-pages-list>
+            <ca-pages-list [pages]="page.sub" [inputMetadata]="inputMetadata" [schemaMetadata]="removeFirstAdd(schemaMetadata)" [schemaDepth]="schemaDepth"
+                (pagesChange)="updatePage(index, $event)" (onEditContent)="editContent($event)" (onCreateContent)="createContent($event, index)"
+                (onDeleteContent)="deleteContent($event, index)"></ca-pages-list>
         </ng-container>
 
     </ng-container>

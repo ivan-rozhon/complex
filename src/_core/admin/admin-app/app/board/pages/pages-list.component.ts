@@ -25,6 +25,7 @@ export class PagesListComponent {
     @Output() pagesChange = new EventEmitter<Page[]>();
     @Output() onEditContent = new EventEmitter<{ dataId: string, templateId: string }>();
     @Output() onCreateContent = new EventEmitter<{ templateId: string, indexes: number[] }>();
+    @Output() onDeleteContent = new EventEmitter<{ dataId: string; indexes: number[] }>();
 
     // pages model setter
     set pages(value: Page[]) {
@@ -97,6 +98,29 @@ export class PagesListComponent {
      */
     createContent({ templateId, indexes }: { templateId: string, indexes: number[] }, index: number): void {
         this.onCreateContent.emit({ templateId, indexes: [index, ...indexes] });
+    }
+
+    /**
+     * remove page`s content (data)
+     * @param dataId ID of data to edit
+     * @param indexes indexes - path of requested page in pages object/array
+     */
+    deleteContent({ dataId, indexes }: { dataId: string; indexes: number[] }, index: number): void {
+        // if indexes (path to item) exists - just emit callback (user already confirmed it)
+        if (indexes.length) {
+            this.onDeleteContent.emit({ dataId, indexes: [index, ...indexes] });
+            return;
+        }
+
+        // show confirmation dialog before delete content (data ID)
+        UIkit.modal
+            .confirm(`Delete page content. Are you sure?`)
+            .then(() => {
+                // emit event to delete gallery
+                this.onDeleteContent.emit({ dataId, indexes: [index] });
+            },
+            // catch a rejection
+            () => { });
     }
 
     /**

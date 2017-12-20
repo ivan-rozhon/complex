@@ -78,7 +78,7 @@ export class PagesComponent implements OnInit, OnDestroy {
      * @param indexes indexes - path of requested page in pages object/array
      * @param schema actual schema object
      */
-    createContent({ templateId, indexes }: { templateId: string, indexes: (number | string)[] }, schema: { [x: string]: Page[] }) {
+    createContent({ templateId, indexes }: { templateId: string, indexes: (number | string)[] }, schema: { [x: string]: Page[] }): void {
         // pick schema key
         const schemaKey = Object.keys(schema)[0];
 
@@ -88,6 +88,24 @@ export class PagesComponent implements OnInit, OnDestroy {
             indexes: [schemaKey, ...indexes],
             pages: this.pages
         }));
+    }
+
+    /**
+     * dispatch action for delete content (data) ID
+     * @param dataId ID of data to delete
+     * @param indexes indexes - path of requested page in pages object/array
+     * @param schema actual schema object
+     */
+    deleteContent({ dataId, indexes }: { dataId: string; indexes: (number | string)[] }, schema: { [x: string]: Page[] }): void {
+        // pick schema key
+        const schemaKey = Object.keys(schema)[0];
+
+        // TODO... dispatch action to delete content
+        console.log({
+            dataId,
+            indexes: [schemaKey, ...indexes],
+            // pages: this.pages
+        });
     }
 
     /**
