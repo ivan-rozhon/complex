@@ -21,29 +21,6 @@ export class BoardService {
             .get<T>(mediaName ? `mediaLoad/${mediaType}/${mediaName}` : `mediaLoad/${mediaType}`);
     }
 
-    /** Load pages (web schema) */
-    loadPages<T>(): Observable<T> {
-        return this.dataService
-            .get<T>('schemaLoad')
-            // parse stringifyed data (so JS can work with them as object)
-            .map<any, T>(data => JSON.parse(data));
-    }
-
-    /**
-     * load page content (data) with template metadata
-     * @param dataId ID of data to load
-     * @param templateId ID of template
-     */
-    loadContent<T>(dataId: string, templateId: string): Observable<T> {
-        return this.dataService
-            .get<T>(`dataLoad/${dataId}/${templateId}`);
-    }
-
-    createContent<T>(templateId: string): Observable<T> {
-        return this.dataService
-            .post<T>(`dataNew`, { templateId });
-    }
-
     /**
      * Save media (gallery - folder, immages)
      * @param mediaType images or gallery
@@ -62,6 +39,50 @@ export class BoardService {
     removeMedia<T>(mediaType: string, mediaName: string, deepMediaName?: string): Observable<T> {
         return this.dataService
             .get<T>(deepMediaName ? `mediaRemove/${mediaType}/${mediaName}/${deepMediaName}` : `mediaRemove/${mediaType}/${mediaName}`);
+    }
+
+    /** Load pages (web schema) */
+    loadPages<T>(): Observable<T> {
+        return this.dataService
+            .get<T>('schemaLoad')
+            // parse stringifyed data (so JS can work with them as object)
+            .map<any, T>(data => JSON.parse(data));
+    }
+
+    /** Save pages (web schema) */
+    savePages<T>(pages: Pages): Observable<T> {
+        return this.dataService
+            .post<T>('schemaSave', { schema: pages })
+            // parse stringifyed data (so JS can work with them as object)
+            .map<any, T>(data => JSON.parse(data));
+    }
+
+    /**
+     * load page content (data) with template metadata
+     * @param dataId ID of data to load
+     * @param templateId ID of template
+     */
+    loadContent<T>(dataId: string, templateId: string): Observable<T> {
+        return this.dataService
+            .get<T>(`dataLoad/${dataId}/${templateId}`);
+    }
+
+    /**
+     * create page content (data)
+     * @param templateId ID of template
+     */
+    createContent<T>(templateId: string): Observable<T> {
+        return this.dataService
+            .post<T>(`dataNew`, { templateId });
+    }
+
+    /**
+     * delete page content (data)
+     * @param dataId ID of data to delete
+     */
+    deleteContent<T>(dataId: string): Observable<T> {
+        return this.dataService
+            .get<T>(`dataRemove/${dataId}`);
     }
 
     /**

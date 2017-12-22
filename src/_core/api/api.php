@@ -28,7 +28,7 @@ class Api {
         // POST
         $apiLogin, $apiSchemaSave, $apiDataUpdate, $apiDataNew, $apiDataSave, $apiMediaSave,
         // GET
-        $apiSchemaLoad, $apiDataLoad, $apiMediaLoad, $apiMediaRemove, $apiWebDemo
+        $apiSchemaLoad, $apiDataLoad, $apiDataRemove, $apiMediaLoad, $apiMediaRemove, $apiWebDemo
         ) {
 
         switch($this->requestMethod) {
@@ -36,7 +36,7 @@ class Api {
                 $this->apiPOST($apiLogin, $apiSchemaSave, $apiDataUpdate, $apiDataNew, $apiDataSave, $apiMediaSave);
                 break;
             case 'GET':
-                $this->apiGET($apiSchemaLoad, $apiDataLoad, $apiMediaLoad, $apiMediaRemove, $apiWebDemo);
+                $this->apiGET($apiSchemaLoad, $apiDataLoad, $apiDataRemove, $apiMediaLoad, $apiMediaRemove, $apiWebDemo);
                 break;
         }
     }
@@ -101,7 +101,7 @@ class Api {
     }
 
     // GET requests
-    public function apiGET($apiSchemaLoad, $apiDataLoad, $apiMediaLoad, $apiMediaRemove, $apiWebDemo) {
+    public function apiGET($apiSchemaLoad, $apiDataLoad, $apiDataRemove, $apiMediaLoad, $apiMediaRemove, $apiWebDemo) {
         // explode query string to array of strings
         $queryStringArr = explode('/', $this->queryString);
 
@@ -120,6 +120,11 @@ class Api {
             // load data model
             case 'dataLoad':
                 $apiDataLoad->apiDataLoad($pathParams);
+                break;
+
+            // remove data model (file)
+            case 'dataRemove':
+                $apiDataRemove->apiDataRemove($pathParams);
                 break;
 
             // load media (images/gallery)
@@ -254,6 +259,7 @@ $apiMediaSave = new ApiMediaSave($api);
 // GET
 $apiSchemaLoad = new ApiSchemaLoad($api);
 $apiDataLoad = new ApiDataLoad($api);
+$apiDataRemove = new ApiDataRemove($api);
 $apiMediaLoad = new ApiMediaLoad($api);
 $apiMediaRemove = new ApiMediaRemove($api);
 $apiWebDemo = new ApiWebDemo($api);
@@ -269,6 +275,7 @@ $api->api(
     // GET
     $apiSchemaLoad,
     $apiDataLoad,
+    $apiDataRemove,
     $apiMediaLoad,
     $apiMediaRemove,
     $apiWebDemo

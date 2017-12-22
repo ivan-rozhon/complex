@@ -2,17 +2,32 @@
 
 {{ editorContent }} -->
 
-<!-- TODO... action bar -->
+<!-- Action bar -->
+<ul class="uk-iconnav">
+    <li>
+        <a uk-icon="icon: refresh" (click)="loadPages()" [title]="'Refresh'"></a>
+    </li>
+    <li>
+        <a uk-icon="icon: check" (click)="savePages(pages)" [title]="'Save'"></a>
+    </li>
+</ul>
 
-<!-- TODO... loading -->
+<hr>
+
+<!-- Loading spinner -->
+<div class="uk-flex uk-flex-center" *ngIf="pagesLoading$ | async">
+    <div uk-spinner></div>
+</div>
 
 <!-- Schemes/Pages -->
-<ng-container *ngFor="let schema of pages?.webSchema | caMapToIterable; let index = index">
-    <span class="uk-text-lead">{{ pages?._metadata?.schemes[(schema | caPickItem:'key')]?.name }}</span>
-    <ca-pages-list [pages]="schema | caPickItem:'value'" [inputMetadata]="pages?._metadata?.data" [schemaMetadata]="pages?._metadata?.schemes[(schema | caPickItem:'key')]"
-        [schemaDepth]="pages?._metadata?.schemes[(schema | caPickItem:'key')].add?.length" (pagesChange)="updateSchema(index, $event)"
-        (onEditContent)="loadContent($event)" (onCreateContent)="createContent($event, schema)" (onDeleteContent)="deleteContent($event, schema)"></ca-pages-list>
-</ng-container>
+<div *ngIf="!(pagesLoading$ | async)">
+    <ng-container *ngFor="let schema of pages?.webSchema | caMapToIterable; let index = index">
+        <span class="uk-text-lead">{{ pages?._metadata?.schemes[(schema | caPickItem:'key')]?.name }}</span>
+        <ca-pages-list [pages]="schema | caPickItem:'value'" [inputMetadata]="pages?._metadata?.data" [schemaMetadata]="pages?._metadata?.schemes[(schema | caPickItem:'key')]"
+            [schemaDepth]="pages?._metadata?.schemes[(schema | caPickItem:'key')].add?.length" (pagesChange)="updateSchema(index, $event)"
+            (onEditContent)="loadContent($event)" (onCreateContent)="createContent($event, schema)" (onDeleteContent)="deleteContent($event, schema)"></ca-pages-list>
+    </ng-container>
+</div>
 
 <!-- Content modal -->
 <ca-pages-content [content]="content$ | async"></ca-pages-content>

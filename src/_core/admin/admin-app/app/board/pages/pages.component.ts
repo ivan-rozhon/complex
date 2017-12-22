@@ -63,6 +63,11 @@ export class PagesComponent implements OnInit, OnDestroy {
         this.store.dispatch(new PagesActions.LoadPages());
     }
 
+    /** dispatch action for save pages */
+    savePages(pages: Pages): void {
+        this.store.dispatch(new PagesActions.SavePages(pages));
+    }
+
     /**
      * dispatch action for edit page`s content (data)
      * @param dataId ID of data to edit
@@ -96,16 +101,16 @@ export class PagesComponent implements OnInit, OnDestroy {
      * @param indexes indexes - path of requested page in pages object/array
      * @param schema actual schema object
      */
-    deleteContent({ dataId, indexes }: { dataId: string; indexes: (number | string)[] }, schema: { [x: string]: Page[] }): void {
+    deleteContent({ dataId, indexes }: { dataId: string, indexes: (number | string)[] }, schema: { [x: string]: Page[] }): void {
         // pick schema key
         const schemaKey = Object.keys(schema)[0];
 
-        // TODO... dispatch action to delete content
-        console.log({
+        // dispatch action
+        this.store.dispatch(new PagesActions.DeleteContent({
             dataId,
             indexes: [schemaKey, ...indexes],
-            // pages: this.pages
-        });
+            pages: this.pages
+        }));
     }
 
     /**

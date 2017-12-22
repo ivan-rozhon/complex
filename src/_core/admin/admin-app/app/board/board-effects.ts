@@ -93,6 +93,16 @@ export class BoardEffects {
         );
 
     @Effect()
+    savePages$: Observable<Action> = this.actions$.ofType(PagesActions.SAVE_PAGES)
+        .map((action: PagesActions.SavePages) => action.payload)
+        .switchMap((payloadPages: Pages) =>
+            this.boardService
+                .savePages<Pages>(payloadPages)
+                .map((pages: Pages) => new PagesActions.SavePagesSuccess(pages))
+                .catch(err => of(new PagesActions.SavePagesFail()))
+        );
+
+    @Effect()
     loadContent$: Observable<Action> = this.actions$.ofType(PagesActions.LOAD_CONTENT)
         .map((action: PagesActions.LoadContent) => action.payload)
         .switchMap((payload: { dataId: string, templateId: string }) =>
@@ -115,12 +125,28 @@ export class BoardEffects {
             this.boardService
                 .createContent<string>(payload.templateId)
                 // .do((dataId: string) => this.boardService.updatePageItem(payload.pages, payload.indexes, 'data', dataId))
-                .map((dataId: string) => new PagesActions.CreateContentSuccess(
-                    // update pages schema with new data ID via board service
-                    this.boardService.updatePageItem(payload.pages, payload.indexes, 'data', dataId)
-                    // TODO... load content
-                ))
+                .concatMap((dataId: string) => of(...[
+                    new PagesActions.CreateContentSuccess(
+                        // update pages schema with new data ID via board service
+                        this.boardService.updatePageItem(payload.pages, payload.indexes, 'data', dataId)
+                    ),
+                    // load content (immediately after creating it)
+                    new PagesActions.LoadContent({ dataId, templateId: payload.templateId })
+                ]))
                 .catch(err => of(new PagesActions.CreateContentFail()))
+        );
+
+    @Effect()
+    deleteContent$: Observable<Action> = this.actions$.ofType(PagesActions.DELETE_CONTENT)
+        .map((action: PagesActions.DeleteContent) => action.payload)
+        .switchMap((payload: { dataId: string, indexes: (number | string)[], pages: Pages }) =>
+            this.boardService
+                .deleteContent<null>(payload.dataId)
+                .map(() => new PagesActions.DeleteContentSuccess(
+                    // update pages schema - delete removed data ID (set empty string)
+                    this.boardService.updatePageItem(payload.pages, payload.indexes, 'data', '')
+                ))
+                .catch(err => of(new PagesActions.DeleteContentFail()))
         );
     // ===
 }

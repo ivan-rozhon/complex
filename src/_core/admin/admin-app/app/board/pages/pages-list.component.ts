@@ -96,7 +96,7 @@ export class PagesListComponent {
      * @param indexes indexes - path of requested page in pages object/array
      * @param index index of actual pages/schema
      */
-    createContent({ templateId, indexes }: { templateId: string, indexes: number[] }, index: number): void {
+    createContent({ templateId, indexes }: { templateId: string, indexes: number[], }, index: number): void {
         this.onCreateContent.emit({ templateId, indexes: [index, ...indexes] });
     }
 
@@ -105,7 +105,7 @@ export class PagesListComponent {
      * @param dataId ID of data to edit
      * @param indexes indexes - path of requested page in pages object/array
      */
-    deleteContent({ dataId, indexes }: { dataId: string; indexes: number[] }, index: number): void {
+    deleteContent({ dataId, indexes }: { dataId: string, indexes: number[] }, index: number): void {
         // if indexes (path to item) exists - just emit callback (user already confirmed it)
         if (indexes.length) {
             this.onDeleteContent.emit({ dataId, indexes: [index, ...indexes] });

@@ -41,14 +41,16 @@ export function reducer(
     action: PagesActions.Actions
 ): State {
     switch (action.type) {
-        case PagesActions.LOAD_PAGES: {
+        case PagesActions.LOAD_PAGES:
+        case PagesActions.SAVE_PAGES: {
             return {
                 ...state,
                 pagesLoading: true
             };
         }
 
-        case PagesActions.LOAD_PAGES_SUCCESS: {
+        case PagesActions.LOAD_PAGES_SUCCESS:
+        case PagesActions.SAVE_PAGES_SUCCESS: {
             return {
                 ...state,
                 pages: action.payload,
@@ -89,7 +91,8 @@ export function reducer(
             };
         }
 
-        case PagesActions.CREATE_CONTENT_SUCCESS: {
+        case PagesActions.CREATE_CONTENT_SUCCESS:
+        case PagesActions.DELETE_CONTENT_SUCCESS: {
             return {
                 ...state,
                 pages: action.payload
