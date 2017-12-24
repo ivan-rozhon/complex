@@ -3,6 +3,7 @@ import { Component, OnChanges, SimpleChanges, Input, ViewChild, ElementRef } fro
 import * as UIkit from 'uikit';
 
 import { Content } from './../board.model';
+import { PickItemPipe } from '../../shared/pipes/pickItem.pipe';
 
 @Component({
     selector: 'ca-pages-content',
@@ -14,7 +15,9 @@ export class PagesContentComponent implements OnChanges {
 
     @ViewChild('caContentModal') contentModalElementRef: ElementRef;
 
-    constructor() { }
+    constructor(
+        private pickItem: PickItemPipe
+    ) { }
 
     ngOnChanges(changes: SimpleChanges): void {
         // check for changes in content
@@ -31,5 +34,18 @@ export class PagesContentComponent implements OnChanges {
     /** open modal window contains page content */
     openContentModal(): void {
         UIkit.modal(this.contentModalElementRef.nativeElement).show();
+    }
+
+    /**
+     * update contentValue (contentValueModel) model (two-way data binding)
+     * @param value new (updated) value of contentValue
+     * @param index index of content data container to update
+     */
+    updateContent(value: any[], index: number): void {
+        // use pickItemPipe to get proper key of content container
+        const contentKey = this.pickItem.transform(this.content.data, 'key', index);
+
+        // update value
+        this.content.data[contentKey] = value;
     }
 }

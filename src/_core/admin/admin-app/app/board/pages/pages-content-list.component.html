@@ -8,12 +8,16 @@
 
 <!-- <ca-pages-content-input></ca-pages-content-input> -->
 
+<!-- {{ contentValue | json }} -->
+<!-- {{ contentKey | json }} -->
+<!-- {{ contentMetadata[contentKey] | json }} -->
+
 <div class="uk-clearfix uk-margin">
     <a class="uk-icon-button" uk-icon="icon: plus"></a>
     <div uk-dropdown="mode: click">
         <ul class="uk-nav uk-dropdown-nav">
             <li *ngFor="let available of contentMetadata[contentKey]?.available | caMapToIterable">
-                <a>{{ contentMetadata[available | caPickItem:'key']?.label }}</a>
+                <a (click)="addContent(available, -1)">{{ contentMetadata[available | caPickItem:'key']?.label }}</a>
             </li>
         </ul>
     </div>
