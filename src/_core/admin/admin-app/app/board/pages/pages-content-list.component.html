@@ -1,18 +1,16 @@
 <span class="uk-text-lead">{{ contentMetadata[contentKey]?.label }}</span>
 
 <ul class="uk-list uk-list-striped uk-margin-small-top uk-margin-small-bottom">
-    <ng-container *ngFor="let input of contentValue | caMapToIterable; let index = index; first as isFirst; last as isLast">
-        {{ input | json }}
+    <ng-container *ngFor="let input of contentValue; let index = index; first as isFirst; last as isLast">
+        <ca-pages-content-input [inputKey]="input | caPickItem:'key'" [inputValue]="input | caPickItem:'value'" [inputMetadata]="contentMetadata[input | caPickItem:'key']"></ca-pages-content-input>
     </ng-container>
 </ul>
-
-<!-- <ca-pages-content-input></ca-pages-content-input> -->
 
 <!-- {{ contentValue | json }} -->
 <!-- {{ contentKey | json }} -->
 <!-- {{ contentMetadata[contentKey] | json }} -->
 
-<div class="uk-clearfix uk-margin">
+<div class="uk-clearfix uk-margin" [class.uk-invisible]="contentValue.length">
     <a class="uk-icon-button" uk-icon="icon: plus"></a>
     <div uk-dropdown="mode: click">
         <ul class="uk-nav uk-dropdown-nav">

@@ -1,7 +1,7 @@
-<div #caContentModal class="uk-modal-container" uk-modal>
+<div #caContentModal class="uk-modal-full" uk-modal>
     <div class="uk-modal-dialog">
 
-        <button class="uk-modal-close-outside" type="button" uk-close></button>
+        <button class="uk-modal-close-default" type="button" uk-close></button>
 
         <div class="uk-modal-header">
             <h2 class="uk-modal-title">Page content</h2>
@@ -10,11 +10,9 @@
         <div class="uk-modal-body" uk-overflow-auto>
 
             <ng-container *ngFor="let contentData of content?.data | caMapToIterable; index as index">
-                <ca-pages-content-list [contentValue]="contentData | caPickItem:'value'" (contentValueChange)="updateContent($event, index)" [contentKey]="contentData | caPickItem:'key'"
-                    [contentMetadata]="content?._metadata"></ca-pages-content-list>
+                <ca-pages-content-list [contentValue]="contentData | caPickItem:'value'" (contentValueChange)="updateContent($event, index)"
+                    [contentKey]="contentData | caPickItem:'key'" [contentMetadata]="content?._metadata"></ca-pages-content-list>
             </ng-container>
-
-            {{ content?.data | json }}
 
         </div>
 

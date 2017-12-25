@@ -2,7 +2,14 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
     selector: 'ca-pages-content-list',
-    templateUrl: 'pages-content-list.component.html'
+    templateUrl: 'pages-content-list.component.html',
+    styles: [`
+        .uk-invisible {
+            margin: 0;
+            padding: 0;
+            height: 0;
+        }
+    `]
 })
 
 export class PagesContentListComponent {
