@@ -2,13 +2,10 @@
 
 <ul class="uk-list uk-list-striped uk-margin-small-top uk-margin-small-bottom">
     <ng-container *ngFor="let input of contentValue; let index = index; first as isFirst; last as isLast">
-        <ca-pages-content-input [inputKey]="input | caPickItem:'key'" [inputValue]="input | caPickItem:'value'" [inputMetadata]="contentMetadata[input | caPickItem:'key']"></ca-pages-content-input>
+        <ca-pages-content-input [inputKey]="input | caPickItem:'key'" [inputValue]="input | caPickItem:'value'" [inputMetadata]="contentMetadata[input | caPickItem:'key']"
+            (inputValueChange)="updateInput($event, index)"></ca-pages-content-input>
     </ng-container>
 </ul>
-
-<!-- {{ contentValue | json }} -->
-<!-- {{ contentKey | json }} -->
-<!-- {{ contentMetadata[contentKey] | json }} -->
 
 <div class="uk-clearfix uk-margin" [class.uk-invisible]="contentValue.length">
     <a class="uk-icon-button" uk-icon="icon: plus"></a>

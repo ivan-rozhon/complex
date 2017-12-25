@@ -9,6 +9,8 @@
 
         <div class="uk-modal-body" uk-overflow-auto>
 
+            <!-- {{ content?.data | json }} -->
+
             <ng-container *ngFor="let contentData of content?.data | caMapToIterable; index as index">
                 <ca-pages-content-list [contentValue]="contentData | caPickItem:'value'" (contentValueChange)="updateContent($event, index)"
                     [contentKey]="contentData | caPickItem:'key'" [contentMetadata]="content?._metadata"></ca-pages-content-list>

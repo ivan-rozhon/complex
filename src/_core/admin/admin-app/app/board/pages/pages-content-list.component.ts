@@ -1,5 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
+import { PickItemPipe } from './../../shared/pipes/pickItem.pipe';
+
 @Component({
     selector: 'ca-pages-content-list',
     templateUrl: 'pages-content-list.component.html',
@@ -30,7 +32,9 @@ export class PagesContentListComponent {
         this.contentValueChange.emit(this.contentValueModel);
     }
 
-    constructor() { }
+    constructor(
+        private pickItem: PickItemPipe
+    ) { }
 
     /**
      * add new content item
@@ -40,5 +44,17 @@ export class PagesContentListComponent {
     addContent(content: { [x: string]: any }, index: number): void {
         // add new content item
         this.contentValue.splice(index + 1, 0, content);
+    }
+
+    /**
+     * update content input model (two-way data binding)
+     * @param value updated value
+     * @param index index of object of content input to update
+     */
+    updateInput(value, index): void {
+        this.contentValue[index][
+            // use pickItemPipe to get proper key
+            this.pickItem.transform(this.contentValue[index], 'key')
+        ] = value;
     }
 }

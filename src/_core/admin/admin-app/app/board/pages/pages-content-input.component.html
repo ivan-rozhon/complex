@@ -1,6 +1,5 @@
 <span [ngSwitch]="inputMetadata?.type">
     <div *ngSwitchCase="'editor'" class="uk-inline uk-margin-small-right">
-        <label>{{ inputMetadata?.label }}</label>
         <ca-editor [(editorContent)]="inputValue" [foreColors]="inputMetadata?.colors" [backColors]="inputMetadata?.colors"></ca-editor>
     </div>
 </span>
