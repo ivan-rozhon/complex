@@ -1,9 +1,26 @@
 <span class="uk-text-lead">{{ contentMetadata[contentKey]?.label }}</span>
 
-<ul class="uk-list uk-list-striped uk-margin-small-top uk-margin-small-bottom">
+<ul class="uk-list uk-list-divider uk-margin-small-top uk-margin-small-bottom">
     <ng-container *ngFor="let input of contentValue; let index = index; first as isFirst; last as isLast">
-        <ca-pages-content-input [inputKey]="input | caPickItem:'key'" [inputValue]="input | caPickItem:'value'" [inputMetadata]="contentMetadata[input | caPickItem:'key']"
-            (inputValueChange)="updateInput($event, index)"></ca-pages-content-input>
+        <li>
+            <div>
+                <a *ngIf="!isFirst" class="uk-icon-link uk-margin-small-right" uk-icon="icon: triangle-up" title="Move Up"></a>
+                <a *ngIf="!isLast" class="uk-icon-link uk-margin-small-right" uk-icon="icon: triangle-down" title="Move Down"></a>
+                <a class="uk-icon-link uk-margin-small-right" uk-icon="icon: trash" title="Delete"></a>
+            </div>
+
+            <hr class="uk-divider">
+
+            <ca-pages-content-input [inputKey]="input | caPickItem:'key'" [inputValue]="input | caPickItem:'value'" [inputMetadata]="contentMetadata[input | caPickItem:'key']"
+                (inputValueChange)="updateInput($event, index)"></ca-pages-content-input>
+
+            <hr class="uk-divider">
+
+            <div>
+                <a class="uk-icon-link uk-margin-small-right" uk-icon="icon: plus" title="Add"></a>
+                <a class="uk-icon-link uk-margin-small-right" uk-icon="icon: plus-circle" title="Add Child"></a>
+            </div>
+        </li>
     </ng-container>
 </ul>
 
