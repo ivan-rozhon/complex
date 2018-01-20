@@ -36,8 +36,8 @@ class WebBodyNav {
                 case 0:
                     if (count($value['sub']) == 0 || $value['options']['end'] == true) {
                         $navbar .= '
-                            <li class="nav-item m-2 '.$this->webBodyNavbarActive($value['id'], $switch).'">
-                                <a class="nav-link" href="'.$this->webBody->web->lastCharacter($this->basePath.$value['id'], '?').'">
+                            <li class="'.$this->webBodyNavbarActive($value['id'], $switch, 'uk-active').'">
+                                <a href="'.$this->webBody->web->lastCharacter($this->basePath.$value['id'], '?').'">
                                     '.$this->webBodyNavbarIcon($value).'
                                     '.$value['name'].'
                                 </a>
@@ -46,14 +46,12 @@ class WebBodyNav {
                     } else {
                         $this->currentMainQuery = $value['id'];
                         $navbar .= '
-                            <li class="nav-item m-2 dropdown '.$this->webBodyNavbarActive($value['id'], $switch).'">
-                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
-                                    id="'.$value['id'].'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    '.$this->webBodyNavbarIcon($value).'
-                                    '.$value['name'].'
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="'.$value['id'].'">
-                                    '.$this->webBodyNavbar($value['sub'], $switch + 1).'
+                            <li class="'.$this->webBodyNavbarActive($value['id'], $switch, 'uk-active').'">
+                                <a>'.$this->webBodyNavbarIcon($value).$value['name'].'</a>
+                                <div class="uk-navbar-dropdown">
+                                    <ul class="uk-nav uk-navbar-dropdown-nav">
+                                        '.$this->webBodyNavbar($value['sub'], $switch + 1).'
+                                    </ul>
                                 </div>
                             </li>
                         ';
@@ -62,30 +60,33 @@ class WebBodyNav {
                 case 1:
                     if (count($value['sub']) == 0 || $value['options']['end'] == true) {
                         $navbar .= '
-                            <a class="dropdown-item '.$this->webBodyNavbarActive($value['id'], $switch).'"
-                                href="'.$this->basePath.$this->currentMainQuery.'/'.$value['id'].'">
-                                '.$value['name'].'
-                            </a>
+                            <li class="'.$this->webBodyNavbarActive($value['id'], $switch, 'uk-active').'">
+                                <a href="'.$this->basePath.$this->currentMainQuery.'/'.$value['id'].'">
+                                    '.$value['name'].'
+                                </a>
+                            </li>
                         ';
                     } else {
                         $this->currentSubQuery = $value['id'];
                         $navbar .= '
-                            <a class="dropdown-item dropdown-sub dropdown-sub-md '.$this->webBodyNavbarActive($value['id'], $switch).'"
-                                href="'.$this->basePath.$this->currentMainQuery.'/'.$value['id'].'">
-                                '.$value['name'].'
-                            </a>
-                            <div class="dropdown-sub-menu">
-                                '.$this->webBodyNavbar($value['sub'], $switch + 1).'
-                            </div>
+                            <li class="'.$this->webBodyNavbarActive($value['id'], $switch, 'uk-active').'">
+                                <a href="'.$this->basePath.$this->currentMainQuery.'/'.$value['id'].'">
+                                    '.$value['name'].'
+                                </a>
+                                <ul class="uk-nav-sub">
+                                    '.$this->webBodyNavbar($value['sub'], $switch + 1).'
+                                </ul>
+                            </li>
                         ';
                     }
                     break;
                 case 2:
                     $navbar .= '
-                        <a class="dropdown-item '.$this->webBodyNavbarActive($value['id'], $switch).'"
-                            href="'.$this->basePath.$this->currentMainQuery.'/'.$this->currentSubQuery.'/'.$value['id'].'">
-                            '.$value['name'].'
-                        </a>
+                        <li class="'.$this->webBodyNavbarActive($value['id'], $switch, 'uk-active').'">
+                            <a href="'.$this->basePath.$this->currentMainQuery.'/'.$this->currentSubQuery.'/'.$value['id'].'">
+                                '.$value['name'].'
+                            </a>
+                        </li>
                     ';
                     break;
             }
@@ -111,7 +112,7 @@ class WebBodyNav {
     private function webBodyNavbarIcon($query) {
         if (isset($query['options']['icon']) && $query['options']['icon'] !== 'none') {
             return '
-                <i class="fa fa-'.$query['options']['icon'].' fa-fw"></i>
+                <i class="fa fa-'.$query['options']['icon'].' fa-fw uk-margin-small-right"></i>
             ';
         }
     }

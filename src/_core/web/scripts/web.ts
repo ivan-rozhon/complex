@@ -4,6 +4,11 @@ import '../styles/web.scss';
 // ES6 features
 // import './es6.js';
 
+// Scope & Closures
+// https://codeburst.io/javascript-learn-understand-scope-f53d6592c726
+// https://codeburst.io/javascript-learn-understand-closures-8ab35586b0c0
+// import './js';
+
 // Web Components
 // import './web-components.js';
 

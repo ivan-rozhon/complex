@@ -7,3 +7,6 @@ import './lib.js';
 
 // UIKit general styles
 import 'uikit/dist/css/uikit.css';
+
+// Font awesome
+import 'font-awesome/css/font-awesome.css';
