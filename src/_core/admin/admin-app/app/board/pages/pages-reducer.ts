@@ -30,6 +30,7 @@ export const initialState: State = {
     pagesLoading: false,
     content: {
         _metadata: {},
+        id: '',
         data: {}
     },
     contentLoading: false
@@ -58,16 +59,18 @@ export function reducer(
             };
         }
 
-        case PagesActions.LOAD_PAGES_FAIL: {
+        case PagesActions.LOAD_PAGES_FAIL:
+        case PagesActions.SAVE_PAGES_FAIL: {
             return {
                 ...state,
-                // if pages load fail - get initial state
+                // if pages load/save fail - get initial state
                 pages: initialState.pages,
                 pagesLoading: false
             };
         }
 
-        case PagesActions.LOAD_CONTENT: {
+        case PagesActions.LOAD_CONTENT:
+        case PagesActions.SAVE_CONTENT: {
             return {
                 ...state,
                 contentLoading: true

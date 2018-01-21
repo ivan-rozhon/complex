@@ -79,6 +79,7 @@ export interface Content {
             [x: string]: any
         }
     };
+    id: string;
     data: {
         [x: string]: any[];
     };

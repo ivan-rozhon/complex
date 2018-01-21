@@ -26,4 +26,4 @@
 </div>
 
 <!-- Content modal -->
-<ca-pages-content [content]="content$ | async"></ca-pages-content>
+<ca-pages-content [content]="content$ | async" (onSaveContent)="saveContent($event)"></ca-pages-content>

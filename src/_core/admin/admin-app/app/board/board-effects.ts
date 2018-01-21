@@ -112,6 +112,7 @@ export class BoardEffects {
                     // parse stringifyed data (so JS can work with them as object)
                     Object.assign({}, {
                         _metadata: JSON.parse(content._metadata),
+                        id: payload.dataId,
                         data: JSON.parse(content.data)
                     })
                 ))

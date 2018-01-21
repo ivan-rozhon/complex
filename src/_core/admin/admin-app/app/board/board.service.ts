@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Pages, Page } from './board.model';
+import { Pages, Page, Content } from './board.model';
 import { DataService } from '../core/data.service';
 import { Observable } from 'rxjs/Observable';
 
@@ -83,6 +83,16 @@ export class BoardService {
     deleteContent<T>(dataId: string): Observable<T> {
         return this.dataService
             .get<T>(`dataRemove/${dataId}`);
+    }
+
+    /**
+     * save page content (data)
+     * @param dataId ID of data to save (data container - .json file)
+     * @param data whole data to save
+     */
+    saveContent<T>(dataId: string, data: Content): Observable<T> {
+        return this.dataService
+            .post<T>(`dataSave`, { dataId, data });
     }
 
     /**

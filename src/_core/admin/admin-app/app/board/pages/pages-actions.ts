@@ -27,6 +27,11 @@ export const DELETE_CONTENT = '[Board Pages] Delete Content';
 export const DELETE_CONTENT_SUCCESS = '[Board Pages] Delete Content Success';
 export const DELETE_CONTENT_FAIL = '[Board Pages] Delete Content Fail';
 
+// save page content actions
+export const SAVE_CONTENT = '[Board Pages] Save Content';
+export const SAVE_CONTENT_SUCCESS = '[Board Pages] Save Content Success';
+export const SAVE_CONTENT_FAIL = '[Board Pages] Save Content Fail';
+
 // Every action is comprised of at least a type and an optional payload
 
 // load pages actions
@@ -145,10 +150,35 @@ export class DeleteContentFail implements Action {
 }
 // ===
 
+// save page content actions
+// ===
+export class SaveContent implements Action {
+    readonly type = SAVE_CONTENT;
+
+    constructor(public payload: {
+        id: string;
+        content: Content
+    }) { }
+}
+
+export class SaveContentSuccess implements Action {
+    readonly type = SAVE_CONTENT_SUCCESS;
+
+    constructor(public payload: Content) { }
+}
+
+export class SaveContentFail implements Action {
+    readonly type = SAVE_CONTENT_FAIL;
+
+    constructor(public payload?: any) { }
+}
+// ===
+
 // export all types of actions
 export type Actions =
     LoadPages | LoadPagesSuccess | LoadPagesFail |
     LoadContent | LoadContentSuccess | LoadContentFail |
     CreateContent | CreateContentSuccess | CreateContentFail |
     DeleteContent | DeleteContentSuccess | DeleteContentFail |
-    SavePages | SavePagesSuccess | SavePagesFail;
+    SavePages | SavePagesSuccess | SavePagesFail |
+    SaveContent | SaveContentSuccess | SaveContentFail;

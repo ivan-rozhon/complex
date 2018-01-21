@@ -1,4 +1,4 @@
-import { Component, OnChanges, SimpleChanges, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnChanges, SimpleChanges, Input, Output, ViewChild, ElementRef, EventEmitter } from '@angular/core';
 
 import * as UIkit from 'uikit';
 
@@ -12,6 +12,8 @@ import { PickItemPipe } from '../../shared/pipes/pickItem.pipe';
 
 export class PagesContentComponent implements OnChanges {
     @Input() content: Content;
+
+    @Output() onSaveContent = new EventEmitter<{ id: string, content: Content }>();
 
     @ViewChild('caContentModal') contentModalElementRef: ElementRef;
 
@@ -47,5 +49,14 @@ export class PagesContentComponent implements OnChanges {
 
         // update value
         this.content.data[contentKey] = value;
+    }
+
+    /**
+     * save page content
+     * @param id data ID
+     * @param content content to save
+     */
+    saveContent(id: string, content: Content) {
+        this.onSaveContent.emit({ id, content });
     }
 }

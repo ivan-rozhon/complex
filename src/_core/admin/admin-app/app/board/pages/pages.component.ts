@@ -114,6 +114,15 @@ export class PagesComponent implements OnInit, OnDestroy {
     }
 
     /**
+     * dispatch action for save page`s content
+     * @param id ID of data to save
+     * @param content page`s content to save
+     */
+    saveContent({ id, content }: { id: string, content: Content }): void {
+        this.store.dispatch(new PagesActions.SaveContent({ id, content }));
+    }
+
+    /**
      * update schemes model (two-way data binding)
      * @param index index of schema to update
      * @param value updated value
