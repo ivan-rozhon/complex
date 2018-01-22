@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Pages, Page, Content } from './board.model';
+import { Pages, Page, Content, ContentData } from './board.model';
 import { DataService } from '../core/data.service';
 import { Observable } from 'rxjs/Observable';
 
@@ -88,11 +88,13 @@ export class BoardService {
     /**
      * save page content (data)
      * @param dataId ID of data to save (data container - .json file)
-     * @param data whole data to save
+     * @param contentData whole data to save
      */
-    saveContent<T>(dataId: string, data: Content): Observable<T> {
+    saveContent<T>(dataId: string, contentData: ContentData): Observable<T> {
         return this.dataService
-            .post<T>(`dataSave`, { dataId, data });
+            .post<T>(`dataSave`, { dataId, contentData })
+            // parse stringifyed data (so JS can work with them as object)
+            .map<any, T>(data => JSON.parse(data));
     }
 
     /**

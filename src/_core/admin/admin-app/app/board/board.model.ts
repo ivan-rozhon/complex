@@ -80,7 +80,10 @@ export interface Content {
         }
     };
     id: string;
-    data: {
-        [x: string]: any[];
-    };
+    data: ContentData;
+}
+
+// page content data interface
+export interface ContentData {
+    [x: string]: any[];
 }

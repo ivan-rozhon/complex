@@ -14,8 +14,8 @@ class ApiDataSave {
         $this->api->verifyToken($decodedJWT);
 
         // data key & data
-        $dataKey = $post['key'];
-        $dataModel = json_encode($post['data']);
+        $dataKey = $post['dataId'];
+        $dataModel = json_encode($post['contentData']);
 
         if (file_exists('_source/data/'.$dataKey.'.json')) {
             // backup if put fail
@@ -30,11 +30,8 @@ class ApiDataSave {
             // create JWT
             $token = $this->api->createToken($decodedJWT->{'id'}, $decodedJWT->{'user'});
 
-            // response data object
-            $data = array('token' => $token, 'success' => $success);
-
             // successful response
-            echo json_encode($data);
+            echo $this->api->dataResponse($success ? $dataModel : $dataBackup, $token, true);
         }
     }
 }

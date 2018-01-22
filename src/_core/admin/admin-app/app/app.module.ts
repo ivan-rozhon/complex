@@ -39,7 +39,7 @@ const production = process.env.ENV === 'production';
         StoreRouterConnectingModule,
 
         // Store devtools instrument the store retaining past versions of state and recalculating new states.
-        !production ? StoreDevtoolsModule.instrument() : [],
+        // !production ? StoreDevtoolsModule.instrument() : [],
 
         // EffectsModule.forRoot() is imported once in the root module
         // and sets up the effects class to be initialized immediately when the application starts.

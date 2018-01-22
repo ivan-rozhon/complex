@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 
 import * as PagesActions from './pages-actions';
 import * as fromBoard from './../board-reducers';
-import { Pages, Page, Content } from '../board.model';
+import { Pages, Page, Content, ContentData } from '../board.model';
 import { PickItemPipe } from './../../shared/pipes/pickItem.pipe';
 
 @Component({
@@ -115,11 +115,11 @@ export class PagesComponent implements OnInit, OnDestroy {
 
     /**
      * dispatch action for save page`s content
-     * @param id ID of data to save
-     * @param content page`s content to save
+     * @param dataId ID of data to save
+     * @param contentData page`s content to save
      */
-    saveContent({ id, content }: { id: string, content: Content }): void {
-        this.store.dispatch(new PagesActions.SaveContent({ id, content }));
+    saveContent({ dataId, contentData }: { dataId: string, contentData: ContentData }): void {
+        this.store.dispatch(new PagesActions.SaveContent({ dataId, contentData }));
     }
 
     /**

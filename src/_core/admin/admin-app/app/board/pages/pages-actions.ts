@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { Pages, Content } from '../board.model';
+import { Pages, Content, ContentData } from '../board.model';
 
 // load pages actions
 export const LOAD_PAGES = '[Board Pages] Load Pages';
@@ -156,15 +156,15 @@ export class SaveContent implements Action {
     readonly type = SAVE_CONTENT;
 
     constructor(public payload: {
-        id: string;
-        content: Content
+        dataId: string;
+        contentData: ContentData
     }) { }
 }
 
 export class SaveContentSuccess implements Action {
     readonly type = SAVE_CONTENT_SUCCESS;
 
-    constructor(public payload: Content) { }
+    constructor(public payload: ContentData) { }
 }
 
 export class SaveContentFail implements Action {

@@ -5,7 +5,7 @@ import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 
-import { Image, Gallery, Pages, Content } from './board.model';
+import { Image, Gallery, Pages, Content, ContentData } from './board.model';
 import { BoardService } from './board.service';
 import * as MediaActions from './media/media-actions';
 import * as PagesActions from './pages/pages-actions';
@@ -148,6 +148,16 @@ export class BoardEffects {
                     this.boardService.updatePageItem(payload.pages, payload.indexes, 'data', '')
                 ))
                 .catch(err => of(new PagesActions.DeleteContentFail()))
+        );
+
+    @Effect()
+    saveContent$: Observable<Action> = this.actions$.ofType(PagesActions.SAVE_CONTENT)
+        .map((action: PagesActions.SaveContent) => action.payload)
+        .switchMap((payload: { dataId: string, contentData: ContentData }) =>
+            this.boardService
+                .saveContent<ContentData>(payload.dataId, payload.contentData)
+                .map((contentData: ContentData) => new PagesActions.SaveContentSuccess(contentData))
+                .catch(err => of(new PagesActions.SaveContentFail()))
         );
     // ===
 }

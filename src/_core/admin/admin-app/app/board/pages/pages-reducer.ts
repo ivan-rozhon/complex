@@ -102,6 +102,16 @@ export function reducer(
             };
         }
 
+        case PagesActions.SAVE_CONTENT_SUCCESS: {
+            return {
+                ...state,
+                content: Object.assign({}, state.content, {
+                    // update just data (id and _meta is still same afte save)
+                    data: action.payload
+                })
+            };
+        }
+
         default: {
             return state;
         }

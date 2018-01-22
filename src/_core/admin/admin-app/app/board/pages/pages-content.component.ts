@@ -2,7 +2,7 @@ import { Component, OnChanges, SimpleChanges, Input, Output, ViewChild, ElementR
 
 import * as UIkit from 'uikit';
 
-import { Content } from './../board.model';
+import { Content, ContentData } from './../board.model';
 import { PickItemPipe } from '../../shared/pipes/pickItem.pipe';
 
 @Component({
@@ -13,7 +13,7 @@ import { PickItemPipe } from '../../shared/pipes/pickItem.pipe';
 export class PagesContentComponent implements OnChanges {
     @Input() content: Content;
 
-    @Output() onSaveContent = new EventEmitter<{ id: string, content: Content }>();
+    @Output() onSaveContent = new EventEmitter<{ dataId: string, contentData: ContentData }>();
 
     @ViewChild('caContentModal') contentModalElementRef: ElementRef;
 
@@ -53,10 +53,10 @@ export class PagesContentComponent implements OnChanges {
 
     /**
      * save page content
-     * @param id data ID
-     * @param content content to save
+     * @param dataId data ID
+     * @param contentData content to save
      */
-    saveContent(id: string, content: Content) {
-        this.onSaveContent.emit({ id, content });
+    saveContent(dataId: string, contentData: ContentData) {
+        this.onSaveContent.emit({ dataId, contentData });
     }
 }
