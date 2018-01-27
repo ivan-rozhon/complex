@@ -6,7 +6,7 @@
             <div>
                 <a *ngIf="!isFirst" class="uk-icon-link uk-margin-small-right" uk-icon="icon: triangle-up" title="Move Up"></a>
                 <a *ngIf="!isLast" class="uk-icon-link uk-margin-small-right" uk-icon="icon: triangle-down" title="Move Down"></a>
-                <a class="uk-icon-link uk-margin-small-right" uk-icon="icon: trash" title="Delete"></a>
+                <a class="uk-icon-link uk-margin-small-right" uk-icon="icon: trash" title="Delete" (click)="deleteContent(index)"></a>
             </div>
 
             <hr class="uk-divider">

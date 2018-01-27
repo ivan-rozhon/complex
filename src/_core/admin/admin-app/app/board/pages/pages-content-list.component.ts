@@ -57,4 +57,12 @@ export class PagesContentListComponent {
             this.pickItem.transform(this.contentValue[index], 'key')
         ] = value;
     }
+
+    /**
+     * delete content item
+     * @param index index of content item to delete
+     */
+    deleteContent(index: number): void {
+        this.contentValue.splice(index, 1);
+    }
 }
