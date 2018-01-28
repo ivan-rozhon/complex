@@ -17,8 +17,18 @@
             <hr class="uk-divider">
 
             <div>
+                <!-- Add item -->
                 <a class="uk-icon-link uk-margin-small-right" uk-icon="icon: plus" title="Add"></a>
-                <a class="uk-icon-link uk-margin-small-right" uk-icon="icon: plus-circle" title="Add Child"></a>
+                <div uk-dropdown="mode: click">
+                    <ul class="uk-nav uk-dropdown-nav">
+                        <li *ngFor="let available of filterAvailable(contentKey, contentMetadata[contentKey]?.available | caMapToIterable, contentValue)">
+                            <a (click)="addContent(available, index)">{{ contentMetadata[available | caPickItem:'key']?.label }}</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Add sub item -->
+                <!-- <a *ngIf="contentMetadata[input | caPickItem:'key']?.type === 'array'" class="uk-icon-link uk-margin-small-right" uk-icon="icon: plus-circle" title="Add Child"></a> -->
             </div>
         </li>
     </ng-container>

@@ -1,6 +1,6 @@
 <span [ngSwitch]="inputMetadata?.type">
     <div *ngSwitchCase="'string'" class="uk-inline uk-margin-small-right">
-        <label>{{ inputMetadata[inputKey]?.label }}</label>
+        <label>{{ inputMetadata?.label }}</label>
         <input class="uk-input" type="text" [(ngModel)]="inputValue">
     </div>
 

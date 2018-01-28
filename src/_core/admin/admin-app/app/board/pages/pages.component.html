@@ -1,12 +1,12 @@
 <!-- Action bar -->
-<ul class="uk-iconnav">
-    <li>
-        <a uk-icon="icon: refresh" (click)="loadPages()" [title]="'Refresh'"></a>
-    </li>
-    <li>
-        <a uk-icon="icon: check" (click)="savePages(pages)" [title]="'Save'"></a>
-    </li>
-</ul>
+<p uk-margin>
+    <button class="uk-button uk-button-default" (click)="loadPages()" [title]="'Refresh'">
+        <span uk-icon="icon: refresh"></span>
+    </button>
+    <button class="uk-button uk-button-default" (click)="savePages(pages)" [title]="'Save'">
+        <span uk-icon="icon: check"></span>
+    </button>
+</p>
 
 <hr>
 

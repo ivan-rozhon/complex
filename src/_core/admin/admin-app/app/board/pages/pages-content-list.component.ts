@@ -65,4 +65,24 @@ export class PagesContentListComponent {
     deleteContent(index: number): void {
         this.contentValue.splice(index, 1);
     }
+
+    /**
+     * filter available content items according to type of content arr - common/generic and already used items
+     * @param contentKey type of content arr (common/generic)
+     * @param available arr of available items
+     * @param used already used items
+     */
+    filterAvailable(contentKey: string, available: any[], used: any[]): any[] {
+        return available
+            .filter(val =>
+                contentKey === 'common'
+                    // if type of content is 'common' - look into used arr and filter already used ones
+                    ? used.findIndex(value =>
+                        // compare names of keys of available/used items
+                        Object.keys(value)[0] === Object.keys(val)[0]
+                    ) === -1
+                    // ...in 'generic' type case - don`t filter anything
+                    : true
+            );
+    }
 }
