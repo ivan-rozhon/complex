@@ -32,8 +32,9 @@ module.exports = {
                     loader: 'file-loader', options: {
                         name: '[name].[ext]',
                         outputPath: '_core/web/assets/',
-                        // outputPath: '_core/web/styles/', // TODO... (this works, but it is wrong)
-                        publicPath: '',
+                        // outputPath: '_core/web/styles/', // TODO... on update to 1.1.8 (this works, but it is wrong)
+                        // publicPath: ''
+                        publicPath: '../assets/',
                     }
                 }]
             },
