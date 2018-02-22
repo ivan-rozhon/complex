@@ -1,6 +1,12 @@
 $tm-color-primary: #1e87f0;
 $tm-color-black: #000;
 
+// GENERAL
+html,
+body {
+    height: 100%;
+}
+
 // <<< web-body-nav >>>
 .tm-navbar-logo {
     width: 40px;
@@ -11,8 +17,16 @@ $tm-color-black: #000;
     right: 0;
     left: 0;
     z-index: 980;
-    background: transparentize($tm-color-black, .5);
+    background: transparentize($tm-color-black, .7);
 }
 // >>> web-body-nav <<<
+
+.uk-navbar-dropbar, {
+    background: transparentize($tm-color-black, .6);
+}
+
+.uk-navbar-dropdown {
+    background: transparent;
+}
 
 // UTILITIES
