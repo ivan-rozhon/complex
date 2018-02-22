@@ -1,0 +1,18 @@
+$tm-color-primary: #1e87f0;
+$tm-color-black: #000;
+
+// <<< web-body-nav >>>
+.tm-navbar-logo {
+    width: 40px;
+}
+
+.tm-header-transparent {
+    position: absolute;
+    right: 0;
+    left: 0;
+    z-index: 980;
+    background: transparentize($tm-color-black, .5);
+}
+// >>> web-body-nav <<<
+
+// UTILITIES

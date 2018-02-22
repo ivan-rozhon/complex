@@ -1,13 +1,17 @@
-<div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
-    <nav class="uk-navbar-container" uk-navbar>
-        <div class="uk-navbar-left">
-            <a href="" class="uk-navbar-item uk-logo">
-                <img src="[[baseUrl]]_source/media/shared/logo-32x32.png?v=[[logoVersion]]" alt="[Complex] logo">
-            </a>
-
-            <ul class="uk-navbar-nav">
-                [[navbar]]
-            </ul>
-        </div>
-    </nav>
+<div class="uk-visible@m tm-header-transparent">
+    <div class="uk-navbar-container uk-navbar-transparent uk-light">
+    <!-- <div class="uk-navbar-container"> -->
+        <nav class="uk-container" uk-navbar="{ dropbar: true; }">
+            <div class="uk-navbar-left">
+                <a href="[[baseUrl]]" class="uk-navbar-item uk-logo">
+                    <img class="tm-navbar-logo" src="[[baseUrl]]_source/media/shared/logo.svg?v=[[logoVersion]]" alt="[Complex] logo">
+                </a>
+            </div>
+            <div class="uk-navbar-center">
+                <ul class="uk-navbar-nav">
+                    [[navbar]]
+                </ul>
+            </div>
+        </nav>
+    </div>
 </div>
