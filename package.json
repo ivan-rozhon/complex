@@ -50,7 +50,7 @@
     "@types/node": "9.4.6",
     "angular-router-loader": "0.8.2",
     "angular2-template-loader": "0.6.2",
-    "awesome-typescript-loader": "3.4.1",
+    "awesome-typescript-loader": "3.5.0",
     "concurrently": "3.5.1",
     "copy-webpack-plugin": "4.4.2",
     "css-loader": "0.28.10",
