@@ -4,8 +4,8 @@
     <ng-container *ngFor="let input of contentValue; let index = index; first as isFirst; last as isLast">
         <li>
             <div>
-                <a *ngIf="!isFirst" class="uk-icon-link uk-margin-small-right" uk-icon="icon: triangle-up" title="Move Up"></a>
-                <a *ngIf="!isLast" class="uk-icon-link uk-margin-small-right" uk-icon="icon: triangle-down" title="Move Down"></a>
+                <a *ngIf="!isFirst" class="uk-icon-link uk-margin-small-right" uk-icon="icon: triangle-up" title="Move Up" (click)="moveItem('up', index)"></a>
+                <a *ngIf="!isLast" class="uk-icon-link uk-margin-small-right" uk-icon="icon: triangle-down" title="Move Down" (click)="moveItem('down', index)"></a>
                 <a class="uk-icon-link uk-margin-small-right" uk-icon="icon: trash" title="Delete" (click)="deleteContent(index)"></a>
             </div>
 

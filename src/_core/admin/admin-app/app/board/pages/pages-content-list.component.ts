@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { PickItemPipe } from './../../shared/pipes/pickItem.pipe';
+import { SharedService } from './../../shared/shared.service';
 
 @Component({
     selector: 'ca-pages-content-list',
@@ -33,7 +34,8 @@ export class PagesContentListComponent {
     }
 
     constructor(
-        private pickItem: PickItemPipe
+        private pickItem: PickItemPipe,
+        private sharedService: SharedService
     ) { }
 
     /**
@@ -64,6 +66,26 @@ export class PagesContentListComponent {
      */
     deleteContent(index: number): void {
         this.contentValue.splice(index, 1);
+    }
+
+    /**
+     * move page item in array of pages
+     * @param direction up/down (increase/decrease) index
+     * @param index current index of page item
+     */
+    moveItem(direction: 'up' | 'down', index: number): void {
+        // get new index according to direction of move
+        const newIndex = direction === 'up'
+            ? index - 1
+            : direction === 'down'
+                ? index + 1
+                : null;
+
+        // do not anything if newIndex doesn`t exists
+        if (newIndex === null) { return; }
+
+        // reorder items in array
+        this.contentValue = this.sharedService.moveArrayItem(this.contentValue, index, newIndex);
     }
 
     /**

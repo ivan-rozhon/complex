@@ -5,7 +5,7 @@
         <li *ngIf="!page.sectionId">
             <div>
                 <a *ngIf="page.abstract ? page.abstract === 'none' : true" class="uk-icon-link uk-margin-small-right" uk-icon="icon: file-edit" title="Edit Content" (click)="editContent({ dataId: page.data, templateId: page.template, index: index })"></a>
-                <a *ngIf="page.abstract ? page.abstract === 'none' : page.data?.length" class="uk-icon-link uk-margin-small-right" uk-icon="icon: close" title="Clear Content" (click)="deleteContent({ dataId: page.data, indexes: [] }, index)"></a>
+                <a *ngIf="page.abstract ? (page.abstract === 'none' && page.data?.length) : page.data?.length" class="uk-icon-link uk-margin-small-right" uk-icon="icon: close" title="Clear Content" (click)="deleteContent({ dataId: page.data, indexes: [] }, index)"></a>
                 <a *ngIf="!isFirst" class="uk-icon-link uk-margin-small-right" uk-icon="icon: triangle-up" title="Move Up" (click)="movePage('up', index)"></a>
                 <a *ngIf="!isLast" class="uk-icon-link uk-margin-small-right" uk-icon="icon: triangle-down" title="Move Down" (click)="movePage('down', index)"></a>
                 <a *ngIf="!(pages.length === 1) || schemaMetadata.add.length !== schemaDepth" class="uk-icon-link uk-margin-small-right"

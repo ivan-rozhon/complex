@@ -126,14 +126,19 @@ export class BoardEffects {
             this.boardService
                 .createContent<string>(payload.templateId)
                 // .do((dataId: string) => this.boardService.updatePageItem(payload.pages, payload.indexes, 'data', dataId))
-                .concatMap((dataId: string) => of(...[
-                    new PagesActions.CreateContentSuccess(
-                        // update pages schema with new data ID via board service
-                        this.boardService.updatePageItem(payload.pages, payload.indexes, 'data', dataId)
-                    ),
-                    // load content (immediately after creating it)
-                    new PagesActions.LoadContent({ dataId, templateId: payload.templateId })
-                ]))
+                .concatMap((dataId: string) => {
+                    // update pages schema with new data ID via board service
+                    const updatedPages = this.boardService.updatePageItem(payload.pages, payload.indexes, 'data', dataId);
+
+                    // update pages, save pages, load content
+                    return of(...[
+                        new PagesActions.CreateContentSuccess(updatedPages),
+                        // save schema on BE
+                        new PagesActions.SavePages(updatedPages),
+                        // load content (immediately after creating it)
+                        new PagesActions.LoadContent({ dataId, templateId: payload.templateId })
+                    ]);
+                })
                 .catch(err => of(new PagesActions.CreateContentFail()))
         );
 
@@ -143,10 +148,16 @@ export class BoardEffects {
         .switchMap((payload: { dataId: string, indexes: (number | string)[], pages: Pages }) =>
             this.boardService
                 .deleteContent<null>(payload.dataId)
-                .map(() => new PagesActions.DeleteContentSuccess(
+                .concatMap(() => {
                     // update pages schema - delete removed data ID (set empty string)
-                    this.boardService.updatePageItem(payload.pages, payload.indexes, 'data', '')
-                ))
+                    const updatedPages = this.boardService.updatePageItem(payload.pages, payload.indexes, 'data', '');
+
+                    return of(...[
+                        new PagesActions.DeleteContentSuccess(updatedPages),
+                        // save schema on BE
+                        new PagesActions.SavePages(updatedPages),
+                    ]);
+                })
                 .catch(err => of(new PagesActions.DeleteContentFail()))
         );
 
