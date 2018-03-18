@@ -11,12 +11,14 @@ import { PickItemPipe } from './../../shared/pipes/pickItem.pipe';
 
 @Component({
     selector: 'ca-pages',
-    templateUrl: 'pages.component.html'
+    templateUrl: 'pages.component.html',
+    styleUrls: ['pages.component.scss']
 })
 export class PagesComponent implements OnInit, OnDestroy {
     // pages streams
     pages$: Observable<Pages>;
     pagesLoading$: Observable<boolean>;
+    pagesSaving$: Observable<boolean>;
     // content streams
     content$: Observable<Content>;
     contentLoading$: Observable<boolean>;
@@ -24,16 +26,6 @@ export class PagesComponent implements OnInit, OnDestroy {
     pagesSubscription: Subscription;
     // pages
     pages: Pages;
-
-    // editorContent = '';
-    // colors = [
-    //     '#F44336',
-    //     '#3F51B5',
-    //     '#CDDC39',
-    //     '#4CAF50',
-    //     '#FFC107',
-    //     '#795548'
-    // ];
 
     constructor(
         private store: Store<fromBoard.State>,
@@ -44,6 +36,7 @@ export class PagesComponent implements OnInit, OnDestroy {
         // pages & loading indication store streams
         this.pages$ = this.store.select(fromBoard.getPages);
         this.pagesLoading$ = this.store.select(fromBoard.getPagesLoading);
+        this.pagesSaving$ = this.store.select(fromBoard.getPagesSaving);
 
         // content & loading indication store streams
         this.content$ = this.store.select(fromBoard.getContent);
@@ -133,6 +126,11 @@ export class PagesComponent implements OnInit, OnDestroy {
             // use pickItemPipe to get proper key
             this.pickItem.transform(this.pages.webSchema, 'key', index)
         ] = value;
+    }
+
+    /** check if some pages exists */
+    get pagesExists(): boolean {
+        return this.pages.webSchema.webSchemaMain.length !== 0;
     }
 
     ngOnDestroy(): void {

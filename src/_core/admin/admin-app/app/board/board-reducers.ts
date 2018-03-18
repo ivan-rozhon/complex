@@ -47,6 +47,7 @@ export const selectBoardPagesState = createSelector(
 // pages
 export const getPages = createSelector(selectBoardPagesState, fromPages.getPages);
 export const getPagesLoading = createSelector(selectBoardPagesState, fromPages.getPagesLoading);
+export const getPagesSaving = createSelector(selectBoardPagesState, fromPages.getPagesSaving);
 // content
 export const getContent = createSelector(selectBoardPagesState, fromPages.getContent);
 export const getContentLoading = createSelector(selectBoardPagesState, fromPages.getContentLoading);

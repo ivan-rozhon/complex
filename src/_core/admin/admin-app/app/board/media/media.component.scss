@@ -1,0 +1,9 @@
+:host {
+    display: flex;
+    flex: 1;
+    flex-flow: column nowrap;
+}
+
+.uk-tab {
+    flex-shrink: 0;
+}

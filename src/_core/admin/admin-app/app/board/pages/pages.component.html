@@ -1,9 +1,9 @@
 <!-- Action bar -->
-<p uk-margin>
-    <button class="uk-button uk-button-default" (click)="loadPages()" [title]="'Refresh'">
+<p class="uk-margin-remove">
+    <button class="uk-button uk-button-default" [title]="'Refresh'" [disabled]="(pagesSaving$ | async) || (pagesLoading$ | async)" (click)="loadPages()">
         <span uk-icon="icon: refresh"></span>
     </button>
-    <button class="uk-button uk-button-default" (click)="savePages(pages)" [title]="'Save'">
+    <button class="uk-button uk-button-default" [disabled]="(pagesSaving$ | async) || (pagesLoading$ | async) || !pagesExists" [title]="'Save'" (click)="savePages(pages)">
         <span uk-icon="icon: check"></span>
     </button>
 </p>
@@ -16,7 +16,7 @@
 </div>
 
 <!-- Schemes/Pages -->
-<div *ngIf="!(pagesLoading$ | async)">
+<div *ngIf="!(pagesLoading$ | async)" class="pages-list">
     <ng-container *ngFor="let schema of pages?.webSchema | caMapToIterable; let index = index">
         <span class="uk-text-lead">{{ pages?._metadata?.schemes[(schema | caPickItem:'key')]?.name }}</span>
         <ca-pages-list [pages]="schema | caPickItem:'value'" [inputMetadata]="pages?._metadata?.data" [schemaMetadata]="pages?._metadata?.schemes[(schema | caPickItem:'key')]"

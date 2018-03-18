@@ -4,8 +4,8 @@
         <!-- Main pages & Other pages -->
         <li *ngIf="!page.sectionId">
             <div>
-                <a *ngIf="page.abstract ? page.abstract === 'none' : true" class="uk-icon-link uk-margin-small-right" uk-icon="icon: file-edit" title="Edit Content" (click)="editContent({ dataId: page.data, templateId: page.template, index: index })"></a>
-                <a *ngIf="page.abstract ? (page.abstract === 'none' && page.data?.length) : page.data?.length" class="uk-icon-link uk-margin-small-right" uk-icon="icon: close" title="Clear Content" (click)="deleteContent({ dataId: page.data, indexes: [] }, index)"></a>
+                <a class="uk-icon-link uk-margin-small-right" uk-icon="icon: file-edit" title="Edit Content" (click)="editContent({ dataId: page.data, templateId: page.template, index: index })"></a>
+                <a *ngIf="page.data?.length" class="uk-icon-link uk-margin-small-right" uk-icon="icon: close" title="Clear Content" (click)="deleteContent({ dataId: page.data, indexes: [] }, index)"></a>
                 <a *ngIf="!isFirst" class="uk-icon-link uk-margin-small-right" uk-icon="icon: triangle-up" title="Move Up" (click)="movePage('up', index)"></a>
                 <a *ngIf="!isLast" class="uk-icon-link uk-margin-small-right" uk-icon="icon: triangle-down" title="Move Down" (click)="movePage('down', index)"></a>
                 <a *ngIf="!(pages.length === 1) || schemaMetadata.add.length !== schemaDepth" class="uk-icon-link uk-margin-small-right"
@@ -15,7 +15,8 @@
             <hr class="uk-divider">
 
             <ca-pages-input *ngFor="let input of page | caMapToIterable; let inputIndex = index" [inputKey]="input | caPickItem:'key'"
-                [inputValue]="input | caPickItem:'value'" (inputValueChange)="updateInput(index, inputIndex, $event)" [inputMetadata]="inputMetadata"></ca-pages-input>
+                [inputValue]="input | caPickItem:'value'" [pageData]="page.data" [inputMetadata]="inputMetadata" (inputValueChange)="updateInput(index, inputIndex, $event)"
+                (onDeleteContent)="deleteContent({ dataId: page.data, indexes: [] }, index)"></ca-pages-input>
 
             <hr class="uk-divider">
 

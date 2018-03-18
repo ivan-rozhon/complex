@@ -1,5 +1,6 @@
 <?php
 
+/** Used to update template and content (if already created) on page - currently is not used */
 class ApiDataUpdate {
 
     public function __construct(Api $api) {

@@ -1,4 +1,4 @@
-<div class="uk-padding uk-grid-divider" uk-grid>
+<div class="uk-padding uk-grid-divider uk-flex-1" uk-grid>
     <div class="uk-width-auto">
         <ul class="uk-nav uk-nav-default">
             <li [routerLink]="['/pages']" [routerLinkActive]="['uk-active']">
@@ -25,7 +25,7 @@
             </li>
         </ul>
     </div>
-    <div class="uk-width-expand">
+    <div class="uk-width-expand uk-flex">
         <router-outlet></router-outlet>
     </div>
 </div>

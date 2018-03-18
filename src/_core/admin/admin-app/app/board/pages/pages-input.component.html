@@ -11,7 +11,7 @@
 
     <div *ngSwitchCase="'list'" class="uk-inline uk-margin-small-right">
         <label>{{ inputMetadata[inputKey]?.label }}</label>
-        <select class="uk-select" [(ngModel)]="inputValue">
+        <select class="uk-select" [(ngModel)]="inputValue" (change)="selectChange($event, inputKey)">
             <option *ngFor="let option of inputMetadata[inputKey]?.select" [value]="option.key">{{ option.value }}</option>
         </select>
     </div>

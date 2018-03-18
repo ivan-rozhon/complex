@@ -4,7 +4,8 @@ import { AuthService } from './../core/auth.service';
 
 @Component({
     selector: 'ca-board',
-    templateUrl: 'board.component.html'
+    templateUrl: 'board.component.html',
+    styleUrls: ['board.component.scss']
 })
 
 export class BoardComponent {

@@ -11,6 +11,7 @@ import { Image, Gallery } from './../board.model';
 @Component({
     selector: 'ca-media',
     templateUrl: 'media.component.html',
+    styleUrls: ['media.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 

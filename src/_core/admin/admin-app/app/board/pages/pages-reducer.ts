@@ -6,6 +6,7 @@ import { Pages, Content } from './../board.model';
 export interface State {
     pages: Pages;
     pagesLoading: boolean;
+    pagesSaving: boolean;
     content: Content;
     contentLoading: boolean;
 }
@@ -28,6 +29,7 @@ export const initialState: State = {
         }
     },
     pagesLoading: false,
+    pagesSaving: false,
     content: {
         _metadata: {},
         id: '',
@@ -42,16 +44,21 @@ export function reducer(
     action: PagesActions.Actions
 ): State {
     switch (action.type) {
-        case PagesActions.LOAD_PAGES:
-        case PagesActions.SAVE_PAGES: {
+        case PagesActions.LOAD_PAGES: {
             return {
                 ...state,
                 pagesLoading: true
             };
         }
 
-        case PagesActions.LOAD_PAGES_SUCCESS:
-        case PagesActions.SAVE_PAGES_SUCCESS: {
+        case PagesActions.SAVE_PAGES: {
+            return {
+                ...state,
+                pagesSaving: true
+            };
+        }
+
+        case PagesActions.LOAD_PAGES_SUCCESS: {
             return {
                 ...state,
                 pages: action.payload,
@@ -59,13 +66,29 @@ export function reducer(
             };
         }
 
-        case PagesActions.LOAD_PAGES_FAIL:
-        case PagesActions.SAVE_PAGES_FAIL: {
+        case PagesActions.SAVE_PAGES_SUCCESS: {
+            return {
+                ...state,
+                pages: action.payload,
+                pagesSaving: false
+            };
+        }
+
+        case PagesActions.LOAD_PAGES_FAIL: {
             return {
                 ...state,
                 // if pages load/save fail - get initial state
                 pages: initialState.pages,
                 pagesLoading: false
+            };
+        }
+
+        case PagesActions.SAVE_PAGES_FAIL: {
+            return {
+                ...state,
+                // if pages load/save fail - get initial state
+                pages: initialState.pages,
+                pagesSaving: false
             };
         }
 
@@ -123,6 +146,7 @@ export function reducer(
 // pages
 export const getPages = (state: State) => state.pages;
 export const getPagesLoading = (state: State) => state.pagesLoading;
+export const getPagesSaving = (state: State) => state.pagesSaving;
 // content
 export const getContent = (state: State) => state.content;
 export const getContentLoading = (state: State) => state.contentLoading;

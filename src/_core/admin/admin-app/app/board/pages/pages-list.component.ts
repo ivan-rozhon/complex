@@ -85,8 +85,8 @@ export class PagesListComponent {
                     // emit event to delete gallery
                     this.onCreateContent.emit({ templateId, indexes: [index] });
                 },
-                // catch a rejection
-                () => { });
+                    // catch a rejection
+                    () => { });
         }
     }
 
@@ -116,11 +116,11 @@ export class PagesListComponent {
         UIkit.modal
             .confirm(`Delete page content. Are you sure?`)
             .then(() => {
-                // emit event to delete gallery
+                // emit event to delete content
                 this.onDeleteContent.emit({ dataId, indexes: [index] });
             },
-            // catch a rejection
-            () => { });
+                // catch a rejection
+                () => { });
     }
 
     /**

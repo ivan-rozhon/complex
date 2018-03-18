@@ -1,4 +1,7 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, ChangeDetectorRef } from '@angular/core';
+
+import * as _ from 'lodash/lodash';
+import * as UIkit from 'uikit';
 
 import { InputMetatdata } from './../board.model';
 import { PickItemPipe } from './../../shared/pipes/pickItem.pipe';
@@ -8,8 +11,9 @@ import { PickItemPipe } from './../../shared/pipes/pickItem.pipe';
     templateUrl: 'pages-input.component.html'
 })
 
-export class PagesInputComponent {
+export class PagesInputComponent implements OnChanges {
     inputValueModel: any;
+    previousInputValue: any; // last input value (before new/changed one)
 
     @Input() inputKey: string;
     @Input()
@@ -17,8 +21,10 @@ export class PagesInputComponent {
         return this.inputValueModel;
     }
     @Input() inputMetadata: InputMetatdata;
+    @Input() pageData: string;
 
     @Output() inputValueChange = new EventEmitter<any>();
+    @Output() onDeleteContent = new EventEmitter<any>();
 
     // inputValue model setter
     set inputValue(value: any) {
@@ -27,8 +33,16 @@ export class PagesInputComponent {
     }
 
     constructor(
-        private pickItem: PickItemPipe
+        private pickItem: PickItemPipe,
+        private ref: ChangeDetectorRef
     ) { }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        // always save last previous input value
+        this.previousInputValue = changes.inputValue
+            ? _.cloneDeep(changes.inputValue.currentValue)
+            : this.previousInputValue;
+    }
 
     /**
      * update input -> inputValue (inputValueModel) model (two-way data binding)
@@ -40,5 +54,28 @@ export class PagesInputComponent {
             // use pickItemPipe to get proper key
             this.pickItem.transform(this.inputValue, 'key', index)
         ] = value;
+    }
+
+    /**
+     * on select change (pick value)
+     * @param event change event
+     * @param inputKey key of input
+     */
+    selectChange(event: Event, inputKey: string): void {
+        if (inputKey === 'template' && this.pageData) {
+            // HOTFIX: https://github.com/angular/angular/issues/13683
+            this.inputValue = this.previousInputValue;
+            event.target['value'] = this.previousInputValue;
+
+            // show info dialog before about delete content (data ID)
+            UIkit.modal
+                .confirm('Page content must be deleted before changing the template.')
+                .then(() => {
+                    // emit event to delete content...
+                    this.onDeleteContent.emit();
+                },
+                    // catch a rejection
+                    () => { });
+        }
     }
 }
