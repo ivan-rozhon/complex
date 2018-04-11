@@ -17,4 +17,12 @@ ca-editor {
     td {
         border: 1px solid $ca-border-color;
     }
+
+    [contenteditable] {
+        ul {
+            li {
+                list-style: square;
+            }
+        }
+    }
 }
