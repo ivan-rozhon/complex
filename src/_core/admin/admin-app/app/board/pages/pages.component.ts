@@ -4,9 +4,10 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 
+import * as MediaActions from './../media/media-actions';
 import * as PagesActions from './pages-actions';
 import * as fromBoard from './../board-reducers';
-import { Pages, Page, Content, ContentData } from '../board.model';
+import { Pages, Page, Content, ContentData, Gallery } from '../board.model';
 import { PickItemPipe } from './../../shared/pipes/pickItem.pipe';
 
 @Component({
@@ -49,6 +50,9 @@ export class PagesComponent implements OnInit, OnDestroy {
 
         // load pages on init
         this.loadPages();
+
+        // load list of galleries
+        this.store.dispatch(new MediaActions.LoadGalleries());
     }
 
     /** dispatch action for load pages */

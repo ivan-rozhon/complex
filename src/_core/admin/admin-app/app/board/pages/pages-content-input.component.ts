@@ -1,12 +1,20 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+
+import { Observable } from 'rxjs/Observable';
+import { Store } from '@ngrx/store';
+import * as fromBoard from './../board-reducers';
+
+import { Gallery } from './../board.model';
 
 @Component({
     selector: 'ca-pages-content-input',
     templateUrl: 'pages-content-input.component.html'
 })
 
-export class PagesContentInputComponent {
+export class PagesContentInputComponent implements OnInit {
     inputValueModel: any;
+    // media streams
+    galleries$: Observable<Gallery[]>;
 
     @Input() inputKey: string;
     @Input()
@@ -23,5 +31,12 @@ export class PagesContentInputComponent {
         this.inputValueChange.emit(this.inputValueModel);
     }
 
-    constructor() { }
+    constructor(
+        private store: Store<fromBoard.State>,
+    ) { }
+
+    ngOnInit(): void {
+        // galleries
+        this.galleries$ = this.store.select(fromBoard.getGalleries);
+    }
 }

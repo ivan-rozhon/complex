@@ -16,7 +16,11 @@
                 "type": "generic",
                 "label": "Generic",
                 "available": {
-                    "editor": ""
+                    "editor": "",
+                    "gallery": {
+                        "id": "",
+                        "name": ""
+                    }
                 }
             },
             "title": {
@@ -34,6 +38,12 @@
                     "#FFC107",
                     "#795548"
                 ]
+            },
+            "gallery": {
+                "type": "gallery",
+                "label": "Gallery",
+                "labelId": "Gallery Id",
+                "labelName": "Gallery Name"
             }
         }
     }

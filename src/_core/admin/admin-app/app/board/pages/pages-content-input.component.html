@@ -7,4 +7,20 @@
     <div *ngSwitchCase="'editor'" class="uk-inline uk-margin-small-right">
         <ca-editor [(editorContent)]="inputValue" [foreColors]="inputMetadata?.colors" [backColors]="inputMetadata?.colors"></ca-editor>
     </div>
+
+    <div *ngSwitchCase="'gallery'">
+        <div class="uk-inline uk-margin-small uk-width-1-1">
+            <label>{{ inputMetadata?.labelName }}</label>
+            <input class="uk-input" type="text" [(ngModel)]="inputValue.name">
+        </div>
+
+        <div class="uk-margin-small">
+            <label>{{ inputMetadata?.labelId }}</label>
+            <div class="uk-form-controls">
+                <select class="uk-select" [(ngModel)]="inputValue.id">
+                    <option *ngFor="let gallery of galleries$ | async as galleries" [value]="gallery.name">{{ gallery.name }}</option>
+                </select>
+            </div>
+        </div>
+    </div>
 </span>
