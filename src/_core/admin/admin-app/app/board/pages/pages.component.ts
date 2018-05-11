@@ -51,7 +51,8 @@ export class PagesComponent implements OnInit, OnDestroy {
         // load pages on init
         this.loadPages();
 
-        // load list of galleries
+        // load list of images and galleries
+        this.store.dispatch(new MediaActions.LoadImages());
         this.store.dispatch(new MediaActions.LoadGalleries());
     }
 

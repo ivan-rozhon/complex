@@ -9,7 +9,8 @@
                 "type": "common",
                 "label": "Common",
                 "available": {
-                    "title": ""
+                    "title": "",
+                    "showTitle": ""
                 }
             },
             "generic": {
@@ -26,6 +27,10 @@
             "title": {
                 "type": "string",
                 "label": "Title"
+            },
+            "showTitle": {
+                "type": "boolean",
+                "label": "Show title"
             },
             "editor": {
                 "type": "editor",

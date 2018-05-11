@@ -1,19 +1,27 @@
-import { Component, Input, Output, EventEmitter, ElementRef, ViewChild } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ElementRef, ViewChild, OnInit } from '@angular/core';
+
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
 
 import * as _ from 'lodash/lodash';
 import * as $ from 'jquery';
 
+import * as fromBoard from './../../board/board-reducers';
 import { ContentEditableDirective } from './../directives/content-editable.directive';
+import { Image } from '../../board/board.model';
 
 @Component({
     selector: 'ca-editor',
     templateUrl: 'editor.component.html',
     styleUrls: ['editor.component.scss']
 })
-export class EditorComponent {
+export class EditorComponent implements OnInit {
     editorContentValue: string;
     contenteditable = true;
     contenteditableView = true;
+    selectedImage: string;
+    // media streams
+    images$: Observable<Image[]>;
 
     @Input() foreColors: string[] = [];
     @Input() backColors: string[] = [];
@@ -33,7 +41,12 @@ export class EditorComponent {
 
     @ViewChild('caContentEditable') contentEditableElementRef: ContentEditableDirective;
 
-    constructor() { }
+    constructor(private store: Store<fromBoard.State>) { }
+
+    ngOnInit(): void {
+        // images store stream
+        this.images$ = this.store.select(fromBoard.getImages);
+    }
 
     /** Execute command via execCommand... */
     execCommand(commandId: string, value?: any): void {
@@ -63,9 +76,22 @@ export class EditorComponent {
         }
     }
 
-    /** Handle before 'insertImage' command */
-    insertImage(): void {
+    /**
+     * Handle before 'insertImage' command
+     * @param selectedImage name of selected image
+     */
+    insertImage(selectedImage: string): void {
+        // select native element of content editable element
+        const contentEditableNativeEl = this.contentEditableElementRef.elementRef.nativeElement;
 
+        // focus content editable element again
+        contentEditableNativeEl.focus();
+
+        // insert image tag with selected image
+        this.execCommand(
+            'insertHTML',
+            `<img class="inner-img" src="_source/media/images/${selectedImage}">`
+        );
     }
 
     /** Handle inserting table by 'insertHtml' command */

@@ -1,4 +1,8 @@
 <span [ngSwitch]="inputMetadata?.type">
+    <div *ngSwitchCase="'boolean'" class="uk-inline uk-margin-small-right">
+        <label><input class="uk-checkbox" type="checkbox" [(ngModel)]="inputValue"> {{ inputMetadata?.label }}</label>
+    </div>
+
     <div *ngSwitchCase="'string'" class="uk-inline uk-margin-small-right uk-width-1-1">
         <label>{{ inputMetadata?.label }}</label>
         <input class="uk-input" type="text" [(ngModel)]="inputValue">

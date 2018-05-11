@@ -68,9 +68,17 @@
         <button class="uk-button uk-button-default uk-button-small" (click)="execCommand('unlink')" title="Unlink">
             <i class="fa fa-unlink"></i>
         </button>
-        <button class="uk-button uk-button-default uk-button-small" (click)="insertImage()" title="Insert Image">
+        <button class="uk-button uk-button-default uk-button-small" title="Insert Image">
             <i class="fa fa-picture-o"></i>
         </button>
+        <div uk-dropdown="mode: click">
+            <div class="uk-margin">
+                <select class="uk-select" [(ngModel)]="selectedImage">
+                    <option *ngFor="let image of images$ | async as images" [value]="image.name">{{ image.name }}</option>
+                </select>
+            </div>
+            <button class="uk-button uk-button-default uk-button-small uk-width-1-1" (click)="insertImage(selectedImage)" [disabled]="!selectedImage">Insert</button>
+        </div>
         <button class="uk-button uk-button-default uk-button-small" (click)="insertCode()" title="Code">
             <i class="fa fa-code"></i>
         </button>
