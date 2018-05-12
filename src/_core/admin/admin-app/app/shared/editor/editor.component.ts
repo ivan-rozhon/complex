@@ -20,6 +20,8 @@ export class EditorComponent implements OnInit {
     contenteditable = true;
     contenteditableView = true;
     selectedImage: string;
+    clickableImage: boolean;
+    imageTitle: string;
     // media streams
     images$: Observable<Image[]>;
 
@@ -80,18 +82,28 @@ export class EditorComponent implements OnInit {
      * Handle before 'insertImage' command
      * @param selectedImage name of selected image
      */
-    insertImage(selectedImage: string): void {
+    insertImage(selectedImage: string, isClickable: boolean, imageTitle?: string): void {
         // select native element of content editable element
         const contentEditableNativeEl = this.contentEditableElementRef.elementRef.nativeElement;
 
         // focus content editable element again
         contentEditableNativeEl.focus();
 
+        // create template according to if is image is clickable like gallery image
+        const htmlTemplate = isClickable
+            ?
+            `<div class="containter">
+                <div id="links">
+                    <a class="gallery-thumb" href="_source/media/images/${selectedImage}"
+                        title="${imageTitle}" data-gallery>
+                        <img src="_source/media/images/thumb/thumb_${selectedImage}" alt="${selectedImage}">
+                    </a>
+                </div>
+            </div>`
+            : `<img class="inner-img" src="_source/media/images/${selectedImage}">`;
+
         // insert image tag with selected image
-        this.execCommand(
-            'insertHTML',
-            `<img class="inner-img" src="_source/media/images/${selectedImage}">`
-        );
+        this.execCommand('insertHTML', htmlTemplate);
     }
 
     /** Handle inserting table by 'insertHtml' command */
@@ -124,7 +136,7 @@ export class EditorComponent implements OnInit {
 
         // prepare table HTML string
         const tableHTML = `
-            <table>
+            <table class="table">
                 <tbody>
                     ${tableBodyHTML}
                 </tbody>

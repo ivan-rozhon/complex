@@ -1,5 +1,8 @@
 <?php
 
+// set proper content type and charset
+header('Content-Type: text/html; charset=utf-8');
+
 // system
 class System {
     public $url, $pathPrefix;

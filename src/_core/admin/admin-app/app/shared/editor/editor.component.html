@@ -77,7 +77,16 @@
                     <option *ngFor="let image of images$ | async as images" [value]="image.name">{{ image.name }}</option>
                 </select>
             </div>
-            <button class="uk-button uk-button-default uk-button-small uk-width-1-1" (click)="insertImage(selectedImage)" [disabled]="!selectedImage">Insert</button>
+            <div class="uk-margin">
+                <label>
+                    <input class="uk-checkbox" type="checkbox" [(ngModel)]="clickableImage"> Clickable</label>
+            </div>
+            <div class="uk-margin">
+                <label>Title</label>
+                <input class="uk-input" type="text" [(ngModel)]="imageTitle" [disabled]="!clickableImage">
+            </div>
+            <button class="uk-button uk-button-default uk-button-small uk-width-1-1" (click)="insertImage(selectedImage, clickableImage, imageTitle)"
+                [disabled]="!selectedImage || (selectedImage && clickableImage && !imageTitle)">Insert</button>
         </div>
         <button class="uk-button uk-button-default uk-button-small" (click)="insertCode()" title="Code">
             <i class="fa fa-code"></i>
