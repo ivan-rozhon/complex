@@ -73,20 +73,28 @@
         </button>
         <div uk-dropdown="mode: click">
             <div class="uk-margin">
-                <select class="uk-select" [(ngModel)]="selectedImage">
+                <select class="uk-select" [(ngModel)]="imageData.selectedImage">
                     <option *ngFor="let image of images$ | async as images" [value]="image.name">{{ image.name }}</option>
                 </select>
             </div>
             <div class="uk-margin">
                 <label>
-                    <input class="uk-checkbox" type="checkbox" [(ngModel)]="clickableImage"> Clickable</label>
+                    <input class="uk-checkbox" type="checkbox" [(ngModel)]="imageData.clickableImage"> Clickable</label>
+            </div>
+            <div class="uk-margin">
+                <label>
+                    <input [disabled]="imageData.clickableImage" class="uk-checkbox" type="checkbox" [(ngModel)]="imageData.linkImage"> Link</label>
             </div>
             <div class="uk-margin">
                 <label>Title</label>
-                <input class="uk-input" type="text" [(ngModel)]="imageTitle" [disabled]="!clickableImage">
+                <input class="uk-input" type="text" [(ngModel)]="imageData.imageTitle" [disabled]="!imageData.clickableImage">
             </div>
-            <button class="uk-button uk-button-default uk-button-small uk-width-1-1" (click)="insertImage(selectedImage, clickableImage, imageTitle)"
-                [disabled]="!selectedImage || (selectedImage && clickableImage && !imageTitle)">Insert</button>
+            <div class="uk-margin">
+                <label>Link</label>
+                <input class="uk-input" type="text" [(ngModel)]="imageData.imageLink" [disabled]="!imageData.linkImage || imageData.clickableImage">
+            </div>
+            <button class="uk-button uk-button-default uk-button-small uk-width-1-1" (click)="insertImage(imageData)"
+                [disabled]="!imageData.selectedImage || (imageData.selectedImage && imageData.clickableImage && !imageData.imageTitle) || (imageData.selectedImage && !imageData.clickableImage && imageData.linkImage && !imageData.imageLink)">Insert</button>
         </div>
         <button class="uk-button uk-button-default uk-button-small" (click)="insertCode()" title="Code">
             <i class="fa fa-code"></i>

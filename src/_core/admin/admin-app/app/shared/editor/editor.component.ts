@@ -9,6 +9,7 @@ import * as $ from 'jquery';
 import * as fromBoard from './../../board/board-reducers';
 import { ContentEditableDirective } from './../directives/content-editable.directive';
 import { Image } from '../../board/board.model';
+import { ImageData } from '../shared.model';
 
 @Component({
     selector: 'ca-editor',
@@ -19,9 +20,7 @@ export class EditorComponent implements OnInit {
     editorContentValue: string;
     contenteditable = true;
     contenteditableView = true;
-    selectedImage: string;
-    clickableImage: boolean;
-    imageTitle: string;
+    imageData = new ImageData();
     // media streams
     images$: Observable<Image[]>;
 
@@ -82,7 +81,7 @@ export class EditorComponent implements OnInit {
      * Handle before 'insertImage' command
      * @param selectedImage name of selected image
      */
-    insertImage(selectedImage: string, isClickable: boolean, imageTitle?: string): void {
+    insertImage(imageData: ImageData): void {
         // select native element of content editable element
         const contentEditableNativeEl = this.contentEditableElementRef.elementRef.nativeElement;
 
@@ -90,17 +89,24 @@ export class EditorComponent implements OnInit {
         contentEditableNativeEl.focus();
 
         // create template according to if is image is clickable like gallery image
-        const htmlTemplate = isClickable
+        const htmlTemplate = imageData.clickableImage
             ?
             `<div class="containter">
                 <div id="links">
-                    <a class="gallery-thumb" href="_source/media/images/${selectedImage}"
-                        title="${imageTitle}" data-gallery>
-                        <img src="_source/media/images/thumb/thumb_${selectedImage}" alt="${selectedImage}">
+                    <a class="gallery-thumb" href="_source/media/images/${imageData.selectedImage}"
+                        title="${imageData.imageTitle}" data-gallery>
+                        <img src="_source/media/images/thumb/thumb_${imageData.selectedImage}" alt="${imageData.selectedImage}">
                     </a>
                 </div>
             </div>`
-            : `<img class="inner-img" src="_source/media/images/${selectedImage}">`;
+            : imageData.linkImage
+                ? `
+                    <div class="sub-inner-banner">
+                        <a href="${imageData.imageLink}" target="_blank">
+                            <img src="_source/media/images/${imageData.selectedImage}">
+                        </a>
+                    </div>`
+                : `<img class="inner-img" src="_source/media/images/${imageData.selectedImage}">`;
 
         // insert image tag with selected image
         this.execCommand('insertHTML', htmlTemplate);

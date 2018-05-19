@@ -7,8 +7,13 @@ import { map } from 'rxjs/operators';
 
 import { DataResponse } from './core.model';
 
+// get location path name
+export const pathname = location.pathname.replace(/\//g, '');
+
 // create API URL for requests
-export const apiUrl = `${location.protocol}//${location.host}/?api`;
+export const apiUrl = pathname.length
+    ? `${location.protocol}//${location.host}/${pathname}/?api`
+    : `${location.protocol}//${location.host}/?api`;
 
 @Injectable()
 export class DataService {
