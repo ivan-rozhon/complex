@@ -157,7 +157,7 @@ export class PagesListComponent {
      */
     addPage(index: number): void {
         // add new item (from 'add' array) after the item from which comes event
-        this.pages.splice(index + 1, 0, this.schemaMetadata.add[0]);
+        this.pages.splice(index + 1, 0, {...this.schemaMetadata.add[0]});
     }
 
     /**
@@ -167,7 +167,7 @@ export class PagesListComponent {
     addSubPage(index: number): void {
         // directly push new item to 'sub' array (it will be the first item)
         this.pages[index].sub
-            .push(this.schemaMetadata.add[1]);
+            .push({...this.schemaMetadata.add[1]});
     }
 
     /**
