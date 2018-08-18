@@ -108,6 +108,14 @@ export class MediaGalleriesComponent implements OnInit {
      * @param galleryImageName name of image to delete
      */
     deleteGalleryImage(galleryName: string, galleryImageName: string): void {
-        this.onDeleteImage.emit({ mediaType: 'gallery', mediaName: galleryName, deepMediaName: galleryImageName });
+        // show confirmation dialog before delete
+        UIkit.modal
+            .confirm(`Delete "${galleryImageName}" image. Are you sure?`)
+            .then(() => {
+                // emit event to delete image
+                this.onDeleteImage.emit({ mediaType: 'gallery', mediaName: galleryName, deepMediaName: galleryImageName });
+            },
+            // catch a rejection
+            () => { });
     }
 }
