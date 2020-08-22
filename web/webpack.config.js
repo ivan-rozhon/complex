@@ -96,7 +96,7 @@ module.exports = env => ({
   },
 
   output: {
-    path: helpers.root('../dist'),
+    path: helpers.root('dist'),
     filename: '_core/web/scripts/[name].js',
   },
 
