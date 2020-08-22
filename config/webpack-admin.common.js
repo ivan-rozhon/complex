@@ -1,9 +1,10 @@
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+// var MiniCssExtractPlugin = require('mini-css-extract-plugin');
 var helpers = require('./helpers');
 
 const extractSass = new ExtractTextPlugin({
-  filename: "[name].css"
+  filename: '[name].css'
 });
 
 module.exports = {
@@ -61,6 +62,7 @@ module.exports = {
             { loader: 'css-loader?sourceMap' }
           ]
         })
+        // use: [MiniCssExtractPlugin.loader, { loader: 'css-loader?sourceMap' }]
       },
       {
         test: /\.css$/,
@@ -79,6 +81,12 @@ module.exports = {
           // use style-loader in development
           fallback: "style-loader"
         })
+        // use: [
+        //   extractSass.loader,
+        //   { loader: 'css-loader', query: { modules: true, importLoaders: 2 } },
+        //   { loader: 'postcss-loader' },
+        //   { loader: 'sass-loader', options: {} }
+        // ]
       },
       {
         test: /\.scss$/,
@@ -103,10 +111,32 @@ module.exports = {
       {} // a map of your routes
     ),
 
-    new webpack.optimize.CommonsChunkPlugin({
-      name: ['app', 'vendor', 'polyfills']
-    }),
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   name: ['app', 'vendor', 'polyfills']
+    // }),
 
     extractSass
-  ]
+  ],
+
+  // optimization: {
+  //   splitChunks: {
+  //     cacheGroups: {
+  //       app: {
+  //         name: "app",
+  //         test: "app",
+  //         enforce: true
+  //       },
+  //       vendor: {
+  //         name: "vendor",
+  //         test: "vendor",
+  //         enforce: true
+  //       },
+  //       polyfills: {
+  //         name: "polyfills",
+  //         test: "polyfills",
+  //         enforce: true
+  //       }
+  //     }
+  //   }
+  // }
 };

@@ -2,6 +2,7 @@ var webpack = require('webpack');
 var helpers = require('./helpers');
 var path = require('path');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+// var MiniCssExtractPlugin = require('mini-css-extract-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const extractSass = new ExtractTextPlugin({
@@ -44,6 +45,7 @@ module.exports = {
                         { loader: 'css-loader?sourceMap' }
                     ]
                 })
+                // use: [MiniCssExtractPlugin.loader, { loader: 'css-loader?sourceMap' }]
             },
             {
                 test: /\.scss$/,
@@ -60,15 +62,21 @@ module.exports = {
                     // use style-loader in development
                     fallback: "style-loader"
                 })
+                // use: [
+                //     MiniCssExtractPlugin.loader,
+                //     { loader: 'css-loader' },
+                //     { loader: 'postcss-loader' },
+                //     { loader: 'sass-loader' }
+                // ]
             }
         ]
     },
 
     plugins: [
         // creates a separate file (known as a chunk), consisting of common modules shared between multiple entry points
-        new webpack.optimize.CommonsChunkPlugin({
-            name: ['web', 'vendor', 'polyfills']
-        }),
+        // new webpack.optimize.CommonsChunkPlugin({
+        //     name: ['web', 'vendor', 'polyfills']
+        // }),
 
         // inject ES5 modules as global vars
         new webpack.ProvidePlugin({
@@ -84,6 +92,9 @@ module.exports = {
 
         extractSass,
         new ExtractTextPlugin('_core/web/styles/[name].css'),
+        // new MiniCssExtractPlugin({
+        //     filename: '_core/web/styles/[name].css'
+        // }),
 
         new CopyWebpackPlugin([
             {
