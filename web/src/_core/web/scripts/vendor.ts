@@ -1,6 +1,3 @@
-// RxJS | https://github.com/reactivex/rxjs
-// import 'rxjs';
-
 // JS 3rd party vendor libraries
 // Fix for issue: TypeError: Cannot read property 'use' of undefined
 import './lib.js';
