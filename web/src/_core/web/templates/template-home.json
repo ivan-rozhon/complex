@@ -1,0 +1,81 @@
+{
+    "_metadata": {
+        "prototype": {
+            "common": [],
+            "generic": []
+        },
+        "data": {
+            "common": {
+                "type": "common",
+                "label": "Common",
+                "available": {
+                    "title": "",
+                    "news": [],
+                    "theme": "black"
+                }
+            },
+            "generic": {
+                "type": "generic",
+                "label": "Generic",
+                "available": {
+                    "editor": ""
+                }
+            },
+            "title": {
+                "type": "string",
+                "label": "Title"
+            },
+            "editor": {
+                "type": "editor",
+                "label": "Editor",
+                "colors": [
+                    "#F44336",
+                    "#3F51B5",
+                    "#CDDC39",
+                    "#4CAF50",
+                    "#FFC107",
+                    "#795548"
+                ]
+            },
+            "news": {
+                "type": "array",
+                "label": "News",
+                "add": {
+                    "title": "",
+                    "editor": ""
+                }
+            },
+            "theme": {
+                "type": "list",
+                "label": "Theme",
+                "select": [
+                    {
+                        "key": "black",
+                        "value": "Black"
+                    },
+                    {
+                        "key": "indigo",
+                        "value": "Indigo"
+                    },
+                    {
+                        "key": "red",
+                        "value": "Red"
+                    }
+                ]
+            },
+            "links": {
+                "type": "array",
+                "label": "Links",
+                "add": {
+                    "title": "",
+                    "url": ""
+                }
+            },
+            "url": {
+                "type": "string",
+                "label": "URL",
+                "long": true
+            }
+        }
+    }
+}

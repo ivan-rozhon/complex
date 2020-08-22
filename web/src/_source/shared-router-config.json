@@ -1,0 +1,10 @@
+{
+    "sharedRouterConfig": {
+        "defaultRoute": "web",
+        "queryExceptions": [
+            "admin",
+            "api"
+        ],
+        "prettyUrl": true
+    }
+}

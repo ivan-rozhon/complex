@@ -1,0 +1,21 @@
+{
+    "webConfig": {
+        "mainSchema": "webSchemaMain",
+        "mainQuery": "",
+        "lang": "en",
+        "description": "Experimental NoSQL PHP CMS",
+        "keywords": "NoSQL, PHP, CMS",
+        "author": "Ivan Rozhon [rozhon.net]",
+        "title": "[Complex]",
+        "postTitle": "Experimental",
+        "postTitleSeparator": "-",
+        "titleSeparator": [
+            "|",
+            "-"
+        ],
+        "emptyTitleException": [
+            "",
+            "home"
+        ]
+    }
+}

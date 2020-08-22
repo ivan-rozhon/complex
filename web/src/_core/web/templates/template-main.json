@@ -1,0 +1,55 @@
+{
+    "_metadata": {
+        "prototype": {
+            "common": [],
+            "generic": []
+        },
+        "data": {
+            "common": {
+                "type": "common",
+                "label": "Common",
+                "available": {
+                    "title": "",
+                    "showTitle": ""
+                }
+            },
+            "generic": {
+                "type": "generic",
+                "label": "Generic",
+                "available": {
+                    "editor": "",
+                    "gallery": {
+                        "id": "",
+                        "name": ""
+                    }
+                }
+            },
+            "title": {
+                "type": "string",
+                "label": "Title"
+            },
+            "showTitle": {
+                "type": "boolean",
+                "label": "Show title"
+            },
+            "editor": {
+                "type": "editor",
+                "label": "Editor",
+                "colors": [
+                    "#F44336",
+                    "#3F51B5",
+                    "#CDDC39",
+                    "#4CAF50",
+                    "#FFC107",
+                    "#795548"
+                ]
+            },
+            "gallery": {
+                "type": "gallery",
+                "label": "Gallery",
+                "labelId": "Gallery Id",
+                "labelName": "Gallery Name"
+            }
+        }
+    }
+}

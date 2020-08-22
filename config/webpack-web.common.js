@@ -1,5 +1,5 @@
 var webpack = require('webpack');
-var helpers = require('./helpers');
+var helpers = require('./../config/helpers');
 var path = require('path');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 // var MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -68,7 +68,7 @@ module.exports = {
                 //     { loader: 'postcss-loader' },
                 //     { loader: 'sass-loader' }
                 // ]
-            }
+            },
         ]
     },
 
@@ -102,19 +102,19 @@ module.exports = {
                 to: ''
             }
         ], {
-                ignore: [
-                    // Doesn't copy any files with/in...
-                    '*.js',
-                    '*.ts',
-                    '*.scss',
-                    '*.less',
-                    '_core/admin/admin-app/**/*'
-                ],
+            ignore: [
+                // Doesn't copy any files with/in...
+                '*.js',
+                '*.ts',
+                '*.scss',
+                '*.less',
+                '_core/admin/admin-app/**/*'
+            ],
 
-                // By default, we only copy modified files during
-                // a watch or webpack-dev-server build. Setting this
-                // to `true` copies all files.
-                copyUnmodified: true
-            })
+            // By default, we only copy modified files during
+            // a watch or webpack-dev-server build. Setting this
+            // to `true` copies all files.
+            copyUnmodified: true
+        })
     ]
 };
