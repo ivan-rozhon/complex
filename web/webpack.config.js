@@ -1,10 +1,12 @@
 const path = require('path');
+const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const helpers = require('./config/helpers');
 
-function getStylesRulesConfig() {
+
+function getStylesRulesConfig(env) {
   let sassImplementation;
 
   try {
@@ -20,7 +22,7 @@ function getStylesRulesConfig() {
       {
         loader: MiniCssExtractPlugin.loader,
         options: {
-          hmr: process.env.NODE_ENV === 'development',
+          hmr: env.NODE_ENV === 'development',
         },
       },
       'css-loader',
@@ -45,12 +47,15 @@ function getStylesRulesConfig() {
   }
 }
 
-module.exports = {
+
+module.exports = env => ({
   entry: {
     'polyfills': './src/_core/web/scripts/polyfills.ts',
     'vendor': './src/_core/web/scripts/vendor.ts',
     'web': './src/_core/web/scripts/web.ts'
   },
+
+  mode: env.NODE_ENV,
 
   devtool: 'inline-source-map',
 
@@ -82,7 +87,7 @@ module.exports = {
           }
         }]
       },
-      getStylesRulesConfig()
+      getStylesRulesConfig(env)
     ],
   },
 
@@ -91,7 +96,7 @@ module.exports = {
   },
 
   output: {
-    path: helpers.root('dist'),
+    path: helpers.root('../dist'),
     filename: '_core/web/scripts/[name].js',
   },
 
@@ -117,6 +122,17 @@ module.exports = {
           }
         ]
       }
-    )
+    ),
+    // inject ES5 modules as global vars
+    new webpack.ProvidePlugin({
+      // make jQuery and $ global
+      $: 'jquery',
+      jQuery: 'jquery',
+      "window.jQuery": 'jquery',
+      // RxJS | https://github.com/reactivex/rxjs
+      Rx: 'rxjs',
+      // UIkit | https://getuikit.com/
+      UIkit: 'uikit'
+    }),
   ]
-};
+});

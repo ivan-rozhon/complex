@@ -3,7 +3,8 @@
   "version": "2.0.0",
   "description": "Experimental NoSQL PHP CMS",
   "scripts": {
-    "build": "webpack"
+    "start": "webpack -w --progress --env.NODE_ENV=development",
+    "build": "webpack --progress --env.NODE_ENV=production --optimize-minimize"
   },
   "repository": {
     "type": "git",
