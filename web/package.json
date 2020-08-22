@@ -1,6 +1,11 @@
 {
   "name": "complex-web",
   "description": "Web part of the Complex",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ivan-rozhon/complex.git"
+  },
   "scripts": {
     "clean": "rimraf dist",
     "prestart": "npm run clean",
