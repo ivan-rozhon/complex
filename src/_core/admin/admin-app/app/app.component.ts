@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 
 import { Subscription } from 'rxjs/Subscription';
+import { filter, pluck } from 'rxjs/operators';
 
 import { AuthService } from './core/auth.service';
 
@@ -23,10 +24,11 @@ export class AppComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         // subscribe to actual requested URL (after redirect)
         this.routerSubscription =
-            this.router.events
-                .filter(event => event instanceof NavigationEnd)
-                .pluck('urlAfterRedirects')
-                .filter(url => url === '/login')
+            this.router.events.pipe(
+                    filter(event => event instanceof NavigationEnd),
+                    pluck('urlAfterRedirects'),
+                    filter(url => url === '/login')
+                )
                 .subscribe(url => {
                     // if user already logged in - redirect him from login page
                     if (this.authService.isLoggedIn()) {
