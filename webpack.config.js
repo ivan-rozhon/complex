@@ -6,7 +6,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var helpers = require('./config/helpers');
 
 // https://stackoverflow.com/questions/43986852/webpack-config-js-process-env-node-env-not-workinkg-reactjs
-const ENV = JSON.stringify(process.env.NODE_ENV.trim());
+const ENV = JSON.stringify(process.env.NODE_ENV ? process.env.NODE_ENV.trim() : 'production');
 
 module.exports = [
     webpackMerge(commonWebConfig, {

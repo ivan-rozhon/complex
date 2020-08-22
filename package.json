@@ -7,9 +7,9 @@
     "delete": "rimraf dist node_modules",
     "prestart": "npm run clean",
     "start": "mkdir dist",
-    "poststart": "concurrently \"SET NODE_ENV=development && parallel-webpack --watch\" \"npm run serve\"",
+    "poststart": "concurrently \"cross-env NODE_ENV=development && parallel-webpack --watch\" \"npm run serve\"",
     "prebuild": "npm run clean",
-    "build": "SET NODE_ENV=production && parallel-webpack",
+    "build": "cross-env NODE_ENV=production && parallel-webpack",
     "serve": "lws --port=9000 --dir=dist/"
   },
   "repository": {
@@ -53,6 +53,7 @@
     "awesome-typescript-loader": "4.0.1",
     "concurrently": "3.5.1",
     "copy-webpack-plugin": "4.5.1",
+    "cross-env": "5.2.0",
     "css-loader": "0.28.11",
     "cssnano": "3.10.0",
     "extract-text-webpack-plugin": "3.0.2",
