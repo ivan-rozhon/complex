@@ -45,7 +45,7 @@ export class PagesContentListComponent {
      */
     addContent(content: { [x: string]: any }, index: number): void {
         // add new content item
-        this.contentValue.splice(index + 1, 0, content);
+        this.contentValue.splice(index + 1, 0, {...content});
     }
 
     /**

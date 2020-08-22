@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
+import * as UIkit from 'uikit';
+
 import { apiUrl } from './../../core/data.service';
 import { UploadConfig } from '../../shared/shared.model';
 import { Image } from '../board.model';
@@ -49,6 +51,14 @@ export class MediaImagesComponent implements OnInit {
      * @param imageName name of the image to delete
      */
     deleteImage(imageName: string): void {
-        this.onDeleteImage.emit({ mediaType: 'images', mediaName: imageName });
+        // show confirmation dialog before delete
+        UIkit.modal
+            .confirm(`Delete "${imageName}" image. Are you sure?`)
+            .then(() => {
+                // emit event to delete image
+                this.onDeleteImage.emit({ mediaType: 'images', mediaName: imageName });
+            },
+            // catch a rejection
+            () => { });
     }
 }

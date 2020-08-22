@@ -12,7 +12,7 @@
             <hr class="uk-divider">
 
             <ca-pages-content-input [inputKey]="input | caPickItem:'key'" [inputValue]="input | caPickItem:'value'" [inputMetadata]="contentMetadata[input | caPickItem:'key']"
-                (inputValueChange)="updateInput($event, index)"></ca-pages-content-input>
+                [contentMetadata]="contentMetadata" (inputValueChange)="updateInput($event, index)"></ca-pages-content-input>
 
             <hr class="uk-divider">
 

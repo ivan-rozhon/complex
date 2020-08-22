@@ -1,4 +1,9 @@
 <span [ngSwitch]="inputMetadata?.type">
+    <div *ngSwitchCase="'boolean'" class="uk-inline uk-margin-small-right">
+        <label>
+            <input class="uk-checkbox" type="checkbox" [(ngModel)]="inputValue"> {{ inputMetadata?.label }}</label>
+    </div>
+
     <div *ngSwitchCase="'string'" class="uk-inline uk-margin-small-right uk-width-1-1">
         <label>{{ inputMetadata?.label }}</label>
         <input class="uk-input" type="text" [(ngModel)]="inputValue">
@@ -6,5 +11,65 @@
 
     <div *ngSwitchCase="'editor'" class="uk-inline uk-margin-small-right">
         <ca-editor [(editorContent)]="inputValue" [foreColors]="inputMetadata?.colors" [backColors]="inputMetadata?.colors"></ca-editor>
+    </div>
+
+    <div *ngSwitchCase="'list'">
+        <div class="uk-margin-small">
+            <label>{{ inputMetadata?.label }}</label>
+            <div class="uk-form-controls">
+                <select class="uk-select" [(ngModel)]="inputValue">
+                    <option *ngFor="let item of inputMetadata?.select" [value]="item.key">{{ item.value }}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div *ngSwitchCase="'gallery'">
+        <div class="uk-inline uk-margin-small uk-width-1-1">
+            <label>{{ inputMetadata?.labelName }}</label>
+            <input class="uk-input" type="text" [(ngModel)]="inputValue.name">
+        </div>
+
+        <div class="uk-margin-small">
+            <label>{{ inputMetadata?.labelId }}</label>
+            <div class="uk-form-controls">
+                <select class="uk-select" [(ngModel)]="inputValue.id">
+                    <option *ngFor="let gallery of galleries$ | async as galleries" [value]="gallery.name">{{ gallery.name }}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div *ngSwitchCase="'array'">
+        <div>{{ inputMetadata?.label }}</div>
+
+        <ul class="uk-list uk-list-striped uk-margin-small-top uk-margin-small-bottom">
+            <ng-container *ngFor="let arrItem of inputValue; index as arrItemIndex; first as isFirst; last as isLast">
+                <li>
+                    <div>
+                        <a *ngIf="!isFirst" class="uk-icon-link uk-margin-small-right" uk-icon="icon: triangle-up" title="Move Up" (click)="moveItem('up', arrItemIndex)"></a>
+                        <a *ngIf="!isLast" class="uk-icon-link uk-margin-small-right" uk-icon="icon: triangle-down" title="Move Down" (click)="moveItem('down', arrItemIndex)"></a>
+                        <a class="uk-icon-link uk-margin-small-right" uk-icon="icon: trash" title="Delete" (click)="deleteArrayItem(arrItemIndex)"></a>
+                    </div>
+
+                    <hr class="uk-divider">
+
+                    <ca-pages-content-input *ngFor="let item of arrItem | caMapToIterable; index as itemIndex" [inputKey]="item | caPickItem:'key'"
+                        [inputValue]="item | caPickItem:'value'" [inputMetadata]="contentMetadata[item | caPickItem:'key']" (inputValueChange)="updateInput($event, arrItemIndex, itemIndex)">
+                    </ca-pages-content-input>
+
+                    <hr class="uk-divider">
+
+                    <div>
+                        <!-- Add item -->
+                        <a class="uk-icon-link uk-margin-small-right" uk-icon="icon: plus-circle" title="Add" (click)="addArrayItem(arrItemIndex, inputMetadata.add)"></a>
+                    </div>
+                </li>
+            </ng-container>
+        </ul>
+
+        <div *ngIf="!inputValue.length">
+            <a class="uk-icon-link uk-margin-small-right uk-margin-left uk-margin-top" uk-icon="icon: plus-circle" title="Add" (click)="addArrayItem(-1, inputMetadata.add)"></a>
+        </div>
     </div>
 </span>

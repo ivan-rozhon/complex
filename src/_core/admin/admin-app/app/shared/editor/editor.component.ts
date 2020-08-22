@@ -1,19 +1,28 @@
-import { Component, Input, Output, EventEmitter, ElementRef, ViewChild } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ElementRef, ViewChild, OnInit } from '@angular/core';
+
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
 
 import * as _ from 'lodash/lodash';
 import * as $ from 'jquery';
 
+import * as fromBoard from './../../board/board-reducers';
 import { ContentEditableDirective } from './../directives/content-editable.directive';
+import { Image } from '../../board/board.model';
+import { ImageData } from '../shared.model';
 
 @Component({
     selector: 'ca-editor',
     templateUrl: 'editor.component.html',
     styleUrls: ['editor.component.scss']
 })
-export class EditorComponent {
+export class EditorComponent implements OnInit {
     editorContentValue: string;
     contenteditable = true;
     contenteditableView = true;
+    imageData = new ImageData();
+    // media streams
+    images$: Observable<Image[]>;
 
     @Input() foreColors: string[] = [];
     @Input() backColors: string[] = [];
@@ -33,7 +42,12 @@ export class EditorComponent {
 
     @ViewChild('caContentEditable') contentEditableElementRef: ContentEditableDirective;
 
-    constructor() { }
+    constructor(private store: Store<fromBoard.State>) { }
+
+    ngOnInit(): void {
+        // images store stream
+        this.images$ = this.store.select(fromBoard.getImages);
+    }
 
     /** Execute command via execCommand... */
     execCommand(commandId: string, value?: any): void {
@@ -63,9 +77,39 @@ export class EditorComponent {
         }
     }
 
-    /** Handle before 'insertImage' command */
-    insertImage(): void {
+    /**
+     * Handle before 'insertImage' command
+     * @param selectedImage name of selected image
+     */
+    insertImage(imageData: ImageData): void {
+        // select native element of content editable element
+        const contentEditableNativeEl = this.contentEditableElementRef.elementRef.nativeElement;
 
+        // focus content editable element again
+        contentEditableNativeEl.focus();
+
+        // create template according to if is image is clickable like gallery image
+        const htmlTemplate = imageData.clickableImage
+            ?
+            `<div class="containter">
+                <div id="links">
+                    <a class="gallery-thumb" href="_source/media/images/${imageData.selectedImage}"
+                        title="${imageData.imageTitle}" data-gallery>
+                        <img src="_source/media/images/thumb/thumb_${imageData.selectedImage}" alt="${imageData.selectedImage}">
+                    </a>
+                </div>
+            </div>`
+            : imageData.linkImage
+                ? `
+                    <div class="sub-inner-banner">
+                        <a href="${imageData.imageLink}" target="_blank">
+                            <img src="_source/media/images/${imageData.selectedImage}">
+                        </a>
+                    </div>`
+                : `<img class="inner-img" src="_source/media/images/${imageData.selectedImage}">`;
+
+        // insert image tag with selected image
+        this.execCommand('insertHTML', htmlTemplate);
     }
 
     /** Handle inserting table by 'insertHtml' command */
@@ -98,7 +142,7 @@ export class EditorComponent {
 
         // prepare table HTML string
         const tableHTML = `
-            <table>
+            <table class="table">
                 <tbody>
                     ${tableBodyHTML}
                 </tbody>

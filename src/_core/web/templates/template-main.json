@@ -9,19 +9,28 @@
                 "type": "common",
                 "label": "Common",
                 "available": {
-                    "title": ""
+                    "title": "",
+                    "showTitle": ""
                 }
             },
             "generic": {
                 "type": "generic",
                 "label": "Generic",
                 "available": {
-                    "editor": ""
+                    "editor": "",
+                    "gallery": {
+                        "id": "",
+                        "name": ""
+                    }
                 }
             },
             "title": {
                 "type": "string",
                 "label": "Title"
+            },
+            "showTitle": {
+                "type": "boolean",
+                "label": "Show title"
             },
             "editor": {
                 "type": "editor",
@@ -34,6 +43,12 @@
                     "#FFC107",
                     "#795548"
                 ]
+            },
+            "gallery": {
+                "type": "gallery",
+                "label": "Gallery",
+                "labelId": "Gallery Id",
+                "labelName": "Gallery Name"
             }
         }
     }

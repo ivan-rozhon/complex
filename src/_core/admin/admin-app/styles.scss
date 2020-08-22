@@ -16,6 +16,7 @@ ca-editor {
 
     td {
         border: 1px solid $ca-border-color;
+        padding: 8px;
     }
 
     [contenteditable] {
@@ -24,5 +25,11 @@ ca-editor {
                 list-style: square;
             }
         }
+    }
+
+    blockquote {
+        color: currentColor;
+        font-size: 16px;
+        font-style: normal;
     }
 }

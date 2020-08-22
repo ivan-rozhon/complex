@@ -35,8 +35,8 @@ export class LoginComponent implements OnInit {
     login(credentials: Credentials): void {
         // reasign credentials with encoded ones (base-64)
         credentials = Object.assign({}, {
-            username: window.btoa(credentials.username),
-            password: window.btoa(credentials.password)
+            username: window.btoa(credentials.username.trim()),
+            password: window.btoa(credentials.password.trim())
         });
 
         // dispatch login action to Store

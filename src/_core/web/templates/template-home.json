@@ -10,7 +10,8 @@
                 "label": "Common",
                 "available": {
                     "title": "",
-                    "news": []
+                    "news": [],
+                    "theme": "black"
                 }
             },
             "generic": {
@@ -41,9 +42,7 @@
                 "label": "News",
                 "add": {
                     "title": "",
-                    "theme": "indigo",
-                    "editor": "",
-                    "links": []
+                    "editor": ""
                 }
             },
             "theme": {
