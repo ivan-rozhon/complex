@@ -4,8 +4,12 @@
   "description": "Experimental NoSQL PHP CMS",
   "scripts": {
     "install": "(cd ./web && npm install); (cd ./admin && npm install)",
+    "build": "(npm run build:web); (npm run build:admin);",
     "start:web": "cd ./web && npm run start",
-    "serve:web": "cd ./web && npm run serve"
+    "serve:web": "cd ./web && npm run serve",
+    "build:web": "cd ./web && npm run build",
+    "start:admin": "cd ./admin && npm run start",
+    "build:admin": "cd ./admin && npm run build"
   },
   "repository": {
     "type": "git",

@@ -15,7 +15,7 @@ class AdminHead {
         $author = $this->admin->adminConfig['author'];
         $title = $this->admin->adminConfig['title'];
         $faviconVersion = filemtime("favicon.ico");
-        $cssAppVersion = filemtime("_core/admin/admin-app/app.css");
+        $cssAppVersion = filemtime("_core/admin/admin-app/admin-app.css");
         $baseUrl = $this->admin->sharedRouter->baseUrl();
 
         return $this->templateProvider->sharedTemplateProvider(

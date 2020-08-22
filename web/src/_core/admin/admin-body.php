@@ -9,15 +9,11 @@ class AdminBody {
     }
 
     public function adminBody() {
-        $jsPolyfillsVersion = filemtime("_core/admin/admin-app/polyfills.js");
-        $jsVendorVersion = filemtime("_core/admin/admin-app/vendor.js");
-        $jsAppVersion = filemtime("_core/admin/admin-app/app.js");
+        $jsAppVersion = filemtime("_core/admin/admin-app/admin-app.js");
         $baseUrl = $this->admin->sharedRouter->baseUrl();
 
         return $this->templateProvider->sharedTemplateProvider(
                 [
-                    'jsPolyfillsVersion' => $jsPolyfillsVersion,
-                    'jsVendorVersion' => $jsVendorVersion,
                     'jsAppVersion' => $jsAppVersion
                 ],
                 '_core/admin/admin-body.html'
