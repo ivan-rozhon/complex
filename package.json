@@ -3,13 +3,15 @@
   "version": "2.0.0",
   "description": "Experimental NoSQL PHP CMS",
   "scripts": {
-    "install": "(cd ./web && npm install); (cd ./admin && npm install)",
+    "install": "(npm install); (cd ./web && npm install); (cd ./admin && npm install)",
     "build": "(npm run build:web); (npm run build:admin);",
+    "postbuild": "npm run export:admin",
     "start:web": "cd ./web && npm run start",
     "serve:web": "cd ./web && npm run serve",
     "build:web": "cd ./web && npm run build",
     "start:admin": "cd ./admin && npm run start",
-    "build:admin": "cd ./admin && npm run build"
+    "build:admin": "cd ./admin && npm run build",
+    "export:admin": "copyfiles --flat ./admin/dist/admin/admin-app.* ./web/dist/_core/admin/admin-app/"
   },
   "repository": {
     "type": "git",
@@ -20,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/ivan-rozhon/complex/issues"
   },
-  "homepage": "https://github.com/ivan-rozhon/complex#readme"
+  "homepage": "https://github.com/ivan-rozhon/complex#readme",
+  "devDependencies": {
+    "copyfiles": "^2.3.0"
+  }
 }
