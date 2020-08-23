@@ -17,7 +17,7 @@
       "@cx-environments/*": ["./src/environments/*"],
       "@cx-core/*": ["./src/app/core/*"],
       "@cx-shared/*": ["./src/app/shared/*"],
-      "@cx-pages/*": ["./src/app/pages/*"],
+      "@cx-screens/*": ["./src/app/screens/*"],
       "@cx-state/*": ["./src/app/state/*"]
     }
   }
