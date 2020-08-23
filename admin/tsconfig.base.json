@@ -12,9 +12,13 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "es2020",
-    "lib": [
-      "es2018",
-      "dom"
-    ]
+    "lib": ["es2018", "dom"],
+    "paths": {
+      "@cx-environments/*": ["./src/environments/*"],
+      "@cx-core/*": ["./src/app/core/*"],
+      "@cx-shared/*": ["./src/app/shared/*"],
+      "@cx-pages/*": ["./src/app/pages/*"],
+      "@cx-state/*": ["./src/app/state/*"]
+    }
   }
 }
