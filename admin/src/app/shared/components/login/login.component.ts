@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-// import { Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 
-// import * as CoreActions from '../../core/core-actions';
-// import * as fromRoot from './../../app-reducers';
+import { RootState } from '@cx-state/index';
+
+import { AuthActions } from '@cx-state/auth';
+
 import { Credentials } from '@cx-shared/types';
 
 @Component({
@@ -14,10 +16,7 @@ import { Credentials } from '@cx-shared/types';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
 
-  constructor(
-    private fb: FormBuilder // TODO: store
-  ) // private store: Store<fromRoot.State>
-  {}
+  constructor(private fb: FormBuilder, private store$: Store<RootState>) {}
 
   ngOnInit(): void {
     // build login form via FormBuilder
@@ -42,6 +41,6 @@ export class LoginComponent implements OnInit {
     );
 
     // dispatch login action to Store
-    // this.store.dispatch(new CoreActions.Login(credentials));
+    this.store$.dispatch(AuthActions.login(credentials));
   }
 }
