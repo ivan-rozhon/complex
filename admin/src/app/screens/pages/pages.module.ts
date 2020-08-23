@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { PagesComponent } from './pages/pages.component';
+import { SharedModule } from '@cx-shared/shared.module';
+
+import { PagesComponent } from './pages.component';
 
 @NgModule({
   declarations: [PagesComponent],
-  imports: [CommonModule],
+  imports: [CommonModule, SharedModule],
 })
 export class PagesModule {}

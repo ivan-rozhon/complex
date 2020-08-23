@@ -3,7 +3,14 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { LoginComponent } from '@cx-shared/components';
 
-const routes: Routes = [{ path: 'login', component: LoginComponent }];
+const routes: Routes = [
+  {
+    path: '',
+    loadChildren: () =>
+      import('./screens/screens.module').then((m) => m.ScreensModule),
+  },
+  { path: 'login', component: LoginComponent },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

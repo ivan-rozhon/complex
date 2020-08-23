@@ -1,4 +1,5 @@
 import { Pages, Content } from '@cx-shared/types';
+import { createReducer, Action } from '@ngrx/store';
 
 // pages state interface
 export interface State {
@@ -9,7 +10,7 @@ export interface State {
   contentLoading: boolean;
 }
 
-export const detailFeatureKey = 'pages';
+export const pagesFeatureKey = 'pages';
 
 export const initialState: State = {
   pages: {
@@ -36,3 +37,9 @@ export const initialState: State = {
   },
   contentLoading: false,
 };
+
+const pagesReducer = createReducer(initialState);
+
+export function reducer(state: State | undefined, action: Action): any {
+  return pagesReducer(state, action);
+}

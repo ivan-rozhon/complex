@@ -8,13 +8,16 @@ import {
   Router,
 } from '@angular/router';
 
-import { AuthService } from '@cx-shared/service/auth.service';
+import { AuthService } from '@cx-core/services/auth.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate, CanLoad {
   constructor(private authService: AuthService, private router: Router) {}
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): boolean {
     // get actual requested url
     const url: string = state.url;
 

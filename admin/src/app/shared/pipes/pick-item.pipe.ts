@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'pickItem',
+  name: 'cxPickItem',
 })
 export class PickItemPipe implements PipeTransform {
   transform(value: any, type: string, index?: number): any {

@@ -9,7 +9,7 @@ import * as fromPages from './pages.reducer';
 export const getPagesState: MemoizedSelector<
   object,
   fromPages.State
-> = createFeatureSelector<fromPages.State>(fromPages.detailFeatureKey);
+> = createFeatureSelector<fromPages.State>(fromPages.pagesFeatureKey);
 
 // pages selectors
 // ===
