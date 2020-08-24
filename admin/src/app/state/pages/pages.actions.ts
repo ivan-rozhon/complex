@@ -6,15 +6,18 @@ import { Pages, Content, ContentData } from '@cx/shared/types';
 export const loadPages = createAction('[Pages] Load Pages');
 export const loadPagesSuccess = createAction(
   '[Pages] Load Pages Success',
-  props<Pages>()
+  props<{ pages: Pages }>()
 );
 export const loadPagesFail = createAction('[Pages] Load Pages Fail');
 
 // save pages actions
-export const savePages = createAction('[Pages] Save Pages', props<Pages>());
+export const savePages = createAction(
+  '[Pages] Save Pages',
+  props<{ pages: Pages }>()
+);
 export const savePagesSuccess = createAction(
   '[Pages] Save Pages Success',
-  props<Pages>()
+  props<{ pages: Pages }>()
 );
 export const savePagesFail = createAction('[Pages] Save Pages Fail');
 
@@ -43,7 +46,7 @@ export const createContent = createAction(
 );
 export const createContentSuccess = createAction(
   '[Pages] Create Content Success',
-  props<Pages>()
+  props<{ pages: Pages }>()
 );
 export const createContentFail = createAction('[Pages] Create Content Fail');
 
@@ -58,7 +61,7 @@ export const deleteContent = createAction(
 );
 export const deleteContentSuccess = createAction(
   '[Pages] Delete Content Success',
-  props<Pages>()
+  props<{ pages: Pages }>()
 );
 export const deleteContentFail = createAction('[Pages] Delete Content Fail');
 

@@ -68,7 +68,7 @@ export class PagesComponent implements OnInit, OnDestroy {
 
   /** dispatch action for save pages */
   savePages(pages: Pages): void {
-    this.store$.dispatch(PagesActions.savePages(pages));
+    this.store$.dispatch(PagesActions.savePages({ pages }));
   }
 
   /**
