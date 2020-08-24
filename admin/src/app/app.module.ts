@@ -6,6 +6,8 @@ import { RootStateModule } from '@cx/state/index';
 
 import { SharedModule } from '@cx/shared/shared.module';
 
+import { ScreensModule } from '@cx/screens/screens.module';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -17,6 +19,7 @@ import { AppComponent } from './app.component';
     AppRoutingModule,
     RootStateModule,
     SharedModule,
+    ScreensModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

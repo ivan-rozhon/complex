@@ -14,11 +14,12 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       {
-        path: '',
+        path: 'pages',
         component: PagesComponent,
       },
     ],
   },
+  { path: '**', redirectTo: '/pages', pathMatch: 'full' },
 ];
 
 @NgModule({
