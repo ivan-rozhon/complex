@@ -1,14 +1,18 @@
 import { NgModule } from '@angular/core';
 
 import { StoreModule } from '@ngrx/store';
-// TODO:
-// import { EffectsModule } from '@ngrx/effects';
-// import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
+import { environment } from '@cx-environments/environment';
+
+import { AuthStateModule } from './auth/auth-state.module';
 import { PagesStateModule } from './pages/pages-state.module';
 
 @NgModule({
   imports: [
+    AuthStateModule,
     PagesStateModule,
     StoreModule.forRoot(
       {},
@@ -22,6 +26,14 @@ import { PagesStateModule } from './pages/pages-state.module';
         },
       }
     ),
+    EffectsModule.forRoot([]),
+    ...(environment.production
+      ? []
+      : [
+          StoreDevtoolsModule.instrument({
+            maxAge: 25 // Retains last 25 states
+          })
+        ])
   ],
   exports: [],
   declarations: [],

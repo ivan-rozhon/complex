@@ -41,6 +41,6 @@ export class LoginComponent implements OnInit {
     );
 
     // dispatch login action to Store
-    this.store$.dispatch(AuthActions.login(credentials));
+    this.store$.dispatch(AuthActions.login({credentials}));
   }
 }
