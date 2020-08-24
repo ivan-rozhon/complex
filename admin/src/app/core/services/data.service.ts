@@ -5,15 +5,20 @@ import { HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { environment } from '@cx/environments/environment';
+
 import { DataResponse } from '@cx/shared/types';
 
 // get location path name
 export const pathname = location.pathname.replace(/\//g, '');
 
+const apiProtocol = environment.apiProtocol;
+const apiHost = environment.apiHost;
+
 // create API URL for requests
 export const apiUrl = pathname.length
-  ? `${location.protocol}//${location.host}/${pathname}/?api`
-  : `${location.protocol}//${location.host}/?api`;
+  ? `${apiProtocol}//${apiHost}/${pathname}/?api`
+  : `${apiProtocol}//${apiHost}/?api`;
 
 @Injectable({ providedIn: 'root' })
 export class DataService {
