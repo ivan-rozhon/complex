@@ -5,7 +5,7 @@ import { HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { DataResponse } from '@cx-shared/types';
+import { DataResponse } from '@cx/shared/types';
 
 // get location path name
 export const pathname = location.pathname.replace(/\//g, '');

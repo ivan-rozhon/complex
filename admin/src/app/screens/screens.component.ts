@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { AuthService } from '@cx-core/services/auth.service';
+import { AuthService } from '@cx/core/services/auth.service';
 
 @Component({
   selector: 'cx-screens',

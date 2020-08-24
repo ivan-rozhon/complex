@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { Pages, Content, ContentData } from '@cx-shared/types';
+import { Pages, Content, ContentData } from '@cx/shared/types';
 
 // load pages actions
 export const loadPages = createAction('[Pages] Load Pages');

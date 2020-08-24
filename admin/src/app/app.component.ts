@@ -4,7 +4,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter, pluck } from 'rxjs/operators';
 
-import { AuthService } from '@cx-core/services/auth.service';
+import { AuthService } from '@cx/core/services/auth.service';
 
 @Component({
   selector: 'cx-root',

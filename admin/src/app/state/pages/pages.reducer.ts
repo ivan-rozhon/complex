@@ -1,4 +1,4 @@
-import { Pages, Content } from '@cx-shared/types';
+import { Pages, Content } from '@cx/shared/types';
 import { createReducer, Action } from '@ngrx/store';
 
 // pages state interface

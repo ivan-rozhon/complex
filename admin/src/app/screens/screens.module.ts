@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { SharedModule } from '@cx-shared/shared.module';
+import { SharedModule } from '@cx/shared/shared.module';
 
 import { ScreensRoutingModule } from './screens-routing.module';
 

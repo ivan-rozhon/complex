@@ -4,14 +4,14 @@ import { Store } from '@ngrx/store';
 
 import { Observable, Subscription } from 'rxjs';
 
-import { RootState } from '@cx-state/index';
+import { RootState } from '@cx/state/index';
 
-import { PagesActions, PagesSelectors } from '@cx-state/pages';
-import { MediaActions } from '@cx-state/media';
+import { PagesActions, PagesSelectors } from '@cx/state/pages';
+import { MediaActions } from '@cx/state/media';
 
-import { Pages, Page, Content, ContentData } from '@cx-shared/types';
+import { Pages, Page, Content, ContentData } from '@cx/shared/types';
 
-import { PickItemPipe } from '@cx-shared/pipes';
+import { PickItemPipe } from '@cx/shared/pipes';
 
 @Component({
   selector: 'cx-pages',

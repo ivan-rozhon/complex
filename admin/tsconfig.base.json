@@ -14,11 +14,11 @@
     "module": "es2020",
     "lib": ["es2018", "dom"],
     "paths": {
-      "@cx-environments/*": ["./src/environments/*"],
-      "@cx-core/*": ["./src/app/core/*"],
-      "@cx-shared/*": ["./src/app/shared/*"],
-      "@cx-screens/*": ["./src/app/screens/*"],
-      "@cx-state/*": ["./src/app/state/*"]
+      "@cx/environments/*": ["./src/environments/*"],
+      "@cx/core/*": ["./src/app/core/*"],
+      "@cx/shared/*": ["./src/app/shared/*"],
+      "@cx/screens/*": ["./src/app/screens/*"],
+      "@cx/state/*": ["./src/app/state/*"]
     }
   }
 }

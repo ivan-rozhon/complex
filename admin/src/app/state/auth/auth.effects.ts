@@ -6,9 +6,9 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { switchMap, map, catchError } from 'rxjs/operators';
 
-import { AuthActions } from '@cx-state/auth';
+import { AuthActions } from '@cx/state/auth';
 
-import { AuthService } from '@cx-core/services/auth.service';
+import { AuthService } from '@cx/core/services/auth.service';
 
 @Injectable()
 export class AuthEffects {

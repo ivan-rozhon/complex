@@ -8,7 +8,7 @@ import {
   Router,
 } from '@angular/router';
 
-import { AuthService } from '@cx-core/services/auth.service';
+import { AuthService } from '@cx/core/services/auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate, CanLoad {

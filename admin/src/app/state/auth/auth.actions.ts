@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { Credentials } from '@cx-shared/types';
+import { Credentials } from '@cx/shared/types';
 
 export const login = createAction(
   '[Auth] Login',

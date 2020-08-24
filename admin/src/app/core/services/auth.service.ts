@@ -6,9 +6,9 @@ import { Moment } from 'moment/moment';
 import * as moment from 'moment/moment';
 import * as jwtDecode from 'jwt-decode';
 
-import { DataService } from '@cx-core/services/data.service';
+import { DataService } from '@cx/core/services/data.service';
 
-import { Credentials } from '@cx-shared/types';
+import { Credentials } from '@cx/shared/types';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {

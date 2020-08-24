@@ -3,11 +3,11 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { Store } from '@ngrx/store';
 
-import { RootState } from '@cx-state/index';
+import { RootState } from '@cx/state/index';
 
-import { AuthActions } from '@cx-state/auth';
+import { AuthActions } from '@cx/state/auth';
 
-import { Credentials } from '@cx-shared/types';
+import { Credentials } from '@cx/shared/types';
 
 @Component({
   selector: 'cx-login',

@@ -1,4 +1,4 @@
-import { Image, Gallery } from '@cx-shared/types';
+import { Image, Gallery } from '@cx/shared/types';
 
 // media state interface
 export interface State {
