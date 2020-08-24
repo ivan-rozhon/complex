@@ -4,6 +4,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { RootStateModule } from '@cx/state/index';
 
+import { CoreModule } from '@cx/core/core.module';
+
 import { SharedModule } from '@cx/shared/shared.module';
 
 import { ScreensModule } from '@cx/screens/screens.module';
@@ -18,6 +20,7 @@ import { AppComponent } from './app.component';
     HttpClientModule,
     AppRoutingModule,
     RootStateModule,
+    CoreModule,
     SharedModule,
     ScreensModule,
   ],
