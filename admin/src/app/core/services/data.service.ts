@@ -14,11 +14,12 @@ export const pathname = location.pathname.replace(/\//g, '');
 
 const apiProtocol = environment.apiProtocol;
 const apiHost = environment.apiHost;
+const apiPath = environment.apiPath;
 
 // create API URL for requests
 export const apiUrl = pathname.length
-  ? `${apiProtocol}//${apiHost}/${pathname}/?api`
-  : `${apiProtocol}//${apiHost}/?api`;
+  ? `${apiProtocol}//${apiHost}/${pathname}/${apiPath}`
+  : `${apiProtocol}//${apiHost}/${apiPath}`;
 
 @Injectable({ providedIn: 'root' })
 export class DataService {

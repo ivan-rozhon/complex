@@ -6,8 +6,12 @@ import { Environment } from '@cx/shared/types';
 
 export const environment: Environment = {
   production: false,
-  apiProtocol: 'http:',
-  apiHost: 'localhost:9000'
+  // * handled by proxy.config.json
+  // apiProtocol: 'http:',
+  // apiHost: 'localhost:9000'
+  apiProtocol: location.protocol,
+  apiHost: location.host,
+  apiPath: 'api'
 };
 
 /*

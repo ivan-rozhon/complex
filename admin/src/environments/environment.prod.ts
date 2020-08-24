@@ -4,4 +4,5 @@ export const environment: Environment = {
   production: true,
   apiProtocol: location.protocol,
   apiHost: location.host,
+  apiPath: '?api'
 };
