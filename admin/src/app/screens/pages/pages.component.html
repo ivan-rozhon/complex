@@ -1,1 +1,57 @@
-<p>pages works!</p>
+<!-- Action bar -->
+<p class="uk-margin-remove">
+  <button
+    class="uk-button uk-button-default"
+    [title]="'Refresh'"
+    [disabled]="(pagesSaving$ | async) || (pagesLoading$ | async)"
+    (click)="loadPages()"
+  >
+    <span uk-icon="icon: refresh"></span>
+  </button>
+  <button
+    class="uk-button uk-button-default"
+    [disabled]="
+      (pagesSaving$ | async) || (pagesLoading$ | async) || !pagesExists
+    "
+    [title]="'Save'"
+    (click)="savePages(pages)"
+  >
+    <span uk-icon="icon: check"></span>
+  </button>
+</p>
+
+<hr />
+
+<!-- Loading spinner -->
+<div class="uk-flex uk-flex-center" *ngIf="pagesLoading$ | async">
+  <div uk-spinner></div>
+</div>
+
+<!-- Schemes/Pages -->
+<div *ngIf="!(pagesLoading$ | async)" class="pages-list">
+  <ng-container
+    *ngFor="let schema of pages?.webSchema | cxMapToIterable; let index = index"
+  >
+    <span class="uk-text-lead">{{
+      (pages?._metadata?.schemes)[schema | cxPickItem: "key"]?.name
+    }}</span>
+    <cx-pages-list
+      [pages]="schema | cxPickItem: 'value'"
+      [inputMetadata]="pages?._metadata?.data"
+      [schemaMetadata]="(pages?._metadata?.schemes)[schema | cxPickItem: 'key']"
+      [schemaDepth]="
+        (pages?._metadata?.schemes)[schema | cxPickItem: 'key'].add?.length
+      "
+      (pagesChange)="updateSchema(index, $event)"
+      (onEditContent)="loadContent($event)"
+      (onCreateContent)="createContent($event, schema)"
+      (onDeleteContent)="deleteContent($event, schema)"
+    ></cx-pages-list>
+  </ng-container>
+</div>
+
+<!-- Content modal -->
+<cx-pages-content
+  [content]="content$ | async"
+  (onSaveContent)="saveContent($event)"
+></cx-pages-content>

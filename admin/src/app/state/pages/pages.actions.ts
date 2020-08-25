@@ -31,7 +31,7 @@ export const loadContent = createAction(
 );
 export const loadContentSuccess = createAction(
   '[Pages] Load Content Success',
-  props<Content>()
+  props<{ content: Content }>()
 );
 export const loadContentFail = createAction('[Pages] Load Content Fail');
 
@@ -75,6 +75,6 @@ export const saveContent = createAction(
 );
 export const saveContentSuccess = createAction(
   '[Pages] Save Content Success',
-  props<ContentData>()
+  props<{ contentData: ContentData }>()
 );
 export const saveContentFail = createAction('[Pages] Save Content Fail');

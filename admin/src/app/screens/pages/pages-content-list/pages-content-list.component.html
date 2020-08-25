@@ -1,0 +1,96 @@
+<span class="uk-text-lead">{{ contentMetadata[contentKey]?.label }}</span>
+
+<ul class="uk-list uk-list-divider uk-margin-small-top uk-margin-small-bottom">
+  <ng-container
+    *ngFor="
+      let input of contentValue;
+      let index = index;
+      first as isFirst;
+      last as isLast
+    "
+  >
+    <li>
+      <div>
+        <a
+          *ngIf="!isFirst"
+          class="uk-icon-link uk-margin-small-right"
+          uk-icon="icon: triangle-up"
+          title="Move Up"
+          (click)="moveItem('up', index)"
+        ></a>
+        <a
+          *ngIf="!isLast"
+          class="uk-icon-link uk-margin-small-right"
+          uk-icon="icon: triangle-down"
+          title="Move Down"
+          (click)="moveItem('down', index)"
+        ></a>
+        <a
+          class="uk-icon-link uk-margin-small-right"
+          uk-icon="icon: trash"
+          title="Delete"
+          (click)="deleteContent(index)"
+        ></a>
+      </div>
+
+      <hr class="uk-divider" />
+
+      <cx-pages-content-input
+        [inputKey]="input | cxPickItem: 'key'"
+        [inputValue]="input | cxPickItem: 'value'"
+        [inputMetadata]="contentMetadata[input | cxPickItem: 'key']"
+        [contentMetadata]="contentMetadata"
+        (inputValueChange)="updateInput($event, index)"
+      ></cx-pages-content-input>
+
+      <hr class="uk-divider" />
+
+      <div>
+        <!-- Add item -->
+        <a
+          class="uk-icon-link uk-margin-small-right"
+          uk-icon="icon: plus"
+          title="Add"
+        ></a>
+        <div uk-dropdown="mode: click">
+          <ul class="uk-nav uk-dropdown-nav">
+            <li
+              *ngFor="
+                let available of filterAvailable(
+                  contentKey,
+                  contentMetadata[contentKey]?.available | cxMapToIterable,
+                  contentValue
+                )
+              "
+            >
+              <a (click)="addContent(available, index)">{{
+                contentMetadata[available | cxPickItem: "key"]?.label
+              }}</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Add sub item -->
+        <!-- <a *ngIf="contentMetadata[input | cxPickItem:'key']?.type === 'array'" class="uk-icon-link uk-margin-small-right" uk-icon="icon: plus-circle" title="Add Child"></a> -->
+      </div>
+    </li>
+  </ng-container>
+</ul>
+
+<div class="uk-clearfix uk-margin" [class.uk-invisible]="contentValue.length">
+  <a class="uk-icon-button" uk-icon="icon: plus"></a>
+  <div uk-dropdown="mode: click">
+    <ul class="uk-nav uk-dropdown-nav">
+      <li
+        *ngFor="
+          let available of contentMetadata[contentKey]?.available
+            | cxMapToIterable
+        "
+      >
+        <a (click)="addContent(available, -1)">{{
+          contentMetadata[available | cxPickItem: "key"]?.label
+        }}</a>
+      </li>
+    </ul>
+  </div>
+</div>

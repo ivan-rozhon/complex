@@ -1,0 +1,139 @@
+<ul class="uk-list uk-list-striped uk-margin-small-top uk-margin-small-bottom">
+  <ng-container
+    *ngFor="
+      let page of pages;
+      let index = index;
+      first as isFirst;
+      last as isLast
+    "
+  >
+    <!-- Main pages & Other pages -->
+    <li *ngIf="!page.sectionId">
+      <div>
+        <a
+          class="uk-icon-link uk-margin-small-right"
+          uk-icon="icon: file-edit"
+          title="Edit Content"
+          (click)="
+            editContent({
+              dataId: page.data,
+              templateId: page.template,
+              index: index
+            })
+          "
+        ></a>
+        <a
+          *ngIf="page.data?.length"
+          class="uk-icon-link uk-margin-small-right"
+          uk-icon="icon: close"
+          title="Clear Content"
+          (click)="deleteContent({ dataId: page.data, indexes: [] }, index)"
+        ></a>
+        <a
+          *ngIf="!isFirst"
+          class="uk-icon-link uk-margin-small-right"
+          uk-icon="icon: triangle-up"
+          title="Move Up"
+          (click)="movePage('up', index)"
+        ></a>
+        <a
+          *ngIf="!isLast"
+          class="uk-icon-link uk-margin-small-right"
+          uk-icon="icon: triangle-down"
+          title="Move Down"
+          (click)="movePage('down', index)"
+        ></a>
+        <a
+          *ngIf="
+            !(pages.length === 1) || schemaMetadata.add.length !== schemaDepth
+          "
+          class="uk-icon-link uk-margin-small-right"
+          uk-icon="icon: trash"
+          title="Delete"
+          (click)="deletePage(index)"
+        ></a>
+      </div>
+
+      <hr class="uk-divider" />
+
+      <cx-pages-input
+        *ngFor="let input of page | cxMapToIterable; let inputIndex = index"
+        [inputKey]="input | cxPickItem: 'key'"
+        [inputValue]="input | cxPickItem: 'value'"
+        [pageData]="page.data"
+        [inputMetadata]="inputMetadata"
+        (inputValueChange)="updateInput(index, inputIndex, $event)"
+        (onDeleteContent)="
+          deleteContent({ dataId: page.data, indexes: [] }, index)
+        "
+      ></cx-pages-input>
+
+      <hr class="uk-divider" />
+
+      <div>
+        <a
+          class="uk-icon-link uk-margin-small-right"
+          uk-icon="icon: plus"
+          title="Add"
+          (click)="addPage(index)"
+        ></a>
+        <a
+          *ngIf="page.sub && !page.sub?.length"
+          class="uk-icon-link uk-margin-small-right"
+          uk-icon="icon: plus-circle"
+          title="Add Child"
+          (click)="addSubPage(index)"
+        ></a>
+      </div>
+    </li>
+
+    <!-- Sections -->
+    <li *ngIf="page.sectionId">
+      <div>
+        <a
+          class="uk-icon-link uk-margin-small-right"
+          uk-icon="icon: file-edit"
+          title="Edit Content"
+          (click)="
+            editContent({
+              dataId: page.data,
+              templateId: page.sectionId,
+              index: index
+            })
+          "
+        ></a>
+        <a
+          *ngIf="page.data?.length"
+          class="uk-icon-link uk-margin-small-right"
+          uk-icon="icon: close"
+          title="Clear Content"
+          (click)="deleteContent({ dataId: page.data, indexes: [] }, index)"
+        ></a>
+      </div>
+
+      <hr class="uk-divider" />
+
+      <cx-pages-input
+        *ngFor="let input of page | cxMapToIterable; let inputIndex = index"
+        [inputKey]="input | cxPickItem: 'key'"
+        [inputValue]="input | cxPickItem: 'value'"
+        [inputMetadata]="inputMetadata"
+        (inputValueChange)="updateInput(index, inputIndex, $event)"
+      ></cx-pages-input>
+    </li>
+
+    <!-- Sub pages -->
+    <ng-container *ngIf="page.sub?.length">
+      <cx-pages-list
+        [pages]="page.sub"
+        [inputMetadata]="inputMetadata"
+        [schemaMetadata]="removeFirstAdd(schemaMetadata)"
+        [schemaDepth]="schemaDepth"
+        (pagesChange)="updatePage(index, $event)"
+        (onEditContent)="editContent($event)"
+        (onCreateContent)="createContent($event, index)"
+        (onDeleteContent)="deleteContent($event, index)"
+      ></cx-pages-list>
+    </ng-container>
+  </ng-container>
+</ul>

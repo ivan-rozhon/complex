@@ -1,0 +1,43 @@
+<span [ngSwitch]="inputMetadata[inputKey]?.type">
+  <div *ngSwitchCase="'readonly'" class="uk-inline uk-margin-small-right">
+    <label>{{ inputMetadata[inputKey]?.label }}</label>
+    <input class="uk-input" type="text" [value]="inputValue" disabled />
+  </div>
+
+  <div *ngSwitchCase="'string'" class="uk-inline uk-margin-small-right">
+    <label>{{ inputMetadata[inputKey]?.label }}</label>
+    <input class="uk-input" type="text" [(ngModel)]="inputValue" />
+  </div>
+
+  <div *ngSwitchCase="'list'" class="uk-inline uk-margin-small-right">
+    <label>{{ inputMetadata[inputKey]?.label }}</label>
+    <select
+      class="uk-select"
+      [(ngModel)]="inputValue"
+      (change)="selectChange($event, inputKey)"
+    >
+      <option
+        *ngFor="let option of inputMetadata[inputKey]?.select"
+        [value]="option.key"
+        >{{ option.value }}</option
+      >
+    </select>
+  </div>
+
+  <div *ngSwitchCase="'boolean'" class="uk-inline uk-margin-small-right">
+    <label>
+      <input class="uk-checkbox" type="checkbox" [(ngModel)]="inputValue" />
+      {{ inputMetadata[inputKey]?.label }}</label
+    >
+  </div>
+
+  <div *ngSwitchCase="'container'" class="uk-inline">
+    <cx-pages-input
+      *ngFor="let input of inputValue | cxMapToIterable; let index = index"
+      [inputKey]="input | cxPickItem: 'key'"
+      [inputValue]="input | cxPickItem: 'value'"
+      (inputValueChange)="updateInput(index, $event)"
+      [inputMetadata]="inputMetadata"
+    ></cx-pages-input>
+  </div>
+</span>

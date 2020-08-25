@@ -29,7 +29,7 @@ export class AuthEffects {
 
             return AuthActions.loginSuccess();
           }),
-          catchError((error) => of(AuthActions.loginFail()))
+          catchError((_) => of(AuthActions.loginFail()))
         )
       )
     )
