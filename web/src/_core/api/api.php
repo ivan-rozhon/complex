@@ -32,13 +32,23 @@ class Api {
         ) {
 
         switch($this->requestMethod) {
-            case 'POST':
-                $this->apiPOST($apiLogin, $apiSchemaSave, $apiDataUpdate, $apiDataNew, $apiDataSave, $apiMediaSave);
+            case 'OPTIONS':
+                $this->corsFilter('http://localhost:4200');
                 break;
+            case 'POST':
+                $this->corsFilter('http://localhost:4200');
+                $this->apiPOST($apiLogin, $apiSchemaSave, $apiDataUpdate, $apiDataNew, $apiDataSave, $apiMediaSave);
+            break;
             case 'GET':
+                $this->corsFilter('http://localhost:4200');
                 $this->apiGET($apiSchemaLoad, $apiDataLoad, $apiDataRemove, $apiMediaLoad, $apiMediaRemove, $apiWebDemo);
                 break;
         }
+    }
+
+    private function corsFilter($allowedOrigin) {
+        header("Access-Control-Allow-Origin: ".$allowedOrigin);
+        header("Access-Control-Allow-Headers: content-type, authorization");
     }
 
     // main data response method (composing data response)

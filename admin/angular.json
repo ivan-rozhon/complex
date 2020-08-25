@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "allowedCommonJsDependencies": ["jwt-decode"],
+            "allowedCommonJsDependencies": ["jwt-decode", "lodash"],
             "outputPath": "dist/admin",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -68,8 +68,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "admin:build",
-            "proxyConfig": "proxy/proxy.conf.json"
+            "browserTarget": "admin:build"
           },
           "configurations": {
             "production": {
