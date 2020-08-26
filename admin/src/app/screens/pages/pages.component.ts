@@ -4,6 +4,8 @@ import { Store } from '@ngrx/store';
 
 import { Observable, Subscription } from 'rxjs';
 
+import { cloneDeep as _cloneDeep } from 'lodash';
+
 import { RootState } from '@cx/state/index';
 
 import { PagesActions, PagesSelectors } from '@cx/state/pages';
@@ -50,7 +52,7 @@ export class PagesComponent implements OnInit, OnDestroy {
 
     // subscribe pages stream
     this.pagesSubscription = this.pages$.subscribe(
-      (pages) => (this.pages = Object.assign({}, pages))
+      (pages) => (this.pages = _cloneDeep(pages))
     );
 
     // load pages on init

@@ -9,6 +9,7 @@ import { SharedService } from '@cx/core/services/shared.service';
 @Component({
   selector: 'cx-pages-list',
   templateUrl: 'pages-list.component.html',
+  styleUrls: ['pages-list.component.scss']
 })
 export class PagesListComponent {
   pagesModel: Page[];

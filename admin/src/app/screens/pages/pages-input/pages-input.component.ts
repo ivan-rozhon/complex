@@ -17,6 +17,7 @@ import { PickItemPipe } from '@cx/shared/pipes';
 @Component({
   selector: 'cx-pages-input',
   templateUrl: 'pages-input.component.html',
+  styleUrls: ['pages-input.component.scss'],
 })
 export class PagesInputComponent implements OnChanges {
   inputValueModel: any;

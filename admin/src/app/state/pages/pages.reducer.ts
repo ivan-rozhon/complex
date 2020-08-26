@@ -61,7 +61,7 @@ const pagesReducer = createReducer(
     pagesLoading: false,
     pages: initialState.pages,
   })),
-  on(PagesActions.savePagesSuccess, (state, _) => ({
+  on(PagesActions.savePagesFail, (state, _) => ({
     ...state,
     pagesSaving: false,
     pages: initialState.pages,

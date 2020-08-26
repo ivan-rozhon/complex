@@ -25,6 +25,13 @@ body {
   min-height: 100%;
 }
 
+// uikit
+.uk-list ul {
+  margin: 0;
+  padding-left: 30px;
+  list-style: none;
+}
+
 // ca-editor styles
 // ---
 $image-box-shadow-16: rgba(0, 0, 0, 0.16);

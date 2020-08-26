@@ -40,6 +40,7 @@ export interface Page {
   options?: {
     [x: string]: string | boolean;
   }[];
+  sectionId?: string;
 }
 
 // section interface
