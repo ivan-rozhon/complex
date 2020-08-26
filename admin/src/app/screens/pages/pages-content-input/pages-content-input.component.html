@@ -15,12 +15,11 @@
   </div>
 
   <div *ngSwitchCase="'editor'" class="uk-inline uk-margin-small-right">
-    <!-- TODO -->
-    <!-- <cx-editor
+    <cx-editor
       [(editorContent)]="inputValue"
       [foreColors]="inputMetadata?.colors"
       [backColors]="inputMetadata?.colors"
-    ></cx-editor> -->
+    ></cx-editor>
   </div>
 
   <div *ngSwitchCase="'list'">
@@ -28,11 +27,9 @@
       <label>{{ inputMetadata?.label }}</label>
       <div class="uk-form-controls">
         <select class="uk-select" [(ngModel)]="inputValue">
-          <option
-            *ngFor="let item of inputMetadata?.select"
-            [value]="item.key"
-            >{{ item.value }}</option
-          >
+          <option *ngFor="let item of inputMetadata?.select" [value]="item.key">
+            {{ item.value }}
+          </option>
         </select>
       </div>
     </div>
@@ -51,8 +48,9 @@
           <option
             *ngFor="let gallery of galleries$ | async as galleries"
             [value]="gallery.name"
-            >{{ gallery.name }}</option
           >
+            {{ gallery.name }}
+          </option>
         </select>
       </div>
     </div>

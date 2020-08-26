@@ -1,0 +1,552 @@
+<span [class.uk-disabled]="!contenteditableView">
+  <div class="uk-button-group uk-margin-small-top">
+    <button
+      class="uk-button uk-button-default uk-button-small"
+      (click)="execCommand('bold')"
+      title="Bold"
+    >
+      <i class="fa fa-bold"></i>
+    </button>
+    <button
+      class="uk-button uk-button-default uk-button-small"
+      (click)="execCommand('italic')"
+      title="Italic"
+    >
+      <i class="fa fa-italic"></i>
+    </button>
+    <button
+      class="uk-button uk-button-default uk-button-small"
+      (click)="execCommand('underline')"
+      title="Underline"
+    >
+      <i class="fa fa-underline"></i>
+    </button>
+    <button
+      class="uk-button uk-button-default uk-button-small"
+      (click)="execCommand('strikeThrough')"
+      title="Strikethrough"
+    >
+      <i class="fa fa-strikethrough"></i>
+    </button>
+  </div>
+
+  <div class="uk-button-group uk-margin-small-top">
+    <button
+      class="uk-button uk-button-default uk-button-small"
+      type="button"
+      title="Font Color"
+    >
+      <i class="fa fa-tint"></i>
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div uk-dropdown>
+      <div class="uk-flex uk-flex-row uk-flex-wrap">
+        <a
+          *ngFor="let color of foreColors"
+          href="#"
+          class="uk-padding-small uk-border-rounded ca-color-square"
+          [title]="color"
+          [style.backgroundColor]="color"
+          (click)="execCommand('foreColor', color)"
+        ></a>
+      </div>
+    </div>
+    <button
+      class="uk-button uk-button-default uk-button-small"
+      type="button"
+      title="Background Color"
+    >
+      <i class="fa fa-paint-brush"></i>
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div uk-dropdown>
+      <div class="uk-flex uk-flex-row uk-flex-wrap">
+        <a
+          *ngFor="let color of backColors"
+          href="#"
+          class="uk-padding-small uk-border-rounded ca-color-square"
+          [title]="color"
+          [style.backgroundColor]="color"
+          (click)="execCommand('backColor', color)"
+        ></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="uk-button-group uk-margin-small-top">
+    <button
+      class="uk-button uk-button-default uk-button-small"
+      (click)="execCommand('justifyLeft')"
+      title="Align Left"
+    >
+      <i class="fa fa-align-left"></i>
+    </button>
+    <button
+      class="uk-button uk-button-default uk-button-small"
+      (click)="execCommand('justifyCenter')"
+      title="Align Center"
+    >
+      <i class="fa fa-align-center"></i>
+    </button>
+    <button
+      class="uk-button uk-button-default uk-button-small"
+      (click)="execCommand('justifyFull')"
+      title="Align Justify"
+    >
+      <i class="fa fa-align-justify"></i>
+    </button>
+    <button
+      class="uk-button uk-button-default uk-button-small"
+      (click)="execCommand('justifyRight')"
+      title="Align Right"
+    >
+      <i class="fa fa-align-right"></i>
+    </button>
+  </div>
+
+  <div class="uk-button-group uk-margin-small-top">
+    <button
+      class="uk-button uk-button-default uk-button-small"
+      (click)="execCommand('outdent')"
+      title="Outdent"
+    >
+      <i class="fa fa-outdent"></i>
+    </button>
+    <button
+      class="uk-button uk-button-default uk-button-small"
+      (click)="execCommand('indent')"
+      title="Indent"
+    >
+      <i class="fa fa-indent"></i>
+    </button>
+  </div>
+
+  <div class="uk-button-group uk-margin-small-top">
+    <button
+      class="uk-button uk-button-default uk-button-small"
+      (click)="createLink()"
+      title="Link"
+    >
+      <i class="fa fa-link"></i>
+    </button>
+    <button
+      class="uk-button uk-button-default uk-button-small"
+      (click)="execCommand('unlink')"
+      title="Unlink"
+    >
+      <i class="fa fa-unlink"></i>
+    </button>
+    <button
+      class="uk-button uk-button-default uk-button-small"
+      title="Insert Image"
+    >
+      <i class="fa fa-picture-o"></i>
+    </button>
+    <div uk-dropdown="mode: click">
+      <div class="uk-margin">
+        <select class="uk-select" [(ngModel)]="imageData.selectedImage">
+          <option
+            *ngFor="let image of images$ | async as images"
+            [value]="image.name"
+          >
+            {{ image.name }}
+          </option>
+        </select>
+      </div>
+      <div class="uk-margin">
+        <label>
+          <input
+            class="uk-checkbox"
+            type="checkbox"
+            [(ngModel)]="imageData.clickableImage"
+          />
+          Clickable</label
+        >
+      </div>
+      <div class="uk-margin">
+        <label>
+          <input
+            [disabled]="imageData.clickableImage"
+            class="uk-checkbox"
+            type="checkbox"
+            [(ngModel)]="imageData.linkImage"
+          />
+          Link</label
+        >
+      </div>
+      <div class="uk-margin">
+        <label>Title</label>
+        <input
+          class="uk-input"
+          type="text"
+          [(ngModel)]="imageData.imageTitle"
+          [disabled]="!imageData.clickableImage"
+        />
+      </div>
+      <div class="uk-margin">
+        <label>Link</label>
+        <input
+          class="uk-input"
+          type="text"
+          [(ngModel)]="imageData.imageLink"
+          [disabled]="!imageData.linkImage || imageData.clickableImage"
+        />
+      </div>
+      <button
+        class="uk-button uk-button-default uk-button-small uk-width-1-1"
+        (click)="insertImage(imageData)"
+        [disabled]="
+          !imageData.selectedImage ||
+          (imageData.selectedImage &&
+            imageData.clickableImage &&
+            !imageData.imageTitle) ||
+          (imageData.selectedImage &&
+            !imageData.clickableImage &&
+            imageData.linkImage &&
+            !imageData.imageLink)
+        "
+      >
+        Insert
+      </button>
+    </div>
+    <button
+      class="uk-button uk-button-default uk-button-small"
+      (click)="insertCode()"
+      title="Code"
+    >
+      <i class="fa fa-code"></i>
+    </button>
+  </div>
+
+  <div class="uk-button-group uk-margin-small-top">
+    <button
+      class="uk-button uk-button-default uk-button-small"
+      type="button"
+      title="Heading"
+    >
+      <i class="fa fa-header"></i>
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div uk-dropdown>
+      <ul class="uk-nav uk-dropdown-nav">
+        <li>
+          <a
+            href="#"
+            (click)="execCommand('formatBlock', 'h1')"
+            title="Heading 1"
+          >
+            <h1>Heading 1</h1>
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+            (click)="execCommand('formatBlock', 'h2')"
+            title="Heading 2"
+          >
+            <h2>Heading 2</h2>
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+            (click)="execCommand('formatBlock', 'h3')"
+            title="Heading 3"
+          >
+            <h3>Heading 3</h3>
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+            (click)="execCommand('formatBlock', 'h4')"
+            title="Heading 4"
+          >
+            <h4>Heading 4</h4>
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+            (click)="execCommand('formatBlock', 'h5')"
+            title="Heading 5"
+          >
+            <h5>Heading 5</h5>
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+            (click)="execCommand('formatBlock', 'h6')"
+            title="Heading 6"
+          >
+            <h6>Heading 6</h6>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <button
+      class="uk-button uk-button-default uk-button-small"
+      type="button"
+      title="Font Size"
+    >
+      <i class="fa fa-text-height"></i>
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div uk-dropdown>
+      <ul class="uk-nav uk-dropdown-nav">
+        <li>
+          <a href="#" (click)="execCommand('fontSize', '1')" title="X-Small">
+            <font size="1">X-Small</font>
+          </a>
+        </li>
+        <li>
+          <a href="#" (click)="execCommand('fontSize', '2')" title="Small">
+            <font size="2">Small</font>
+          </a>
+        </li>
+        <li>
+          <a href="#" (click)="execCommand('fontSize', '3')" title="Medium">
+            <font size="3">Medium</font>
+          </a>
+        </li>
+        <li>
+          <a href="#" (click)="execCommand('fontSize', '4')" title="Large">
+            <font size="4">Large</font>
+          </a>
+        </li>
+        <li>
+          <a href="#" (click)="execCommand('fontSize', '5')" title="X-Large">
+            <font size="5">X-Large</font>
+          </a>
+        </li>
+        <li>
+          <a href="#" (click)="execCommand('fontSize', '6')" title="XX-Large">
+            <font size="6">XX-Large</font>
+          </a>
+        </li>
+        <li>
+          <a href="#" (click)="execCommand('fontSize', '7')" title="XXX-Large">
+            <font size="7">XXX-Large</font>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <button
+      class="uk-button uk-button-default uk-button-small"
+      (click)="execCommand('insertParagraph')"
+      title="Paragraph"
+    >
+      <i class="fa fa-paragraph"></i>
+    </button>
+  </div>
+
+  <div class="uk-button-group uk-margin-small-top">
+    <button
+      class="uk-button uk-button-default uk-button-small"
+      (click)="execCommand('insertUnorderedList')"
+      title="Unordered List"
+    >
+      <i class="fa fa-list-ul"></i>
+    </button>
+    <button
+      class="uk-button uk-button-default uk-button-small"
+      (click)="execCommand('insertOrderedList')"
+      title="Ordered List"
+    >
+      <i class="fa fa-list-ol"></i>
+    </button>
+  </div>
+
+  <div class="uk-button-group uk-margin-small-top">
+    <button
+      class="uk-button uk-button-default uk-button-small"
+      type="button"
+      title="Table"
+    >
+      <i class="fa fa-table"></i>
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div uk-dropdown="pos: bottom-justify">
+      <ul class="uk-nav uk-dropdown-nav">
+        <li>
+          <a href="#" (click)="insertTable()" title="Create Table">
+            <i class="fa fa-th"></i>
+          </a>
+        </li>
+      </ul>
+      <div class="uk-dropdown-grid uk-margin-small-top" uk-grid>
+        <div>
+          <ul class="uk-nav uk-dropdown-nav">
+            <li class="uk-nav-header">Insert</li>
+            <li class="uk-margin-small-top">
+              <ul class="uk-iconnav">
+                <li>
+                  <a href="#" (click)="editTable('row')" title="Insert Row">
+                    <i class="fa fa-window-minimize"></i>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    (click)="editTable('column')"
+                    title="Insert Column"
+                  >
+                    <i class="fa fa-columns"></i>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="uk-nav-header">Remove</li>
+            <li class="uk-margin-small-top">
+              <ul class="uk-iconnav">
+                <li>
+                  <a
+                    href="#"
+                    (click)="editTable('row', true)"
+                    title="Remove Row"
+                  >
+                    <i class="fa fa-window-minimize"></i>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    (click)="editTable('column', true)"
+                    title="Remove Column"
+                  >
+                    <i class="fa fa-columns"></i>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <ul class="uk-nav uk-dropdown-nav">
+            <li class="uk-nav-header">Merge</li>
+            <li class="uk-margin-small-top">
+              <ul class="uk-iconnav">
+                <li>
+                  <a
+                    href="#"
+                    (click)="editTable('rowspan')"
+                    title="Vertical Merge"
+                  >
+                    <i class="fa fa-arrows-v"></i>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    (click)="editTable('colspan')"
+                    title="Horizontal Merge"
+                  >
+                    <i class="fa fa-arrows-h"></i>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="uk-nav-header">Split</li>
+            <li class="uk-margin-small-top">
+              <ul class="uk-iconnav">
+                <li>
+                  <a
+                    href="#"
+                    (click)="editTable('rowspan', true)"
+                    title="Vertical Split"
+                  >
+                    <i class="fa fa-arrows-v"></i>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    (click)="editTable('colspan', true)"
+                    title="Horizontal Split"
+                  >
+                    <i class="fa fa-arrows-h"></i>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="uk-button-group uk-margin-small-top">
+    <button
+      class="uk-button uk-button-default uk-button-small"
+      (click)="execCommand('subscript')"
+      title="Subscript"
+    >
+      <i class="fa fa-subscript"></i>
+    </button>
+    <button
+      class="uk-button uk-button-default uk-button-small"
+      (click)="execCommand('superscript')"
+      title="Superscript"
+    >
+      <i class="fa fa-superscript"></i>
+    </button>
+  </div>
+
+  <div class="uk-button-group uk-margin-small-top">
+    <button
+      class="uk-button uk-button-default uk-button-small"
+      (click)="execCommand('removeFormat'); execCommand('formatBlock', 'div')"
+      title="Clear Format"
+    >
+      <i class="fa fa-eraser"></i>
+    </button>
+    <button
+      class="uk-button uk-button-default uk-button-small"
+      (click)="execCommand('selectAll'); execCommand('delete')"
+      title="Delete"
+    >
+      <i class="fa fa-times"></i>
+    </button>
+  </div>
+
+  <div class="uk-button-group uk-margin-small-top">
+    <button
+      class="uk-button uk-button-default uk-button-small"
+      (click)="execCommand('undo')"
+      title="Undo"
+    >
+      <i class="fa fa-undo"></i>
+    </button>
+    <button
+      class="uk-button uk-button-default uk-button-small"
+      (click)="execCommand('redo')"
+      title="Redo"
+    >
+      <i class="fa fa-repeat"></i>
+    </button>
+  </div>
+</span>
+
+<div class="uk-button-group uk-margin-small-top">
+  <button
+    class="uk-button uk-button-default uk-button-small"
+    (click)="contenteditableView = !contenteditableView"
+    title="View"
+  >
+    <i class="fa fa-eye"></i>
+  </button>
+</div>
+
+<div
+  #cxContentEditable="cxContentEditable"
+  class="uk-placeholder"
+  [attr.contenteditable]="contenteditable"
+  cxContentEditable
+  [(editorModel)]="editorContent"
+  [class.uk-invisible]="!contenteditableView"
+></div>
+
+<div class="uk-margin" [class.uk-invisible]="contenteditableView">
+  <textarea class="uk-textarea" rows="5" [(ngModel)]="editorContent"></textarea>
+</div>

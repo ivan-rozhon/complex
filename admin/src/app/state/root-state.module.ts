@@ -9,11 +9,13 @@ import { environment } from '@cx/environments/environment';
 
 import { AuthStateModule } from './auth/auth-state.module';
 import { PagesStateModule } from './pages/pages-state.module';
+import { MediaStateModule } from './media/media-state.module';
 
 @NgModule({
   imports: [
     AuthStateModule,
     PagesStateModule,
+    MediaStateModule,
     StoreModule.forRoot(
       {},
       {

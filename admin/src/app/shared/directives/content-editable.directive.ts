@@ -7,9 +7,9 @@ import {
   EventEmitter,
   ElementRef,
   HostListener,
-  Sanitizer,
   SecurityContext,
 } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Directive({
   selector: '[cxContentEditable]',
@@ -19,7 +19,7 @@ export class ContentEditableDirective implements OnChanges {
   @Input() editorModel: string;
   @Output() editorModelChange: EventEmitter<string> = new EventEmitter();
 
-  constructor(public elementRef: ElementRef, private sanitizer: Sanitizer) {}
+  constructor(public elementRef: ElementRef, private sanitizer: DomSanitizer) {}
 
   @HostListener('keyup', ['$event'])
   onkeyup($event: KeyboardEvent): void {

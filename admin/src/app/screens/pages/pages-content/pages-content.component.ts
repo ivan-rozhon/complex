@@ -11,6 +11,8 @@ import {
 
 import * as UIkit from 'uikit';
 
+import { cloneDeep as _cloneDeep } from 'lodash';
+
 import { PickItemPipe } from '@cx/shared/pipes';
 import { Content, ContentData } from '@cx/shared/types';
 
@@ -20,7 +22,15 @@ import { Content, ContentData } from '@cx/shared/types';
   styleUrls: ['pages-content.component.scss'],
 })
 export class PagesContentComponent implements OnChanges {
-  @Input() content: Content;
+  private _content: Content;
+
+  @Input()
+  get content(): Content {
+    return this._content;
+  }
+  set content(value: Content) {
+    this._content = _cloneDeep(value);
+  }
 
   @Output() onSaveContent = new EventEmitter<{
     dataId: string;

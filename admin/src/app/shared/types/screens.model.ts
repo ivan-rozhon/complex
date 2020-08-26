@@ -88,3 +88,18 @@ export interface Content {
 export interface ContentData {
   [x: string]: any[];
 }
+
+export class ImageData {
+  selectedImage: string;
+  clickableImage: boolean;
+  linkImage: boolean;
+  imageTitle: string;
+  imageLink: string;
+
+  constructor() {
+      this.clickableImage = false;
+      this.linkImage = false;
+      this.imageTitle = '';
+      this.imageLink = '';
+  }
+}

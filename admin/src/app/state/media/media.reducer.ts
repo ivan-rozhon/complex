@@ -1,3 +1,5 @@
+import { createReducer, Action } from '@ngrx/store';
+
 import { Image, Gallery } from '@cx/shared/types';
 
 // media state interface
@@ -21,3 +23,9 @@ export const initialState: State = {
   galleryImages: [],
   galleryImagesLoading: false,
 };
+
+const mediaReducer = createReducer(initialState);
+
+export function reducer(state: State | undefined, action: Action): any {
+  return mediaReducer(state, action);
+}

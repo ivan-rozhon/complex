@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
-import { LayoutComponent, LoginComponent } from './components';
+import { LayoutComponent, LoginComponent, EditorComponent } from './components';
 import { PickItemPipe, MapToIterablePipe } from './pipes';
 import { ContentEditableDirective } from './directives';
 
@@ -11,11 +11,19 @@ import { ContentEditableDirective } from './directives';
   declarations: [
     LayoutComponent,
     LoginComponent,
+    EditorComponent,
     PickItemPipe,
     MapToIterablePipe,
     ContentEditableDirective,
   ],
-  exports: [LayoutComponent, LoginComponent, PickItemPipe, MapToIterablePipe],
+  exports: [
+    LayoutComponent,
+    LoginComponent,
+    EditorComponent,
+    PickItemPipe,
+    MapToIterablePipe,
+    ContentEditableDirective,
+  ],
   providers: [PickItemPipe],
 })
 export class SharedModule {}

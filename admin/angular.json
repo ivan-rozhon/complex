@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "allowedCommonJsDependencies": ["jwt-decode", "lodash"],
+            "allowedCommonJsDependencies": ["jwt-decode", "lodash", "jquery"],
             "outputPath": "dist/admin",
             "index": "src/index.html",
             "main": "src/main.ts",
