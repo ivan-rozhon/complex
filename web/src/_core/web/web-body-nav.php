@@ -35,64 +35,80 @@ class WebBodyNav {
             switch($switch) {
                 case 0:
                     if (count($value['sub']) == 0 || $value['options']['end'] == true) {
-                        $navbar .= '
-                            <li class="'.$this->webBodyNavbarActive($value['id'], $switch, 'uk-active').'">
-                                <a href="'.$this->webBody->web->lastCharacter($this->basePath.$value['id'], '?').'">
-                                    '.$this->webBodyNavbarIcon($value).'
-                                    '.$value['name'].'
-                                </a>
-                            </li>
-                        ';
+                        $navbar .= $this->filterHiddenContent(
+                            $value,
+                            '
+                                <li class="'.$this->webBodyNavbarActive($value['id'], $switch, 'uk-active').'">
+                                    <a href="'.$this->webBody->web->lastCharacter($this->basePath.$value['id'], '?').'">
+                                        '.$this->webBodyNavbarIcon($value).'
+                                        '.$value['name'].'
+                                    </a>
+                                </li>
+                            ');
                     } else {
                         $this->currentMainQuery = $value['id'];
-                        $navbar .= '
-                            <li class="'.$this->webBodyNavbarActive($value['id'], $switch, 'uk-active').'">
-                                <a>'.$this->webBodyNavbarIcon($value).$value['name'].'</a>
-                                <div class="uk-navbar-dropdown">
-                                    <ul class="uk-nav uk-navbar-dropdown-nav">
-                                        '.$this->webBodyNavbar($value['sub'], $switch + 1).'
-                                    </ul>
-                                </div>
-                            </li>
-                        ';
+
+                        $navbar .= $this->filterHiddenContent(
+                            $value,
+                            '
+                                <li class="'.$this->webBodyNavbarActive($value['id'], $switch, 'uk-active').'">
+                                    <a>'.$this->webBodyNavbarIcon($value).$value['name'].'</a>
+                                    <div class="uk-navbar-dropdown">
+                                        <ul class="uk-nav uk-navbar-dropdown-nav">
+                                            '.$this->webBodyNavbar($value['sub'], $switch + 1).'
+                                        </ul>
+                                    </div>
+                                </li>
+                            ');
                     }
                     break;
                 case 1:
                     if (count($value['sub']) == 0 || $value['options']['end'] == true) {
-                        $navbar .= '
-                            <li class="'.$this->webBodyNavbarActive($value['id'], $switch, 'uk-active').'">
-                                <a href="'.$this->basePath.$this->currentMainQuery.'/'.$value['id'].'">
-                                    '.$value['name'].'
-                                </a>
-                            </li>
-                        ';
+                        $navbar .= $this->filterHiddenContent(
+                            $value,
+                            '
+                                <li class="'.$this->webBodyNavbarActive($value['id'], $switch, 'uk-active').'">
+                                    <a href="'.$this->basePath.$this->currentMainQuery.'/'.$value['id'].'">
+                                        '.$value['name'].'
+                                    </a>
+                                </li>
+                            ');
                     } else {
                         $this->currentSubQuery = $value['id'];
-                        $navbar .= '
-                            <li class="'.$this->webBodyNavbarActive($value['id'], $switch, 'uk-active').'">
-                                <a href="'.$this->basePath.$this->currentMainQuery.'/'.$value['id'].'">
-                                    '.$value['name'].'
-                                </a>
-                                <ul class="uk-nav-sub">
-                                    '.$this->webBodyNavbar($value['sub'], $switch + 1).'
-                                </ul>
-                            </li>
-                        ';
+
+                        $navbar .= $this->filterHiddenContent(
+                            $value,
+                            '
+                                <li class="'.$this->webBodyNavbarActive($value['id'], $switch, 'uk-active').'">
+                                    <a href="'.$this->basePath.$this->currentMainQuery.'/'.$value['id'].'">
+                                        '.$value['name'].'
+                                    </a>
+                                    <ul class="uk-nav-sub">
+                                        '.$this->webBodyNavbar($value['sub'], $switch + 1).'
+                                    </ul>
+                                </li>
+                            ');
                     }
                     break;
                 case 2:
-                    $navbar .= '
-                        <li class="'.$this->webBodyNavbarActive($value['id'], $switch, 'uk-active').'">
-                            <a href="'.$this->basePath.$this->currentMainQuery.'/'.$this->currentSubQuery.'/'.$value['id'].'">
-                                '.$value['name'].'
-                            </a>
-                        </li>
-                    ';
+                    $navbar .= $this->filterHiddenContent(
+                        $value,
+                        '
+                            <li class="'.$this->webBodyNavbarActive($value['id'], $switch, 'uk-active').'">
+                                <a href="'.$this->basePath.$this->currentMainQuery.'/'.$this->currentSubQuery.'/'.$value['id'].'">
+                                    '.$value['name'].'
+                                </a>
+                            </li>
+                        ');
                     break;
             }
 
         }
         return $navbar;
+    }
+
+    private function filterHiddenContent($schemaValue, $contentToShow) {
+        return $schemaValue['options']['hidden'] ? '' : $contentToShow;
     }
 
     private function webBodyNavbarActive($query, $index, $class = 'active') {
