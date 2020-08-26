@@ -11,7 +11,8 @@
     "build:web": "cd ./web && npm run build",
     "start:admin": "cd ./admin && npm run start",
     "build:admin": "cd ./admin && npm run build",
-    "export:admin": "copyfiles --flat ./admin/dist/admin/admin-app.* ./web/dist/_core/admin/admin-app/"
+    "export:admin": "copyfiles --flat ./admin/dist/admin/admin-app.* ./web/dist/_core/admin/admin-app/",
+    "export:web:data": "(copyfiles --flat ./web/dist/_source/*.json ./web/src/_source/); (copyfiles --flat ./web/dist/_source/data/*.json ./web/src/_source/data/)"
   },
   "repository": {
     "type": "git",
