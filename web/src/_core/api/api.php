@@ -2,6 +2,7 @@
 
 class Api {
     const SECRET = 'secret-complex-admin-key';
+    const ALLOWED_ORIGIN = 'http://localhost:3000';
 
     public $system, $sharedJWT, $requestMethod;
 
@@ -33,14 +34,14 @@ class Api {
 
         switch($this->requestMethod) {
             case 'OPTIONS':
-                $this->corsFilter('http://localhost:4200');
+                $this->corsFilter(self::ALLOWED_ORIGIN);
                 break;
             case 'POST':
-                $this->corsFilter('http://localhost:4200');
+                $this->corsFilter(self::ALLOWED_ORIGIN);
                 $this->apiPOST($apiLogin, $apiSchemaSave, $apiDataUpdate, $apiDataNew, $apiDataSave, $apiMediaSave);
             break;
             case 'GET':
-                $this->corsFilter('http://localhost:4200');
+                $this->corsFilter(self::ALLOWED_ORIGIN);
                 $this->apiGET($apiSchemaLoad, $apiDataLoad, $apiDataRemove, $apiMediaLoad, $apiMediaRemove, $apiWebDemo);
                 break;
         }
