@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { cloneDeep as _cloneDeep } from 'lodash';
+
 import { DataService } from '@cx/core/services/data.service';
 
 import { Pages, ContentData } from '@cx/shared/types';
@@ -83,38 +85,41 @@ export class PagesService {
     propertyValue: string,
     isNotFirstIteration?: boolean
   ): any {
+    const indexesCopy = _cloneDeep(indexes);
+    const pagesCopy = _cloneDeep(pages);
+
     // get next index (first in array) before decreasing indexes array
-    const index = indexes[0];
+    const index = indexesCopy[0];
 
     // get copy of pages schema (first index ever is string name of schema)
     const pagesSchema =
       typeof index === 'string'
-        ? Object.assign({}, pages).webSchema[index]
-        : pages;
+        ? Object.assign({}, pagesCopy).webSchema[index]
+        : pagesCopy;
 
     // decrease indexes (path) - in every iteration
-    indexes.splice(0, 1);
+    indexesCopy.splice(0, 1);
 
-    if (indexes.length > 1) {
+    if (indexesCopy.length > 1) {
       // item to update is somewhere deep in page sub pages - so do another iteration (deeper)
-      pagesSchema[indexes[0]].sub = this.updatePageItem(
-        pagesSchema[indexes[0]].sub,
-        indexes,
+      pagesSchema[indexesCopy[0]].sub = this.updatePageItem(
+        pagesSchema[indexesCopy[0]].sub,
+        indexesCopy,
         propertyName,
         propertyValue,
         true
       );
     } else {
       // this is exactly the page with searched property - so change the property name
-      pagesSchema[indexes[0]][propertyName] = propertyValue;
+      pagesSchema[indexesCopy[0]][propertyName] = propertyValue;
     }
 
     // on first iteration return whole pages schema with updated pages 'branch'
     if (!isNotFirstIteration) {
       // assign updated pages 'branch' to original pages object
-      pages.webSchema[index] = pagesSchema;
+      pagesCopy.webSchema[index] = pagesSchema;
 
-      return pages;
+      return pagesCopy;
     }
 
     // otherwise return just updated (inspected) piece of pages 'branch'

@@ -93,7 +93,9 @@ export class PagesEffects {
               ]
             );
           }),
-          catchError((_) => of(PagesActions.createContentFail()))
+          catchError((error: any) =>
+            of(PagesActions.createContentFail({ error }))
+          )
         )
       )
     )

@@ -48,7 +48,10 @@ export const createContentSuccess = createAction(
   '[Pages] Create Content Success',
   props<{ pages: Pages }>()
 );
-export const createContentFail = createAction('[Pages] Create Content Fail');
+export const createContentFail = createAction(
+  '[Pages] Create Content Fail',
+  props<{ error: any }>()
+);
 
 // delete page content actions
 export const deleteContent = createAction(
